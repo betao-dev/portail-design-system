@@ -363,6 +363,7 @@ export default {
         .font-desktop-small-regular-gray();
         position: absolute;
         top: 0px;
+        cursor: pointer;
       }
 
       .label-main {
@@ -370,6 +371,7 @@ export default {
         text-transform: capitalize;
         position: absolute;
         top: 20px;
+        cursor: pointer;
       }
     }
 
@@ -385,6 +387,10 @@ export default {
         border: 1px solid #E1E2E6;
         background-color: #F2F4F7;
         border-radius: 0;
+
+        .icon {
+          margin: 0;
+        }
 
         &:disabled {
           opacity: 0.5;
