@@ -212,6 +212,7 @@ export default {
     .inner-wrapper {
       display: inline-block;
       position: relative;
+      width: 100%;
 
       &.has-icon-help {
         margin-right: 10px;
