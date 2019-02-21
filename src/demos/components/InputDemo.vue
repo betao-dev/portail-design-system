@@ -4,6 +4,32 @@
 
     A styled input with an ability to set icon and validation.
 
+    <h4>Usage guidlines</h4>
+    Input fields can be used either standalone or grouped.
+
+    <p>
+      Standalone fields can be in 3 different widths:
+    </p>
+
+    <ul>
+      <li>Small — 144px</li>
+      <li>
+        Medium - 252px
+      </li>
+      <li>
+        Large - 464px
+      </li>
+    </ul>
+
+    <p>
+      When used on the same row, there can be only two standalone fields with 32px margin between them. <br />
+  If there is need to use 2 or more fields on the same row that are contextually belong together, those fields are called <b>grouped</b>
+    </p>
+
+<p>
+  Grouped fields do not have any fixed widths as their width are pre-defined by the layout and they always have 16px margin between them.
+</p>
+
     <pre v-highlightjs="usage"><code class="html"></code></pre>
 
     <div class="input-component-demo">
