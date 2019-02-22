@@ -33,13 +33,18 @@
       pre-defined by the layout and they always have 16px margin between them.
     </p>
 
+    <p>
+      Font size for inputs is 16px on mobile and 14px on screens sizes > 961px to
+      avoid zooming in behaviour on mobile devices on click
+    </p>
+
     <pre v-highlightjs="usage"><code class="html"></code></pre>
 
     <div class="input-component-demo">
       <Input
         placeholder="Maximum 10 characters"
-        icon-right="search"
-        top-title="Input with right icon and help"
+        icon="search"
+        top-title="Input with icon and help"
         help="Some info"
         v-model="inputValue"
         :validators="validators"
@@ -48,7 +53,7 @@
         placeholder="Placeholder"
         icon="today"
         v-model="inputValue2"
-        top-title="Input with left icon and bottom help"
+        top-title="Input with icon and bottom help"
         :bottom-help="{label: 'bottom help', text: 'This is bottom help tooltip'}"
       />
       <Input
@@ -68,8 +73,8 @@ import Input from '../../components/Input'
 let usage = `
 <Input
   placeholder="Maximum 10 characters"
-  icon-right="search"
-  top-title="Input with right icon and help"
+  icon="search"
+  top-title="Input with icon and help"
   help="Some info"
   v-model="inputValue"
   :validators="validators"
@@ -78,7 +83,7 @@ let usage = `
 <Input
   placeholder="Placeholder"
   icon="today"
-  top-title="Input with left icon and bottom help"
+  top-title="Input with icon and bottom help"
   v-model="inputValue2"
   :bottom-help="{label: 'bottom help', text: 'This is bottom help tooltip'}"
 />

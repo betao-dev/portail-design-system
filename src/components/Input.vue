@@ -9,8 +9,7 @@
       :validators='validators'   - Array of validators
       :top-title='Title'         - Title at the top
       :disabled='true'           - Disables input
-      :icon='search'             - Icon name on the left of the input
-      :icon-right='today'        - Icon name on the right of the input
+      :icon='search'             - Icon name on the right of the input
       :help='Some help text'     - Shown when hovering help icon
       :bottom-help='bottomHelp'  - Object of bottom help
       v-model='value'            - Binds value property to input
@@ -33,9 +32,6 @@
     disabled - Boolean. Defines if an input is disabled.
 
     icon - String (icon name or <svg>...</svg> code). Sets the icon displayed in the input
-      on the left
-
-    iconRight - String (icon name or <svg>...</svg> code). Sets the icon displayed in the input
       on the right
 
     help - String or html code. When set this will add a help icon on the right of the input
@@ -57,18 +53,12 @@
     <div v-if="topTitle" class="top-title">{{topTitle}}</div>
     <div class="input-field-wrapper">
       <div :class="['inner-wrapper', {'has-icon-help': help}]">
-        <Icon
-          v-if="icon"
-          class="icon-left"
-          :source="icon"
-        />
         <input
           :type="type"
           :placeholder="placeholder"
           :disabled="disabled"
           :class="{
-            'has-icon': icon,
-            'has-icon-right': iconRight,
+            'has-icon': rightIcon,
             'error': errors.length
           }"
           v-model="inputValue"
@@ -133,7 +123,6 @@ export default {
     topTitle: String,
     disabled: Boolean,
     icon: String,
-    iconRight: String,
     help: String,
     bottomHelp: Object
   },
@@ -148,15 +137,18 @@ export default {
   },
   computed: {
     rightIcon () {
-      return this.disabled ? 'lock' : this.iconRight
+      return this.disabled ? 'lock' : this.icon
     },
     errors () {
-      return this.validators.reduce((acc, validator) => {
-        if (!validator.validator(this.inputValue)) {
-          acc.push(validator.message);
-        }
-        return acc;
-      }, [])
+      if (this.validators.length) {
+        return this.validators.reduce((acc, validator) => {
+          if (!validator.validator(this.inputValue)) {
+            acc.push(validator.message);
+          }
+          return acc;
+        }, [])
+      }
+      return [];
     },
     inputValue: {
       get() {
@@ -187,9 +179,9 @@ export default {
   }
 
   .top-title {
-    color: @color-gray-500;
-    font-size: 14px;
+    .font-desktop-small-regular-gray-right();
     line-height: 2;
+    text-align: left;
   }
 
   .input-field-wrapper {
@@ -219,19 +211,18 @@ export default {
       }
 
       input {
-        font-size: 16px;
-        padding: 10px;
+        .font-desktop-body-regular-dark();
+        padding: 8px 10px;
         border-radius: @input-border-radius;
         border: 1px solid @color-gray-200;
-        color: @color-dark;
         width: 100%;
         box-sizing: border-box;
 
-        &.has-icon {
-          padding-left: 40px;
+        @media @screen-large {
+          font-size: 14px;
         }
 
-        &.has-icon-right {
+        &.has-icon {
           padding-right: 40px;
         }
 
@@ -256,16 +247,11 @@ export default {
         }
       }
 
-      .icon-left,
       .icon-right {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         fill: @color-gray-400!important;
-      }
-
-      .icon-left {
-        left: 8px;
       }
 
       .icon-right {
@@ -280,10 +266,8 @@ export default {
     padding-left: 10px;
 
     .bottom-help {
-      font-size: 12px;
-      color: @color-gray-500;
+      .font-desktop-x-small-regular-gray();
       border-bottom: 1px dashed @color-gray-500;
-      line-height: 1;
       cursor: pointer;
 
       &:hover {
