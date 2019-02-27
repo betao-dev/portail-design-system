@@ -82,7 +82,7 @@
       <div class="label-text">{{label}}</div>
       <input
         v-bind="inputAttrs"
-        :class="{'has-icon': icon_, 'error': errors.length}"
+        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
         v-model="inputValue"
         ref="input"
         @focus="inputFocus"
@@ -93,12 +93,12 @@
     <Icon v-if="icon_" color="gray-400" :source="icon_" />
 
     <div class="drawer">
-      <span v-show="errors.length" class="error-message">
-        {{ errors[0] }}
+      <span v-if="inputErrors.length && touched" class="error-message">
+        {{ inputErrors[0] }}
       </span>
 
       <span
-        v-show="help && !errors.length"
+        v-show="help && !inputErrors.length && touched"
         class="help-label"
         ref="helpLabel"
         @mouseover="helpVisible = true"
@@ -169,9 +169,10 @@ export default {
   data: () => ({
     helpVisible: false,
     datepickerVisible: false,
+    touched: false
   }),
   mounted() {
-    this.$emit('validation', !!this.errors.length)
+    this.$emit('validation', !!this.inputErrors.length)
   },
   computed: {
     inputAttrs() {
@@ -191,7 +192,7 @@ export default {
     locale() {
       return this.lang || this.$root.locale || 'fr-fr'
     },
-    errors() {
+    inputErrors() {
       if (this.validators && this.validators.length) {
         return this.validators.reduce((acc, validator) => {
           if (!validator.validator(this.inputValue)) {
@@ -219,7 +220,8 @@ export default {
           return
         }
 
-        this.$emit('validation', !!this.errors.length)
+        this.touched = true
+        this.$emit('validation', !!this.inputErrors.length)
         this.$emit('input', value)
       }
     },
@@ -239,7 +241,7 @@ export default {
       },
       set(value) {
         this.datepickerVisible = false
-        this.$emit('validation', !!this.errors.length)
+        this.$emit('validation', !!this.inputErrors.length)
         this.$emit('input', value)
       }
     },
