@@ -4,12 +4,13 @@
       <h2>Colors</h2>
       <pre v-highlightjs="usageLess"><code class="less"></code></pre>
     </div>
-    <div class="row-col" v-for="(group, groupName) in colors">
+    <div class="row-col" v-for="(group, groupName) in colors" :key="groupName">
       <h3 class="group-name">{{ groupName }}</h3>
-      <div
+      <Card
         v-for="colorName in group"
-        :class="['card', 'color-demo', colorName]"
-      >@{{ colorName }}</div>
+        :key="colorName"
+        :class="['color-demo', colorName]"
+      >@{{ colorName }}</Card>
     </div>
   </div>
 </template>
@@ -23,8 +24,11 @@ let usageLess = `
 }
 `.slice(1)
 
+import Card from '../components/Card.vue'
+
 export default {
   name: 'ColorsDemo',
+  components: { Card },
   data: () => ({
     usageLess,
     colors: {

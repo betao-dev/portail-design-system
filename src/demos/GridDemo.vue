@@ -33,18 +33,19 @@
       <h3>Demo</h3>
     </div>
     <div class="row-col row-col-demo">
-      <div class="card">
+      <Card>
         row-col Lorem ipsum dolor sit amet
-      </div>
+      </Card>
     </div>
-    <div class="row" v-for="size in [12, 6, 4, 3, 2, 1]">
+    <div class="row" v-for="size in [12, 6, 4, 3, 2, 1]" :key="size">
       <div
         :class="'col-' + size"
         v-for="n in 12/size"
+        :key="n"
       >
-        <div class="card">
+        <Card >
           col-{{size}} Lorem ipsum dolor sit amet
-        </div>
+        </Card>
       </div>
     </div>
   </div>
@@ -76,8 +77,11 @@ let usageLayout = `
 </div>
 `.slice(1)
 
+import Card from '../components/Card.vue'
+
 export default {
   name: 'GridDemo',
+  components: { Card },
   data: () => ({
     usageLayout,
   }),

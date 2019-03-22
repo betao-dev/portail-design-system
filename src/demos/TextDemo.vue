@@ -19,11 +19,11 @@
       <h3>Style list</h3>
     </div>
     <div class="row">
-      <div class="col-6" v-for="fontStyle in fontStyles">
-        <div :class="['card', 'font-style-demo', fontStyle]">
+      <Card class="col-6" v-for="fontStyle in fontStyles" :key="fontStyle">
+        <div :class="['font-style-demo', fontStyle]">
           .{{ fontStyle }}();
         </div>
-      </div>
+      </Card>
     </div>
   </div>
 </template>
@@ -37,8 +37,11 @@ let usageLess = `
 }
 `.slice(1)
 
+import Card from '../components/Card.vue'
+
 export default {
   name: 'TextDemo',
+  components: { Card },
   data: () => ({
     linkSnippet: (
       '<link href="https://fonts.googleapis.com/css?family=' +

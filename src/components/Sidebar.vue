@@ -98,7 +98,7 @@
               expand_more
             />
           </a>
-          <section :class="[
+          <section :key="index" :class="[
             'children',
             {opened: activeKey(item, index) === active},
           ]">

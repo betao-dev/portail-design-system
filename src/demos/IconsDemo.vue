@@ -11,12 +11,12 @@
     <div class="row">
       <div class="col-12">
       </div>
-      <div class="col-6" v-for="icon in icons">
-        <div class="card icon-demo" >
+      <div class="col-6" v-for="icon in icons" :key="icon">
+        <Card class="icon-demo" >
           <div class="icon" v-html="context(icon)"></div>
           {{ icon.slice(2, -4) }}
           <br>
-        </div>
+        </Card>
       </div>
     </div>
   </div>
@@ -32,8 +32,11 @@ icons['arrow_right'] // => '<svg>...</svg>' code
 let context = require.context('@/icons', true, /\.svg$/)
 let icons = context.keys()
 
+import Card from '../components/Card.vue'
+
 export default {
   name: 'IconsDemo',
+  components: { Card },
   data: () => ({
     usageJs,
     icons,
