@@ -98,37 +98,51 @@
 -->
 
 <template>
-  <div :class="['input', {sm, md, lg, standalone: sm || md || lg}]">
-    <label>
-      <div class="label-text">{{ label }}</div>
+  <div :class="['input', { sm, md, lg } ]">
+    <div
+      v-if="label"
+      class="label-text"
+    >
+      {{ label }}
+    </div>
+    <div
+      :disabled="disabled"
+      :class="['field', {
+      'has-icon': icon_,
+      focus: focused,
+      'error': inputErrors.length && touched || inputErrors.length && inputValue
+    }]"
+      @click="inputFocus"
+    >
+      <div class="field-item">
+        <input
+          v-if="type !== 'select'"
+          v-bind="inputAttrs"
+          v-model="inputValue"
+          ref="input"
+          @blur="inputBlur"
+        />
 
-      <input
-        v-if="type === 'text' || type === 'date'"
-        v-bind="inputAttrs"
-        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
-        v-model="inputValue"
-        ref="input"
-        @focus="inputFocus"
-        @click="inputFocus"
-        @blur="touched = true"
-      />
+        <div
+          :class="['select', { open: focused }]"
+          ref="select"
+          v-if="type === 'select'"
+        >
+          {{inputValue}}
+        </div>
 
-      <select
-        v-if="type === 'select'"
-        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
-        v-model="inputValue"
-        placeholder="placeholder"
-      >
-        <option v-for="option in options" v-bind="option">
-          {{ option.title || option.value }}
-        </option>
-      </select>
-    </label>
+        <Icon v-if="icon_" color="gray-400" :source="icon_" />
+      </div>
 
-    <Icon v-if="icon_" color="gray-400" :source="icon_" />
+    </div>
 
     <div class="drawer">
-      <span v-if="inputErrors.length && touched" class="error-message">
+      <span
+        v-if="inputErrors.length && touched || inputErrors.length && inputValue"
+        class="error-message"
+        ref="errorsList"
+        @click="errorsVisible = !errorsVisible"
+      >
         {{ inputErrors[0] }}
       </span>
 
@@ -144,6 +158,23 @@
         </Dropdown>
       </span>
     </div>
+
+    <Dropdown
+      v-if="type === 'select'"
+      class="select-list"
+      :target="$refs.select"
+      :opened.sync="focused"
+      position="bottom-middle"
+      just-fade
+    >
+      <div
+        v-for="option of options"
+        :class="['select-item', { selected: inputValue === option.title || inputValue === option.value }]"
+        @click="() => selectItem(option)"
+      >
+        {{ option.title || option.value }}
+      </div>
+    </Dropdown>
 
     <Dropdown
       v-if="type === 'date'"
@@ -208,7 +239,8 @@ export default {
   data: () => ({
     helpVisible: false,
     datepickerVisible: false,
-    touched: false
+    touched: false,
+    focused: false
   }),
   mounted() {
     this.$emit('validation', this.validation)
@@ -331,10 +363,20 @@ export default {
   },
   methods: {
     inputFocus() {
+      this.focused = !this.disabled && !this.focused;
+
       if (this.type === 'date') {
         this.datepickerVisible = true
       }
     },
+    inputBlur() {
+      this.focused = false;
+      this.touched = true;
+    },
+    selectItem(option) {
+      this.focused = false;
+      this.inputValue = option.title ? option.title : option.value;
+    }
   },
   watch: {
     value() {
@@ -347,123 +389,150 @@ export default {
 <style lang="less" scoped>
 @import '../styles/vars';
 
-.input {
-  position: relative;
-  display: inline-block;
+  .input {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    box-sizing: border-box;
+    position: relative;
 
-  &.standalone {
-    margin-right: 32px;
-  }
+    .label-text {
+      height: 16px;
+      margin-bottom: 4px;
+      .font-desktop-x-small-regular-gray()
+    }
 
-  &.sm {
-    width: 144px;
-  }
-  &.md {
-    width: 252px;
-  }
-  &.lg {
-    width: 464px;
-  }
-  @media @screen-small {
+    &.sm {
+      width: 144px !important;
+    }
+
+    &.md {
+      width: 252px !important;
+    }
+
     &.lg {
-      width: 296px;
-    }
-  }
+      width: 464px !important;
 
-  .label-text {
-    height: 16px;
-    margin-bottom: 4px;
-    .font-desktop-x-small-regular-gray()
-  }
-
-  input, select {
-    padding: 8px 12px;
-    box-sizing: border-box;
-    border: 1px solid @color-gray-300;
-    border-radius: 2px;
-    background-color: @color-white;
-    width: 100%;
-    .font-desktop-small-regular-dark();
-
-    &.has-icon {
-      padding-right: 30px;
+      @media @screen-small {
+        &.lg {
+          width: 296px !important;
+        }
+      }
     }
 
-    &::placeholder {
+    .field {
+      display: flex;
+      height: 40px;
+      width: 100%;
+      border: 1px solid @color-gray-300;
+      border-radius: 2px;
+      background-color: @color-white;
+
+      .field-item {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        padding: 0 8px;
+
+        input {
+          box-sizing: border-box;
+          border: none;
+          outline: none;
+          height: 100%;
+          width: 100%;
+          background-color: @color-white;
+          .font-desktop-small-regular-dark();
+
+          &::placeholder {
+            .font-desktop-small-regular-gray();
+          }
+        }
+
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-clear-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          display: none;
+          -webkit-appearance: none;
+          color: rgba(0,0,0,0);
+          opacity:0;
+        }
+
+        .select {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          min-width: 144px;
+          align-items: center;
+        }
+
+        .select.open ~ .icon {
+          transform: rotate(180deg);
+        }
+      }
+
+      // States
+      &.focus:not(.error) {
+        border-color: @color-primary;
+      }
+
+      &.focus {
+        outline: none;
+      }
+
+      &.error {
+        border-color: @color-red;
+      }
+
+      &:disabled {
+        border: 1px solid #f2f4f7;
+      }
+      &:disabled,
+      &:disabled::placeholder {
+        .font-desktop-small-regular-light-gray();
+      }
+    }
+
+    .dropdown {
+      border: 1px solid @color-gray-300;
+      border-radius: 2px;
+    }
+
+    .select-list {
+      height: auto;
+      left: 0 !important;
+      width: 100%;
+      background-color: @color-white;
+      box-shadow: 0 0 4px @color-gray-500;
+
+      .select-item {
+        padding: 0.5em;
+        .font-desktop-body-regular-dark();
+
+        &.selected, &.selected:hover {
+          color: @color-primary
+        }
+
+        &:hover {
+          cursor: pointer;
+          background-color: @color-gray-300;
+        }
+      }
+    }
+
+    .drawer {
       .font-desktop-small-regular-gray();
+      font-size: 12px;
     }
 
-    &:focus:not(.error) {
-      border-color: @color-primary;
-    }
-    &:focus {
-      outline: none;
+    .error-message {
+      .input-error-message(12px);
     }
 
-    &.error {
-      border-color: @color-red;
-    }
-
-    &:disabled {
-      border: 1px solid #f2f4f7;
-    }
-    &:disabled,
-    &:disabled::placeholder {
-      .font-desktop-small-regular-light-gray();
+    .help-label {
+      cursor: pointer;
+      color: @color-gray-500;
+      font-family: @font-family;
+      text-decoration: underline dashed;
     }
   }
-
-  select {
-    appearance: none;
-    &::-ms-expand {
-      display: none;
-    }
-  }
-
-  .icon {
-    pointer-events: none;
-    position: absolute;
-    margin-left: -30px; // 24 + 6, icon size and padding
-    margin-top: 6px;    // center the 24px icon in the 36px input
-  }
-
-  .drawer {
-    box-sizing: border-box;
-    font-size: 11px;
-    line-height: 12px;
-    padding: 3px 12px;
-    position: absolute;
-    width: 100%;
-
-  }
-
-  .error-message {
-    color: @color-red;
-    font-family: @font-family;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: inline-block;
-    max-width: 100%;
-  }
-
-  .help-label {
-    cursor: pointer;
-    color: @color-gray-500;
-    font-family: @font-family;
-    text-decoration: underline dashed;
-  }
-
-  input[type="date"]::-webkit-inner-spin-button,
-  input[type="date"]::-webkit-clear-button,
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-    color: rgba(0,0,0,0);
-    opacity:0;
-  }
-}
 </style>

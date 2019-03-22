@@ -20,8 +20,72 @@
 @color-gray-100: #f7f8fa;
 
 /*
+  Layouts
+*/
+
+.flex-top-space(@margin) {
+  margin-top: @margin;
+}
+
+.flex-right-space(@margin) {
+  margin-right:@margin;
+}
+
+.flex-left-space(@margin) {
+  margin-left: @margin;
+}
+
+.flex-bottom-space(@margin) {
+  @ds-input-spacing: @margin;
+  margin-bottom: @margin;
+}
+
+.flex-space-around(@margin) {
+  .flex-top-space(@margin);
+  .flex-right-space(@margin);
+  .flex-left-space(@margin);
+  .flex-bottom-space(@margin);
+}
+
+/*
+    Text styles
+*/
+
+.crop-text() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.error-font-size(@size) {
+  @ds-input-error-font-size: @size;
+}
+
+.input-error-message(@font-size) {
+  .font-desktop-body-regular-red();
+  .crop-text();
+
+  font-size: @font-size;
+}
+
+/*
     Font Styles:
 */
+
+.font-desktop-body-regular-red() {
+  .font-desktop-body-regular-dark();
+
+  color: @color-red;
+}
+
+.font-desktop-small-regular-red() {
+  .font-desktop-small-regular-dark();
+
+  color: @color-red;
+}
+
 
 /* desktop/body/regular/dark font style */
 @font-desktop-body-regular-dark-font-size: 16px;
