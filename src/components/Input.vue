@@ -83,8 +83,11 @@
                             --- Select ---
 
     options - Array<Object>. Options for select. Each item is bound to an
-      <option> element. Additionaly a .title property can be set to change
-      the displayed value
+              <option> element. Additionaly a .title property can be set to change
+              the displayed value
+
+    maxVisibleOptions - Number. This value restricts count of visible items at the select list.
+                        By default all items will be visible.
 
   Events:
 
@@ -99,36 +102,46 @@
 
 <template>
   <div :class="['input', {sm, md, lg, standalone: sm || md || lg}]">
-    <label>
-      <div class="label-text">{{ label }}</div>
+      <label>
+        <div v-if="label" class="label-text">{{ label }}</div>
 
-      <input
-        v-if="type === 'text' || type === 'date'"
-        v-bind="inputAttrs"
-        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
-        v-model="inputValue"
-        ref="input"
-        @focus="inputFocus"
-        @click="inputFocus"
-        @blur="touched = true"
-      />
+        <div
+          ref="input"
+          :class="['input-container',
+            {
+              'disabled': disabled,
+              'focused': focused,
+              'error': inputErrors.length && touched || inputErrors.length && inputValue
+            }
+          ]">
 
-      <select
-        v-if="type === 'select'"
-        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
-        v-model="inputValue"
-        placeholder="placeholder"
-      >
-        <option v-for="option in options" v-bind="option">
-          {{ option.title || option.value }}
-        </option>
-      </select>
-    </label>
+          <input
+            :disabled="disabled"
+            v-bind="inputAttrs"
+            v-model="inputValue"
+            @focus="inputFocus"
+            @keyup.enter="keyEnter"
+            @keyup.down="keyDown"
+            @keyup.up="keyUp"
+            @keyup.esc="keyEsc"
+            @click="inputClick"
+            @blur="inputBlur"
+          />
 
-    <Icon v-if="icon_" color="gray-400" :source="icon_" />
+          <Icon
+            :class="{'rotate_icon': type === 'select' && selectVisible,}"
+            v-if="icon_"
+            color="gray-400"
+            :source="icon_"
+          />
+        </div>
+      </label>
 
     <div class="drawer">
-      <span v-if="inputErrors.length && touched" class="error-message">
+      <span
+        v-if="inputErrors.length && touched || inputErrors.length && inputValue"
+        class="error-message"
+      >
         {{ inputErrors[0] }}
       </span>
 
@@ -144,6 +157,25 @@
         </Dropdown>
       </span>
     </div>
+
+    <Dropdown
+      v-if="type === 'select'"
+      :target="$refs.input"
+      :opened.sync="selectVisible"
+      class="select"
+      just-fade
+    >
+      <div
+        v-for="(option, index) in selectList"
+        :class="['select-item', {
+          selected: index === selected,
+          hidden: !option
+        }]"
+        @click="selectItemClick(option)"
+      >
+        {{ option }}
+      </div>
+    </Dropdown>
 
     <Dropdown
       v-if="type === 'date'"
@@ -204,16 +236,36 @@ export default {
 
     // For type="select"
     options: Array,
+    maxVisibleOptions: Number
   },
   data: () => ({
     helpVisible: false,
     datepickerVisible: false,
-    touched: false
+    selectVisible: false,
+    selected: 0,
+    touched: false,
+    focused: false
   }),
   mounted() {
     this.$emit('validation', this.validation)
   },
   computed: {
+    selectList() {
+      const selectList = [];
+
+      this.options && this.options.forEach((option, index) => {
+        const title = this.isIncludeInput(option.title)
+        const value = title || this.isIncludeInput(option.value);
+        const limit = this.maxVisibleOptions || this.options.length;
+
+        if (value && index <= limit) {
+          selectList.push(value)
+        }
+
+      });
+
+      return selectList;
+    },
     inputAttrs() {
       return {
         type: this.type === 'date' ? 'text' : this.type,
@@ -305,7 +357,7 @@ export default {
         return date
       },
       set(value) {
-        this.datepickerVisible = false
+        this.datepickerVisible = false;
         this.$emit('input', value)
       }
     },
@@ -330,15 +382,80 @@ export default {
     },
   },
   methods: {
-    inputFocus() {
+    inputClick() {
       if (this.type === 'date') {
         this.datepickerVisible = true
       }
+      if (this.type === 'select') {
+        this.selectVisible = true
+      }
+    },
+
+    isIncludeInput(value) {
+      const isString = (value) => typeof value === 'string';
+      const isInclude = isString(value) && value.toLowerCase().includes(this.inputValue.toLowerCase());
+
+      return isInclude && value
+    },
+
+    inputFocus() {
+      this.focused = true;
+      this.selectVisible = true;
+      this.datepickerVisible = true;
+    },
+
+    inputBlur() {
+      this.touched = true;
+      this.focused = false;
+      this.selectVisible = false;
+    },
+
+    keyDown() {
+      const limit = this.selectList.length - 1 === this.selected;
+
+      if (this.type === 'select' && !this.selectVisible) {
+        return this.selectVisible = true;
+      }
+
+      if (this.type === 'date' && !this.datepickerVisible) {
+        return this.datepickerVisible = true;
+      }
+
+      if(this.type !== 'select' || limit) return;
+
+      this.selected += 1;
+    },
+
+    keyUp() {
+      const limit = this.selected === 0;
+
+      if(this.type !== 'select' || limit) return;
+
+      this.selected -= 1;
+    },
+
+    keyEnter() {
+      if(this.type !== 'select') return;
+
+      this.inputValue = this.selectList[this.selected];
+    },
+
+    keyEsc() {
+      this.datepickerVisible = false;
+    },
+
+    selectItemClick(value) {
+      this.selectVisible = false;
+      this.inputValue = value;
     },
   },
   watch: {
     value() {
       this.$emit('validation', this.validation)
+    },
+
+    inputValue() {
+      this.select = 0;
     }
   }
 }
@@ -350,6 +467,7 @@ export default {
 .input {
   position: relative;
   display: inline-block;
+  width: 100%;
 
   &.standalone {
     margin-right: 32px;
@@ -364,6 +482,7 @@ export default {
   &.lg {
     width: 464px;
   }
+
   @media @screen-small {
     &.lg {
       width: 296px;
@@ -376,55 +495,60 @@ export default {
     .font-desktop-x-small-regular-gray()
   }
 
-  input, select {
-    padding: 8px 12px;
-    box-sizing: border-box;
+  .input-container {
+    display: flex;
+    min-height: 38px;
     border: 1px solid @color-gray-300;
     border-radius: 2px;
     background-color: @color-white;
-    width: 100%;
-    .font-desktop-small-regular-dark();
+    align-items: center;
+    padding: 0 12px;
 
-    &.has-icon {
-      padding-right: 30px;
-    }
-
-    &::placeholder {
-      .font-desktop-small-regular-gray();
-    }
-
-    &:focus:not(.error) {
-      border-color: @color-primary;
-    }
-    &:focus {
+    input {
+      box-sizing: border-box;
+      background-color: @color-white;
+      width: 100%;
+      border: none;
       outline: none;
+      .font-desktop-small-regular-dark();
+
+      &::placeholder {
+        .font-desktop-small-regular-gray();
+      }
+
+      &[type="date"]::-webkit-inner-spin-button,
+      &[type="date"]::-webkit-clear-button,
+      &[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+        color: rgba(0,0,0,0);
+        opacity:0;
+      }
+    }
+
+    .icon {
+      pointer-events: none;
+
+      &.rotate_icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    &.focused:not(.error) {
+      border-color: @color-primary;
     }
 
     &.error {
       border-color: @color-red;
     }
 
-    &:disabled {
+    &.disabled {
       border: 1px solid #f2f4f7;
-    }
-    &:disabled,
-    &:disabled::placeholder {
-      .font-desktop-small-regular-light-gray();
-    }
-  }
 
-  select {
-    appearance: none;
-    &::-ms-expand {
-      display: none;
+      &, &::placeholder {
+        .font-desktop-small-regular-light-gray();
+      }
     }
-  }
-
-  .icon {
-    pointer-events: none;
-    position: absolute;
-    margin-left: -30px; // 24 + 6, icon size and padding
-    margin-top: 6px;    // center the 24px icon in the 36px input
   }
 
   .drawer {
@@ -457,13 +581,22 @@ export default {
     text-decoration: underline dashed;
   }
 
-  input[type="date"]::-webkit-inner-spin-button,
-  input[type="date"]::-webkit-clear-button,
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-    color: rgba(0,0,0,0);
-    opacity:0;
+  .select {
+    width: 100%;
+    background-color: @color-white;
+
+    div {
+      padding: 8px 12px;
+
+      &:hover, &.selected {
+        background-color: @color-gray-300;
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+    }
   }
 }
 </style>
