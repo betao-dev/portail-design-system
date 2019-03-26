@@ -109,19 +109,17 @@
           ref="input"
           :class="['input-container',
             {
-              'disabled': disabled && type !== 'select',
-              'focused': focused || selectVisible,
-              'error': inputErrors.length && touched || inputErrors.length && inputValue
+              'disabled': disabled,
+              'focused': focused,
+              'error': inputErrors.length && touched
             }
           ]">
 
           <input
-            :class="{'read-only': type === 'date' || type === 'select'}"
             :disabled="disabled"
             v-bind="inputAttrs"
             v-model="inputValue"
-            @keypress="onTyping"
-            @keyup.esc="keyEsc"
+            @keyup.esc="datepickerVisible = false"
             @blur="inputBlur"
             @focus="inputFocus"
           />
@@ -137,7 +135,7 @@
 
     <div class="drawer">
       <span
-        v-if="inputErrors.length && touched || inputErrors.length && inputValue"
+        v-if="inputErrors.length && touched"
         class="error-message"
       >
         {{ inputErrors[0] }}
@@ -169,6 +167,7 @@
           selected: index === selected,
         }]"
         @click="selectItemClick(option, index)"
+        @mousedown="selectItemClick(option, index)"
       >
         {{ option.title || option.value}}
       </div>
@@ -239,7 +238,7 @@ export default {
     helpVisible: false,
     datepickerVisible: false,
     selectVisible: false,
-    selected: 0,
+    selected: undefined,
     touched: false,
     focused: false
   }),
@@ -252,7 +251,7 @@ export default {
         type: this.type === 'date' ? 'text' : this.type,
         placeholder: this.placeholder,
         disabled: this.disabled,
-        readonly: this.type === 'date',
+        readonly: this.type === 'date' || this.type === 'select',
       }
     },
     icon_() {
@@ -303,6 +302,7 @@ export default {
       }
       return errors
     },
+
     inputValue: {
       get() {
         if (this.type === 'date') {
@@ -381,17 +381,6 @@ export default {
       this.selectVisible = false;
     },
 
-    // Prevent typing if select or date dield type
-    onTyping(e) {
-      if (this.type === 'date' || this.type === 'select') {
-        e.preventDefault()
-      }
-    },
-
-    keyEsc() {
-      this.datepickerVisible = false;
-    },
-
     selectItemClick(option, index) {
       this.selected = index;
       this.inputValue = option.title || option.value;
@@ -403,7 +392,7 @@ export default {
     },
 
     inputValue() {
-      this.select = 0;
+      this.touched = true;
     }
   }
 }
@@ -444,8 +433,10 @@ export default {
   }
 
   .input-container {
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
-    min-height: 38px;
+    height: 38px;
     border: 1px solid @color-gray-300;
     border-radius: 2px;
     background-color: @color-white;
@@ -479,8 +470,13 @@ export default {
       }
 
       // For IOS hide cursor and prevent selecting date content
-      &.read-only  {
+      &[readonly]  {
         caret-color : transparent;
+
+        &:focus {
+          outline: none;
+        }
+
         &::selection { background: transparent; }
       }
 
@@ -563,6 +559,7 @@ export default {
       }
 
       &:hover {
+        cursor: pointer;
         background-color: darken(@color-white, 5%);
       }
 

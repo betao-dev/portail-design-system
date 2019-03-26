@@ -93,7 +93,7 @@
         label="Modal"
         datepickerPosition="modal"
         placeholder="Date"
-        v-model="dateValue"
+        v-model="dateValue4"
       />
       <br />
 
@@ -102,7 +102,7 @@
         md
         type="select"
         placeholder="Select a value"
-        v-model="textValue"
+        v-model="selectValue"
         :options="[{
           title: 'Hello',
           value: 1,
@@ -169,13 +169,13 @@ Date inputs:<br />
   label="N days min/max range"
   placeholder="Date"
   :dateRange="{min: 5, max: 10}"
-  v-model="dateValue3"
+  v-model="dateValue4"
 />
 <Input
   md
   type="select"
   placeholder="Select a value"
-  v-model="textValue"
+  v-model="selectValue"
   :options="[{
     title: 'Hello',
     value: 1,
@@ -196,6 +196,8 @@ export default {
     dateValue: new Date(),
     dateValue2: null,
     dateValue3: null,
+    dateValue4: null,
+    selectValue: null,
     demoValidators: [
       {
         name: 'required',
