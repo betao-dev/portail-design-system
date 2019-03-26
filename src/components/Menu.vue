@@ -46,8 +46,7 @@
           <Icon
             v-if="item.icon"
             :source="item.icon"
-            size="20px"
-            padding="6px 0"
+            size="24px"
             color="gray-400"
           />
           <span class="title">{{ item.title }}</span>
@@ -91,7 +90,7 @@ export default {
     display: block;
     text-decoration: none;
     color: @color-dark;
-    font-size: @app-menu-font-size;
+    font-size: @font-desktop-body-medium-dark-font-size;
 
     &:hover {
       text-decoration: none;
@@ -102,7 +101,7 @@ export default {
     }
 
     .divider {
-      height: 1px;
+      height: @app-menu-divider-height;
       width: 100%;
       background: @color-gray-300;
     }
@@ -112,6 +111,10 @@ export default {
       align-items: center;
       padding: @app-menu-padding;
       cursor: pointer;
+
+      &:hover {
+        background-color: @color-gray-200;
+      }
 
       .title {
         margin-left: @app-menu-spacing;
