@@ -1,3 +1,34 @@
+<!--
+  Menu
+
+  Usage:
+
+    <Menu
+      :items="[...]"                      - Array of items to render
+      @item:click="(...) => ..."          - Click on a menu item
+    />
+
+  Properties:
+
+    items - Array<Object>, required. Items to display on the Menu. Where
+      objects look like:
+
+        :items="[{
+          title: String,           - Displayed name
+          icon: ?String,           - Icon name or svg code (See Icon.vue)
+          disabled: ?Boolean,      - Is the item disabled
+          href: ?String            - Optional hyperlink
+        }, {
+          ...
+        }]
+
+  Events:
+
+    item:click - Click on the menu's item. Arguments:
+      item       - Object from items array
+      index      - index of the object in the items array
+-->
+
 <template>
   <div class="menu-wrapper">
     <template v-for="(item, index) in items">
