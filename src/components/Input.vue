@@ -83,8 +83,11 @@
                             --- Select ---
 
     options - Array<Object>. Options for select. Each item is bound to an
-      <option> element. Additionaly a .title property can be set to change
-      the displayed value
+              <option> element. Additionaly a .title property can be set to change
+              the displayed value
+
+    maxVisibleOptions - Number. This value restricts count of visible items at the select list.
+                        By default all items will be visible.
 
   Events:
 
@@ -99,36 +102,44 @@
 
 <template>
   <div :class="['input', {sm, md, lg, standalone: sm || md || lg}]">
-    <label>
-      <div class="label-text">{{ label }}</div>
+      <label>
+        <div v-if="label" class="label-text">{{ label }}</div>
 
-      <input
-        v-if="type === 'text' || type === 'date'"
-        v-bind="inputAttrs"
-        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
-        v-model="inputValue"
-        ref="input"
-        @focus="inputFocus"
-        @click="inputFocus"
-        @blur="touched = true"
-      />
+        <div
+          ref="input"
+          :class="['input-container',
+            {
+              'disabled': disabled && type !== 'select',
+              'focused': focused || selectVisible,
+              'error': inputErrors.length && touched || inputErrors.length && inputValue
+            }
+          ]">
 
-      <select
-        v-if="type === 'select'"
-        :class="{'has-icon': icon_, 'error': inputErrors.length && touched}"
-        v-model="inputValue"
-        placeholder="placeholder"
-      >
-        <option v-for="option in options" v-bind="option">
-          {{ option.title || option.value }}
-        </option>
-      </select>
-    </label>
+          <input
+            :class="{'read-only': type === 'date' || type === 'select'}"
+            :disabled="disabled"
+            v-bind="inputAttrs"
+            v-model="inputValue"
+            @keypress="onTyping"
+            @keyup.esc="keyEsc"
+            @blur="inputBlur"
+            @focus="inputFocus"
+          />
 
-    <Icon v-if="icon_" color="gray-400" :source="icon_" />
+          <Icon
+            :class="{'rotate_icon': type === 'select' && selectVisible}"
+            v-if="icon_"
+            color="gray-400"
+            :source="icon_"
+          />
+        </div>
+      </label>
 
     <div class="drawer">
-      <span v-if="inputErrors.length && touched" class="error-message">
+      <span
+        v-if="inputErrors.length && touched || inputErrors.length && inputValue"
+        class="error-message"
+      >
         {{ inputErrors[0] }}
       </span>
 
@@ -144,6 +155,24 @@
         </Dropdown>
       </span>
     </div>
+
+    <Dropdown
+      v-if="type === 'select'"
+      :target="$refs.input"
+      :opened.sync="selectVisible"
+      class="select"
+      just-fade
+    >
+      <div
+        v-for="(option, index) in options"
+        :class="['select-item', {
+          selected: index === selected,
+        }]"
+        @click="selectItemClick(option, index)"
+      >
+        {{ option.title || option.value}}
+      </div>
+    </Dropdown>
 
     <Dropdown
       v-if="type === 'date'"
@@ -204,11 +233,15 @@ export default {
 
     // For type="select"
     options: Array,
+    maxVisibleOptions: Number
   },
   data: () => ({
     helpVisible: false,
     datepickerVisible: false,
-    touched: false
+    selectVisible: false,
+    selected: 0,
+    touched: false,
+    focused: false
   }),
   mounted() {
     this.$emit('validation', this.validation)
@@ -305,7 +338,7 @@ export default {
         return date
       },
       set(value) {
-        this.datepickerVisible = false
+        this.datepickerVisible = false;
         this.$emit('input', value)
       }
     },
@@ -331,14 +364,46 @@ export default {
   },
   methods: {
     inputFocus() {
-      if (this.type === 'date') {
+      this.focused = true;
+
+       if (this.type === 'date') {
         this.datepickerVisible = true
       }
+
+      if (this.type === 'select') {
+        this.selectVisible = true
+      }
+    },
+
+    inputBlur() {
+      this.touched = true;
+      this.focused = false;
+      this.selectVisible = false;
+    },
+
+    // Prevent typing if select or date dield type
+    onTyping(e) {
+      if (this.type === 'date' || this.type === 'select') {
+        e.preventDefault()
+      }
+    },
+
+    keyEsc() {
+      this.datepickerVisible = false;
+    },
+
+    selectItemClick(option, index) {
+      this.selected = index;
+      this.inputValue = option.title || option.value;
     },
   },
   watch: {
     value() {
       this.$emit('validation', this.validation)
+    },
+
+    inputValue() {
+      this.select = 0;
     }
   }
 }
@@ -350,6 +415,7 @@ export default {
 .input {
   position: relative;
   display: inline-block;
+  width: 100%;
 
   &.standalone {
     margin-right: 32px;
@@ -364,6 +430,7 @@ export default {
   &.lg {
     width: 464px;
   }
+
   @media @screen-small {
     &.lg {
       width: 296px;
@@ -376,55 +443,76 @@ export default {
     .font-desktop-x-small-regular-gray()
   }
 
-  input, select {
-    padding: 8px 12px;
-    box-sizing: border-box;
+  .input-container {
+    display: flex;
+    min-height: 38px;
     border: 1px solid @color-gray-300;
     border-radius: 2px;
     background-color: @color-white;
-    width: 100%;
-    .font-desktop-small-regular-dark();
+    align-items: center;
+    padding: 0 12px;
 
-    &.has-icon {
-      padding-right: 30px;
-    }
-
-    &::placeholder {
-      .font-desktop-small-regular-gray();
-    }
-
-    &:focus:not(.error) {
-      border-color: @color-primary;
-    }
-    &:focus {
+    input {
+      box-sizing: border-box;
+      background-color: @color-white;
+      width: 100%;
+      border: none;
       outline: none;
+      .font-desktop-small-regular-dark();
+
+      &::placeholder {
+        .font-desktop-small-regular-gray();
+      }
+
+      &[type="date"]::-webkit-inner-spin-button,
+      &[type="date"]::-webkit-clear-button,
+      &[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+        color: rgba(0,0,0,0);
+        opacity:0;
+      }
+
+      // For IOS hide clear button
+      &::-ms-clear {
+        display: none;
+      }
+
+      // For IOS hide cursor and prevent selecting date content
+      &.read-only  {
+        caret-color : transparent;
+        &::selection { background: transparent; }
+      }
+
+    }
+
+    span.icon {
+      pointer-events: none;
+
+      &.rotate_icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    &.focused:not(.error) {
+      border-color: @color-primary;
+
+      span.icon {
+        fill: @color-primary !important;
+      }
     }
 
     &.error {
       border-color: @color-red;
     }
 
-    &:disabled {
+    &.disabled {
       border: 1px solid #f2f4f7;
-    }
-    &:disabled,
-    &:disabled::placeholder {
-      .font-desktop-small-regular-light-gray();
-    }
-  }
 
-  select {
-    appearance: none;
-    &::-ms-expand {
-      display: none;
+      &, &::placeholder {
+        .font-desktop-small-regular-light-gray();
+      }
     }
-  }
-
-  .icon {
-    pointer-events: none;
-    position: absolute;
-    margin-left: -30px; // 24 + 6, icon size and padding
-    margin-top: 6px;    // center the 24px icon in the 36px input
   }
 
   .drawer {
@@ -457,13 +545,28 @@ export default {
     text-decoration: underline dashed;
   }
 
-  input[type="date"]::-webkit-inner-spin-button,
-  input[type="date"]::-webkit-clear-button,
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-    color: rgba(0,0,0,0);
-    opacity:0;
+  .select {
+    width: 100%;
+    background-color: @color-white;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,0.05);
+
+    div {
+      padding: 8px 12px;
+     .font-desktop-small-regular-dark();
+
+      &.selected {
+        .font-desktop-small-regular-accent();
+      }
+
+       &.hidden {
+        display: none;
+      }
+
+      &:hover {
+        background-color: darken(@color-white, 5%);
+      }
+
+    }
   }
 }
 </style>
