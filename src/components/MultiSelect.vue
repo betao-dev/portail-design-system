@@ -88,13 +88,34 @@
     methods: {
       updateOpenState() {
         this.openDropDownList = !this.openDropDownList
+      },
+      setOptions(options) {
+        if (this.value.length) {
+            this.optionsWrapper = options.map((option) => {
+              return {
+                ...option,
+                state: !!this.value.find((val) => val.value === option.value)
+              }
+            })
+        } else {
+          this.optionsWrapper = options.slice()
+        }
+      },
+      checkAllOptionSelected(selectedOptions, generalOptions) {
+        return !!selectedOptions.length && !!generalOptions.length && selectedOptions.length === generalOptions.length
       }
     },
     watch: {
+      options: {
+        handler(newOptions) {
+          this.setOptions(newOptions)
+        },
+        deep: true
+      },
       optionsWrapper: {
         handler(newOptions) {
           let newValue = newOptions.filter((option) => option.state)
-          this.allOptionSelected = newValue.length === newOptions.length
+          this.allOptionSelected = this.checkAllOptionSelected(newValue, newOptions)
 
           this.$emit('input', newValue)
         },
@@ -102,20 +123,8 @@
       }
     },
     mounted() {
-      if (this.value.length) {
-        this.value.forEach((val) => {
-          this.optionsWrapper = this.options.map((option) => {
-            return {
-              ...option,
-              state: val.value === option.value
-            }
-          })
-        })
-      } else {
-        this.optionsWrapper = this.options.slice()
-      }
-
-      this.allOptionSelected = this.value.length === this.options.length
+      this.setOptions(this.options)
+      this.allOptionSelected = this.checkAllOptionSelected(this.value, this.options)
     }
   }
 </script>
