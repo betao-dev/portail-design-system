@@ -6,20 +6,22 @@
       <div class="ds-title-header-controls">
         <Icon angle_left_solid
               size="18px"
-              color="gray-500"
               class="ds-slider-control-left"
+              :class="{'disabled': sliderStartIndex == 1 }"
+              :color="sliderStartIndex == 1 ? 'gray-300' : 'gray-500'"
               @click="changeSlide(-1)">
         </Icon>
         <Icon angle_right_solid
               size="18px"
-              color="gray-500"
               class="ds-slider-control-right"
+              :class="{'disabled': sliderStartIndex == slideCount}"
+              :color="sliderStartIndex == slideCount ? 'gray-300' : 'gray-500'"
               @click="changeSlide(1)">
         </Icon>
       </div>
     </div>
     <div class="ds-slider-body" >
-      <div :class="{'slide-active': slideActive}">
+      <div :class="{'slide-left-to-right': slideLeftToRight, 'slide-right-to-left': slideRightToLeft}">
         <slot :name="activeSlider"></slot>
       </div>
     </div>
@@ -41,7 +43,8 @@
       startIndex: Number,
     },
     data: () => ({
-      slideActive: false
+      slideLeftToRight: false,
+      slideRightToLeft: false
     }),
     computed: {
       activeSlider() {
@@ -54,24 +57,26 @@
         set(value) {
           this.$emit('update:startIndex', value)
         }
+      },
+      slideCount() {
+        return Object.keys(this.$slots).length
       }
     },
     methods: {
       changeSlide(value) {
-        let nextSlideIndex = this.sliderStartIndex + value
         let slideCount = Object.keys(this.$slots).length
 
-        if (slideCount && !this.slideActive) {
-          this.slideActive = setTimeout(() => {
-            if (nextSlideIndex < 1) {
-              this.sliderStartIndex = slideCount
-            } else if (nextSlideIndex > slideCount) {
-              this.sliderStartIndex = 1
-            } else {
-              this.sliderStartIndex += value
-            }
+        if (value > 0 && slideCount && !this.slideLeftToRight) {
+          this.slideLeftToRight = setTimeout(() => {
+            this.sliderStartIndex += value
+            this.slideLeftToRight = undefined
+          }, 400)
+        }
 
-            this.slideActive = undefined
+        if (value < 0 && slideCount && !this.slideRightToLeft) {
+          this.slideRightToLeft = setTimeout(() => {
+            this.sliderStartIndex += value
+            this.slideRightToLeft = undefined
           }, 400)
         }
       }
@@ -117,12 +122,17 @@
         .ds-slider-control-left,
         .ds-slider-control-right {
           cursor: pointer;
+
+          &.disabled {
+            pointer-events: none;
+            color: red;
+          }
         }
       }
     }
 
     .ds-slider-body {
-      @keyframes slider {
+      @keyframes sliderLeftToRight {
         0% { transform: translateX(0); }
         25% { transform: translateX(25%); }
         50% { transform: translateX(50%); }
@@ -130,8 +140,23 @@
         100% { transform: translateX(100%); }
       }
 
-      .slide-active {
-        animation-name:slider;
+      @keyframes sliderRightToLeft {
+        0% { transform: translateX(100%); }
+        25% { transform: translateX(75%); }
+        50% { transform: translateX(50%); }
+        75% { transform: translateX(25%); }
+        100% { transform: translateX(0); }
+      }
+
+      .slide-left-to-right {
+        animation-name:sliderLeftToRight;
+        animation-duration:0.4s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count:infinite;
+      }
+
+      .slide-right-to-left {
+        animation-name:sliderRightToLeft;
         animation-duration:0.4s;
         animation-timing-function: ease-in-out;
         animation-iteration-count:infinite;
