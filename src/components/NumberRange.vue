@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     modelChange(value) {
-      this.$emit('chage:range', {min: value[0], max: value[1]})
+      this.$emit('change:range', {min: value[0], max: value[1]})
     },
     clearModel(e) {
       e.preventDefault();
