@@ -18,11 +18,11 @@
       </div>
 
       <div class="ds-confirm-footer">
-        <Button @click="updateOpenStatus(false)" alt>{{ rejectLabel | dsTranslate }}</Button>
+        <Button @click="updateOpenStatus(false)" alt>{{ rejectLabel }}</Button>
         <template v-if="extraButton">
           <Button @click="extraButtonClick">{{ extraButtonLabel }}</Button>
         </template>
-        <Button @click="acceptStatus">{{ acceptLabel | dsTranslate }}</Button>
+        <Button @click="acceptStatus">{{ acceptLabel }}</Button>
       </div>
     </div>
   </Dialog>
