@@ -267,7 +267,6 @@ export default {
   }
 
   .ds-header, .ds-item {
-    box-shadow: @sidebar-item-shadow;
     box-sizing: border-box;
     height: @sidebar-item-height;
     padding: 21px 26px 21px 28px;
@@ -321,7 +320,7 @@ export default {
     }
 
     &:hover, &:focus  {
-      background: darken(@color-white, 5%);
+      background-color: @color-gray-100;
       text-decoration: none;
       outline: none;
     }
@@ -335,7 +334,7 @@ export default {
 
       &.ds-active {
         border-left: none;
-        background-color: @color-gray-200;
+        background-color: @color-gray-100;
       }
     }
 
