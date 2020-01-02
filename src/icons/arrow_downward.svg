@@ -1,1 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <polygon points="10.652 3 10.652 16.798 5.989 12.134 5 13.123 10.846 18.968 11.34 19.441 11.834 18.968 17.68 13.123 16.691 12.134 12.028 16.798 12.028 3"/>
+</svg>
