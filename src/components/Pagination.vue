@@ -152,13 +152,13 @@
         width: 40px;
         height: 40px;
         border-radius: 4px;
-        background-color: @color-gray-300;
+        background-color: @color-gray-200;
         display: flex;
         justify-content: center;
         align-items: center;
 
         &.disabled {
-          background-color: @color-gray-200;
+          opacity: 0.5;
           pointer-events: none;
         }
       }
