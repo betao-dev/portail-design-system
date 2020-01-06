@@ -333,6 +333,7 @@
       left: 0;
       right: 0;
       top: auto !important;
+      box-shadow: @dropdown-shadow;
       border: solid 1px #eee;
       background-color: white;
       z-index: 999;

@@ -100,7 +100,7 @@ export default {
   .dropdown-content {
     display: inline-block;
     border-radius: 2px;
-    box-shadow: @card-shadow;
+    box-shadow: @dropdown-shadow;
     padding: 20px;
     background: white;
   }

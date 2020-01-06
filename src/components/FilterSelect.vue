@@ -285,7 +285,7 @@
     .ds-multi-select-dropdown-content {
       display: block;
       border-radius: 2px;
-      box-shadow: @card-shadow;
+      box-shadow: @dropdown-shadow;
       padding: 15px;
       background: white;
 
