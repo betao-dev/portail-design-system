@@ -65,7 +65,7 @@
       "name": "type",
       "type": "String",
       "default": "text",
-      "description": "Passed to the input with type_ computed property. <Input type=\"date\" /> results in <input type=\"text\" /.>"
+      "description": "Passed to the input with type_ computed property"
     },
     {
       "name": "validators",
@@ -95,82 +95,14 @@
       "description": "Binds value property to input"
     },
     {
-      "name": "radioVal",
-      "type": "String",
-      "description": "Property for type Radio. When the value of v-model is same as radioVal of the element, the element is selected."
-    },
-    {
-      "name": "minDate",
-      "type": "Date",
-      "description": "Property for type Date. Earliest selectable day for the datepicker"
-    },
-    {
-      "name": "maxDate",
-      "type": "Date",
-      "description": "Property for type Date. Latest selectable day for the datepicker"
-    },
-    {
-      "name": "dateRangeStart",
-      "type": "Date",
-      "description": "Property for type Date. Point of reference for the dateRange property"
-    },
-    {
-      "name": "dateRange",
-      "type": "Object",
-      "description": "Property for type Date. An alternative to minDate/maxDate"
-    },
-    {
-      "name": "datepickerPosition",
-      "type": "String",
-      "default": "bottom-middle",
-      "description": "Property for type Date. Forwarded to datepicker dropdown position."
-    },
-    {
-      "name": "options",
-      "type": "Array",
-      "description": "Property for type Select. Array<Object>. Options for select. Each item is bound to an <option> element. Additionaly a .title property can be set to change the displayed value"
-    },
-    {
-      "name": "datepickerBorderColorDesktop",
-      "type": "String",
-      "description": "Set border color for desktop datepicker"
-    },
-    {
       "name": "slideLabel",
       "type": "Boolean",
       "description": "Set up slideble input label"
     },
     {
-      "name": "datePositionChangeable",
-      "type": "Boolean",
-      "description": "Set up changeable position of datepicker depend on device resolution"
-    },
-    {
-      "name": "showErrors",
+      "name": "showValidations",
       "type": "Boolean",
       "description": "Responsible for showing error message"
-    },
-    {
-      "name": "datepickerWrapperStyleObject",
-      "type": "Object",
-      "description": "Styles object responsible for styles which will be applied to datepicker wrapper"
-    },
-    {
-      "name": "datepickerFullWidth",
-      "type": "Boolean",
-      "default": "false",
-      "description": "Responsible for full width of datepicker"
-    },
-    {
-      "name": "datepickerBackgroundColor",
-      "type": "String",
-      "description": "Set background color of datepicker backdrop"
-    },
-    {
-      "name": "valueModeSelect",
-      "type": "Boolean",
-      "default": "false",
-      "description": "Setup value by true, it'll provide next functionality for select component like make a possible to get only value at model from option object, and will allow setting option object by default only by value of it's option that came from model. Checking is value by type in process of finding option object"
     },
     {
       "name": "iconPadding",

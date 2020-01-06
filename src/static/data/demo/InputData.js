@@ -43,60 +43,6 @@ Basic inputs:<br />
   v-model="textValue"
 />
 
-Date inputs:
-<Input
-  sm
-  type="date"
-  label="Date input"
-  v-model="dateValue"
-/>
-
-<Input
-  sm
-  type="date"
-  label="Min and max dates"
-  placeholder="Date"
-  :minDate="new Date('2019-02-16')"
-  :maxDate="new Date('2019-02-25')"
-  v-model="dateValue2"
-/>
-
-<Input
-  sm
-  type="date"
-  label="N days min/max range"
-  :datepickerBorderColorDesktop="borderColor"
-  placeholder="Date"
-  :dateRange="{min: 5, max: 10}"
-  v-model="dateValue3"
-/>
-
-<Input
-  md
-  type="select"
-  placeholder="Select a value"
-  v-model="textValue"
-  :options="[{
-    title: 'Hello',
-    value: 1,
-  }, {
-    value: 'World',
-  }]"
-/>
-
-<Input
-  type="checkbox"
-  label="Checkbox"
-  v-model="textValue"
-/>
-
-<Input
-  type="radio"
-  label="First"
-  radioVal="first"
-  v-model="radioValue"
-/>
-
 <Input
   sm
   v-model="cvvValue"
@@ -121,7 +67,7 @@ Date inputs:
   placeholder="Placeholder"
   label="New Password"
   :validators="passwordValidators"
-  :show-errors="passwordShowErrors.firstField"
+  :show-validations="passwordShowErrors.firstField"
   @lastKeyDownDelay="onlastKeyDownDelay('firstField')"
 />
 
@@ -132,7 +78,7 @@ Date inputs:
   placeholder="Placeholder"
   label="Confirm the new password"
   :validators="confirmPasswordValidators"
-  :show-errors="passwordShowErrors.secondField"
+  :show-validations="passwordShowErrors.secondField"
   @lastKeyDownDelay="onlastKeyDownDelay('secondField')"
 />
 `.slice(1)
