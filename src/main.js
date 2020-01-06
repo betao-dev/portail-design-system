@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { VueMaskDirective } from 'v-mask'
+import VueMask from 'v-mask'
 import VueSignaturePad from 'vue-signature-pad'
 
 import VueHighlightJS from 'vue-highlightjs'
@@ -33,7 +33,7 @@ Vue.use(VueHighlightJS)
 Vue.use(VueSignaturePad)
 Vue.use(Internationalization)
 Vue.use(GlobalFilters)
-Vue.directive('mask', VueMaskDirective);
+Vue.use(VueMask);
 
 new Vue({
   render: h => h(App),
