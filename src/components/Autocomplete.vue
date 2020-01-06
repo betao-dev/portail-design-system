@@ -311,7 +311,7 @@
     .ds-autocomplete-dropdown-content {
       display: inline-block;
       border-radius: 2px;
-      box-shadow: @card-shadow;
+      box-shadow: @dropdown-shadow;
       background: white;
       height: auto;
       max-height: 240px;

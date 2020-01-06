@@ -142,6 +142,7 @@ export default {
   background-color: @color-white;
   color: @color-dark;
   border: solid 1px @color-gray-300;
+  box-shadow: @dropdown-shadow;
   padding: 20px;
   min-width: 200px;
 

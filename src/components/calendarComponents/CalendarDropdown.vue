@@ -6,13 +6,13 @@
   >
     <div v-if="opened"
          class="ds-dropdown"
-         :style="{ ...positionStyle, transition: `opacity ${transitionTime}ms ease-out`}"
+         :style="{ ...positionStyle, transition: `opacity ${transitionTime}ms ease`}"
          @mouseout="onMouseout">
       <div class="ds-focus-trap" tabindex="0"></div>
       <div class="ds-dropdown-content"
            ref="dropdownContent"
            :class="[{'ds-border-content': borderColor}]"
-           :style="{ transition: `transform ${transitionTime}ms ease-out`, borderColor}">
+           :style="{ transition: `transform ${transitionTime}ms ease`, borderColor}">
         <slot></slot>
       </div>
       <div class="ds-focus-trap" tabindex="0"></div>
@@ -58,7 +58,7 @@ export default {
     },
     transitionTime: {
       type: Number,
-      default: 100
+      default: 300
     },
     margin: {
       type: Number,

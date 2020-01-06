@@ -55,7 +55,7 @@
     {
       "name": "transitionTime",
       "type": "Number",
-      "default": "100",
+      "default": "300",
       "description": "Setup transition time"
     }
   ],
