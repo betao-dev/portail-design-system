@@ -6,8 +6,7 @@
           'ds-sm': sm,
           'ds-md': md,
           'ds-lg': lg,
-          'ds-has-label': label,
-          'preventScroll': datepickerVisible
+          'ds-has-label': label
         }
       ]"
     :style="{width}"
@@ -16,8 +15,7 @@
     <label>
       <div v-if="label"
            :id="id"
-           @click="onInputPrevent($event, true)"
-           :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus, 'ds-slide-label-date': getType === 'ds-date',
+           :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus,
                     'ds-label-error': inputErrors.length && touched && showValidations},
                     slideActive ? 'ds-slide-label-active' : slideLabel ? 'ds-slide-label-inactive' : '']">
           {{ label  }} {{required ? '*' : ''}}
@@ -47,24 +45,21 @@
         :[checkPasswordType]="type"
         :name="name"
         :class="{
-          'ds-has-icon': icon_,
+          'ds-has-icon': icon,
           'ds-error': showInvalidBlock && invalidBacklight,
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
-          'date': getType === 'ds-date',
           'ds-has-left-icon': iconLeft,
           'ds-text-right': textAlign === 'right'
         }"
         :key="inputId"
         v-model="inputValue"
-        ref="input"
         :style="{...getStyle, borderRadius, ...inputStyle}"
         @focus.prevent="inputFocus"
-        @[checkSetClickEvent].prevent="inputFocus"
+        @click.prevent="inputFocus"
         @blur="inputBlur"
         @keypress="onKeyPress"
         @keydown="onKeyDown"
-        @mousedown="onInputPrevent($event)"
         @paste.prevent="onPaste($event)"
       />
 
@@ -75,35 +70,32 @@
         :[checkPasswordType]="type"
         :name="name"
         :class="{
-          'ds-has-icon': icon_,
+          'ds-has-icon': icon,
           'ds-error': showInvalidBlock && invalidBacklight,
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
-          'date': getType === 'ds-date',
           'ds-has-left-icon': iconLeft,
           'ds-text-right': textAlign === 'right'
         }"
         :key="inputId"
         v-model="inputValue"
-        ref="input"
         :style="{...getStyle, borderRadius, ...inputStyle}"
         v-mask="mask"
         @focus.prevent="inputFocus"
-        @[checkSetClickEvent].prevent="inputFocus"
+        @click.prevent="inputFocus"
         @blur="inputBlur"
         @keypress="onKeyPress"
         @keydown="onKeyDown"
-        @mousedown="onInputPrevent($event)"
         @paste.prevent="onPaste($event)"
       />
 
       <Icon
-        v-if="icon_ && showIcon"
+        v-if="icon && showIcon"
         :size="iconSize"
         :color="iconColor"
         :class="['ds-general-icon', {'active-icon': activeIcon}]"
         :style="generalIconStyle"
-        :source="icon_"
+        :source="icon"
         :padding="iconPadding"
         @click="onIconClick"
       />
@@ -129,63 +121,20 @@
         </span>
       </div>
     </label>
-
-    <Dropdown
-      v-show="getType === 'ds-date' && getDatepickerPosition !== 'modal'"
-      :target="$refs.input"
-      :opened.sync="datepickerVisible"
-      :position="getDatepickerPosition"
-      :borderColor="!isMobile && datepickerBorderColorDesktop"
-      :labelId="id"
-      :activeDatepickerComponent="activeDatepickerComponent"
-      just-fade
-    >
-      <Datepicker
-        :min="datepickerMin"
-        :max="datepickerMax"
-        v-model="datepickerValue"
-      ></Datepicker>
-    </Dropdown>
-
-    <Dialog
-      v-show="getType === 'ds-date' && getDatepickerPosition === 'modal'"
-      :opened.sync="datepickerVisible"
-      :borderColor="!isMobile && datepickerBorderColorDesktop"
-      :datepickerContainer="isMobile && getType === 'ds-date'"
-      :backgroundColor="datepickerBackgroundColor"
-      :backdropOpacity="datepickerBackdropOpacity"
-      :dialogStyleObject="datepickerWrapperStyleObject"
-      :contentFullWidth="datepickerFullWidth"
-      :overflowCheck="overflowCheckStatus"
-      :activeDatepickerComponent="activeDatepickerComponent"
-    >
-      <Datepicker
-        :min="datepickerMin"
-        :max="datepickerMax"
-        :fullWidth="datepickerFullWidth"
-        v-model="datepickerValue"
-      ></Datepicker>
-    </Dialog>
   </div>
 </template>
 
 <script>
 import { cloneDeep } from 'lodash'
-import Datepicker from './Datepicker'
-import Dropdown from './Dropdown'
 import Icon from './Icon'
-import Dialog from './Dialog'
 import Tooltip from './Tooltip'
 
 import _ from 'lodash'
 
-const DesktopWidth = 960
-
 export default {
-  name: "Input",
-  components: {Datepicker, Dropdown, Icon, Tooltip, Dialog},
+  name: 'Input',
+  components: {Icon, Tooltip},
   props: {
-    // General
     disabled: Boolean,
     help: String,
     name:  String,
@@ -219,8 +168,7 @@ export default {
     type: {
       type: String,
       validator(value) {
-        return ['text', 'date', 'password', 'number',
-                'number-dot', 'payment-card', 'tel'].indexOf(value) !== -1
+        return ['text', 'password', 'number', 'number-dot', 'payment-card', 'tel'].indexOf(value) !== -1
       },
       default: 'text'
     },
@@ -229,10 +177,6 @@ export default {
       default: () => []
     },
     value: null,
-    datepickerBorderColorDesktop: String,
-    datepickerBackgroundColor: String,
-    datepickerBackdropOpacity: String,
-    datepickerWrapperStyleObject: Object,
     slideLabel: Boolean,
     showValidations: {
       type: Boolean,
@@ -256,21 +200,6 @@ export default {
     },
     generalIconStyle: Object,
     inputStyle: Object,
-
-    // For type="date"
-    minDate: Date,
-    maxDate: Date,
-    dateRangeStart: Date,  // will be new Date() if not set
-    dateRange: Object,     // For example {min: 30, max: 180}
-    datepickerPosition: {
-      type: String,
-      default: 'bottom-middle',
-    },
-    datePositionChangeable: Boolean,
-    datepickerFullWidth: {
-      type: Boolean,
-      default: false
-    },
     textAlign: {
       type: String,
       default: 'left'
@@ -284,12 +213,9 @@ export default {
   data: () => ({
     validateEventName: undefined,
     helpVisible: false,
-    datepickerVisible: false,
     touched: false,
     slideActive: undefined,
     labelFocus: undefined,
-    windowWidth: window.innerWidth,
-    positions: Array,
     timeoutId: undefined,
     validationTimeoutId: undefined,
     validBacklight: false,
@@ -312,35 +238,17 @@ export default {
     }
 
     this.checkValuePattern()
-
-    if (this.datePositionChangeable) {
-      this.positions = this.datepickerPosition.split(' ')
-      window.addEventListener('resize', this.onResize)
-    }
-
     document.addEventListener('validate', this.validate);
-
     this.$emit('validation', this.validation)
-
     setTimeout(() => this.slideInit(), 500)
   },
   computed: {
-    overflowCheckStatus() {
-      return this.getType === 'ds-date' && this.getDatepickerPosition === 'modal' && this.datePositionChangeable
-    },
     inputAttrs() {
       return {
-        type: this.type === 'date' || this.type === 'number' ? 'text' : this.type,
+        type: this.type === 'number' ? 'text' : this.type,
         placeholder: this.placeholder,
-        disabled: this.disabled,
-        readonly: this.getType === 'ds-date',
+        disabled: this.disabled
       }
-    },
-    icon_() {
-      if (this.getType === 'ds-date') {
-        return 'today'
-      }
-      return this.icon
     },
     locale() {
       if (this.$root === this) {
@@ -372,7 +280,6 @@ export default {
       }
       return data
     },
-
     inputErrors() {
       let errors = []
       for (var i = 0; i < this.validation.length; i++) {
@@ -384,87 +291,15 @@ export default {
     },
     inputValue: {
       get() {
-        if (this.getType === 'ds-date') {
-          if (!this.value || isNaN(this.value)) {
-            return ''
-          }
-          return this.value.toLocaleDateString(this.locale)
-        }
-
         return this.value
       },
       set(value) {
-        if (this.getType === 'ds-date') {
-          return
-        }
-
         this.$emit('input', value)
         this.$emit('change', value)
-      }
-    },
-    datepickerValue: {
-      get() {
-        if (this.value && !isNaN(this.value)) {
-          return this.value
-        }
-        let date = new Date()
-        if (this.datepickerMax && date.getTime() > this.datepickerMax.getTime()) {
-          return this.datepickerMax
-        }
-        if (this.datepickerMin && date.getTime() < this.datepickerMin.getTime()) {
-          return this.datepickerMin
-        }
-        return date
-      },
-      set(value) {
-        this.datepickerVisible = false
-        this.$emit('input', value)
-        this.$emit('change', value)
-      }
-    },
-    dateRangeStart_() {
-      return this.dateRangeStart || new Date()
-    },
-    datepickerMin() {
-      if (this.dateRange && this.dateRange.min != null) {
-        let minDate = new Date(this.dateRangeStart_)
-        minDate.setDate(minDate.getDate() - this.dateRange.min)
-        return minDate
-      }
-      return this.minDate
-    },
-    datepickerMax() {
-      if (this.dateRange && this.dateRange.max != null) {
-        let maxDate = new Date(this.dateRangeStart_)
-        maxDate.setDate(maxDate.getDate() + this.dateRange.max)
-        return maxDate
-      }
-      return this.maxDate
-    },
-    isMobile() {
-      return this.windowWidth <= DesktopWidth
-    },
-    getDatepickerPosition() {
-      if (this.datePositionChangeable) {
-        return this.isMobile ? this.positions[1] : this.positions[0]
-      } else {
-        return this.datepickerPosition
-      }
-    },
-    activeDatepickerComponent() {
-      if (this.getDatepickerPosition === 'modal') {
-        return 'Dialog'
-      } else if (this.getDatepickerPosition !== 'modal') {
-        return 'Dropdown'
-      } else {
-        return void 0
       }
     },
     getType() {
       return `ds-${this.type}`
-    },
-    checkSetClickEvent() {
-      return 'click'
     },
     checkMaxLength() {
       return (this.type === 'text' || this.type === 'password' || this.type === 'number' || this.type === 'number-dot' ||
@@ -511,24 +346,12 @@ export default {
     onInputClick(e) {
       this.$emit('click', e)
     },
-    onInputPrevent(event, callInputFocus) {
-      if (this.getType === 'ds-date') {
-        event.preventDefault()
-        if (callInputFocus) {
-          this.inputFocus()
-        }
-      }
-    },
     inputFocus() {
       if (this.slideLabel) {
         this.labelFocus = true;
         this.slideActive = true;
       }
 
-      if (this.getType === 'ds-date') {
-        this.datepickerVisible = !this.datepickerVisible;
-        this.$refs.input.blur();
-      }
       this.$emit('inputFocus')
     },
     inputBlur() {
@@ -553,9 +376,6 @@ export default {
         this.slideActive = true;
       }
     },
-    onResize() {
-      this.windowWidth = window.innerWidth
-    },
     onKeyPress(event) {
       event = event ? event : window.event
       let charCode = event.which ? event.which : event.keyCode
@@ -575,18 +395,6 @@ export default {
       this.timeoutId = setTimeout(() => {
         this.$emit('lastKeyDownDelay')
       }, 300)
-    },
-    setOverflow(mobileMode) {
-      if (this.datepickerVisible) {
-        if (mobileMode && this.getDatepickerPosition === 'modal') {
-          document.body.style.overflowY = 'hidden';
-        } else {
-          document.body.style.overflowY = 'auto';
-        }
-      } else {
-        document.body.style.overflowY = 'auto';
-      }
-      document.body.style.overflowX = 'hidden';
     },
     setValidity(field, value) {
       const orgValidators = cloneDeep(this.validators)
@@ -657,21 +465,8 @@ export default {
       }
 
       this.checkBacklight()
-
       this.slideInit()
       this.$emit('validation', this.validation)
-    },
-    isMobile(value) {
-      this.setOverflow(value);
-    },
-    datepickerVisible(value) {
-      if (!value) {
-        setTimeout(() => {
-          document.body.removeAttribute('style')
-        }, 300)
-      }
-      this.setOverflow(this.isMobile);
-      this.$emit('datepickerVisible', value);
     },
     showValidCheck(value) {
       if (value) {
@@ -687,10 +482,6 @@ export default {
   beforeDestroy() {
     if (this.name) {
       document.removeEventListener(this.validateEventName, this.validate);
-    }
-
-    if (this.datePositionChangeable) {
-      window.removeEventListener('resize', this.onResize)
     }
 
     document.removeEventListener('validate', this.validate);
@@ -716,7 +507,7 @@ export default {
     }
   }
 
-  &.ds-text, &.ds-date, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
+  &.ds-text, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
     .ds-label-text {
       .font-desktop-x-small-regular-gray();
       height: 16px;
@@ -760,10 +551,6 @@ export default {
 
       &.ds-label-focus {
         color: @color-dark;
-      }
-
-      &.ds-slide-label-date {
-        cursor: pointer;
       }
     }
 
@@ -822,15 +609,6 @@ export default {
       }
     }
 
-    input[type="date"]::-webkit-inner-spin-button,
-    input[type="date"]::-webkit-clear-button,
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-      color: rgba(0,0,0,0);
-      opacity: 0;
-    }
-
     input + .icon-wrapper {
         pointer-events: none;
         position: absolute;
@@ -856,12 +634,6 @@ export default {
   &.ds-has-label {
     input + .icon-wrapper {
       bottom: 8%;
-    }
-  }
-
-  &.ds-date {
-    input {
-      cursor: pointer;
     }
   }
 
@@ -929,8 +701,7 @@ export default {
   }
 
   &.ds-lg {
-
-    &.ds-text, &.ds-date, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
+    &.ds-text, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
       .ds-label-text {
         font-size: 14px;
         line-height: 16px;

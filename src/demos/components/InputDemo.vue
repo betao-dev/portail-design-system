@@ -114,56 +114,7 @@
         v-model="textValue"
       />
       <Input slideLabel md label="Slide label" v-model="slideTextValue"/>
-      <br />
-
-      Date inputs:<br />
-      <Input
-        md
-        type="date"
-        label="Date input"
-        v-model="dateValue"
-      />
-      <Input
-        md
-        type="date"
-        label="Min and max dates"
-        placeholder="Date"
-        :minDate="new Date('2019-02-16')"
-        :maxDate="new Date('2019-02-25')"
-        v-model="dateValue2"
-      />
-      <Input
-        md
-        type="date"
-        label="N days min/max range"
-        :datepickerBorderColorDesktop="borderColor"
-        placeholder="Date"
-        :dateRange="{min: 5, max: 10}"
-        v-model="dateValue3"
-      />
-      <Input
-        md
-        type="date"
-        label="Modal"
-        datepickerPosition="modal"
-        placeholder="Date"
-        v-model="dateValue"
-      />
-      <Input
-        md
-        type="date"
-        label="Changeable datepicker"
-        datepickerPosition="default modal"
-        :datepickerBackgroundColor="datepickerBackgroundColor"
-        :datepickerBackdropOpacity="datepickerBackdropOpacity"
-        :datepickerWrapperStyleObject="datepickerWrapperStyleObject"
-        :datepickerFullWidth="datepickerFullWidth"
-        :datepickerBorderColorDesktop="borderColor"
-        datePositionChangeable
-        placeholder="Date"
-        v-model="dateValue"
-      />
-      <br />
+      <br/>
 
       <Input
         md
@@ -186,7 +137,6 @@
         help="This is an explanation of what the field is used for."
       />
 
-
       <Input
         md
         v-model="cardNumber"
@@ -194,7 +144,6 @@
         :maxlength="19"
         label="Card number"
       />
-
       <br/>
 
       <Input
@@ -205,7 +154,7 @@
         placeholder="Placeholder"
         label="New Password"
         :validators="passwordValidators"
-        :show-errors="passwordShowErrors.firstField"
+        :show-validations="passwordShowErrors.firstField"
         @lastKeyDownDelay="onlastKeyDownDelay('firstField')"
       />
 
@@ -217,7 +166,7 @@
         placeholder="Placeholder"
         label="Confirm the new password"
         :validators="confirmPasswordValidators"
-        :show-errors="passwordShowErrors.secondField"
+        :show-validations="passwordShowErrors.secondField"
         @lastKeyDownDelay="onlastKeyDownDelay('secondField')"
       />
       <br />
@@ -248,16 +197,6 @@ export default {
     maskValue: '',
     currencyValue: 20,
     slideTextValue: 'Test text',
-    dateValue: new Date(),
-    dateValue2: null,
-    dateValue3: null,
-    demoValidatorForSelect: [
-      {
-        name: 'required',
-        message: 'The field is required',
-        validator: value => !!value
-      }
-    ],
     demoValidators: [
       {
         name: 'required',
@@ -288,13 +227,6 @@ export default {
         validator: (value, confirmPassword) => !_.isUndefined(value) && !_.isUndefined(confirmPassword) && (value == confirmPassword)
       }
     ],
-    borderColor: '#e6e7eb',
-    datepickerBackgroundColor: '#fff',
-    datepickerBackdropOpacity: '0.8',
-    datepickerWrapperStyleObject: {
-      alignItems: 'flex-end'
-    },
-    datepickerFullWidth: true,
     cvvValue: null,
     cardNumber: null,
     password: undefined,
