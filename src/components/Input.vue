@@ -18,7 +18,7 @@
            :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus,
                     'ds-label-error': inputErrors.length && touched && showValidations},
                     slideActive ? 'ds-slide-label-active' : slideLabel ? 'ds-slide-label-inactive' : '']">
-          {{ label  }} {{required ? '*' : ''}}
+        <span class="ds-main-label">{{ label  }} {{required ? '*' : ''}}</span>
 
         <Icon class="ds-input-label-icon"
               v-if="labelIcon"
@@ -26,6 +26,35 @@
               :color="labelIconColor"
               :source="labelIcon"
         />
+
+        <span
+          v-if="help || $slots.help"
+          class="ds-help-label"
+          ref="helpLabel"
+          @mouseover="helpVisible = true"
+        >
+          <Popper
+            trigger="hover"
+            :delay-on-mouse-over="0"
+            :delay-on-mouse-out="0"
+            :options="{
+              modifiers: { offset: offset }
+            }"
+          >
+            <div class="reference" slot="reference">
+              <Icon help_outline color="gray-500" size="18px"></Icon>
+            </div>
+
+            <div class="popper">
+              <template v-if="$slots.help">
+                <slot name="help"></slot>
+              </template>
+              <template v-else>
+                {{ help }}
+              </template>
+            </div>
+          </Popper>
+        </span>
       </div>
 
       <Icon :size="iconSize"
@@ -107,18 +136,6 @@
         <span v-if="subLabel && !(inputErrors.length && touched)" class="ds-sub-label">
           {{subLabel}}
         </span>
-        <span
-          v-show="help && !(inputErrors.length && touched) && !subLabel"
-          class="ds-help-label"
-          ref="helpLabel"
-          @mouseover="helpVisible = true"
-        >
-          <Icon help_outline color="gray-500" size="18px"></Icon>
-          {{ helpLabel }}
-          <Dropdown :target="$refs.helpLabel" :opened.sync="helpVisible" just-fade>
-            <Tooltip v-html="help" />
-          </Dropdown>
-        </span>
       </div>
     </label>
   </div>
@@ -126,22 +143,19 @@
 
 <script>
 import { cloneDeep } from 'lodash'
+import Popper from 'vue-popperjs';
 import Icon from './Icon'
-import Tooltip from './Tooltip'
+import 'vue-popperjs/dist/vue-popper.css';
 
 import _ from 'lodash'
 
 export default {
   name: 'Input',
-  components: {Icon, Tooltip},
+  components: {Icon, Popper},
   props: {
     disabled: Boolean,
     help: String,
     name:  String,
-    helpLabel: {
-      type: String,
-      default: 'Explication'
-    },
     icon: String,
     iconLeft: String,
     iconSize: {
@@ -220,6 +234,7 @@ export default {
     validationTimeoutId: undefined,
     validBacklight: false,
     invalidBacklight: false,
+    offset: {offset: '0, 10px'},
     id: Math.random().toString(36).substring(7),
     inputId: Math.random().toString(36).substring(7)
   }),
@@ -510,14 +525,150 @@ export default {
   &.ds-text, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
     .ds-label-text {
       .font-desktop-x-small-regular-gray();
+      display: flex;
+      align-items: center;
       height: 16px;
       margin-bottom: 4px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      .ds-input-label-icon {
-        margin-left: 2px;
+      .ds-main-label {
+        margin-right: 2px;
+      }
+
+      .ds-help-label {
+        cursor: pointer;
+        color: @color-gray-500;
+        font-family: Roboto, sans-serif;
+        font-size: 12px;
+        line-height: 14px;
+
+        &::v-deep {
+          .popper {
+            background-color: @color-gray-500;
+            border-radius: 2px;
+            color: @color-white;
+            border: solid 1px @color-gray-500;
+            font-family: @font-family;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 8px;
+            position: relative;
+            text-align: left;
+            box-shadow: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            max-width: 330px;
+            min-width: 300px;
+            width: auto;
+            white-space: initial;
+
+            &[x-placement^="bottom"] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  top: -10px;
+                  border-bottom: 15px solid @color-gray-500;
+                  border-right: 10px solid transparent;
+                  border-left: 10px solid transparent;
+                  z-index: 1;
+                }
+
+                &:after {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  top: -8px;
+                  border-bottom: 15px solid @color-gray-500;
+                  border-right: 10px solid transparent;
+                  border-left: 10px solid transparent;
+                  z-index: 2;
+                }
+              }
+            }
+
+            &[x-placement^="top"] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  bottom: -10px;
+                  border-top: 15px solid @color-gray-500;
+                  border-right: 10px solid transparent;
+                  border-left: 10px solid transparent;
+                  z-index: 1;
+                }
+
+                &:after {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  bottom: -8px;
+                  border-top: 15px solid @color-gray-500;
+                  border-right: 10px solid transparent;
+                  border-left: 10px solid transparent;
+                  z-index: 2;
+                }
+              }
+            }
+
+            &[x-placement^="left"] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  right: -10px;
+                  border-left: 15px solid @color-gray-500;
+                  border-top: 10px solid transparent;
+                  border-bottom: 10px solid transparent;
+                  z-index: 1;
+                }
+
+                &:after {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  right: -8px;
+                  border-left: 15px solid @color-gray-500;
+                  border-top: 10px solid transparent;
+                  border-bottom: 10px solid transparent;
+                  z-index: 2;
+                }
+              }
+            }
+
+            &[x-placement^="right"] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  left: -10px;
+                  border-right: 15px solid @color-gray-500;
+                  border-top: 10px solid transparent;
+                  border-bottom: 10px solid transparent;
+                  z-index: 1;
+                }
+
+                &:after {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  left: -8px;
+                  border-right: 15px solid @color-gray-500;
+                  border-top: 10px solid transparent;
+                  border-bottom: 10px solid transparent;
+                  z-index: 2;
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -659,7 +810,7 @@ export default {
     max-width: 100%;
   }
 
-  .ds-help-label, .ds-sub-label {
+  .ds-sub-label {
     cursor: pointer;
     color: @color-gray-500;
     font-family: Roboto, sans-serif;
