@@ -28,7 +28,7 @@
         />
 
         <span
-          v-if="help"
+          v-if="help || $slots.help"
           class="ds-help-label"
           ref="helpLabel"
           @mouseover="helpVisible = true"
@@ -46,7 +46,12 @@
             </div>
 
             <div class="popper">
-              {{ help }}
+              <template v-if="$slots.help">
+                <slot name="help"></slot>
+              </template>
+              <template v-else>
+                {{ help }}
+              </template>
             </div>
           </Popper>
         </span>
@@ -546,8 +551,8 @@ export default {
             color: @color-white;
             border: solid 1px @color-gray-500;
             font-family: @font-family;
-            font-size: 14px;
-            line-height: 18px;
+            font-size: 12px;
+            line-height: 16px;
             padding: 8px;
             position: relative;
             text-align: left;

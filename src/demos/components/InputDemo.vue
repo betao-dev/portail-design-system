@@ -68,17 +68,20 @@
       <Input sm label="Small" v-model="textValue" required/>
       <Input md label="Medium" v-model="textValue" required/>
       <Input lg icon="search-solid" icon-size="16px" label="Large" v-model="textValue"/>
-      <Input md label="Mask: 12/20" v-mask="'##/##'" v-model="maskValue"/>
+      <Input md label="Mask: 12/20" v-mask="'##/##'" v-model="maskValue" />
+      <!-- eslint-disable -->
       <Input
         md
-        help="This is an explanation of what the field is used for."
         icon="search-solid"
         icon-color="gray-500"
         icon-size="18px"
         label="Icon, placeholder and help text"
         placeholder="Search"
         v-model="textValue"
-      />
+      >
+        <div slot="help">This is an explanation of what the field is used for.</div>
+      <!-- eslint-disable-next-line vue/max-attributes-per-line -->
+      </Input>
 
       <Input
         md
