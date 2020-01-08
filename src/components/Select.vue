@@ -6,8 +6,8 @@
           class="ds-drop-icon"/>
     <input
       :class="['ds-select', {
-        'ds-error': checkError,
-        'ds-valid': !checkError && touched,
+        'ds-error': checkError && showValidations,
+        'ds-valid': !checkError && touched && showValidations,
       }]"
       type="text"
       ref="dsSelect"
@@ -105,6 +105,10 @@
       emitFullOption: {
         type: Boolean,
         default: false
+      },
+      showValidations: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
