@@ -36,6 +36,7 @@
       :position="dropdownPosition"
       :style="{overflow: optionsOverflow}"
       class="ds-options"
+      just-fade
     >
       <div
         class="ds-option-wrapper"
