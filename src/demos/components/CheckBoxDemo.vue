@@ -9,7 +9,13 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <CheckBox v-model="value" label="Client international"></CheckBox>
+    <div>
+      <CheckBox v-model="value" label="Client international"></CheckBox>
+    </div>
+
+    <div>
+      <CheckBox v-model="value" label="Checkbox Demo"  help="how are you ?"></CheckBox>
+    </div>
   </div>
 </template>
 

@@ -534,7 +534,7 @@ export default {
       white-space: nowrap;
 
       .ds-main-label {
-        margin-right: 2px;
+        margin-right: 5px;
       }
 
       .ds-help-label {
@@ -553,7 +553,7 @@ export default {
             font-family: @font-family;
             font-size: 12px;
             line-height: 16px;
-            padding: 8px;
+            padding: 16px;
             position: relative;
             text-align: left;
             box-shadow: none;
@@ -570,10 +570,10 @@ export default {
                   content: '';
                   position: absolute;
                   left: -10px;
-                  top: -10px;
+                  top: -5px;
                   border-bottom: 15px solid @color-gray-500;
-                  border-right: 10px solid transparent;
-                  border-left: 10px solid transparent;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
                   z-index: 1;
                 }
 
@@ -581,10 +581,10 @@ export default {
                   content: '';
                   position: absolute;
                   left: -10px;
-                  top: -8px;
+                  top: -5px;
                   border-bottom: 15px solid @color-gray-500;
-                  border-right: 10px solid transparent;
-                  border-left: 10px solid transparent;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
                   z-index: 2;
                 }
               }
@@ -596,10 +596,10 @@ export default {
                   content: '';
                   position: absolute;
                   left: -10px;
-                  bottom: -10px;
+                  bottom: -5px;
                   border-top: 15px solid @color-gray-500;
-                  border-right: 10px solid transparent;
-                  border-left: 10px solid transparent;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
                   z-index: 1;
                 }
 
@@ -607,10 +607,10 @@ export default {
                   content: '';
                   position: absolute;
                   left: -10px;
-                  bottom: -8px;
+                  bottom: -5px;
                   border-top: 15px solid @color-gray-500;
-                  border-right: 10px solid transparent;
-                  border-left: 10px solid transparent;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
                   z-index: 2;
                 }
               }
@@ -621,11 +621,11 @@ export default {
                 &:before {
                   content: '';
                   position: absolute;
-                  top: -10px;
+                  top: -5px;
                   right: -10px;
                   border-left: 15px solid @color-gray-500;
-                  border-top: 10px solid transparent;
-                  border-bottom: 10px solid transparent;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
                   z-index: 1;
                 }
 
@@ -633,10 +633,10 @@ export default {
                   content: '';
                   position: absolute;
                   top: -10px;
-                  right: -8px;
+                  right: -5px;
                   border-left: 15px solid @color-gray-500;
-                  border-top: 10px solid transparent;
-                  border-bottom: 10px solid transparent;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
                   z-index: 2;
                 }
               }
@@ -648,10 +648,10 @@ export default {
                   content: '';
                   position: absolute;
                   top: -10px;
-                  left: -10px;
+                  left: -5px;
                   border-right: 15px solid @color-gray-500;
-                  border-top: 10px solid transparent;
-                  border-bottom: 10px solid transparent;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
                   z-index: 1;
                 }
 
@@ -659,10 +659,10 @@ export default {
                   content: '';
                   position: absolute;
                   top: -10px;
-                  left: -8px;
+                  left: -5px;
                   border-right: 15px solid @color-gray-500;
-                  border-top: 10px solid transparent;
-                  border-bottom: 10px solid transparent;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
                   z-index: 2;
                 }
               }

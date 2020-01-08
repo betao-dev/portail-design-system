@@ -1,11 +1,6 @@
 {
   "properties": [
     {
-      "name": "type",
-      "type": "String",
-      "description": "If type is mini, this will only show the tooltop contents, if not, this will work with popper"
-    },
-    {
       "name": "placement",
       "type": "String",
       "description": "alignment of the tooltip from referenced component"
@@ -14,56 +9,7 @@
       "name": "offset",
       "type": "Object",
       "description": "We can handle the position of tooltip with this property from the reference element"
-    },
-    {
-      "name": "forceShow",
-      "type": "Boolean",
-      "description": "If this property is true, show tooltip"
-    },
-    {
-      "name": "margin",
-      "type": "String",
-      "description": "Set margin of tooltip"
-    },
-    {
-      "name": "popoverWidth",
-      "type": "String",
-      "description": "Setup tooltip width"
-    },
-
-    {
-      "name": "poperHeight",
-      "type": "String",
-      "description": "Setup tooltip height"
-    },
-    {
-      "name": "poperPadding",
-      "type": "String",
-      "description": "Setup tooltip padding"
-    },
-    {
-      "name": "poperMargin",
-      "type": "String",
-      "description": "Setup tooltip margin"
-    },
-    {
-      "name": "poperBoxSizing",
-      "type": "String",
-      "description": "Setup tooltip box-sizing"
     }
   ],
-  "events": [
-    {
-      "name": "update:forceshow",
-      "description": "Emit event to show or hide tooltip"
-    },
-    {
-      "name": "onMouseOver",
-      "description": "Event Emitted when users move their mouses over the reference"
-    },
-    {
-      "name": "onMouseOut",
-      "description": "Event Emitted when users move their mouses out of the reference"
-    }
-  ]
+  "events": []
 }

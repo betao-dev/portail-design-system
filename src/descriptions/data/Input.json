@@ -8,18 +8,12 @@
     {
       "name": "help",
       "type": "String",
-      "description": "Text for the tooltip at the bottom of the input"
+      "description": "Text for the tooltip next to the label"
     },
     {
       "name": "name",
       "type": "String",
       "description": "With this property current input listen event validateTest"
-    },
-    {
-      "name": "helpLabel",
-      "type": "String",
-      "default": "Explication",
-      "description": "Text for the tooltip label."
     },
     {
       "name": "icon",
