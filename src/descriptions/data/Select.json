@@ -70,6 +70,12 @@
       "name": "optionsOverflow",
       "type": "String",
       "description": "Set overflow for options list of the select"
+    },
+    {
+      "name": "showValidations",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for displaying validation of input"
     }
   ],
   "events": [
