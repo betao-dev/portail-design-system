@@ -879,7 +879,6 @@ export default {
     }
 
     input + .icon-wrapper {
-      pointer-events: none;
       position: absolute;
       bottom: 24%;
       right: 15px;
