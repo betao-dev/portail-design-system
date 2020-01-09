@@ -22,7 +22,7 @@
         >
           <div class="ds-title-wrapper" @click="sorting(header)">
             <span class="ds-header-title">{{header.title}}</span>
-            <Icon color="#778CA2" v-if="sortKey === header.key" :source="sortType === '+' ? 'arrow_upward' : 'arrow_downward'" size="20px" />
+            <Icon color="#778CA2" v-if="sortKey === header.key" :source="sortType === '+' ? 'arrow_upward' : 'arrow_downward'" size="16px" />
           </div>
           <slot :name="getFilterSlotName(header)"></slot>
         </div>
@@ -192,12 +192,16 @@
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          align-self: center;
           cursor: pointer;
           padding-right: 16px;
           box-sizing: border-box;
 
           .ds-title-wrapper {
+            display: flex;
+            align-items: center;
             width: 100%;
+            height: 20px;
             margin-bottom: 8px;
 
             .ds-header-title {
