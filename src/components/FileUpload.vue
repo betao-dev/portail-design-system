@@ -42,7 +42,7 @@
     </vue-dropzone>
 
     <vue-dropzone v-else :options="fileUploadOptions" id="ds-file-upload" :style="wrapperStyles" :useCustomSlot="true">
-      <div v-if="!inputValue || !preview " class="ds-dropzone-custom-content">
+      <div v-if="checkEmptyFile || !preview " class="ds-dropzone-custom-content">
         <div class="ds-icon-wrapper">
           <Icon
             v-if="icon"
@@ -82,7 +82,7 @@
 import Icon from './Icon.vue'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
-import { isEqual } from 'lodash'
+import { isEqual, isEmpty } from 'lodash'
 
 export default {
   name: "FileUpload",
@@ -142,7 +142,7 @@ export default {
 
           setTimeout(() => {
             if (!this.multiple) {
-              this.inputValue = file
+              this.inputValue = file.dataURL
             } else {
               this.inputValue.push(file)
             }
@@ -189,6 +189,10 @@ export default {
     }
   },
   computed: {
+    checkEmptyFile() {
+      if (isEmpty(this.inputValue)) return true
+      return false
+    },
     fileUploadOptions() {
       return { ...this.uploadOptions, ...this.mainOptions }
     },
