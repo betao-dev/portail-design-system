@@ -17,10 +17,10 @@
       <Card class="ds-header-wrapper">
         <div class="ds-header"
           v-for="(header, index) in headers"
-          :style="getFlex(header)"
+          :style="getStyles(header)"
           :key="index"
         >
-          <div class="ds-title-wrapper" @click="sorting(header)">
+          <div class="ds-title-wrapper" @click="sorting(header)" v-if="header.title">
             <span class="ds-header-title">{{header.title}}</span>
             <Icon color="#778CA2" v-if="sortKey === header.key" :source="sortType === '+' ? 'arrow_upward' : 'arrow_downward'" size="16px" />
           </div>
@@ -39,7 +39,7 @@
         <div class="ds-data-wrapper">
           <span
             v-for="(header, index) in headers"
-            :style="getFlex(header)"
+            :style="getStyles(header)"
             :key="index"
           >
             <slot :name="getSlotName(header)"
@@ -112,16 +112,11 @@
         const slotName = `cell-${header.key}`
         return !!this.$scopedSlots[slotName]
       },
-      getFlex(header) {
-        if (header.width) {
-          return {
-            flexBasis: header.width
-          }
-        } else {
-          return {
-            flex: 1
-          }
-        }
+      getStyles(header) {
+        let styles = {}
+        header.width ? styles.flexBasis = header.width : styles.flex = 1
+        styles.minWidth = header.minWidth
+        return styles
       },
       onClick(data, dataIndex) {
         if (this.identifierField) {
