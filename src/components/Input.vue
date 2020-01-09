@@ -119,12 +119,12 @@
       />
 
       <Icon
-        v-if="icon && showIcon"
+        v-if="getIcon && showIcon"
         :size="iconSize"
         :color="iconColor"
         :class="['ds-general-icon', {'active-icon': activeIcon}]"
         :style="generalIconStyle"
-        :source="icon"
+        :source="getIcon"
         :padding="iconPadding"
         @click="onIconClick"
       />
@@ -236,7 +236,8 @@ export default {
     invalidBacklight: false,
     offset: {offset: '0, 10px'},
     id: Math.random().toString(36).substring(7),
-    inputId: Math.random().toString(36).substring(7)
+    inputId: Math.random().toString(36).substring(7),
+    showPassword: false
   }),
   mounted() {
     if (this.name) {
@@ -260,7 +261,7 @@ export default {
   computed: {
     inputAttrs() {
       return {
-        type: this.type === 'number' ? 'text' : this.type,
+        type: this.type === 'number' || (this.type === 'password' && this.showPassword) ? 'text' : this.type,
         placeholder: this.placeholder,
         disabled: this.disabled
       }
@@ -315,6 +316,17 @@ export default {
     },
     getType() {
       return `ds-${this.type}`
+    },
+    getIcon() {
+      if (this.type === 'password') {
+        if (this.showPassword) {
+          return 'lock'
+        } else {
+          return 'eye'
+        }
+      }
+
+      return this.icon
     },
     checkMaxLength() {
       return (this.type === 'text' || this.type === 'password' || this.type === 'number' || this.type === 'number-dot' ||
@@ -446,6 +458,9 @@ export default {
       this.inputValue = typeof value === 'string' ? value.slice(0, this.maxlength) : value
     },
     onIconClick() {
+      if (this.type === 'password') {
+        this.showPassword = !this.showPassword
+      }
       this.$emit('icon-click')
     },
     setTouched(touched) {
@@ -761,7 +776,6 @@ export default {
     }
 
     input + .icon-wrapper {
-        pointer-events: none;
         position: absolute;
         bottom: 24%;
         right: 6px;
