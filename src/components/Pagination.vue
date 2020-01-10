@@ -156,6 +156,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
 
         &.disabled {
           opacity: 0.5;
