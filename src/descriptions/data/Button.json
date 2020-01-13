@@ -80,6 +80,11 @@
       "type": "String",
       "default": "8px",
       "description": "Set space between icons and text of button"
+    },
+    {
+      "name": "width",
+      "type": "String",
+      "description": "Set button width"
     }
   ],
   "events": [
