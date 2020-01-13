@@ -29,7 +29,7 @@
                                'ds-button-link-ico': linkIco, 'ds-button-alt-two': altTwo}]"
         :disabled="disabled"
         :target="target"
-        :style="{padding, color: getTextColor}"
+        :style="{padding, width, color: getTextColor}"
       >
         <Icon
           v-if="icon"
@@ -58,7 +58,7 @@
                                'ds-button-alt': alt, 'ds-button-plain': plain, 'ds-button-plain-two': plainTwo,
                                'ds-button-alt-two': altTwo}]"
         :disabled="disabled"
-        :style="{padding, color: getTextColor}"
+        :style="{padding, width, color: getTextColor}"
       >
         <Icon
           v-if="icon"
@@ -107,6 +107,7 @@ export default {
     mobileBottom: Boolean,
     padding: String,
     color: String,
+    width: String,
     spaceBetween: {
       type: String,
       default: '8px'
