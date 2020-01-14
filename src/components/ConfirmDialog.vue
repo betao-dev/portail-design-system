@@ -18,11 +18,11 @@
       </div>
 
       <div class="ds-confirm-footer">
-        <Button @click="updateOpenStatus(false)" alt>{{ rejectLabel }}</Button>
+        <Button big padding="15px 40px" @click="updateOpenStatus(false)" alt>{{ rejectLabel }}</Button>
         <template v-if="extraButton">
-          <Button @click="extraButtonClick">{{ extraButtonLabel }}</Button>
+          <Button big padding="15px 40px" @click="extraButtonClick">{{ extraButtonLabel }}</Button>
         </template>
-        <Button @click="acceptStatus">{{ acceptLabel }}</Button>
+        <Button big padding="15px 40px" @click="acceptStatus">{{ acceptLabel }}</Button>
       </div>
     </div>
   </Dialog>
@@ -97,9 +97,9 @@ export default {
 @import "../styles/vars";
 
 .ds-confirm-wrapper {
-  padding: 40px 40px 32px 40px;
+  padding: 40px 28px;
   box-sizing: border-box;
-  font-family: Lato;
+  font-family: Roboto, sans-serif;
 
   @media @screen-small {
     width: 100% !important;
@@ -107,17 +107,17 @@ export default {
   }
 
   .ds-confirm-header {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 28px;
-    color: #3F4352;
-    font-weight: 600;
-    margin-bottom: 8px;
+    color: @color-dark;
+    text-align: center;
   }
 
   .ds-confirm-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    margin-top: 24px;
 
     .ds-button-link-wrapper {
       margin-left: 16px;
@@ -125,7 +125,6 @@ export default {
   }
 
   .ds-confirm-body {
-    margin-bottom: 32px;
     color: #3F4352;
     font-size: 16px;
     line-height: 24px;

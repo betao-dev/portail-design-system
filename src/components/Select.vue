@@ -256,6 +256,15 @@
       .icon-wrapper {
         bottom: 12px;
       }
+
+      .ds-options {
+        padding: 12px 18px;
+
+        .ds-option-wrapper {
+          padding: 12px 0;
+          line-height: 22px;
+        }
+      }
     }
 
     &.ds-md {
@@ -342,7 +351,7 @@
       border: solid 1px #eee;
       background-color: white;
       z-index: 999;
-      max-height: 150px;
+      max-height: 204px;
       overflow-y: auto;
       overflow-x: hidden;
 
@@ -350,6 +359,9 @@
         padding: 5px 10px;
         cursor: pointer;
         text-align: left;
+        font-size: 14px;
+        line-height: 16px;
+        color: #1B1E24;
       }
     }
   }

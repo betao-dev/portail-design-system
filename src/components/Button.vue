@@ -184,7 +184,7 @@ export default {
   align-items: center;
 
   &.ds-button-big {
-    padding: 14px 24px;
+    padding: 15px 24px;
   }
 
   &.ds-button-small {
@@ -236,7 +236,8 @@ export default {
   &.ds-button-alt {
     .font-components-button-normal-alt();
     background: @color-white;
-    border: 1px solid @color-primary;
+    border: 2px solid @color-gray-300;
+    color: @color-gray-400;
     .ds-icon {
       fill: @color-primary;
     }
