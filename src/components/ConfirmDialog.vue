@@ -99,7 +99,7 @@ export default {
 .ds-confirm-wrapper {
   padding: 40px 28px;
   box-sizing: border-box;
-  font-family: Lato;
+  font-family: Roboto, sans-serif;
 
   @media @screen-small {
     width: 100% !important;
@@ -110,7 +110,6 @@ export default {
     font-size: 18px;
     line-height: 28px;
     color: @color-dark;
-    font-weight: 600;
     text-align: center;
   }
 
