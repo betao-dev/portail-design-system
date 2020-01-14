@@ -18,11 +18,11 @@
       </div>
 
       <div class="ds-confirm-footer">
-        <Button @click="updateOpenStatus(false)" alt>{{ rejectLabel }}</Button>
+        <Button big @click="updateOpenStatus(false)" alt>{{ rejectLabel }}</Button>
         <template v-if="extraButton">
-          <Button @click="extraButtonClick">{{ extraButtonLabel }}</Button>
+          <Button big @click="extraButtonClick">{{ extraButtonLabel }}</Button>
         </template>
-        <Button @click="acceptStatus">{{ acceptLabel }}</Button>
+        <Button big @click="acceptStatus">{{ acceptLabel }}</Button>
       </div>
     </div>
   </Dialog>
@@ -97,7 +97,7 @@ export default {
 @import "../styles/vars";
 
 .ds-confirm-wrapper {
-  padding: 40px 40px 32px 40px;
+  padding: 40px 28px;
   box-sizing: border-box;
   font-family: Lato;
 
@@ -107,16 +107,17 @@ export default {
   }
 
   .ds-confirm-header {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 28px;
-    color: #3F4352;
+    color: @color-dark;
     font-weight: 600;
     margin-bottom: 8px;
+    text-align: center;
   }
 
   .ds-confirm-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 
     .ds-button-link-wrapper {
