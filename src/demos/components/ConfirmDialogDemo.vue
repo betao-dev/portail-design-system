@@ -19,7 +19,7 @@
       :extraButton="true"
       acceptLabel="Accept"
       rejectLabel="Reject"
-      extraButtonLabel="New Action"
+      extraButtonLabel="Action"
       title="Dialog box title"
       @accept="accept"
     >
