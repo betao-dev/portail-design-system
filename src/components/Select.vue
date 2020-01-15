@@ -242,6 +242,7 @@
     position: relative;
     width: 252px;
     text-align: left;
+    font-family: Roboto, sans-serif;
 
     &.ds-lg {
       .ds-label {
@@ -362,6 +363,7 @@
         font-size: 14px;
         line-height: 16px;
         color: #1B1E24;
+        font-family: Roboto, sans-serif;
       }
     }
   }
