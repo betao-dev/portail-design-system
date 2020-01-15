@@ -46,7 +46,7 @@
           <template v-if="checkEmptyFile">
             <div class="ds-file-empty">
               <Icon source="cloud-upload-alt-solid" color="#778CA2" size="30px" />
-              <div>{{ dsTranslate('Add Logo') }}</div>
+              <div>Ajouter un logo</div>
             </div>
           </template>
 
