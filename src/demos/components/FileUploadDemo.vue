@@ -33,9 +33,11 @@
               icon="cloud_upload"
               iconSize="32px"
               title="Add your logo"
+              description="Click to upload a new picture"
               :preview="true"
               :validators="validators"
               :multiple="false"
+              imageType="circle"
             />
           </div>
         </div>

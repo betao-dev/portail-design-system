@@ -7,7 +7,6 @@
     :icon="icon"                      - Show Icon on the drop panel
     :iconSize="iconSize"              - Size of the Icon
     :title="title"                    - Show title on the drop panel
-    :preview="preview"                - If this property is true, Show preview images, default value is true
     :showErrors="true"                - If this property is true, Show errors under the Image, default value is true
     :validators:="validators"         - Input file validation
     @validation                       - Return validation status
@@ -17,7 +16,7 @@
 <template>
   <div class="ds-upload-wrapper">
     <vue-dropzone v-if="multiple" :options="fileUploadOptions" id="ds-file-upload" :style="wrapperStyles" :useCustomSlot="true">
-      <div v-if="inputValue.length === 0 || !preview " class="ds-dropzone-custom-content">
+      <div v-if="inputValue.length === 0" class="ds-dropzone-custom-content">
         <div class="ds-icon-wrapper">
           <Icon
             v-if="icon"
@@ -42,32 +41,31 @@
     </vue-dropzone>
 
     <vue-dropzone v-else :options="fileUploadOptions" id="ds-file-upload" :style="wrapperStyles" :useCustomSlot="true">
-      <div v-if="checkEmptyFile || !preview " class="ds-dropzone-custom-content">
-        <div class="ds-icon-wrapper">
-          <Icon
-            v-if="icon"
-            :source="icon"
-            :size="iconSize"
-          />
-        </div>
-
-        <div class="ds-title">
-          {{title}}
-        </div>
-      </div>
-
-      <div v-else class="ds-selected-files-wrapper">
+      <div class="ds-selected-files-wrapper">
         <div class="ds-file-wrapper">
-          <img width="100" height="100" :src="typeof inputValue === 'object' ? inputValue.dataURL : inputValue" />
-          <div class="cloud-icon-wrapper">
-            <Icon source="cloud-upload-alt-solid" color="white" size="18px" />
-          </div>
+          <template v-if="checkEmptyFile">
+            <div class="ds-file-empty">
+              <Icon source="cloud-upload-alt-solid" color="#778CA2" size="30px" />
+              <div>{{ dsTranslate('Add Logo') }}</div>
+            </div>
+          </template>
+
+          <template v-else>
+            <img :class="imageType" :src="typeof inputValue === 'object' ? inputValue.dataURL : inputValue" />
+            <div class="cloud-icon-wrapper">
+              <Icon source="cloud-upload-alt-solid" color="white" size="18px" />
+            </div>
+          </template>
+
           <div class="remove-icon-wrapper">
-            <Icon source="close" color="#ddd" size="24px" @click.prevent="removeFile(inputValue)" />
+            <Icon source="close" color="#ddd" size="24px" @click.stop="removeFile(inputValue)" />
           </div>
         </div>
 
-        <div class="ds-title-wrapper">{{ title }}</div>
+        <div class="ds-title-wrapper">
+          <div class="ds-title">{{ title }}</div>
+          <div v-if="!disabled" class="ds-description">{{ description }}</div>
+        </div>
       </div>
     </vue-dropzone>
 
@@ -94,12 +92,9 @@ export default {
     icon: String,
     iconSize: String,
     title: String,
+    description: String,
     value: [Array, File, String],
     validators: Array,
-    preview: {
-      type: Boolean,
-      default: true
-    },
     showErrors: {
       type: Boolean,
       default: true
@@ -108,14 +103,11 @@ export default {
       type: Boolean,
       default: true
     },
-    bgColor: {
-      type: String,
-      default: '#F8FAFB'
+    disabled: {
+      type: Boolean,
+      default: false
     },
-    borderColor: {
-      type: String,
-      default: '#F8FAFB'
-    }
+    imageType: String
   },
   data() {
     return {
@@ -226,10 +218,18 @@ export default {
       return errors
     },
     wrapperStyles() {
-      return {
-        backgroundColor: this.bgColor,
-        borderColor: this.borderColor
+      if (this.disabled) {
+        return {
+          backgroundColor: '#F8FAFB',
+          borderColor: '#F8FAFB',
+          pointerEvents: 'none'
+        }
       }
+
+      return {
+        backgroundColor: '#FFFFFF',
+        border: 'solid 1px #E8ECEF'
+      } 
     }
   },
   watch: {
@@ -249,12 +249,12 @@ export default {
 
 .ds-upload-wrapper {
   width: 100%;
+  font-family: @robotoFont;
 
   #ds-file-upload {
     width: 100%;
     position: relative;
-    min-height: @file-upload-panel-height; 
-    background-color: @color-gray-100;
+    min-height: @file-upload-panel-height;
     padding: 26px;
 
     .ds-dropzone-custom-content {
@@ -278,17 +278,34 @@ export default {
       justify-content: flex-start;
       align-items: center;
       flex-wrap: wrap;
+      font-family: @robotoFont;
 
       .ds-file-wrapper {
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-right: 24px;
         position: relative;
         height: 67px;
+
+        .ds-file-empty {
+          width: 122px;
+          height: 65px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-size: 12px;
+          background-color: white;
+          border: dashed 1px @color-gray-300;
+        }
 
         img {
           object-fit: cover;
           height: 67px;
           width: auto;
+
+          &.circle {
+            width: 67px;
+            border-radius: 35px;
+          }
         }
 
         .cloud-icon-wrapper {
@@ -319,16 +336,30 @@ export default {
       }
 
       .ds-title-wrapper {
-        font-size: 18px;
-        line-height: 21px;
-        color: @color-dark;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        .ds-title {
+          font-size: 18px;
+          line-height: 21px;
+          letter-spacing: 0.2px;
+          color: @color-dark;
+        }
+
+        .ds-description {
+          font-size: 14px;
+          line-height: 21px;
+          color: @color-gray-400;
+        }
       }
     }
   }
 
   .ds-errors {
     color: @color-red;
-    font-family: @font-family;
+    font-family: @robotoFont;
     font-size: 12px;
     overflow: hidden;
     white-space: nowrap;
