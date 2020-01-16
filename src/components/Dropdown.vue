@@ -55,7 +55,10 @@ export default {
   name: 'Dropdown',
   props: {
     target: null,
-    justFade: Boolean,
+    justFade: {
+      type: Boolean,
+      default: true
+    },
     justFadeIn: Boolean,
     justFadeOut: Boolean,
     position: {

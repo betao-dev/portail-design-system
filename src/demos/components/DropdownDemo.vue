@@ -20,6 +20,7 @@
       :target="$refs.dropButton"
       :opened.sync="dropdownOpened"
       :position="position"
+      :just-fade="false"
     >
       <div class="dropdown-content">
         Position:<br />
@@ -39,7 +40,6 @@
       :target="$refs.dropButton2"
       :opened.sync="dropdown2Opened"
       :position="position"
-      just-fade
     >
       <div class="dropdown-content">
         Hello!
@@ -54,6 +54,7 @@
       :target="$refs.hoverMe"
       :opened.sync="dropdown3Opened"
       :position="position"
+      :just-fade="false"
       just-fade-in
     >
       <div class="dropdown-content">
