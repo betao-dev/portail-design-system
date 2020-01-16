@@ -80,6 +80,11 @@
       "name": "minWidth",
       "type": "String",
       "description": "Set min-width of dialog component"
+    },
+    {
+      "name": "top",
+      "type": "String",
+      "description": "Set offset from the top for dialog component"
     }
   ],
   "events": []
