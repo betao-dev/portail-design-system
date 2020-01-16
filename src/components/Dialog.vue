@@ -34,8 +34,8 @@
     ></div>
       <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
                     'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
-                    'ds-dialog-datepicker-container': datepickerContainer}]"
-           :style="{borderColor, minHeight, minWidth, overflowY}"
+                    'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
+           :style="{borderColor, minHeight, minWidth, overflowY, top}"
            :id="idContent">
         <div :class="['ds-dialog-wrapper', {'ds-full-width': contentFullWidth}]">
           <slot></slot>
@@ -95,7 +95,8 @@
         default: false
       },
       minHeight: String,
-      minWidth: String
+      minWidth: String,
+      top: String
     },
     data: () => ({
       windowWidth: window.innerWidth,
@@ -353,6 +354,10 @@
       &.ds-dialog-datepicker-container {
         border-radius: 0;
         box-shadow: 0 -1px 1px 0 rgba(91,99,156,0.26);
+      }
+
+      &.ds-dialog-top-offset {
+        position: absolute;
       }
     }
 
