@@ -6,7 +6,8 @@
           'ds-sm': sm,
           'ds-md': md,
           'ds-lg': lg,
-          'ds-has-label': label
+          'ds-has-label': label,
+          'ds-input-error': inputError
         }
       ]"
     :style="{width}"
@@ -16,7 +17,7 @@
       <div v-if="label"
            :id="id"
            :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus,
-                    'ds-label-error': inputErrors.length && touched && showValidations},
+                    'ds-label-error': inputError},
                     slideActive ? 'ds-slide-label-active' : slideLabel ? 'ds-slide-label-inactive' : '']">
         <span class="ds-main-label">{{ label  }} {{required ? '*' : ''}}</span>
 
@@ -130,7 +131,7 @@
       />
 
       <div class="ds-drawer">
-        <span v-if="inputErrors.length && touched && showValidations" class="ds-error-message">
+        <span v-if="inputError" class="ds-error-message">
           {{ inputErrors[0] }}
         </span>
         <span v-if="subLabel && !(inputErrors.length && touched)" class="ds-sub-label">
@@ -358,6 +359,9 @@ export default {
     },
     showInvalidBlock() {
       return this.validationShown && this.inputErrors.length > 0
+    },
+    inputError() {
+      return this.inputErrors.length && this.touched && this.showValidations
     }
   },
   methods: {
@@ -522,6 +526,23 @@ export default {
 <style lang="less" scoped>
 @import '../styles/vars';
 @import '../styles/mixins';
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+.fade-in-animation() {
+  animation: fadeIn ease .75s;
+  -webkit-animation: fadeIn ease .75s;
+  -moz-animation: fadeIn ease .75s;
+  -o-animation: fadeIn ease .75s;
+  -ms-animation: fadeIn ease .75s;
+}
 
 .ds-input {
   display: inline-block;
@@ -757,11 +778,13 @@ export default {
       &.ds-error {
         border-color: @color-red;
         background-color: #ffedec;
+        .fade-in-animation();
       }
 
       &.ds-valid {
         border-color: @color-primary;
         background-color: #e9f8f3;
+        .fade-in-animation();
       }
 
       .placeholder-input(14px, @robotoFont, @color-gray-400, 16px);
@@ -800,6 +823,10 @@ export default {
     input + .icon-wrapper {
       bottom: 8%;
     }
+  }
+
+  &.ds-input-error {
+    padding-bottom: 10px;
   }
 
   .ds-drawer {
