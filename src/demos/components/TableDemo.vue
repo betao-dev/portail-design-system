@@ -103,7 +103,7 @@
         { key: 'earned', title: 'Earned', prefix: '€', sortable: true },
         { key: 'invoice_date', title: 'Date', sortable: true, filter: (value) => moment(value).format('DD-MM-YYYY') },
         { key: 'status', title: 'Status', badge: true },
-        { key: 'actions', title: '', width: '80px'}
+        { key: 'actions', title: '', width: '100px'}
       ],
       colors: COLORS_BY_STATUS,
       selectedPage: 1,

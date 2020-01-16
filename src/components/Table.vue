@@ -251,11 +251,11 @@
             }
 
             &:first-child {
-              padding-left: 12px;
+              padding-left: 24px;
             }
 
             &:last-child {
-              padding-right: 12px;
+              padding-right: 24px;
             }
           }
 
