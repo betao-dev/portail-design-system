@@ -100,6 +100,11 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for showing valid backlight"
+    },
+    {
+      "name": "width",
+      "type": "String",
+      "description": "Setup the width"
     }
   ],
   "events": [
