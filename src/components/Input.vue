@@ -199,7 +199,7 @@ export default {
     },
     maxlength: Number,
     pattern: RegExp,
-    confirmModel: null,
+    referenceModel: null,
     activeIcon: {
       type: Boolean,
       default: false
@@ -292,7 +292,7 @@ export default {
       for (var i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
-          this.validators[i].validator(this.inputValue, this.confirmModel),
+          this.validators[i].validator(this.inputValue, this.referenceModel),
         ])
       }
       return data
