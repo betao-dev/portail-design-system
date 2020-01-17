@@ -94,6 +94,12 @@
       "name": "maxLen",
       "type": "Number",
       "description": "Max length of inputted numbers"
+    },
+    {
+      "name": "showValidations",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for showing valid backlight"
     }
   ],
   "events": [
