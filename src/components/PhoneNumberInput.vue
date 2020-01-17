@@ -67,7 +67,7 @@
         :required="required"
         :autocomplete="autocomplete"
         :name="name"
-        :class="inputClasses"
+        :class="[inputClasses, {'ds-phone-number-input-valid': validationShown && validBacklight}]"
         :maxlength="maxLen"
         @blur="onBlur"
         @input="onInput"
@@ -170,14 +170,22 @@ export default {
       type: Number,
       default: 15,
     },
+    showValidations: {
+      type: Boolean,
+      default: true
+    }
   },
   mounted() {
     this.initializeCountry();
+    document.addEventListener('validate', this.validate);
   },
   created() {
     if (this.value) {
       this.phone = this.value;
     }
+  },
+  beforeDestroy() {
+    document.removeEventListener('validate', this.validate);
   },
   data() {
     return {
@@ -187,6 +195,9 @@ export default {
       selectedIndex: null,
       typeToFindInput: '',
       typeToFindTimer: null,
+      validationTimeoutId: undefined,
+      touched: false,
+      validBacklight: false
     };
   },
   computed: {
@@ -260,6 +271,9 @@ export default {
       }
       return response;
     },
+    validationShown() {
+      return this.showValidations && this.touched;
+    }
   },
   watch: {
     state(value) {
@@ -273,6 +287,9 @@ export default {
     value() {
       this.phone = this.value;
     },
+    phone() {
+      this.checkBacklight();
+    }
   },
   methods: {
     initializeCountry() {
@@ -335,6 +352,7 @@ export default {
       this.$emit('onInput', this.response);
     },
     onBlur() {
+      this.touched = true;
       this.$emit('onBlur');
     },
     toggleDropdown() {
@@ -404,6 +422,21 @@ export default {
           }
         }
       }
+    },
+    checkBacklight() {
+      this.validBacklight = true;
+
+      if (this.validationTimeoutId) {
+        clearTimeout(this.validationTimeoutId);
+      }
+
+      this.validationTimeoutId = setTimeout(() => {
+        this.validBacklight = false;
+      }, 2000);
+    },
+    validate() {
+      this.touched = true;
+      this.checkBacklight();
     }
   },
   directives: {
@@ -426,13 +459,14 @@ export default {
         el.__vueClickOutside__ = null
       }
     }
-  },
+  }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../styles/vars';
 @import '../styles/flags';
+@import '../styles/mixins';
 
 .ds-phone-numbuer-input {
   li.ds-last-preferred {
@@ -454,15 +488,18 @@ export default {
 
   .ds-label-text {
     .font-desktop-x-small-regular-gray();
+    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     height: @label-height;
-    margin-bottom: @label-margin-bottom;
+    margin-bottom: 14px;
   }
 
   .ds-vue-tel-input {
-    border-radius: @tel-input-radius;
+    height: 52px;
+    box-sizing: border-box;
+    border-radius: 4px;
     display: flex;
     border: @tel-input-border;
     text-align: left;
@@ -506,13 +543,24 @@ export default {
     }
 
     input {
-      border: none;
-      border-radius: @input-border-radius;
       width: 100%;
       outline: none;
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      .font-desktop-small-regular-dark();
+      border: none;
+      border-radius: 4px;
+      padding: 14px 16px 16px;
+      background-color: @color-white;
+      color: #1B1E24;
+      font-family: Roboto;
+      font-size: 14px;
+      line-height: 16px;
+
+      &.ds-phone-number-input-valid {
+        border-color: @color-primary;
+        background-color: #e9f8f3;
+        .fade-in-animation();
+      }
+
+      .placeholder-input(14px, @robotoFont, @color-gray-400, 16px);
     }
   }
 

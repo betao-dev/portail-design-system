@@ -527,23 +527,6 @@ export default {
 @import '../styles/vars';
 @import '../styles/mixins';
 
-@keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-.fade-in-animation() {
-  animation: fadeIn ease .75s;
-  -webkit-animation: fadeIn ease .75s;
-  -moz-animation: fadeIn ease .75s;
-  -o-animation: fadeIn ease .75s;
-  -ms-animation: fadeIn ease .75s;
-}
-
 .ds-input {
   display: inline-block;
 
