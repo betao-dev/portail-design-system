@@ -19,7 +19,7 @@
            :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus,
                     'ds-label-error': inputError},
                     slideActive ? 'ds-slide-label-active' : slideLabel ? 'ds-slide-label-inactive' : '']">
-        <span class="ds-main-label">{{ label  }} {{required ? '*' : ''}}</span>
+        <span class="ds-main-label">{{ label  }}</span>
 
         <Icon class="ds-input-label-icon"
               v-if="labelIcon"
