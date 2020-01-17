@@ -28,7 +28,7 @@
 -->
 
 <template>
-  <div class="ds-phone-numbuer-input">
+  <div class="ds-phone-numbuer-input" :style="{width}">
     <div class="ds-label-text">{{ label }}</div>
     <div :class="['ds-vue-tel-input', { 'ds-disabled': disabled }]" @keydown="keyboardNav">
       <div
@@ -173,7 +173,8 @@ export default {
     showValidations: {
       type: Boolean,
       default: true
-    }
+    },
+    width: String
   },
   mounted() {
     this.initializeCountry();
