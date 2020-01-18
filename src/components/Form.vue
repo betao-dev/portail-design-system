@@ -7,6 +7,10 @@
 </template>
 
 <script>
+import CustomEvent from 'custom-event';
+
+window.CustomEvent = CustomEvent;
+
 export default {
   name: 'Form',
   components: {},
