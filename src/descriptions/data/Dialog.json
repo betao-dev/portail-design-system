@@ -77,6 +77,11 @@
       "description": "Set min-height of dialog component"
     },
     {
+      "name": "maxHeight",
+      "type": "String",
+      "description": "Set max-height of dialog component"
+    },
+    {
       "name": "minWidth",
       "type": "String",
       "description": "Set min-width of dialog component"

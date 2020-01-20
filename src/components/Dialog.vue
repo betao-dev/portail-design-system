@@ -35,7 +35,7 @@
       <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
                     'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
                     'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
-           :style="{borderColor, minHeight, minWidth, overflowY, top}"
+           :style="{borderColor, minHeight, maxHeight, minWidth, overflowY, top}"
            :id="idContent">
         <div :class="['ds-dialog-wrapper', {'ds-full-width': contentFullWidth}]">
           <slot></slot>
@@ -95,6 +95,7 @@
         default: false
       },
       minHeight: String,
+      maxHeight: String,
       minWidth: String,
       top: String
     },
