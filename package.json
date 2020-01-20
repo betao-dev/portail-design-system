@@ -1,6 +1,6 @@
 {
   "name": "@betao/ds",
-  "version": "0.4.68",
+  "version": "0.4.69",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -79,6 +79,7 @@
   ],
   "dependencies": {
     "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
+    "custom-event": "^1.0.1",
     "libphonenumber-js": "^1.7.15",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
