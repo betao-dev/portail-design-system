@@ -42,7 +42,7 @@
           <span class="ds-country-code" v-if="enabledCountryCode">+{{ activeCountry.dialCode }}</span>
           <span class="ds-dropdown-arrow">{{ open ? '▲' : '▼' }}</span>
         </span>
-        <ul v-show="open" ref="list">
+        <ul v-show="open" ref="list" class="ds-phone-numbuer-input-list" :style="{height: listHeight}">
           <li
             class="ds-dropdown-item"
             v-for="(pb, index) in sortedCountries"
@@ -174,7 +174,8 @@ export default {
       type: Boolean,
       default: true
     },
-    width: String
+    width: String,
+    listHeight: String
   },
   mounted() {
     this.initializeCountry();
@@ -259,7 +260,7 @@ export default {
     response() {
       // If it is a valid number, returns the formatted value
       // Otherwise returns what it is
-      const response = {
+      let response = {
         number: this.state ? this.formattedResult : this.phone,
         isValid: this.state,
         country: this.activeCountry,
@@ -270,6 +271,12 @@ export default {
           formattedNumber: formatNumber(this.phone, this.activeCountry && this.activeCountry.iso2, 'International')
         })
       }
+
+      response.phone = {
+        countryCode: response.country.dialCode,
+        phoneNumber: response.number.replace(/[+ ]/g, '').slice(response.country.dialCode.length)
+      }
+
       return response;
     },
     validationShown() {
@@ -487,6 +494,11 @@ export default {
     align-items: center;
   }
 
+  .ds-phone-numbuer-input-list {
+    width: 100% !important;
+    top: 52px !important;
+  }
+
   .ds-label-text {
     .font-desktop-x-small-regular-gray();
     font-size: 14px;
@@ -504,6 +516,7 @@ export default {
     display: flex;
     border: @tel-input-border;
     text-align: left;
+    position: relative;
 
     &:focus-within {
       border-color: @color-primary;
@@ -514,7 +527,6 @@ export default {
       flex-direction: column;
       align-content: center;
       justify-content: center;
-      position: relative;
       padding: @phone-input-padding;
       cursor: pointer;
 
