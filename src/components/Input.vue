@@ -1,31 +1,37 @@
 <template>
-  <div :class="[
-      'ds-input',
-      getType,
-        {'ds-disabled': disabled,
-          'ds-sm': sm,
-          'ds-md': md,
-          'ds-lg': lg,
-          'ds-has-label': label,
-          'ds-input-error': inputError
-        }
-      ]"
+  <div
+    :class="[getType, {
+      'ds-input': true,
+      'ds-disabled': disabled,
+      'ds-sm': sm,
+      'ds-md': md,
+      'ds-lg': lg,
+      'ds-has-label': label,
+      'ds-input-error': inputError
+    }]"
     :style="{width}"
     @click="onInputClick"
   >
     <label>
-      <div v-if="label"
-           :id="id"
-           :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus,
-                    'ds-label-error': inputError},
-                    slideActive ? 'ds-slide-label-active' : slideLabel ? 'ds-slide-label-inactive' : '']">
+      <div
+        v-if="label"
+        :id="id"
+        :class="{
+          'ds-label-text': true,
+          'ds-slide-label': slideLabel,
+          'ds-label-focus': labelFocus,
+          'ds-label-error': inputError,
+          'ds-slide-label-active': slideActive
+        }"
+      >
         <span class="ds-main-label">{{ label }}</span>
 
-        <Icon class="ds-input-label-icon"
-              v-if="labelIcon"
-              size="16px"
-              :color="labelIconColor"
-              :source="labelIcon"
+        <Icon
+          class="ds-input-label-icon"
+          v-if="labelIcon"
+          size="16px"
+          :color="labelIconColor"
+          :source="labelIcon"
         />
 
         <span
@@ -58,14 +64,15 @@
         </span>
       </div>
 
-      <Icon :size="iconSize"
-            v-if="iconLeft && showIcon"
-            :color="iconColor"
-            :source="iconLeft"
-            :class="['ds-general-icon', 'ds-icon-left', {'active-icon': activeIcon}]"
-            :style="generalIconStyle"
-            :padding="iconPadding"
-            @click="onIconClick"
+      <Icon
+        v-if="iconLeft && showIcon"
+        :size="iconSize"
+        :color="iconColor"
+        :source="iconLeft"
+        :class="['ds-general-icon', 'ds-icon-left', {'active-icon': activeIcon}]"
+        :style="generalIconStyle"
+        :padding="iconPadding"
+        @click="onIconClick"
       />
 
       <input
@@ -705,18 +712,14 @@ export default {
       color: #828282;
       background: linear-gradient(@color-white 90%, hsla(0,0%,100%,0)) !important;
       border-right: 2.5px solid #fff;
+      transition: .4s cubic-bezier(.25,.8,.25,1);
 
       &.ds-slide-label-active {
         transform: translateY(-20px) scale(0.85, 0.85);
-        transition: .4s cubic-bezier(.25,.8,.25,1);
         color: #989898;
         font-size: 17px;
         padding: 0 10px;
         left: 0;
-      }
-
-      &.ds-slide-label-inactive {
-        transition: .4s cubic-bezier(.25,.8,.25,1);
       }
 
       &.ds-label-focus {
