@@ -1,6 +1,6 @@
 <template>
   <div :class="['ds-select-wrapper', {'ds-lg': lg, 'ds-md': md, 'ds-sm': sm}]">
-    <div v-if="label" class="ds-label">{{ label }} {{ required ? '*' : ''}}</div>
+    <div v-if="label" class="ds-label">{{ label }}</div>
     <Icon :source="openDropDownList && reversibleIcon ? 'expand_less' : 'expand_more'"
           color="gray-400"
           class="ds-drop-icon"/>
