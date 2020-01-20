@@ -105,6 +105,11 @@
       "name": "width",
       "type": "String",
       "description": "Setup the width"
+    },
+    {
+      "name": "listHeight",
+      "type": "String",
+      "description": "Setup the height of country codes list"
     }
   ],
   "events": [
