@@ -125,7 +125,7 @@
       "description": "Setup regexp object with allowed characters of field"
     },
     {
-      "name": "confirmModel",
+      "name": "referenceModel",
       "type": "null",
       "description": "Provided value for validation purpose like equality models of Input component and any other model"
     },

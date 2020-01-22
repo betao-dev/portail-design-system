@@ -67,11 +67,17 @@
         :required="required"
         :autocomplete="autocomplete"
         :name="name"
-        :class="[inputClasses, {'ds-phone-number-input-valid': validationShown && validBacklight}]"
+        :class="[inputClasses, {'ds-phone-number-input-valid': showValidCheck && validBacklight,
+                                'ds-phone-number-input-error': showInvalidBlock && invalidBacklight}]"
         :maxlength="maxLen"
         @blur="onBlur"
         @input="onInput"
       >
+    </div>
+    <div v-if="showInvalidBlock" class="ds-input-phone-number-errors">
+        <span class="ds-error-message">
+          {{ inputErrors[0] }}
+        </span>
     </div>
   </div>
 </template>
@@ -80,6 +86,7 @@
 import _ from 'lodash';
 import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
 import {CountriesArray} from '../static/index';
+import validation from './../mixins/validation';
 
 const allCountries = CountriesArray.map(country => ({
   name: country[0],
@@ -89,13 +96,11 @@ const allCountries = CountriesArray.map(country => ({
   areaCodes: country[4] || null,
 }));
 
-
 export default {
   name: 'phone-numbuer-input',
+  mixins: [validation],
   props: {
-    value: {
-      type: String,
-    },
+    value: null,
     label: {
       type: String,
       default: 'Phone Number'
@@ -175,19 +180,20 @@ export default {
       default: true
     },
     width: String,
-    listHeight: String
+    listHeight: String,
+    validators: {
+      type: Array,
+      default: () => []
+    },
+    referenceModel: null
   },
   mounted() {
     this.initializeCountry();
-    document.addEventListener('validate', this.validate);
   },
   created() {
     if (this.value) {
       this.phone = this.value;
     }
-  },
-  beforeDestroy() {
-    document.removeEventListener('validate', this.validate);
   },
   data() {
     return {
@@ -199,7 +205,8 @@ export default {
       typeToFindTimer: null,
       validationTimeoutId: undefined,
       touched: false,
-      validBacklight: false
+      validBacklight: false,
+      invalidBacklight: false
     };
   },
   computed: {
@@ -279,8 +286,19 @@ export default {
 
       return response;
     },
-    validationShown() {
-      return this.showValidations && this.touched;
+    validation() {
+      if (!this.validators || !this.validators.length) {
+        return []
+      }
+
+      let data = []
+      for (let i = 0; i < this.validators.length; i++) {
+        data.push([
+          this.validators[i].name,
+          this.validators[i].validator(this.value, this.referenceModel),
+        ])
+      }
+      return data
     }
   },
   watch: {
@@ -430,21 +448,6 @@ export default {
           }
         }
       }
-    },
-    checkBacklight() {
-      this.validBacklight = true;
-
-      if (this.validationTimeoutId) {
-        clearTimeout(this.validationTimeoutId);
-      }
-
-      this.validationTimeoutId = setTimeout(() => {
-        this.validBacklight = false;
-      }, 2000);
-    },
-    validate() {
-      this.touched = true;
-      this.checkBacklight();
     }
   },
   directives: {
@@ -573,7 +576,35 @@ export default {
         .fade-in-animation();
       }
 
+      &.ds-phone-number-input-error {
+        border-color: @color-red;
+        background-color: #ffedec;
+        .fade-in-animation();
+      }
+
       .placeholder-input(14px, @robotoFont, @color-gray-400, 16px);
+    }
+  }
+
+  .ds-input-phone-number-errors {
+    box-sizing: border-box;
+    font-size: 11px;
+    line-height: 12px;
+    padding: 3px 0;
+    position: relative;
+    text-align: left;
+    max-width: 100%;
+    width: 100%;
+
+    .ds-error-message {
+      color: @color-red;
+      font-family: @font-family;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      display: inline-block;
+      max-width: 100%;
     }
   }
 

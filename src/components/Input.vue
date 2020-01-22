@@ -7,7 +7,7 @@
       'ds-md': md,
       'ds-lg': lg,
       'ds-has-label': label,
-      'ds-input-error': inputError
+      'ds-input-error': showInvalidBlock
     }]"
     :style="{width}"
     @click="onInputClick"
@@ -20,7 +20,7 @@
           'ds-label-text': true,
           'ds-slide-label': slideLabel,
           'ds-label-focus': labelFocus,
-          'ds-label-error': inputError,
+          'ds-label-error': showInvalidBlock,
           'ds-slide-label-active': slideActive
         }"
       >
@@ -138,7 +138,7 @@
       />
 
       <div class="ds-drawer">
-        <span v-if="inputError" class="ds-error-message">
+        <span v-if="showInvalidBlock" class="ds-error-message">
           {{ inputErrors[0] }}
         </span>
         <span v-if="subLabel && !(inputErrors.length && touched)" class="ds-sub-label">
@@ -154,12 +154,14 @@ import { cloneDeep } from 'lodash'
 import Popper from 'vue-popperjs';
 import Icon from './Icon'
 import 'vue-popperjs/dist/vue-popper.css';
+import validation from './../mixins/validation';
 
 import _ from 'lodash'
 
 export default {
   name: 'Input',
   components: {Icon, Popper},
+  mixins: [validation],
   props: {
     disabled: Boolean,
     help: String,
@@ -262,7 +264,6 @@ export default {
     }
 
     this.checkValuePattern()
-    document.addEventListener('validate', this.validate);
     this.$emit('validation', this.validation)
     setTimeout(() => this.slideInit(), 500)
   },
@@ -296,22 +297,13 @@ export default {
       }
 
       let data = []
-      for (var i = 0; i < this.validators.length; i++) {
+      for (let i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
           this.validators[i].validator(this.inputValue, this.referenceModel),
         ])
       }
       return data
-    },
-    inputErrors() {
-      let errors = []
-      for (var i = 0; i < this.validation.length; i++) {
-        if (!this.validation[i][1]) {
-          errors.push(this.validators[i].message)
-        }
-      }
-      return errors
     },
     inputValue: {
       get() {
@@ -357,18 +349,6 @@ export default {
       }
 
       return style
-    },
-    validationShown() {
-      return this.showValidations && this.touched
-    },
-    showValidCheck() {
-      return this.validationShown && this.inputErrors.length == 0
-    },
-    showInvalidBlock() {
-      return this.validationShown && this.inputErrors.length > 0
-    },
-    inputError() {
-      return this.inputErrors.length && this.touched && this.showValidations
     }
   },
   methods: {
@@ -403,11 +383,6 @@ export default {
 
       this.touched = true;
       this.$emit('inputBlur')
-    },
-    validate() {
-      this.touched = true
-      this.checkBacklight()
-      this.$emit('validation', this.validation)
     },
     slideInit() {
       if (this.slideLabel && this.value) {
@@ -476,27 +451,6 @@ export default {
     },
     setTouched(touched) {
       this.touched = touched
-    },
-    validationBacklight(activeValidation, inactiveValidation) {
-      this[inactiveValidation] = false;
-      this[activeValidation] = true;
-
-      if (this.validationTimeoutId) {
-        clearTimeout(this.validationTimeoutId)
-      }
-
-      this.validationTimeoutId = setTimeout(() => {
-        this[activeValidation] = false;
-      }, 2000)
-    },
-    checkBacklight() {
-      this.$nextTick(() => {
-        if (this.showValidCheck) {
-          this.validationBacklight('validBacklight', 'invalidBacklight')
-        } else if (this.showInvalidBlock) {
-          this.validationBacklight('invalidBacklight', 'validBacklight')
-        }
-      })
     }
   },
   watch: {
@@ -508,24 +462,12 @@ export default {
       this.checkBacklight()
       this.slideInit()
       this.$emit('validation', this.validation)
-    },
-    showValidCheck(value) {
-      if (value) {
-        this.validationBacklight('validBacklight', 'invalidBacklight')
-      }
-    },
-    showInvalidBlock(value) {
-      if (value) {
-        this.validationBacklight('invalidBacklight', 'validBacklight')
-      }
     }
   },
   beforeDestroy() {
     if (this.name) {
       document.removeEventListener(this.validateEventName, this.validate);
     }
-
-    document.removeEventListener('validate', this.validate);
   },
 }
 </script>

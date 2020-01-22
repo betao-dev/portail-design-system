@@ -2,7 +2,7 @@
   "properties": [
     {
       "name": "value",
-      "type": "String",
+      "type": "null",
       "description": "Default Phone Number"
     },
     {
@@ -110,12 +110,43 @@
       "name": "listHeight",
       "type": "String",
       "description": "Setup the height of country codes list"
+    },
+    {
+      "name": "validators",
+      "type": "Array<Object>",
+      "description": " Array of validator Objects. When multiple validators fail, only one error is displayed, determined by their order in the array. Each Object should have three fields:",
+      "subProperty": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": "Validator id"
+        },
+        {
+          "name": "message",
+          "type": "String",
+          "description": "Error message that shown when validation fails"
+        },
+        {
+          "name": "validator",
+          "type": "Function",
+          "description": " Function that takes input value as an argument and returns Boolean"
+        }
+      ]
+    },
+    {
+      "name": "referenceModel",
+      "type": "null",
+      "description": "Provided value for validation purpose like equality models of Input component and any other model"
     }
   ],
   "events": [
     {
       "name": "onInput({ number, isValid, country })",
       "description": "Emitted when the input value changes"
+    },
+    {
+      "name": "validation",
+      "description": "Emitted when the input value changes."
     }
   ]
 }
