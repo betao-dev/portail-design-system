@@ -9,7 +9,7 @@
            :id="id"
            :label="getInputLabel"
            :validators="validators"
-           :confirmModel="dataListWrapper"
+           :referenceModel="dataListWrapper"
            icon="close"
            :iconColor="iconColor"
            :showIcon="showIcon"
