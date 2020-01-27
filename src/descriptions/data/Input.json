@@ -56,6 +56,11 @@
       "description": "Passed directly to the input"
     },
     {
+      "name": "placeholderDark",
+      "type": "Boolean",
+      "description": "Set darken placeholder"
+    },
+    {
       "name": "type",
       "type": "String",
       "default": "text",
