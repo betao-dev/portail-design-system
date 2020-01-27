@@ -87,7 +87,8 @@
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
           'ds-has-left-icon': iconLeft,
-          'ds-text-right': textAlign === 'right'
+          'ds-text-right': textAlign === 'right',
+          'ds-placeholder-dark': placeholderDark
         }"
         :key="inputId"
         v-model="inputValue"
@@ -112,7 +113,8 @@
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
           'ds-has-left-icon': iconLeft,
-          'ds-text-right': textAlign === 'right'
+          'ds-text-right': textAlign === 'right',
+          'ds-placeholder-dark': placeholderDark
         }"
         :key="inputId"
         v-model="inputValue"
@@ -189,6 +191,7 @@ export default {
     md: Boolean,
     sm: Boolean,
     placeholder: String,
+    placeholderDark: Boolean,
     type: {
       type: String,
       validator(value) {
@@ -716,6 +719,10 @@ export default {
       }
 
       .placeholder-input(14px, @robotoFont, @color-gray-400, 16px);
+
+      &.ds-placeholder-dark {
+        .placeholder-input(14px, @robotoFont, @form-placeholder-color, 16px);
+      }
 
       &:disabled {
         border: 1px solid #E8ECEF;
