@@ -3,6 +3,7 @@
     <Input class="ds-autocomplete-input"
            slideLabel
            activeIcon
+           constantly-invalid-backlight
            :sm="sm"
            :md="md"
            :lg="lg"

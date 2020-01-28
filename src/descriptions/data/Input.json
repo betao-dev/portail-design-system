@@ -160,6 +160,12 @@
       "name": "inputStyle",
       "type": "Object",
       "description": "Set styles for input element"
+    },
+    {
+      "name": "constantlyInvalidBacklight",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Keep invalid backlight until field won't be valid"
     }
   ],
   "events": [

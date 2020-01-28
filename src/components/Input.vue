@@ -83,7 +83,7 @@
         :name="name"
         :class="{
           'ds-has-icon': icon,
-          'ds-error': showInvalidBlock && invalidBacklight,
+          'ds-error': isInvalidInput,
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
           'ds-has-left-icon': iconLeft,
@@ -109,7 +109,7 @@
         :name="name"
         :class="{
           'ds-has-icon': icon,
-          'ds-error': showInvalidBlock && invalidBacklight,
+          'ds-error': isInvalidInput,
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
           'ds-has-left-icon': iconLeft,
@@ -235,6 +235,10 @@ export default {
     required: {
       type: Boolean,
       default: false
+    },
+    constantlyInvalidBacklight: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -352,6 +356,9 @@ export default {
       }
 
       return style
+    },
+    isInvalidInput() {
+      return this.showInvalidBlock && (this.invalidBacklight || this.constantlyInvalidBacklight)
     }
   },
   methods: {
