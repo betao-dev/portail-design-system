@@ -34,7 +34,7 @@
       },
       loaderClasses() {
         if (this.value) {
-          return this.fullScreen ? 'ds-base-loader' : 'ds-mini-loader'
+          return 'ds-base-loader'
         } else {
           return ''
         }
@@ -120,12 +120,6 @@
   }
 
   .ds-base-loader {
-    width: 64px;
-    height: 64px;
-    background-image: url('../icons/portail-loader.gif');
-  }
-
-  .ds-mini-loader {
     width: 32px;
     height: 32px;
     background-image: url('../icons/portail-loader-small.gif');
