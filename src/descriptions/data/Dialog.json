@@ -90,6 +90,11 @@
       "name": "top",
       "type": "String",
       "description": "Set offset from the top for dialog component"
+    },
+    {
+      "name": "virtualContainerMinHeight",
+      "type": "String",
+      "description": "Set min-height of the virtual container"
     }
   ],
   "events": []

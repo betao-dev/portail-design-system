@@ -32,6 +32,7 @@
       @click.stop="backdropClick()"
       @keydown="e => escapePress(e)"
     ></div>
+    <div class="ds-dialog-virtual-content-wrapper" :style="{minHeight: virtualContainerMinHeight}">
       <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
                     'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
                     'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
@@ -42,6 +43,7 @@
         </div>
         <Loader v-if="enableLoader" v-model="enableLoader" :target="idContent"></Loader>
       </div>
+    </div>
   </section>
 </template>
 
@@ -97,7 +99,8 @@
       minHeight: String,
       maxHeight: String,
       minWidth: String,
-      top: String
+      top: String,
+      virtualContainerMinHeight: String
     },
     data: () => ({
       windowWidth: window.innerWidth,
