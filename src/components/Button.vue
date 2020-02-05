@@ -24,9 +24,18 @@
       <a
         v-on="$listeners"
         :href="link"
-        :class="['ds-button', {'ds-button-primary': primary, 'ds-button-big': big, 'ds-button-small': small,
-                               'ds-button-alt': alt, 'ds-button-plain': plain, 'ds-button-plain-two': plainTwo,
-                               'ds-button-link-ico': linkIco, 'ds-button-alt-two': altTwo}]"
+        :class="{
+          'ds-button': true,
+          'ds-button-primary': primary,
+          'ds-button-red': red,
+          'ds-button-big': big,
+          'ds-button-small': small,
+          'ds-button-alt': alt,
+          'ds-button-plain': plain,
+          'ds-button-plain-two': plainTwo,
+          'ds-button-link-ico': linkIco,
+          'ds-button-alt-two': altTwo
+        }"
         :disabled="disabled"
         :target="target"
         :style="{padding, width, color: getTextColor}"
@@ -54,9 +63,17 @@
     <template v-else>
       <button
         v-on="$listeners"
-        :class="['ds-button', {'ds-button-primary': primary, 'ds-button-big': big, 'ds-button-small': small,
-                               'ds-button-alt': alt, 'ds-button-plain': plain, 'ds-button-plain-two': plainTwo,
-                               'ds-button-alt-two': altTwo}]"
+        :class="{
+          'ds-button': true,
+          'ds-button-primary': primary,
+          'ds-button-red': red,
+          'ds-button-big': big,
+          'ds-button-small': small,
+          'ds-button-alt': alt,
+          'ds-button-plain': plain,
+          'ds-button-plain-two': plainTwo,
+          'ds-button-alt-two': altTwo
+        }"
         :disabled="disabled"
         :style="{padding, width, color: getTextColor}"
       >
@@ -92,6 +109,7 @@ export default {
   props: {
     big: Boolean,
     small: Boolean,
+    red: Boolean,
     alt: Boolean,
     altTwo: Boolean,
     plain: Boolean,
@@ -226,6 +244,33 @@ export default {
 
     &:active {
       background: darken(@color-primary, 10%);
+    }
+
+    .ds-icon {
+      fill: @color-white;
+    }
+  }
+
+  &.ds-button-red {
+    color: @color-red;
+    font-family: "Roboto Medium";
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    line-height: 16px;
+    text-align: center;
+    background: @color-red;
+    text-transform: uppercase;
+
+    &.ds-button-big {
+      .font-components-button-big();
+    }
+
+    &:hover, &:focus {
+      background: darken(@color-red, 5%);
+    }
+
+    &:active {
+      background: darken(@color-red, 10%);
     }
 
     .ds-icon {
