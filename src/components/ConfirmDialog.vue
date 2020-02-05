@@ -22,7 +22,7 @@
         <template v-if="extraButton">
           <Button big padding="15px 40px" @click="extraButtonClick">{{ extraButtonLabel }}</Button>
         </template>
-        <Button big padding="15px 40px" @click="acceptStatus">{{ acceptLabel }}</Button>
+        <Button big padding="15px 40px" @click="acceptStatus" red>{{ acceptLabel }}</Button>
       </div>
     </div>
   </Dialog>
