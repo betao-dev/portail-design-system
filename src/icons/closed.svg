@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 62 (101010) - https://sketch.com -->
+    <title>100568B1-3138-4833-BA5D-FF255D2FFDC0</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <filter x="-38.1%" y="-38.1%" width="176.2%" height="176.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.117647059   0 0 0 0 0.701960784   0 0 0 0 0.525490196  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <circle id="path-2" cx="21" cy="21" r="21"></circle>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Buttons-/-QuickAction-/-Closed">
+            <g id="Ico">
+                <g id="bg" filter="url(#filter-1)">
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-2"></use>
+                    </mask>
+                    <use id="Mask" fill="#E8ECEF" fill-rule="nonzero" xlink:href="#path-2"></use>
+                    <g id="Fills-/-Green" mask="url(#mask-3)" fill="#1EB386">
+                        <rect id="Rectangle-Copy" x="0" y="0" width="42" height="42"></rect>
+                    </g>
+                </g>
+                <g id="plus-solid" transform="translate(12.000000, 12.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <polygon id="Path" points="8.18181818 0 8.18181818 8.18181818 0 8.18181818 0 9.81818182 8.18181818 9.81818182 8.18181818 18 9.81818182 18 9.81818182 9.81818182 18 9.81818182 18 8.18181818 9.81818182 8.18181818 9.81818182 0"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
