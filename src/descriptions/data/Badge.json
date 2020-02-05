@@ -6,6 +6,11 @@
       "description": "Badge background color"
     },
     {
+      "name": "borderRadius",
+      "type": "String",
+      "description": "Badge border radius"
+    },
+    {
       "name": "icon",
       "type": "String",
       "description": "Badge optional icon"
@@ -14,6 +19,17 @@
       "name": "iconSize",
       "type": "String",
       "description": "Badge icon size"
+    },
+    {
+      "name": "iconColor",
+      "type": "String",
+      "default": "white",
+      "description": "Badge icon color"
+    },
+    {
+      "name": "iconPadding",
+      "type": "String",
+      "description": "Badge icon padding"
     }
   ],
 

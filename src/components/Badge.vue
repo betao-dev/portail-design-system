@@ -11,8 +11,13 @@
 -->
 
 <template>
-  <div class="ds-badge" :style="{backgroundColor}">
-    <Icon v-if="icon" class="ds-icon" :source="icon" color="white" :size="iconSize"/>
+  <div class="ds-badge" :style="{backgroundColor, borderRadius}">
+    <Icon v-if="icon" 
+          class="ds-icon" 
+          :source="icon" 
+          :color="iconColor" 
+          :size="iconSize" 
+          :style="{padding: iconPadding}"/>
     <slot></slot>
   </div>
 </template>
@@ -27,6 +32,12 @@
     props: {
       icon: String,
       iconSize: String,
+      iconColor: {
+        type: String,
+        default: 'white'
+      },
+      iconPadding: String,
+      borderRadius: String,
       color: String
     },
     data: () => ({
