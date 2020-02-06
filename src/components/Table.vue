@@ -229,7 +229,7 @@
           margin-bottom: 6px;
           background-color: @color-white;
           align-items: center;
-          border-radius: 5px;
+          border-radius: 4px;
 
           @media screen and (max-width: 551px) {
             flex-wrap: wrap;
