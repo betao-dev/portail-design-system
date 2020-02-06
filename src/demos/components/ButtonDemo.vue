@@ -28,6 +28,7 @@
       <Button padding="15px 40px">Add</Button>&nbsp;
       <Button padding="13px 40px" alt-two>Cancel</Button>&nbsp;
       <Button icon="add_circle" icon-color="primary" color="primary" plain-two space-between="4px">Add New Item</Button>&nbsp;
+      <Button icon="add_circle" plain-two disabled space-between="4px">Add New Item</Button>&nbsp;
       <!-- OR -->
       <button class="ds-button ds-button-primary">
         Button Label
