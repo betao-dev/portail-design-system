@@ -321,6 +321,20 @@ export default {
     &:hover, &:focus, &:active {
       background-color: rgba(0, 0, 0, 0);
     }
+
+    &:disabled {
+      background: inherit;
+      color: @color-gray-400;
+      cursor: initial;
+
+      .ds-icon {
+        fill: @color-gray-400;
+      }
+
+      &:hover, &:focus, &:active {
+        background-color: inherit;
+      }
+    }
   }
 
   &:focus {
