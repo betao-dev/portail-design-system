@@ -88,6 +88,7 @@
   @import '../styles/vars';
 
   .ds-slider {
+    border-radius: 4px;
     background-color: @color-white;
     overflow: hidden;
 
