@@ -229,6 +229,7 @@
     watch: {
       opened(value) {
         if (this.overflowCheck) {
+          let htmlStyle = document.getElementsByTagName('html')[0].style
           let bodyStyle = document.getElementsByTagName('body')[0].style
 
           if (value) {
@@ -238,12 +239,28 @@
 
             this.$_defaultStyles = {
               body: {},
+              html: {}
+            }
+
+            this.$_defaultStyles.body = {
+              position: bodyStyle.position || 'static',
+              overflow: 'auto'
             }
 
             bodyStyle.overflow = 'hidden'
             bodyStyle.position = this.isMobile ? 'fixed' : 'relative'
+
+            this.$_defaultStyles.html = {
+              position: htmlStyle.position || 'static',
+              overflow: htmlStyle.overflow,
+              height: htmlStyle.height
+            }
+            
+            htmlStyle.overflow = 'hidden'
+            htmlStyle.position = this.isMobile ? 'fixed' : 'relative'
           } else {
             if (this.$_defaultStyles) {
+              Object.assign(htmlStyle, this.$_defaultStyles.html)
               Object.assign(bodyStyle, this.$_defaultStyles.body)
             }
 
