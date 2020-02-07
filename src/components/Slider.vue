@@ -3,20 +3,18 @@
        :style="{width, height}">
     <div class="ds-slider-header">
       <span class="ds-slider-title">{{header}}</span>
-      <div class="ds-title-header-controls">
+      <div class="ds-title-header-controls" v-if="slideCount > 1">
         <Icon angle_left_solid
               size="18px"
               class="ds-slider-control-left"
-              :class="{'disabled': sliderStartIndex == 1 }"
-              :color="sliderStartIndex == 1 ? 'gray-300' : 'gray-500'"
-              @click="changeSlide(-1)">
+              color="gray-500"
+              @click="changeSlide(startIndex - 1)">
         </Icon>
         <Icon angle_right_solid
               size="18px"
               class="ds-slider-control-right"
-              :class="{'disabled': sliderStartIndex == slideCount}"
-              :color="sliderStartIndex == slideCount ? 'gray-300' : 'gray-500'"
-              @click="changeSlide(1)">
+              color="gray-500"
+              @click="changeSlide(startIndex + 1)">
         </Icon>
       </div>
     </div>
@@ -64,21 +62,22 @@
     },
     methods: {
       changeSlide(value) {
-        let slideCount = Object.keys(this.$slots).length
-
-        if (value > 0 && slideCount && !this.slideLeftToRight) {
-          this.slideLeftToRight = setTimeout(() => {
-            this.sliderStartIndex += value
-            this.slideLeftToRight = undefined
-          }, 400)
+        if (this.slideCount) {
+          if (value < 1) {
+            this.slideMove(this.slideCount, 'slideRightToLeft')
+          } else if (value > this.slideCount) {
+            this.slideMove(1, 'slideLeftToRight')
+          } else {
+            let direction = this.sliderStartIndex > value ? 'slideRightToLeft' : 'slideLeftToRight'
+            this.slideMove(value, direction)
+          }
         }
-
-        if (value < 0 && slideCount && !this.slideRightToLeft) {
-          this.slideRightToLeft = setTimeout(() => {
-            this.sliderStartIndex += value
-            this.slideRightToLeft = undefined
-          }, 400)
-        }
+      },
+      slideMove(activeSlide, direction) {
+        this[direction] = setTimeout(() => {
+          this.sliderStartIndex = activeSlide
+          this[direction] = undefined
+        }, 400)
       }
     }
   }
@@ -123,11 +122,6 @@
         .ds-slider-control-left,
         .ds-slider-control-right {
           cursor: pointer;
-
-          &.disabled {
-            pointer-events: none;
-            color: red;
-          }
         }
       }
     }
