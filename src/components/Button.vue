@@ -325,7 +325,7 @@ export default {
     &:disabled {
       background: inherit;
       color: @color-gray-400;
-      cursor: initial;
+      cursor: not-allowed;
 
       .ds-icon {
         fill: @color-gray-400;
@@ -344,7 +344,7 @@ export default {
   &:disabled {
     background: @color-gray-300;
     color: @color-gray-400;
-    cursor: initial;
+    cursor: not-allowed;
 
     .ds-icon {
       fill: @color-gray-100;
