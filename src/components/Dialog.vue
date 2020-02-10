@@ -64,14 +64,17 @@
       },
       backdropOpacity: {
         type: String,
-        default: '0.6'
+        default: '0.75'
       },
       fullScreen: {
         type: Boolean,
         default: false
       },
       borderColor: [String, Boolean],
-      backgroundColor: String,
+      backgroundColor: {
+        type: String,
+        default: '#252631'
+      },
       dialogStyleObject: Object,
       contentFullWidth: {
         type: Boolean,
