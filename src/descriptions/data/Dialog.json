@@ -8,7 +8,7 @@
     {
       "name": "backdropOpacity",
       "type": "String",
-      "default": "0.6",
+      "default": "0.75",
       "description": "Set backdrop opacity by value from 0..1."
     },
     {
@@ -25,6 +25,7 @@
     {
       "name": "backgroundColor",
       "type": "String",
+      "default": "#252631",
       "description": "Set up background color of backdrop"
     },
     {
