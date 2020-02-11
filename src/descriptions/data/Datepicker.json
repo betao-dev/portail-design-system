@@ -52,6 +52,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "Responsible for unset date status of datepicker"
+    },
+    {
+      "name": "autoInitialize",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for auto initialize value of datepicker"
     }
   ],
   "events": []

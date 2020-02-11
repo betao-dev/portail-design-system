@@ -196,6 +196,10 @@ export default {
     dateUnset: {
       type: Boolean,
       default: false
+    },
+    autoInitialize: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -580,7 +584,9 @@ export default {
     }
   },
   mounted() {
-    this.$emit('input', this.value)
+    if (this.autoInitialize) {
+      this.$emit('input', this.value)
+    }
   }
 }
 </script>
