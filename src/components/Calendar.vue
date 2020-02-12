@@ -517,9 +517,17 @@
     }
     &.ds-md {
       width: 252px;
+
+      input {
+        height: 42px;
+      }
     }
     &.ds-lg {
       width: 464px;
+
+      input {
+        height: 52px;
+      }
     }
     @media @screen-small {
       &.ds-lg {
