@@ -1,6 +1,6 @@
 <template>
   <div :class="['ds-calendar', {'ds-sm': sm, 'ds-md': md, 'ds-lg': lg}]" :style="{width}">
-    <label>
+    <label :class="{'ds-no-label': !label}">
       <div v-if="label"
            :id="id"
            :class="['ds-label-text', {'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus},
@@ -643,6 +643,14 @@
       -webkit-appearance: none;
       color: rgba(0,0,0,0);
       opacity: 0;
+    }
+
+    .ds-no-label {
+      input + .ds-calendar-icon {
+        height: 100% !important;
+        bottom: 0;
+        top: 0;
+      }
     }
 
     input + .ds-calendar-icon {
