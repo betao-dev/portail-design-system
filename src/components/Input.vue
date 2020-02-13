@@ -83,6 +83,7 @@
         :name="name"
         :class="{
           'ds-has-icon': icon,
+          'ds-input-error': showInvalidBlock,
           'ds-error': isInvalidInput,
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
@@ -109,6 +110,7 @@
         :name="name"
         :class="{
           'ds-has-icon': icon,
+          'ds-input-error': showInvalidBlock,
           'ds-error': isInvalidInput,
           'ds-valid': showValidCheck && validBacklight,
           'ds-slide-input': slideLabel,
@@ -140,9 +142,11 @@
       />
 
       <div class="ds-drawer">
-        <span v-if="showInvalidBlock" class="ds-error-message">
-          {{ inputErrors[0] }}
-        </span>
+        <transition name="error-message">
+          <span v-if="showInvalidBlock" class="ds-error-message">
+            {{ inputErrors[0] }}
+          </span>
+        </transition>
         <span v-if="subLabel && !(inputErrors.length && touched)" class="ds-sub-label">
           {{subLabel}}
         </span>
@@ -713,16 +717,18 @@ export default {
         outline: none;
       }
 
+      &.ds-input-error {
+        &:focus {
+          border-color: @color-red;
+        }
+      }
+
       &.ds-error {
-        border-color: @color-red;
-        background-color: #ffedec;
-        .fade-in-animation();
+        .input-invalid-fade-animation();
       }
 
       &.ds-valid {
-        border-color: @color-primary;
-        background-color: #e9f8f3;
-        .fade-in-animation();
+        .input-valid-fade-animation();
       }
 
       .placeholder-input(14px, @robotoFont, @color-gray-400, 16px);
@@ -775,11 +781,18 @@ export default {
     box-sizing: border-box;
     font-size: 11px;
     line-height: 12px;
-    padding: 3px 0;
+    padding: 6px 0 0;
     position: absolute;
     text-align: left;
     max-width: 100%;
     width: 100%;
+
+    .error-message-enter-active, .error-message-leave-active {
+      transition: opacity .3s;
+    }
+    .error-message-enter, .error-message-leave-to {
+      opacity: 0;
+    }
   }
 
   .ds-error-message {
