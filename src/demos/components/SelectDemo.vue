@@ -60,7 +60,13 @@
           validator: value => value && !!value
         }
       ]
-    })
+    }),
+    mounted() {
+      setInterval(() => {
+        const event = new CustomEvent("validate", {})
+        document.dispatchEvent(event)
+      }, 6000)
+    }
   }
 </script>
 
