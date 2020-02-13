@@ -17,9 +17,11 @@
       @click="toggleDropList"
       readonly="readonly"
     />
-    <div class="ds-error-message-wrapper" v-if="checkError">
-      {{selectErrors[0]}}
-    </div>
+    <transition name="error-message">
+      <div class="ds-error-message-wrapper" v-if="checkError">
+        {{selectErrors[0]}}
+      </div>
+    </transition>
     <div v-if="help && !checkError"
          class="ds-select-help"
          ref="helpLabel"
@@ -237,6 +239,7 @@
 
 <style lang="less" scoped>
   @import '../styles/vars';
+  @import '../styles/mixins';
 
   .ds-select-wrapper {
     position: relative;
@@ -307,13 +310,15 @@
       }
 
       &.ds-error {
-        border: 1px solid @color-red;
-        background-color: #ffedec;
+        .input-invalid-fade-animation();
+
+        &:focus {
+          border-color: @color-red;
+        }
       }
 
       &.ds-valid {
-        border-color: @color-primary;
-        background-color: #e9f8f3;
+        .input-valid-fade-animation();
       }
     }
 
@@ -330,6 +335,7 @@
       font-size: 11px;
       color: @color-red;
       position: absolute;
+      padding: 6px 0 0;
     }
 
     .ds-select-help {
@@ -365,6 +371,13 @@
         color: #1B1E24;
         font-family: Roboto, sans-serif;
       }
+    }
+
+    .error-message-enter-active, .error-message-leave-active {
+      transition: opacity .3s;
+    }
+    .error-message-enter, .error-message-leave-to {
+      opacity: 0;
     }
   }
 </style>

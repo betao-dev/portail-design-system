@@ -1,3 +1,5 @@
+@import './vars';
+
 .keyframes(@name; @arguments) {
   @-moz-keyframes @name { @arguments(); }
   @-webkit-keyframes @name { @arguments(); }
@@ -8,6 +10,73 @@
   -webkit-animation: @arguments;
   -moz-animation: @arguments;
   animation: @arguments;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+.fade-in-animation() {
+  animation: fadeIn ease .75s;
+  -webkit-animation: fadeIn ease .75s;
+  -moz-animation: fadeIn ease .75s;
+  -o-animation: fadeIn ease .75s;
+  -ms-animation: fadeIn ease .75s;
+}
+
+@keyframes fadeValid {
+  0% {
+    border-color: @color-gray-300;
+    background-color: @color-white;
+  }
+
+  33%, 66% {
+    border-color: @color-primary;
+    background-color: #e9f8f3;
+  }
+
+  100% {
+    border-color: @color-gray-300;
+    background-color: @color-white;
+  }
+}
+
+.input-valid-fade-animation() {
+  animation: fadeValid ease 2s;
+  -webkit-animation: fadeValid ease 2s;
+  -moz-animation: fadeValid ease 2s;
+  -o-animation: fadeValid ease 2s;
+  -ms-animation: fadeValid ease 2s;
+}
+
+@keyframes fadeInvalid {
+  0% {
+    border-color: @color-gray-300;
+    background-color: @color-white;
+  }
+
+  33%, 66% {
+    border-color: @color-red;
+    background-color: #ffedec;
+  }
+
+  100% {
+    border-color: @color-gray-300;
+    background-color: @color-white;
+  }
+}
+
+.input-invalid-fade-animation() {
+  animation: fadeInvalid ease 2s;
+  -webkit-animation: fadeInvalid ease 2s;
+  -moz-animation: fadeInvalid ease 2s;
+  -o-animation: fadeInvalid ease 2s;
+  -ms-animation: fadeInvalid ease 2s;
 }
 
 .remove-button-styles() {
@@ -48,21 +117,4 @@
     color: @color !important;
     line-height: @lineHeight !important;
   };
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-.fade-in-animation() {
-  animation: fadeIn ease .75s;
-  -webkit-animation: fadeIn ease .75s;
-  -moz-animation: fadeIn ease .75s;
-  -o-animation: fadeIn ease .75s;
-  -ms-animation: fadeIn ease .75s;
 }

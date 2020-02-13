@@ -33,7 +33,7 @@
         :name="name"
         :rows="rows"
         :class="{
-          'ds-error': textareaErrors.length && touched && showErrors,
+          'ds-error': isInvalid,
           'ds-valid': textareaErrors.length == 0 && touched && showErrors
         }"
         :disabled="disabled"
@@ -41,10 +41,12 @@
       />
     </label>
     <div class="ds-textarea-errors-wraper">
-      <span v-if="textareaErrors.length && touched && showErrors" class="ds-error-message">
-        {{ textareaErrors[0] }}
-      </span>
-      
+      <transition name="error-message">
+        <span v-if="isInvalid" class="ds-error-message">
+          {{ textareaErrors[0] }}
+        </span>
+      </transition>
+
       <div class="ds-notification">{{ notificationStr }}</div>
     </div>
   </div>
@@ -139,6 +141,9 @@
         }
 
         return errors
+      },
+      isInvalid() {
+        return this.textareaErrors.length && this.touched && this.showErrors
       }
     },
     mounted() {
@@ -182,6 +187,7 @@
 
 <style lang="less" scoped>
   @import '../styles/vars';
+  @import '../styles/mixins';
 
   .ds-text-area {
     label {
@@ -222,18 +228,21 @@
         &:focus:not(.ds-error) {
           border-color: @color-primary;
         }
+
         &:focus {
           outline: none;
         }
 
         &.ds-error {
-          border-color: @color-red;
-          background-color: #ffedec;
+          .input-invalid-fade-animation();
+
+          &:focus {
+            border-color: @color-red;
+          }
         }
 
         &.ds-valid {
-          border-color: @color-primary;
-          background-color: #e9f8f3;
+          .input-valid-fade-animation();
         }
       }
     }
@@ -266,6 +275,13 @@
         padding: 2px 0;
         flex-grow: 1;
         white-space: nowrap;
+      }
+
+      .error-message-enter-active, .error-message-leave-active {
+        transition: opacity .3s;
+      }
+      .error-message-enter, .error-message-leave-to {
+        opacity: 0;
       }
     }
   }
