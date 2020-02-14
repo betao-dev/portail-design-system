@@ -142,10 +142,6 @@
         this.$emit('change', option)
         this.openDropDownList = false
       },
-      validate() {
-        this.touched = true
-        this.$emit('validation', this.validation)
-      },
       setInputSelectValue(value) {
         if (this.idMode) {
           const selectedOption = this.options.find(option => option.id ===  _.get(value, 'id'))
@@ -216,6 +212,7 @@
     },
     watch: {
       value(val) {
+        this.checkBacklight()
         this.$emit('validation', this.validation)
         this.setInputSelectValue(val)
       },

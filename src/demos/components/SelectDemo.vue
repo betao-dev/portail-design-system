@@ -62,10 +62,10 @@
       ]
     }),
     mounted() {
-      setInterval(() => {
-        const event = new CustomEvent("validate", {})
-        document.dispatchEvent(event)
-      }, 6000)
+      // setInterval(() => {
+      //   const event = new CustomEvent("validate", {})
+      //   document.dispatchEvent(event)
+      // }, 3000)
     }
   }
 </script>
