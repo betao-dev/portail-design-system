@@ -19,10 +19,16 @@
 -->
 
 <template>
+<!--  <transition-->
+<!--    @before-enter="beforeEnter"-->
+<!--    @enter="enter"-->
+<!--    @beforeLeave="beforeLeave"-->
+<!--    @leave="leave"-->
+<!--  >-->
   <section
     v-if="opened"
     v-move-to-body
-    class="ds-dialog"
+    :class="['ds-dialog', {'ds-dialog-open': opened, 'ds-dialog-close': !opened}]"
     :style="dialogStyleObject"
     :id="backdropId"
   >
@@ -45,6 +51,7 @@
       </div>
     </div>
   </section>
+<!--  </transition>-->
 </template>
 
 <script>
@@ -103,7 +110,11 @@
       maxHeight: String,
       minWidth: String,
       top: String,
-      virtualContainerMinHeight: String
+      virtualContainerMinHeight: String,
+      transitionTime: {
+        type: Number,
+        default: 3000
+      }
     },
     data: () => ({
       windowWidth: window.innerWidth,
@@ -216,6 +227,37 @@
         if (_.isUndefined(this.activeDatepickerComponent) || this.activeDatepickerComponent === 'Dialog') {
           this.$emit('update:opened', false)
         }
+      },
+      beforeEnter(el) {
+        console.log('beforeEnter')
+        el.style.opacity = '0'
+        el.style.transition = 'opacity 2s'
+      },
+      enter(el, done) {
+        console.log('enter')
+
+        setTimeout(() => {
+          done()
+        }, this.transitionTime)
+        setTimeout(() => {
+          el.style.opacity = '1'
+          el.style.transition = 'opacity 2s'
+        })
+      },
+      beforeLeave(el) {
+        console.log('beforeLeave')
+        setTimeout(() => {
+          el.style.opacity = '0'
+          el.style.transition = 'opacity 2s'
+        })
+      },
+      leave(el, done) {
+        console.log('leave')
+
+        setTimeout(() => {
+          done()
+        }, this.transitionTime)
+
       }
     },
     computed: {
@@ -258,7 +300,7 @@
               overflow: htmlStyle.overflow,
               height: htmlStyle.height
             }
-            
+
             htmlStyle.overflow = 'hidden'
             htmlStyle.position = this.isMobile ? 'fixed' : 'relative'
           } else {
@@ -408,6 +450,31 @@
         opacity: 1 !important;
       }
     }
+  }
+
+  @keyframes fade {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+
+  .ds-dialog-open {
+    animation: fade ease .3s;
+    -webkit-animation: fade ease .3s;
+    -moz-animation: fade ease .3s;
+    -o-animation: fade ease .3s;
+    -ms-animation: fade ease .3s;
+  }
+
+  .ds-dialog-close {
+    animation: fade ease .3s reverse;
+    -webkit-animation: fade ease .3s reverse;
+    -moz-animation: fade ease .3s reverse;
+    -o-animation: fade ease .3s reverse;
+    -ms-animation: fade ease .3s reverse;
   }
 
 </style>
