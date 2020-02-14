@@ -33,8 +33,8 @@
         :name="name"
         :rows="rows"
         :class="{
-          'ds-error': isInvalid,
-          'ds-valid': textareaErrors.length == 0 && touched && showErrors
+          'ds-error': showInvalidBlock && invalidBacklight,
+          'ds-valid': showValidCheck && validBacklight
         }"
         :disabled="disabled"
         @blur="onBlur"
@@ -53,8 +53,11 @@
 </template>
 
 <script>
+  import validation from '../mixins/validation';
+
   export default {
     name: "TextArea",
+    mixins: [validation],
     props: {
       value: null,
       label: String,
@@ -75,21 +78,23 @@
       initialTouched: {
         type: Boolean,
         default: false
+      },
+      showValidations: {
+        type: Boolean,
+        default: true
       }
     },
     data: () => ({
       validateEventName: undefined,
       touched: false,
       notificationStr: '',
-      textAreaId: Math.random().toString(36).substring(7)
+      textAreaId: Math.random().toString(36).substring(7),
+      validBacklight: false,
+      invalidBacklight: false
     }),
     methods: {
       onBlur() {
         this.touched = true
-      },
-      initValidate() {
-        this.touched = true
-        this.$emit('validation', this.validation)
       }
     },
     computed: {
@@ -144,7 +149,13 @@
       },
       isInvalid() {
         return this.textareaErrors.length && this.touched && this.showErrors
-      }
+      },
+      showValidCheck() {
+        return this.validationShown && this.textareaErrors.length == 0
+      },
+      showInvalidBlock() {
+        return this.validationShown && this.textareaErrors.length > 0
+      },
     },
     mounted() {
       if (this.maxCharacters) {
@@ -153,26 +164,25 @@
 
       this.$nextTick(() => {
         if (this.initValidation) {
-          this.initValidate()
+          this.validate()
         }
       })
 
       if (this.name) {
         this.validateEventName = `validate${this.name.charAt(0).toUpperCase() + this.name.slice(1).toLowerCase()}`;
-        document.addEventListener(this.validateEventName, this.initValidate);
+        document.addEventListener(this.validateEventName, this.validate);
       }
 
-      document.addEventListener('validate', this.initValidate);
       this.$emit('validation', this.validation)
     },
     beforeDestroy() {
       if (this.name) {
-        document.removeEventListener(this.validateEventName, this.initValidate)
+        document.removeEventListener(this.validateEventName, this.validate)
       }
-      document.removeEventListener('validate', this.initValidate)
     },
     watch: {
       textareaValue(val) {
+        this.checkBacklight()
         this.$emit('validation', this.validation)
         if (this.maxCharacters) {
           this.notificationStr = `${val.length}/${this.maxCharacters}`

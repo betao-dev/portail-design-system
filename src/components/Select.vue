@@ -6,8 +6,8 @@
           class="ds-drop-icon"/>
     <input
       :class="['ds-select', {
-        'ds-error': checkError && showValidations,
-        'ds-valid': !checkError && touched && showValidations,
+        'ds-error': isInvalidInput,
+        'ds-valid': showValidCheck && validBacklight,
       }]"
       type="text"
       ref="dsSelect"
@@ -19,7 +19,7 @@
     />
     <transition name="error-message">
       <div class="ds-error-message-wrapper" v-if="checkError">
-        {{selectErrors[0]}}
+        {{inputErrors[0]}}
       </div>
     </transition>
     <div v-if="help && !checkError"
@@ -58,10 +58,12 @@
   import { cloneDeep, isEqual } from 'lodash'
   import Dropdown from './Dropdown'
   import Icon from './Icon'
+  import validation from './../mixins/validation'
 
   export default {
     name: 'Select',
     components: { Dropdown, Icon },
+    mixins: [validation],
     props: {
       value: null,
       options: Array,
@@ -119,7 +121,9 @@
         openDropDownList: false,
         touched: false,
         helpVisible: false,
-        inputSelectValue: undefined
+        inputSelectValue: undefined,
+        validBacklight: false,
+        invalidBacklight: false
       }
     },
     methods: {
@@ -137,10 +141,6 @@
         this.$emit('input', option)
         this.$emit('change', option)
         this.openDropDownList = false
-      },
-      validate() {
-        this.touched = true
-        this.$emit('validation', this.validation)
       },
       setInputSelectValue(value) {
         if (this.idMode) {
@@ -185,17 +185,11 @@
 
         return data
       },
-      selectErrors() {
-        let errors = []
-        for (let i = 0; i < this.validation.length; i++) {
-          if (!this.validation[i][1]) {
-            errors.push(this.validators[i].message)
-          }
-        }
-        return errors
-      },
       checkError() {
-        return this.selectErrors.length && this.touched
+        return this.inputErrors.length && this.touched
+      },
+      isInvalidInput() {
+        return this.showInvalidBlock && this.invalidBacklight
       }
     },
     mounted() {
@@ -214,11 +208,11 @@
         })
       }
 
-      document.addEventListener('validate', this.validate);
       this.$emit('validation', this.validation)
     },
     watch: {
       value(val) {
+        this.checkBacklight()
         this.$emit('validation', this.validation)
         this.setInputSelectValue(val)
       },

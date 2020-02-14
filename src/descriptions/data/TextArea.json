@@ -69,6 +69,12 @@
       "name": "disabled",
       "type": "Boolean",
       "description": "Is disable textarea when set as true"
+    },
+    {
+      "name": "showValidations",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for displaying validation of textarea"
     }
   ],
   "events": [
