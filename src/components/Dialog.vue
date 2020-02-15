@@ -19,39 +19,35 @@
 -->
 
 <template>
-<!--  <transition-->
-<!--    @before-enter="beforeEnter"-->
-<!--    @enter="enter"-->
-<!--    @beforeLeave="beforeLeave"-->
-<!--    @leave="leave"-->
-<!--  >-->
-  <section
-    v-if="opened"
-    v-move-to-body
-    :class="['ds-dialog', {'ds-dialog-open': opened, 'ds-dialog-close': !opened}]"
-    :style="dialogStyleObject"
-    :id="backdropId"
-  >
-    <div
-      :class="['ds-dialog-backdrop', {'ds-dialog-datepicker-backdrop': datepickerContainer}]"
-      :style="{opacity: backdropOpacity, 'background-color': backgroundColor}"
-      @click.stop="backdropClick()"
-      @keydown="e => escapePress(e)"
-    ></div>
-    <div class="ds-dialog-virtual-content-wrapper" :style="{minHeight: virtualContainerMinHeight}">
-      <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
-                    'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
-                    'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
-           :style="{borderColor, minHeight, maxHeight, minWidth, overflowY, top}"
-           :id="idContent">
-        <div :class="['ds-dialog-wrapper', {'ds-full-width': contentFullWidth}]">
-          <slot></slot>
-        </div>
-        <Loader v-if="enableLoader" v-model="enableLoader" :target="idContent"></Loader>
+  <transition name="dialog">
+    <section
+      v-if="opened"
+      v-move-to-body
+      class="ds-dialog"
+      :style="dialogStyleObject"
+      :id="backdropId">
+
+      <div
+        :class="['ds-dialog-backdrop', {'ds-dialog-datepicker-backdrop': datepickerContainer}]"
+        :style="{opacity: backdropOpacity, 'background-color': backgroundColor}"
+        @click.stop="backdropClick()"
+        @keydown="e => escapePress(e)">
       </div>
-    </div>
-  </section>
-<!--  </transition>-->
+
+      <div class="ds-dialog-virtual-content-wrapper" :style="{minHeight: virtualContainerMinHeight}">
+        <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
+                      'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
+                      'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
+             :style="{borderColor, minHeight, maxHeight, minWidth, overflowY, top}"
+             :id="idContent">
+          <div :class="['ds-dialog-wrapper', {'ds-full-width': contentFullWidth}]">
+            <slot></slot>
+          </div>
+          <Loader v-if="enableLoader" v-model="enableLoader" :target="idContent"></Loader>
+        </div>
+      </div>
+    </section>
+  </transition>
 </template>
 
 <script>
@@ -110,11 +106,7 @@
       maxHeight: String,
       minWidth: String,
       top: String,
-      virtualContainerMinHeight: String,
-      transitionTime: {
-        type: Number,
-        default: 3000
-      }
+      virtualContainerMinHeight: String
     },
     data: () => ({
       windowWidth: window.innerWidth,
@@ -135,9 +127,11 @@
           document.body.appendChild(el)
         },
         unbind: function (el) {
-          if(el.parentNode) {
-            el.parentNode.removeChild(el);
-          }
+          setTimeout(() => {
+            if (el.parentNode) {
+              el.parentNode.removeChild(el)
+            }
+          }, 300)
         }
       },
     },
@@ -227,37 +221,6 @@
         if (_.isUndefined(this.activeDatepickerComponent) || this.activeDatepickerComponent === 'Dialog') {
           this.$emit('update:opened', false)
         }
-      },
-      beforeEnter(el) {
-        console.log('beforeEnter')
-        el.style.opacity = '0'
-        el.style.transition = 'opacity 2s'
-      },
-      enter(el, done) {
-        console.log('enter')
-
-        setTimeout(() => {
-          done()
-        }, this.transitionTime)
-        setTimeout(() => {
-          el.style.opacity = '1'
-          el.style.transition = 'opacity 2s'
-        })
-      },
-      beforeLeave(el) {
-        console.log('beforeLeave')
-        setTimeout(() => {
-          el.style.opacity = '0'
-          el.style.transition = 'opacity 2s'
-        })
-      },
-      leave(el, done) {
-        console.log('leave')
-
-        setTimeout(() => {
-          done()
-        }, this.transitionTime)
-
       }
     },
     computed: {
@@ -452,29 +415,12 @@
     }
   }
 
-  @keyframes fade {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
+  .dialog-enter-active, .dialog-leave-active {
+    transition: opacity .3s ease;
   }
 
-  .ds-dialog-open {
-    animation: fade ease .3s;
-    -webkit-animation: fade ease .3s;
-    -moz-animation: fade ease .3s;
-    -o-animation: fade ease .3s;
-    -ms-animation: fade ease .3s;
-  }
-
-  .ds-dialog-close {
-    animation: fade ease .3s reverse;
-    -webkit-animation: fade ease .3s reverse;
-    -moz-animation: fade ease .3s reverse;
-    -o-animation: fade ease .3s reverse;
-    -ms-animation: fade ease .3s reverse;
+  .dialog-enter, .dialog-leave-to {
+    opacity: 0;
   }
 
 </style>
