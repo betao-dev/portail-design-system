@@ -19,32 +19,35 @@
 -->
 
 <template>
-  <section
-    v-if="opened"
-    v-move-to-body
-    class="ds-dialog"
-    :style="dialogStyleObject"
-    :id="backdropId"
-  >
-    <div
-      :class="['ds-dialog-backdrop', {'ds-dialog-datepicker-backdrop': datepickerContainer}]"
-      :style="{opacity: backdropOpacity, 'background-color': backgroundColor}"
-      @click.stop="backdropClick()"
-      @keydown="e => escapePress(e)"
-    ></div>
-    <div class="ds-dialog-virtual-content-wrapper" :style="{minHeight: virtualContainerMinHeight}">
-      <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
-                    'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
-                    'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
-           :style="{borderColor, minHeight, maxHeight, minWidth, overflowY, top}"
-           :id="idContent">
-        <div :class="['ds-dialog-wrapper', {'ds-full-width': contentFullWidth}]">
-          <slot></slot>
-        </div>
-        <Loader v-if="enableLoader" v-model="enableLoader" :target="idContent"></Loader>
+  <transition name="dialog">
+    <section
+      v-if="opened"
+      v-move-to-body
+      class="ds-dialog"
+      :style="dialogStyleObject"
+      :id="backdropId">
+
+      <div
+        :class="['ds-dialog-backdrop', {'ds-dialog-datepicker-backdrop': datepickerContainer}]"
+        :style="{opacity: backdropOpacity, 'background-color': backgroundColor}"
+        @click.stop="backdropClick()"
+        @keydown="e => escapePress(e)">
       </div>
-    </div>
-  </section>
+
+      <div class="ds-dialog-virtual-content-wrapper" :style="{minHeight: virtualContainerMinHeight}">
+        <div :class="['ds-dialog-content', {'ds-border-content': borderColor, 'ds-full-screen-content': fullScreen,
+                      'ds-full-screen-active-content': fullScreenActive, 'ds-full-width': contentFullWidth,
+                      'ds-dialog-datepicker-container': datepickerContainer, 'ds-dialog-top-offset': top}]"
+             :style="{borderColor, minHeight, maxHeight, minWidth, overflowY, top}"
+             :id="idContent">
+          <div :class="['ds-dialog-wrapper', {'ds-full-width': contentFullWidth}]">
+            <slot></slot>
+          </div>
+          <Loader v-if="enableLoader" v-model="enableLoader" :target="idContent"></Loader>
+        </div>
+      </div>
+    </section>
+  </transition>
 </template>
 
 <script>
@@ -124,9 +127,11 @@
           document.body.appendChild(el)
         },
         unbind: function (el) {
-          if(el.parentNode) {
-            el.parentNode.removeChild(el);
-          }
+          setTimeout(() => {
+            if (el.parentNode) {
+              el.parentNode.removeChild(el)
+            }
+          }, 300)
         }
       },
     },
@@ -258,7 +263,7 @@
               overflow: htmlStyle.overflow,
               height: htmlStyle.height
             }
-            
+
             htmlStyle.overflow = 'hidden'
             htmlStyle.position = this.isMobile ? 'fixed' : 'relative'
           } else {
@@ -408,6 +413,14 @@
         opacity: 1 !important;
       }
     }
+  }
+
+  .dialog-enter-active, .dialog-leave-active {
+    transition: opacity .3s ease;
+  }
+
+  .dialog-enter, .dialog-leave-to {
+    opacity: 0;
   }
 
 </style>
