@@ -228,6 +228,18 @@
     {
       "name": "icon-click",
       "description": "Dispatched when Icon get click and activeIcon prop is true"
+    },
+    {
+      "name": "input",
+      "description": "Emitted for updating the value props"
+    },
+    {
+      "name": "update:secondDate",
+      "description": "Emitted for updating the secondDate props"
+    },
+    {
+      "name": "validation",
+      "description": "Emitted when triggered the validate event"
     }
   ]
 }

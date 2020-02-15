@@ -60,5 +60,22 @@
       "description": "Responsible for auto initialize value of datepicker"
     }
   ],
-  "events": []
+  "events": [
+    {
+      "name": "update:secondDate",
+      "description": "Emitted for updating the secondDate props"
+    },
+    {
+      "name": "update:dateUnset",
+      "description": "Emitted for updating the dateUnset props"
+    },
+    {
+      "name": "input",
+      "description": "Emitted for updating the value props"
+    },
+    {
+      "name": "save",
+      "description": "Emitted by clicks by saving buttons or when days range is selecting"
+    }
+  ]
 }
