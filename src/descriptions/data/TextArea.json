@@ -81,6 +81,10 @@
     {
       "name": "validation",
       "description": "Emitted when the textarea value changes or in initial proccess depend on initValidation value"
+    },
+    {
+      "name": "input",
+      "description": "Emitted for updating the value props"
     }
   ]
 }
