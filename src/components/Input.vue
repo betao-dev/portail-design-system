@@ -730,7 +730,7 @@ export default {
     width: 144px;
 
     input {
-      height: 30px;
+      height: 38px;
     }
   }
 
