@@ -252,7 +252,6 @@ export default {
     slideActive: undefined,
     labelFocus: undefined,
     timeoutId: undefined,
-    validationTimeoutId: undefined,
     validBacklight: false,
     invalidBacklight: false,
     offset: {offset: '0, 10px'},

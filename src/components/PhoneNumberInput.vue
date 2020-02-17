@@ -203,7 +203,6 @@ export default {
       selectedIndex: null,
       typeToFindInput: '',
       typeToFindTimer: null,
-      validationTimeoutId: undefined,
       touched: false,
       validBacklight: false,
       invalidBacklight: false

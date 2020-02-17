@@ -1,6 +1,7 @@
 export default {
   data: () => ({
-    previousInvalidState: false
+    previousInvalidState: false,
+    validationActive: false
   }),
   methods: {
     validate() {
@@ -13,15 +14,15 @@ export default {
         this[inactiveValidation] = false
         this[activeValidation] = true
 
-        if (this.validationTimeoutId) {
-          this.previousInvalidState = activeValidation === 'invalidBacklight'
-          clearTimeout(this.validationTimeoutId)
-        }
+        if (!this.validationActive) {
+          this.validationActive = true
 
-        this.validationTimeoutId = setTimeout(() => {
-          this[activeValidation] = false
-          this.previousInvalidState = activeValidation === 'invalidBacklight'
-        }, 2000)
+          setTimeout(() => {
+            this[activeValidation] = false
+            this.validationActive = false
+            this.previousInvalidState = activeValidation === 'invalidBacklight'
+          }, 2000)
+        }
       } else {
         this.previousInvalidState = activeValidation === 'invalidBacklight'
       }
