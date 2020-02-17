@@ -1,4 +1,8 @@
 export default {
+  data: () => ({
+    previousInvalidState: false,
+    validationActive: false
+  }),
   methods: {
     validate() {
       this.touched = true
@@ -6,25 +10,29 @@ export default {
       this.$emit('validation', this.validation)
     },
     validationBacklight(activeValidation, inactiveValidation) {
-      this[inactiveValidation] = false
-      this[activeValidation] = true
+      if (this.previousInvalidState || activeValidation === 'invalidBacklight') {
+        this[inactiveValidation] = false
+        this[activeValidation] = true
 
-      if (this.validationTimeoutId) {
-        clearTimeout(this.validationTimeoutId)
+        if (!this.validationActive) {
+          this.validationActive = true
+
+          setTimeout(() => {
+            this[activeValidation] = false
+            this.validationActive = false
+            this.previousInvalidState = activeValidation === 'invalidBacklight'
+          }, 2000)
+        }
+      } else {
+        this.previousInvalidState = activeValidation === 'invalidBacklight'
       }
-
-      this.validationTimeoutId = setTimeout(() => {
-        this[activeValidation] = false
-      }, 2000)
     },
     checkBacklight() {
-      this.$nextTick(() => {
-        if (this.showValidCheck) {
-          this.validationBacklight('validBacklight', 'invalidBacklight')
-        } else if (this.showInvalidBlock) {
-          this.validationBacklight('invalidBacklight', 'validBacklight')
-        }
-      })
+      if (this.showValidCheck) {
+        this.validationBacklight('validBacklight', 'invalidBacklight')
+      } else if (this.showInvalidBlock) {
+        this.validationBacklight('invalidBacklight', 'validBacklight')
+      }
     }
   },
   computed: {
