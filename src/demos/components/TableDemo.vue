@@ -15,6 +15,7 @@
       :pagination="true"
       :pageSize="10"
       :total="25"
+      orderingKey="invoice_date"
       :current="selectedPage"
       @update:page="updatePage"
     >

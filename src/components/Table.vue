@@ -154,20 +154,18 @@
     },
     mounted() {
       this.pageItems = this.value
+      if (this.orderingKey) {
+        if (this.orderingKey.includes('-')) {
+          this.sortType = SORT_TYPES.DSC
+        } else {
+          this.sortType = SORT_TYPES.ASC
+        }
+        this.sortKey = this.orderingKey.replace('-', '')
+      }
     },
     watch: {
       value(val) {
         this.pageItems = val
-      },
-      orderingKey(value) {
-        if (value) {
-          if (value.includes('-')) {
-            this.sortType = SORT_TYPES.DSC
-          } else {
-            this.sortType = SORT_TYPES.ASC
-          }
-          this.sortKey = value.replace('-', '')
-        }
       }
     }
   }
