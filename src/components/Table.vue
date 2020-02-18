@@ -95,6 +95,7 @@
       total: Number,
       current: Number,
       identifierField: String,
+      orderingKey: null,
     },
     data: () => ({
       sortType: null,
@@ -157,6 +158,14 @@
     watch: {
       value(val) {
         this.pageItems = val
+      },
+      orderingKey(value) {
+        if (value.includes('-')) {
+          this.sortType = SORT_TYPES.DSC
+        } else {
+          this.sortType = SORT_TYPES.ASC
+        }
+        this.sortKey = value.replace('-', '')
       }
     }
   }
