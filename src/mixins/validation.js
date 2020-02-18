@@ -1,6 +1,8 @@
+import _ from 'lodash'
+
 export default {
   data: () => ({
-    previousInvalidState: false,
+    previousInvalidState: undefined,
     validationActive: false
   }),
   methods: {
@@ -10,7 +12,10 @@ export default {
       this.$emit('validation', this.validation)
     },
     validationBacklight(activeValidation, inactiveValidation) {
-      if (this.previousInvalidState || activeValidation === 'invalidBacklight') {
+      if (this.previousInvalidState && activeValidation === 'validBacklight' ||
+          !this.previousInvalidState && activeValidation === 'invalidBacklight' ||
+          _.isUndefined(this.previousInvalidState)) {
+
         this[inactiveValidation] = false
         this[activeValidation] = true
 
