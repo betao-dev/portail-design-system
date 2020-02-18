@@ -271,11 +271,6 @@ export default {
     clearContent() {
       this.textValue = ''
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.validate()
-    })
   }
 }
 </script>

@@ -51,6 +51,31 @@
   -ms-animation: fadeValid ease 2s;
 }
 
+@keyframes selectFadeValid {
+  0% {
+    border-color: @color-gray-300;
+    background-color: @color-white;
+  }
+
+  33%, 66% {
+    border-color: @color-primary;
+    background-color: #e9f8f3;
+  }
+
+  100% {
+    border-color: @color-gray-300;
+    background-color: @color-white;
+  }
+}
+
+.select-valid-fade-animation() {
+  animation: selectFadeValid ease 2s;
+  -webkit-animation: selectFadeValid ease 2s;
+  -moz-animation: selectFadeValid ease 2s;
+  -o-animation: selectFadeValid ease 2s;
+  -ms-animation: selectFadeValid ease 2s;
+}
+
 @keyframes fadeInvalid {
   0% {
     background-color: @color-white;

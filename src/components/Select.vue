@@ -313,8 +313,7 @@
       }
 
       &.ds-valid {
-        border-color: @color-primary;
-        .input-valid-fade-animation();
+        .select-valid-fade-animation();
       }
     }
 
