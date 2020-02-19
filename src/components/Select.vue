@@ -6,6 +6,7 @@
           class="ds-drop-icon"/>
     <input
       :class="['ds-select', {
+        'ds-input-error': checkError,
         'ds-error': isInvalidInput,
         'ds-valid': showValidCheck && validBacklight,
       }]"
@@ -296,23 +297,23 @@
       cursor: pointer;
       width: 100%;
 
-      &:focus:not(.ds-error) {
+      &:focus:not(.ds-error):not(.ds-input-error) {
         border-color: @color-primary;
       }
       &:focus {
         outline: none;
       }
 
+      &.ds-input-error {
+        border-color: @color-red;
+      }
+
       &.ds-error {
         .input-invalid-fade-animation();
-
-        &:focus {
-          border-color: @color-red;
-        }
       }
 
       &.ds-valid {
-        .input-valid-fade-animation();
+        .select-valid-fade-animation();
       }
     }
 

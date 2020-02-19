@@ -31,6 +31,28 @@
 
 @keyframes fadeValid {
   0% {
+    background-color: @color-white;
+  }
+
+  33%, 66% {
+    background-color: #e9f8f3;
+  }
+
+  100% {
+    background-color: @color-white;
+  }
+}
+
+.input-valid-fade-animation() {
+  animation: fadeValid ease 2s;
+  -webkit-animation: fadeValid ease 2s;
+  -moz-animation: fadeValid ease 2s;
+  -o-animation: fadeValid ease 2s;
+  -ms-animation: fadeValid ease 2s;
+}
+
+@keyframes selectFadeValid {
+  0% {
     border-color: @color-gray-300;
     background-color: @color-white;
   }
@@ -46,27 +68,24 @@
   }
 }
 
-.input-valid-fade-animation() {
-  animation: fadeValid ease 2s;
-  -webkit-animation: fadeValid ease 2s;
-  -moz-animation: fadeValid ease 2s;
-  -o-animation: fadeValid ease 2s;
-  -ms-animation: fadeValid ease 2s;
+.select-valid-fade-animation() {
+  animation: selectFadeValid ease 2s;
+  -webkit-animation: selectFadeValid ease 2s;
+  -moz-animation: selectFadeValid ease 2s;
+  -o-animation: selectFadeValid ease 2s;
+  -ms-animation: selectFadeValid ease 2s;
 }
 
 @keyframes fadeInvalid {
   0% {
-    border-color: @color-gray-300;
     background-color: @color-white;
   }
 
   33%, 66% {
-    border-color: @color-red;
     background-color: #ffedec;
   }
 
   100% {
-    border-color: @color-gray-300;
     background-color: @color-white;
   }
 }

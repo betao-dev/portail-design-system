@@ -34,6 +34,7 @@
         :rows="rows"
         :class="{
           'ds-error': showInvalidBlock && invalidBacklight,
+          'ds-textarea-error': isInvalid,
           'ds-valid': showValidCheck && validBacklight
         }"
         :disabled="disabled"
@@ -155,7 +156,7 @@
       },
       showInvalidBlock() {
         return this.validationShown && this.textareaErrors.length > 0
-      },
+      }
     },
     mounted() {
       if (this.maxCharacters) {
@@ -235,7 +236,7 @@
           white-space: nowrap;
         }
 
-        &:focus:not(.ds-error) {
+        &:focus:not(.ds-error):not(.ds-textarea-error) {
           border-color: @color-primary;
         }
 
@@ -243,15 +244,16 @@
           outline: none;
         }
 
+        &.ds-textarea-error {
+          border-color: @color-red;
+        }
+
         &.ds-error {
           .input-invalid-fade-animation();
-
-          &:focus {
-            border-color: @color-red;
-          }
         }
 
         &.ds-valid {
+          border-color: @color-primary;
           .input-valid-fade-animation();
         }
       }

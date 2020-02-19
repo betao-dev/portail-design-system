@@ -604,7 +604,7 @@ export default {
         text-align: right;
       }
 
-      &:focus:not(.ds-error) {
+      &:focus:not(.ds-error):not(.ds-input-error) {
         border-color: @color-primary;
       }
       &:focus {
@@ -612,9 +612,7 @@ export default {
       }
 
       &.ds-input-error {
-        &:focus {
-          border-color: @color-red;
-        }
+        border-color: @color-red;
       }
 
       &.ds-error {
@@ -622,6 +620,7 @@ export default {
       }
 
       &.ds-valid {
+        border-color: @color-primary;
         .input-valid-fade-animation();
       }
 

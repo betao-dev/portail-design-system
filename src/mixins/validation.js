@@ -1,16 +1,24 @@
+import _ from 'lodash'
+
 export default {
   data: () => ({
-    previousInvalidState: false,
+    previousInvalidState: undefined,
     validationActive: false
   }),
   methods: {
     validate() {
       this.touched = true
+      this.previousInvalidState = undefined
       this.checkBacklight()
       this.$emit('validation', this.validation)
     },
     validationBacklight(activeValidation, inactiveValidation) {
-      if (this.previousInvalidState || activeValidation === 'invalidBacklight') {
+      const isInvalid = activeValidation === 'invalidBacklight'
+      const toInvalid = !this.previousInvalidState && isInvalid
+      const toValid = this.previousInvalidState && activeValidation === 'validBacklight'
+      const isExistPreviousState = _.isUndefined(this.previousInvalidState)
+
+      if ((toValid || toInvalid) && !isExistPreviousState || isExistPreviousState && isInvalid) {
         this[inactiveValidation] = false
         this[activeValidation] = true
 
@@ -20,11 +28,11 @@ export default {
           setTimeout(() => {
             this[activeValidation] = false
             this.validationActive = false
-            this.previousInvalidState = activeValidation === 'invalidBacklight'
+            this.previousInvalidState = isInvalid
           }, 2000)
         }
       } else {
-        this.previousInvalidState = activeValidation === 'invalidBacklight'
+        this.previousInvalidState = isInvalid
       }
     },
     checkBacklight() {
