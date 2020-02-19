@@ -34,38 +34,38 @@
 </template>
 
 <script>
-  import Select from '../../components/Select'
-  import Description from '../../descriptions/Description'
-  import Collapser from '../../components/Collapser.vue'
-  import { SelectData } from '../../static/index'
+import Select from '../../components/Select';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { SelectData } from '../../static/index';
 
-  export default {
-    name: 'SelectDemo',
-    components: { Select, Description, Collapser },
-    data: () => ({
-      openUsage: true,
-      usage: SelectData.usage,
-      selectValue: '',
-      selectValue2: { id: 1 },
-      options: [
-        { id: 1, value: 'Espèces' },
-        { id: 2, value: 'Chèque' },
-        { id: 3, value: 'Virement' },
-        { id: 4, value: 'Carte bancaire' }
-      ],
-      selectValidators: [
-        {
-          name: 'required',
-          message: 'The field is required',
-          validator: value => value && !!value
-        }
-      ]
-    })
-  }
+export default {
+  name: 'SelectDemo',
+  components: { Select, Description, Collapser },
+  data: () => ({
+    openUsage: true,
+    usage: SelectData.usage,
+    selectValue: '',
+    selectValue2: { id: 1 },
+    options: [
+      { id: 1, value: 'Espèces' },
+      { id: 2, value: 'Chèque' },
+      { id: 3, value: 'Virement' },
+      { id: 4, value: 'Carte bancaire' }
+    ],
+    selectValidators: [
+      {
+        name: 'required',
+        message: 'The field is required',
+        validator: value => value && !!value
+      }
+    ]
+  })
+};
 </script>
 
 <style lang="less" scoped>
-  .ds-select-demo {
-    margin-bottom: 30px;
-  }
+.ds-select-demo {
+  margin-bottom: 30px;
+}
 </style>

@@ -9,9 +9,9 @@ var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 
 // Patch
 if (iOSSafari) {
-  var style = document.createElement("style");
-  style.appendChild(document.createTextNode(""));
+  var style = document.createElement('style');
+  style.appendChild(document.createTextNode(''));
   document.head.appendChild(style);
-  style.sheet.insertRule(".is-ios * {cursor: pointer;}")
+  style.sheet.insertRule('.is-ios * {cursor: pointer;}');
   document.querySelector('html').classList.add('is-ios');
 }

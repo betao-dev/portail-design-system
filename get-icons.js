@@ -1,14 +1,13 @@
 // Some themed icons .svg's aren't available in the github repo and can only
 // be donwloaded from https://material.io/tools/icons
 // This script automates the download
-const fs = require('fs')
-const https = require('https')
-const path = require('path')
-
+const fs = require('fs');
+const https = require('https');
+const path = require('path');
 
 // Where to save downloaded icons
-const DEST_FOLDER = path.resolve(__dirname, 'src', 'icons')
-if (!fs.existsSync(DEST_FOLDER)){
+const DEST_FOLDER = path.resolve(__dirname, 'src', 'icons');
+if (!fs.existsSync(DEST_FOLDER)) {
   fs.mkdirSync(DEST_FOLDER);
 }
 
@@ -60,8 +59,7 @@ const ICONS_TO_GET = [
   ['euro_symbol', 'baseline'],
   ['euro_symbol', 'outline'],
   ['drafts', 'baseline'],
-  ['drafts', 'outline']
-  ['save', 'baseline'],
+  ['drafts', 'outline'][('save', 'baseline')],
   ['save', 'outline'],
   ['more_horiz', 'baseline'],
   ['more_horiz', 'outline'],
@@ -179,37 +177,40 @@ const ICONS_TO_GET = [
   ['tags-solid', 'outline'],
   ['portail-logo', 'baseline'],
   ['portail-logo', 'outline']
-]
+];
 
 // Get svg download link
-let iconUrl = (icon, style='baseline') =>
-  `https://material.io/tools/icons/static/icons/${style}-${icon}-24px.svg`
+let iconUrl = (icon, style = 'baseline') =>
+  `https://material.io/tools/icons/static/icons/${style}-${icon}-24px.svg`;
 
 // Path to save to save
-let iconFilePath = (icon, style='baseline') =>
+let iconFilePath = (icon, style = 'baseline') =>
   path.resolve(
     DEST_FOLDER,
     style === 'baseline' ? `${icon}.svg` : `${icon}_${style}.svg`
-  )
+  );
 
 // Download (thanks https://stackoverflow.com/a/22907134/723891)
 let download = function(url, dest, cb) {
   let file = fs.createWriteStream(dest);
-  https.get(url, function(response) {
-    response.pipe(file);
-    file.on('finish', function() {
-      file.close(cb);  // close() is async, call cb after close completes.
+  https
+    .get(url, function(response) {
+      response.pipe(file);
+      file.on('finish', function() {
+        file.close(cb); // close() is async, call cb after close completes.
+      });
+    })
+    .on('error', function(err) {
+      // Handle errors
+      fs.unlink(dest); // Delete the file async. (But we don't check the result)
+      if (cb) cb(err.message);
     });
-  }).on('error', function(err) { // Handle errors
-    fs.unlink(dest); // Delete the file async. (But we don't check the result)
-    if (cb) cb(err.message);
-  });
 };
 
 // Download each icon (if it wasn't already)
 ICONS_TO_GET.forEach(([icon, style]) => {
-  let path = iconFilePath(icon, style)
+  let path = iconFilePath(icon, style);
   if (!fs.existsSync(path)) {
-    download(iconUrl(icon, style), path)
+    download(iconUrl(icon, style), path);
   }
-})
+});

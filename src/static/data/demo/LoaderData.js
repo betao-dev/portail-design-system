@@ -10,8 +10,8 @@ let usage = `
     <Loader v-model="loadingSignature"></Loader>
   </template>
 </Signature>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

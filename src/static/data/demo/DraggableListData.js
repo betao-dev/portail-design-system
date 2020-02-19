@@ -4,8 +4,8 @@ let usage = `
     :headers="headers"
     @update:list="updateDraggableLists"
   />
-`
+`;
 
 export default {
   usage
-}
+};

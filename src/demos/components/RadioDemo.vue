@@ -14,30 +14,28 @@
 </template>
 
 <script>
-  import Radio from '../../components/Radio.vue'
-  import Description from '../../descriptions/Description.vue'
-  import Collapser from '../../components/Collapser.vue'
-  import {RadioData} from '../../static/index'
+import Radio from '../../components/Radio.vue';
+import Description from '../../descriptions/Description.vue';
+import Collapser from '../../components/Collapser.vue';
+import { RadioData } from '../../static/index';
 
-  export default {
-    name: 'RadioDemo',
-    components: {Radio, Description, Collapser},
-    data: () => ({
-      openUsage: true,
-      usage: RadioData.usage,
-      value: undefined,
-      radioList: [
-        {
-          title: 'Madame'
-        },
-        {
-          title: 'Monsieur'
-        }
-      ]
-    })
-  }
+export default {
+  name: 'RadioDemo',
+  components: { Radio, Description, Collapser },
+  data: () => ({
+    openUsage: true,
+    usage: RadioData.usage,
+    value: undefined,
+    radioList: [
+      {
+        title: 'Madame'
+      },
+      {
+        title: 'Monsieur'
+      }
+    ]
+  })
+};
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

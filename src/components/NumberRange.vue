@@ -1,8 +1,21 @@
 <template>
   <div>
     <div class="range-input-wrapper" @click="dropdownOpened = !dropdownOpened">
-      <Input disabled :value="inputData" :show-validations="false" ref="inputDrop" />
-      <Button plain padding="12px" class="close-btn" icon="close" iconColor="#778CA2" iconSize="24px" @click="clearModel" />
+      <Input
+        disabled
+        :value="inputData"
+        :show-validations="false"
+        ref="inputDrop"
+      />
+      <Button
+        plain
+        padding="12px"
+        class="close-btn"
+        icon="close"
+        iconColor="#778CA2"
+        iconSize="24px"
+        @click="clearModel"
+      />
     </div>
 
     <Dropdown
@@ -32,9 +45,17 @@
         </div>
 
         <div class="min-max-input-wrapper">
-          <Input placeholder="Montant min." v-model="sliderModel[0]" width="100px" />
+          <Input
+            placeholder="Montant min."
+            v-model="sliderModel[0]"
+            width="100px"
+          />
           <div class="between">To</div>
-          <Input placeholder="Montant max." v-model="sliderModel[1]" width="100px" />
+          <Input
+            placeholder="Montant max."
+            v-model="sliderModel[1]"
+            width="100px"
+          />
         </div>
       </div>
     </Dropdown>
@@ -42,10 +63,10 @@
 </template>
 
 <script>
-import VueSlider from 'vue-slider-component'
-import Input from './Input'
-import Button from './Button'
-import Dropdown from './Dropdown'
+import VueSlider from 'vue-slider-component';
+import Input from './Input';
+import Button from './Button';
+import Dropdown from './Dropdown';
 
 export default {
   name: 'NumberRange',
@@ -81,32 +102,31 @@ export default {
   }),
   computed: {
     inputData() {
-      return this.sliderModel[0] + ' - ' + this.sliderModel[1]
+      return this.sliderModel[0] + ' - ' + this.sliderModel[1];
     }
   },
   methods: {
     modelChange(value) {
-      this.$emit('change:range', {min: value[0], max: value[1]})
+      this.$emit('change:range', { min: value[0], max: value[1] });
     },
     clearModel(e) {
       e.preventDefault();
       e.stopPropagation();
-      this.sliderModel = [0, 0],
-      this.$emit('change:range', [0, 0])
+      (this.sliderModel = [0, 0]), this.$emit('change:range', [0, 0]);
     }
   },
   mounted() {
-    this.sliderModel = [this.min, this.max]
+    this.sliderModel = [this.min, this.max];
   },
   watch: {
     min(val) {
-      this.sliderModel = [val, this.max]
+      this.sliderModel = [val, this.max];
     },
     max(val) {
-      this.sliderModel = [this.min, val]
+      this.sliderModel = [this.min, val];
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -123,7 +143,9 @@ export default {
 
     &::v-deep {
       .ds-button {
-        &:hover, &:focus, &:active {
+        &:hover,
+        &:focus,
+        &:active {
           background-color: transparent !important;
         }
       }
@@ -153,7 +175,8 @@ export default {
     justify-content: space-between;
     margin-bottom: 10px;
 
-    .min-value, .max-value {
+    .min-value,
+    .max-value {
       width: 40px;
       height: 40px;
       background-color: @color-gray-300;
@@ -187,4 +210,3 @@ export default {
   }
 }
 </style>
-

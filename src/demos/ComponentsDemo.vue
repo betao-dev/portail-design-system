@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import {ComponentsData} from '../static/index'
+import { ComponentsData } from '../static/index';
 
-let context = require.context('./components', false, /.*\.vue$/)
-let componentDemos = context.keys().map(key => context(key).default)
+let context = require.context('./components', false, /.*\.vue$/);
+let componentDemos = context.keys().map(key => context(key).default);
 
 export default {
   name: 'ComponentsDemo',
@@ -24,5 +24,5 @@ export default {
     usage: ComponentsData.usage,
     componentDemos
   })
-}
+};
 </script>

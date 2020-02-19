@@ -39,8 +39,13 @@
         @mouseover="tooltipVisible = true"
       ></span>
 
-      <Dropdown :target="$refs.tooltipIcon" :opened.sync="tooltipVisible" just-fade mouseoutClose>
-        <Tooltip v-html="tooltip" dynamicWidth/>
+      <Dropdown
+        :target="$refs.tooltipIcon"
+        :opened.sync="tooltipVisible"
+        just-fade
+        mouseoutClose
+      >
+        <Tooltip v-html="tooltip" dynamicWidth />
       </Dropdown>
     </span>
 
@@ -55,18 +60,18 @@
 </template>
 
 <script>
-import icons from '../icons'
-import {COLORS} from '../styles/vars'
+import icons from '../icons';
+import { COLORS } from '../styles/vars';
 
-import Tooltip from './Tooltip'
-import Dropdown from './Dropdown'
+import Tooltip from './Tooltip';
+import Dropdown from './Dropdown';
 
 export default {
   name: 'Icon',
-  components: {Tooltip,Dropdown},
+  components: { Tooltip, Dropdown },
   props: {
     source: {
-      type: String,
+      type: String
     },
     size: {
       type: String,
@@ -95,44 +100,44 @@ export default {
   computed: {
     code() {
       if (this.source) {
-        return icons[this.source] || this.source
+        return icons[this.source] || this.source;
       }
       for (let key in this.$attrs) {
         if (key in icons) {
-          return icons[key]
+          return icons[key];
         }
       }
-      throw 'Icon code is missing'
+      throw 'Icon code is missing';
     },
     stylesObject() {
       let styles = {
         padding: this.padding,
         fill: this.COLORS[this.color] || this.color
-      }
+      };
 
       if (!this.noSize) {
-        styles.height = this.size
-        styles.width = this.size
+        styles.height = this.size;
+        styles.width = this.size;
       }
-      return styles
+      return styles;
     },
     wrapperStyle() {
       let styles = {
         width: this.size,
         height: this.size
-      }
+      };
 
       if (this.type === 'circle') {
-        styles.width = '40px'
-        styles.height = '40px'
-        styles.borderRadius = '20px'
-        styles.backgroundColor = '#F2F4F6'
+        styles.width = '40px';
+        styles.height = '40px';
+        styles.borderRadius = '20px';
+        styles.backgroundColor = '#F2F4F6';
       }
 
-      return styles
+      return styles;
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -155,5 +160,4 @@ export default {
     }
   }
 }
-
 </style>

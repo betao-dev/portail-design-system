@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default {
   data: () => ({
@@ -7,78 +7,82 @@ export default {
   }),
   methods: {
     validate() {
-      this.touched = true
-      this.previousInvalidState = undefined
-      this.checkBacklight()
-      this.$emit('validation', this.validation)
+      this.touched = true;
+      this.previousInvalidState = undefined;
+      this.checkBacklight();
+      this.$emit('validation', this.validation);
     },
     validationBacklight(activeValidation, inactiveValidation) {
-      const isInvalid = activeValidation === 'invalidBacklight'
-      const toInvalid = !this.previousInvalidState && isInvalid
-      const toValid = this.previousInvalidState && activeValidation === 'validBacklight'
-      const isExistPreviousState = _.isUndefined(this.previousInvalidState)
+      const isInvalid = activeValidation === 'invalidBacklight';
+      const toInvalid = !this.previousInvalidState && isInvalid;
+      const toValid =
+        this.previousInvalidState && activeValidation === 'validBacklight';
+      const isExistPreviousState = _.isUndefined(this.previousInvalidState);
 
-      if ((toValid || toInvalid) && !isExistPreviousState || isExistPreviousState && isInvalid) {
-        this[inactiveValidation] = false
-        this[activeValidation] = true
+      if (
+        ((toValid || toInvalid) && !isExistPreviousState) ||
+        (isExistPreviousState && isInvalid)
+      ) {
+        this[inactiveValidation] = false;
+        this[activeValidation] = true;
 
         if (!this.validationActive) {
-          this.validationActive = true
+          this.validationActive = true;
 
           setTimeout(() => {
-            this[activeValidation] = false
-            this.validationActive = false
-            this.previousInvalidState = isInvalid
-          }, 2000)
+            this[activeValidation] = false;
+            this.validationActive = false;
+            this.previousInvalidState = isInvalid;
+          }, 2000);
         }
       } else {
-        this.previousInvalidState = isInvalid
+        this.previousInvalidState = isInvalid;
       }
     },
     checkBacklight() {
       if (this.showValidCheck) {
-        this.validationBacklight('validBacklight', 'invalidBacklight')
+        this.validationBacklight('validBacklight', 'invalidBacklight');
       } else if (this.showInvalidBlock) {
-        this.validationBacklight('invalidBacklight', 'validBacklight')
+        this.validationBacklight('invalidBacklight', 'validBacklight');
       }
     }
   },
   computed: {
     validationShown() {
-      return this.showValidations && this.touched
+      return this.showValidations && this.touched;
     },
     showValidCheck() {
-      return this.validationShown && this.inputErrors.length == 0
+      return this.validationShown && this.inputErrors.length == 0;
     },
     showInvalidBlock() {
-      return this.validationShown && this.inputErrors.length > 0
+      return this.validationShown && this.inputErrors.length > 0;
     },
     inputErrors() {
-      let errors = []
+      let errors = [];
       for (let i = 0; i < this.validation.length; i++) {
         if (!this.validation[i][1]) {
-          errors.push(this.validators[i].message)
+          errors.push(this.validators[i].message);
         }
       }
-      return errors
+      return errors;
     }
   },
   watch: {
     showValidCheck(value) {
       if (value) {
-        this.validationBacklight('validBacklight', 'invalidBacklight')
+        this.validationBacklight('validBacklight', 'invalidBacklight');
       }
     },
     showInvalidBlock(value) {
       if (value) {
-        this.validationBacklight('invalidBacklight', 'validBacklight')
+        this.validationBacklight('invalidBacklight', 'validBacklight');
       }
     }
   },
   mounted() {
-    document.addEventListener('validate', this.validate)
+    document.addEventListener('validate', this.validate);
   },
   beforeDestroy() {
-    document.removeEventListener('validate', this.validate)
+    document.removeEventListener('validate', this.validate);
   }
-}
+};

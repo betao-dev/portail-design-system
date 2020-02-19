@@ -9,8 +9,8 @@ let usage = `
   </template>
   Lorem ipsum dolor sit amet...
 </FullScreenModal>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

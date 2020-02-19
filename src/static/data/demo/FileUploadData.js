@@ -9,8 +9,8 @@ let usage = `
   @addfile="addfile"
   @removefile="removefile"
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

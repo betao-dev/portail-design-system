@@ -23,8 +23,8 @@ let usage = `
 <button class="ds-button ds-button-primary">
   Button Label
 </button>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

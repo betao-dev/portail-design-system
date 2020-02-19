@@ -25,32 +25,41 @@
 -->
 
 <template>
-  <div :class="['ds-datepicker', {'ds-full-width': fullWidth, 'ds-datepicker-select-day-list': selectDayList && !isMobile,
-                                  'ds-datepicker-range': !rangeAvailable}]">
+  <div
+    :class="[
+      'ds-datepicker',
+      {
+        'ds-full-width': fullWidth,
+        'ds-datepicker-select-day-list': selectDayList && !isMobile,
+        'ds-datepicker-range': !rangeAvailable
+      }
+    ]"
+  >
     <div class="ds-datepicker-sidebar">
-
       <div class="ds-datepicker-sidebar-header">
-          <div class="ds-datepicker-sidebar-title">
-            Pick a date
-          </div>
-          <Icon class="ds-close-icon"
-                times_circle
-                color="gray-500"
-                size="16px"
-                @click="onClear()">
-          </Icon>
+        <div class="ds-datepicker-sidebar-title">
+          Pick a date
+        </div>
+        <Icon
+          class="ds-close-icon"
+          times_circle
+          color="gray-500"
+          size="16px"
+          @click="onClear()"
+        >
+        </Icon>
       </div>
 
       <div class="ds-datepicker-sidebar-content">
         <div v-if="!dateUnset">
           <div class="ds-datepicker-sidebar-week-day">
-            {{getWeekDay(minDate)}},
+            {{ getWeekDay(minDate) }},
           </div>
           <div>
-            {{minDateHeader}}
+            {{ minDateHeader }}
           </div>
           <div>
-            {{minFullYear}}
+            {{ minFullYear }}
           </div>
         </div>
 
@@ -59,21 +68,24 @@
             -
           </div>
           <div class="ds-datepicker-sidebar-week-day">
-            {{getWeekDay(maxDate)}},
+            {{ getWeekDay(maxDate) }},
           </div>
           <div>
-            {{maxDateHeader}}
+            {{ maxDateHeader }}
           </div>
           <div>
-            {{maxFullYear}}
+            {{ maxFullYear }}
           </div>
         </div>
       </div>
 
       <div class="ds-datepicker-sidebar-footer-wrapper" v-if="rangeAvailable">
         <div class="ds-datepicker-sidebar-footer">
-          <Button plain-two
-                  class="ds-datepicker-sidebar-clear" @click="onClear()">
+          <Button
+            plain-two
+            class="ds-datepicker-sidebar-clear"
+            @click="onClear()"
+          >
             Clear
           </Button>
           <Button @click="onSave()">
@@ -81,34 +93,36 @@
           </Button>
         </div>
       </div>
-
     </div>
     <div class="ds-main-content">
       <div class="ds-datepicker-header-additional">
-      <span class="ds-additional-title">
-        {{additionalHeaderDate}}
-      </span>
-        <Icon class="ds-close-icon"
-              times_circle
-              color="gray-500"
-              size="16px"
-              @click="onClear()">
+        <span class="ds-additional-title">
+          {{ additionalHeaderDate }}
+        </span>
+        <Icon
+          class="ds-close-icon"
+          times_circle
+          color="gray-500"
+          size="16px"
+          @click="onClear()"
+        >
         </Icon>
       </div>
       <div class="ds-datepicker-header">
         <div class="ds-datepicker-labels">
-        <span class="ds-month"
-              @click="onMonth()">
-          {{ monthName }}
-        </span>
+          <span class="ds-month" @click="onMonth()">
+            {{ monthName }}
+          </span>
           <span class="ds-year">
-          {{ year }}
-        </span>
-          <Icon @click="onYear()"
-                :source="view === 'year' ? 'angle_up_solid' : 'angle_down_solid'"
-                color="gray-500"
-                size="16px"
-                class="ds-year-icon">
+            {{ year }}
+          </span>
+          <Icon
+            @click="onYear()"
+            :source="view === 'year' ? 'angle_up_solid' : 'angle_down_solid'"
+            color="gray-500"
+            size="16px"
+            class="ds-year-icon"
+          >
           </Icon>
         </div>
         <div class="ds-buttons">
@@ -121,10 +135,17 @@
         </div>
       </div>
 
-      <div :class="['ds-datepicker-body', {'ds-full-width': fullWidth,
-                  'ds-datepicker-body-select-day-list': selectDayList && !isMobile}]">
+      <div
+        :class="[
+          'ds-datepicker-body',
+          {
+            'ds-full-width': fullWidth,
+            'ds-datepicker-body-select-day-list': selectDayList && !isMobile
+          }
+        ]"
+      >
         <CalendarGridSelect
-          :items="{'day': days, 'month': months, 'year': years}[view]"
+          :items="{ day: days, month: months, year: years }[view]"
           :labels-top="view === 'day' ? weekLabels : null"
           :value="value"
           :secondValue="secondDate"
@@ -133,29 +154,28 @@
           @input="select"
           #default="{item}"
         >
-          <span :class="{'ds-grid-item-big': view !== 'day'}">{{item.title}}</span>
+          <span :class="{ 'ds-grid-item-big': view !== 'day' }">{{
+            item.title
+          }}</span>
         </CalendarGridSelect>
 
-        <div v-if="selectDayList && !isMobile"
-             class="ds-select-day-list-wrapper">
+        <div
+          v-if="selectDayList && !isMobile"
+          class="ds-select-day-list-wrapper"
+        >
           <div class="ds-select-day-list">
             <div @click="setInitDay">À la réception</div>
-            <div v-for="i in 6"
-                 @click="setDayRange(i)">
-              Dans les {{ i * defaultMultiplicateur}} jours
+            <div v-for="i in 6" @click="setDayRange(i)">
+              Dans les {{ i * defaultMultiplicateur }} jours
             </div>
           </div>
         </div>
-
       </div>
       <div class="ds-datepicker-footer" v-if="rangeAvailable">
-        <Button plain-two
-                class="ds-datepicker-clear"
-                @click="onClear()">
+        <Button plain-two class="ds-datepicker-clear" @click="onClear()">
           Clear
         </Button>
-        <Button class="ds-datepicker-save"
-                @click="onSave()">
+        <Button class="ds-datepicker-save" @click="onSave()">
           Save
         </Button>
       </div>
@@ -164,11 +184,11 @@
 </template>
 
 <script>
-import CalendarGridSelect from './calendarComponents/CalendarGridSelect'
-import Icon from './Icon'
-import Button from './Button'
+import CalendarGridSelect from './calendarComponents/CalendarGridSelect';
+import Icon from './Icon';
+import Button from './Button';
 
-import moment from 'moment'
+import moment from 'moment';
 
 export default {
   name: 'Datepicker',
@@ -206,370 +226,420 @@ export default {
     return {
       displayed: new Date(this.value),
       view: 'day',
-      ie: window.navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./),
+      ie:
+        window.navigator.userAgent.indexOf('MSIE ') > 0 ||
+        !!navigator.userAgent.match(/Trident.*rv:11\./),
       defaultMultiplicateur: 15,
       defaultDay: true
-    }
+    };
   },
-  created () {
-    this.range && this.setRange()
+  created() {
+    this.range && this.setRange();
   },
   computed: {
     additionalHeaderDate() {
       if (this.dateUnset) {
-        return `Pick a date`
+        return `Pick a date`;
       } else if (this.secondDate) {
-        return `${this.minDateHeader} ${this.minFullYear} - ${this.maxDateHeader} ${this.maxFullYear}`
+        return `${this.minDateHeader} ${this.minFullYear} - ${this.maxDateHeader} ${this.maxFullYear}`;
       } else {
-        return `${this.minDateHeader}`
+        return `${this.minDateHeader}`;
       }
     },
     minFullYear() {
-      return this.minMaxFullYear('min') || ''
+      return this.minMaxFullYear('min') || '';
     },
     maxFullYear() {
-      return this.minMaxFullYear('max') || ''
+      return this.minMaxFullYear('max') || '';
     },
     locale() {
-      return this.lang || this.$root.locale || 'fr-fr'
+      return this.lang || this.$root.locale || 'fr-fr';
     },
     year() {
-      return this.displayed.getFullYear()
+      return this.displayed.getFullYear();
     },
     month() {
-      return this.displayed.getMonth()
+      return this.displayed.getMonth();
     },
     monthName() {
-      return this.capitalize(this.displayed.toLocaleString(this.locale, {month: 'long'}))
+      return this.capitalize(
+        this.displayed.toLocaleString(this.locale, { month: 'long' })
+      );
     },
     /**
      * Days for the day selection grid for the displayed month
      * @return {Array<Array<Date>>} 6 by 7 nested array
      */
     days() {
-      let date = new Date(this.displayed)
-      let displayedMonth = new Date(this.displayed).getMonth()
+      let date = new Date(this.displayed);
+      let displayedMonth = new Date(this.displayed).getMonth();
 
-      date.setDate(1)
-      date.setDate(2 - (date.getDay() || 7))  // first displayed Monday
-      let days = []
+      date.setDate(1);
+      date.setDate(2 - (date.getDay() || 7)); // first displayed Monday
+      let days = [];
       for (let i = 0; i < 6; i++) {
-        let week = []
+        let week = [];
         for (let j = 0; j < 7; j++) {
-          let day = new Date(date)
-          day.title = day.getDate()
-          day.key = day.getTime()
-          day.class = []
+          let day = new Date(date);
+          day.title = day.getDate();
+          day.key = day.getTime();
+          day.class = [];
 
           if (this.min != null) {
-            day.setHours(23, 59, 59, 999)
+            day.setHours(23, 59, 59, 999);
             if (day.getTime() < this.min.getTime()) {
-              day.disabled = true
-              day.class.push('ds-disabled')
+              day.disabled = true;
+              day.class.push('ds-disabled');
             }
           }
           if (this.max != null) {
-            day.setHours(0, 0, 0, 0)
+            day.setHours(0, 0, 0, 0);
             if (day.getTime() > this.max.getTime()) {
-              day.disabled = true
-              day.class.push('ds-disabled')
+              day.disabled = true;
+              day.class.push('ds-disabled');
             }
           }
 
           if (day.getMonth() !== displayedMonth) {
-            day.class.push('ds-another-month')
+            day.class.push('ds-another-month');
           }
 
-          week.push(day)
-          date.setDate(date.getDate() + 1)
+          week.push(day);
+          date.setDate(date.getDate() + 1);
         }
-        days.push(week)
+        days.push(week);
       }
-      return days
+      return days;
     },
     /**
      * Months for the month selection grid for the displayed year
      * @return {Array<Array<Object>>} 3 by 4 nested array
      */
     months() {
-      let date = new Date(this.displayed)
-      date.setMonth(0)
-      date.setDate(1)
-      let months = []
+      let date = new Date(this.displayed);
+      date.setMonth(0);
+      date.setDate(1);
+      let months = [];
       for (let i = 0; i < 4; i++) {
-        let quarter = []
+        let quarter = [];
         for (let j = 0; j < 3; j++) {
-          let month = new Date(date)
-          month.title = (month.toLocaleString(this.locale, {month: 'long'}))
-          month.key = month.getFullYear() + '-' + month.getMonth()
+          let month = new Date(date);
+          month.title = month.toLocaleString(this.locale, { month: 'long' });
+          month.key = month.getFullYear() + '-' + month.getMonth();
 
           if (this.min != null) {
-            month.setMonth(month.getMonth() + 1)
-            month.setDate(0)
-            month.setHours(23, 59, 59, 999)
+            month.setMonth(month.getMonth() + 1);
+            month.setDate(0);
+            month.setHours(23, 59, 59, 999);
             if (month.getTime() < this.min.getTime()) {
-              month.disabled = true
+              month.disabled = true;
             }
           }
           if (this.max != null) {
-            month.setDate(1)
-            month.setHours(0, 0, 0, 0)
+            month.setDate(1);
+            month.setHours(0, 0, 0, 0);
             if (month.getTime() > this.max.getTime()) {
-              month.disabled = true
+              month.disabled = true;
             }
           }
 
-          if (this.value && this.value.getMonth() === month.getMonth() && this.value.getFullYear() === month.getFullYear()) {
-            month.class = 'ds-selected-month'
+          if (
+            this.value &&
+            this.value.getMonth() === month.getMonth() &&
+            this.value.getFullYear() === month.getFullYear()
+          ) {
+            month.class = 'ds-selected-month';
           }
 
-          month.title = this.capitalize(month.title)
-          quarter.push(month)
-          date.setMonth(date.getMonth() + 1)
+          month.title = this.capitalize(month.title);
+          quarter.push(month);
+          date.setMonth(date.getMonth() + 1);
         }
-        months.push(quarter)
+        months.push(quarter);
       }
-      return months
+      return months;
     },
     /**
      * Years for the year selection grid for the displayed decade
      * @return {Array<Array<Object>>} 3 by 4 nested array
      */
     years() {
-      let date = new Date(this.displayed)
-      date.setFullYear(Math.floor(date.getFullYear() / 30) * 30)
-      let years = []
+      let date = new Date(this.displayed);
+      date.setFullYear(Math.floor(date.getFullYear() / 30) * 30);
+      let years = [];
       for (let i = 0; i < 6; i++) {
-        let row = []
+        let row = [];
         for (let j = 0; j < 5; j++) {
-          let year = new Date(date)
-          year.key = year.title = year.getFullYear()
+          let year = new Date(date);
+          year.key = year.title = year.getFullYear();
 
           if (this.min != null) {
-            year.setMonth(12)
-            year.setDate(0)
-            year.setHours(23, 59, 59, 999)
+            year.setMonth(12);
+            year.setDate(0);
+            year.setHours(23, 59, 59, 999);
             if (year.getTime() < this.min.getTime()) {
-              year.disabled = true
+              year.disabled = true;
             }
           }
           if (this.max != null) {
-            year.setMonth(0)
-            year.setDate(1)
-            year.setHours(0, 0, 0, 0)
+            year.setMonth(0);
+            year.setDate(1);
+            year.setHours(0, 0, 0, 0);
             if (year.getTime() > this.max.getTime()) {
-              year.disabled = true
+              year.disabled = true;
             }
           }
 
           if (this.value && this.value.getFullYear() === year.getFullYear()) {
-            year.class = 'ds-selected-year'
+            year.class = 'ds-selected-year';
           }
 
-          row.push(year)
-          date.setFullYear(date.getFullYear() + 1)
+          row.push(year);
+          date.setFullYear(date.getFullYear() + 1);
         }
-        years.push(row)
+        years.push(row);
       }
 
-      return years
+      return years;
     },
     weekLabels() {
-      let labels = []
-      let date = new Date()
-      date.setDate(date.getDate() - date.getDay() + 1)  // set date to Monday
+      let labels = [];
+      let date = new Date();
+      date.setDate(date.getDate() - date.getDay() + 1); // set date to Monday
       for (let i = 1; i < 8; i++) {
-        labels.push(this.getWeekDay(date))
-        date.setDate(date.getDate() + 1)
+        labels.push(this.getWeekDay(date));
+        date.setDate(date.getDate() + 1);
       }
-      return labels
+      return labels;
     },
     /**
      * Maximum and minimum date value for the current view
      * @return {[type]} [description]
      */
     bounds() {
-      let min = new Date(this.displayed)
-      let max = new Date(this.displayed)
+      let min = new Date(this.displayed);
+      let max = new Date(this.displayed);
 
       if (this.view === 'year') {
-        min.setFullYear(this.years[0][0].getFullYear())
-        max.setFullYear(this.years[3][1].getFullYear())
+        min.setFullYear(this.years[0][0].getFullYear());
+        max.setFullYear(this.years[3][1].getFullYear());
       }
 
       if (this.view !== 'day') {
-        min.setMonth(0)
-        max.setMonth(11)
+        min.setMonth(0);
+        max.setMonth(11);
       }
 
-      min.setDate(1)
-      min.setHours(0, 0, 0, 0)
+      min.setDate(1);
+      min.setHours(0, 0, 0, 0);
 
-      max.setMonth(max.getMonth() + 1)
-      max.setDate(0)
-      max.setHours(23, 59, 59, 999)
+      max.setMonth(max.getMonth() + 1);
+      max.setDate(0);
+      max.setHours(23, 59, 59, 999);
 
-      return {min, max}
+      return { min, max };
     },
     canShiftForward() {
       if (this.max == null) {
-        return true
+        return true;
       }
-      return this.bounds.max.getTime() < this.max.getTime()
+      return this.bounds.max.getTime() < this.max.getTime();
     },
     canShiftBack() {
       if (this.min == null) {
-        return true
+        return true;
       }
-      return this.bounds.min.getTime() > this.min.getTime()
+      return this.bounds.min.getTime() > this.min.getTime();
     },
     maxDateHeader() {
       if (!this.secondDate) {
-        return undefined
+        return undefined;
       } else if (this.value > this.secondDate) {
-        return `${this.getDay(this.value)} ${this.getMonth(this.value, 'short', 1)}`
+        return `${this.getDay(this.value)} ${this.getMonth(
+          this.value,
+          'short',
+          1
+        )}`;
       } else {
-        return `${this.getDay(this.secondDate)} ${this.getMonth(this.secondDate, 'short', 1)}`
+        return `${this.getDay(this.secondDate)} ${this.getMonth(
+          this.secondDate,
+          'short',
+          1
+        )}`;
       }
     },
     minDateHeader() {
       if (!this.secondDate || this.value < this.secondDate) {
-        return `${this.getDay(this.value)} ${this.getMonth(this.value, 'short', 1)}`
+        return `${this.getDay(this.value)} ${this.getMonth(
+          this.value,
+          'short',
+          1
+        )}`;
       } else {
-        return `${this.getDay(this.secondDate)} ${this.getMonth(this.secondDate, 'short', 1)}`
+        return `${this.getDay(this.secondDate)} ${this.getMonth(
+          this.secondDate,
+          'short',
+          1
+        )}`;
       }
     },
     minDate() {
-      return !this.secondDate || this.value < this.secondDate ? this.value : this.secondDate
+      return !this.secondDate || this.value < this.secondDate
+        ? this.value
+        : this.secondDate;
     },
     maxDate() {
-      return !this.secondDate ? undefined : this.value > this.secondDate ? this.value : this.secondDate
+      return !this.secondDate
+        ? undefined
+        : this.value > this.secondDate
+        ? this.value
+        : this.secondDate;
     }
   },
   methods: {
     select(item) {
-      this.displayed = item
+      this.displayed = item;
       if (this.view === 'year') {
-        this.view = 'month'
+        this.view = 'month';
+      } else if (this.view === 'month') {
+        this.view = 'day';
+      } else if (this.view === 'day') {
+        this.selectDay(new Date(item.valueOf()));
       }
-      else if (this.view === 'month') {
-        this.view = 'day'
-      }
-      else if (this.view === 'day') {
-        this.selectDay(new Date(item.valueOf()))
-      }
-      this.$emit('update:dateUnset', false)
+      this.$emit('update:dateUnset', false);
     },
     shift(delta) {
       if (this.view === 'day') {
-        this.displayed.setMonth(this.month + delta)
+        this.displayed.setMonth(this.month + delta);
+      } else if (this.view === 'month') {
+        this.displayed.setFullYear(this.year + delta);
+      } else if (this.view === 'year') {
+        this.displayed.setFullYear(this.year + delta * 30);
       }
-      else if (this.view === 'month') {
-        this.displayed.setFullYear(this.year + delta)
-      }
-      else if (this.view === 'year') {
-        this.displayed.setFullYear(this.year + delta * 30)
-      }
-      this.displayed = new Date(this.displayed)
+      this.displayed = new Date(this.displayed);
     },
     capitalize(text) {
-      let index = this.ie ? 1 : 0
-      return text.charAt(index).toUpperCase() + text.slice(++index)
+      let index = this.ie ? 1 : 0;
+      return text.charAt(index).toUpperCase() + text.slice(++index);
     },
     onYear() {
-      this.view = this.view === 'day' ? 'year' : 'day'
+      this.view = this.view === 'day' ? 'year' : 'day';
     },
     onMonth() {
-      this.view = this.view === 'day' ? 'month' : 'day'
+      this.view = this.view === 'day' ? 'month' : 'day';
     },
     onSave() {
-      this.$emit('save')
+      this.$emit('save');
     },
     onClear() {
-      this.$emit('update:dateUnset', true)
-      this.$emit('input', null)
+      this.$emit('update:dateUnset', true);
+      this.$emit('input', null);
       if (this.rangeAvailable) {
-        this.$emit('update:secondDate', undefined)
+        this.$emit('update:secondDate', undefined);
       }
     },
     _dateMinMaxInternal(id, value) {
       return {
         id: id,
         value: value
-      }
+      };
     },
     selectDay(item) {
-      if (this.value && this.secondDate && this.rangeAvailable && !this.dateUnset) {
-        let dateMin, dateMax
+      if (
+        this.value &&
+        this.secondDate &&
+        this.rangeAvailable &&
+        !this.dateUnset
+      ) {
+        let dateMin, dateMax;
 
         if (this.value - this.secondDate < 0) {
-          dateMin = this._dateMinMaxInternal('input', this.value)
-          dateMax = this._dateMinMaxInternal('update:secondDate', this.secondDate)
+          dateMin = this._dateMinMaxInternal('input', this.value);
+          dateMax = this._dateMinMaxInternal(
+            'update:secondDate',
+            this.secondDate
+          );
         } else {
-          dateMin = this._dateMinMaxInternal('update:secondDate', this.secondDate)
-          dateMax = this._dateMinMaxInternal('input', this.value)
+          dateMin = this._dateMinMaxInternal(
+            'update:secondDate',
+            this.secondDate
+          );
+          dateMax = this._dateMinMaxInternal('input', this.value);
         }
 
         if (dateMin.value < item && item < dateMax.value) {
-          let diffValue = Math.abs(this.value - item)
-          let diffSecondValue = Math.abs(this.secondDate - item)
+          let diffValue = Math.abs(this.value - item);
+          let diffSecondValue = Math.abs(this.secondDate - item);
 
           if (diffValue < diffSecondValue) {
-            this.$emit('input', item)
+            this.$emit('input', item);
           } else {
-            this.$emit('update:secondDate', item)
+            this.$emit('update:secondDate', item);
           }
         } else if (dateMax.value > item) {
-          this.$emit(dateMin.id, item)
+          this.$emit(dateMin.id, item);
         } else {
-          this.$emit(dateMax.id, item)
+          this.$emit(dateMax.id, item);
         }
-      } else if (this.value && this.rangeAvailable && !this.dateUnset && !this.defaultDay) {
-        this.$emit('update:secondDate', item)
+      } else if (
+        this.value &&
+        this.rangeAvailable &&
+        !this.dateUnset &&
+        !this.defaultDay
+      ) {
+        this.$emit('update:secondDate', item);
       } else {
-        this.$emit('input', item)
+        this.$emit('input', item);
       }
 
-      this.defaultDay = false
+      this.defaultDay = false;
     },
     dateKey(date) {
       if (date) {
-        date.key = date.getTime()
+        date.key = date.getTime();
       }
     },
     setInitDay() {
-      this.$emit('update:secondDate', undefined)
+      this.$emit('update:secondDate', undefined);
     },
     setDayRange(multiplicateur) {
-      let valueCopy = new Date(this.value.getTime())
-      valueCopy.setDate(valueCopy.getDate() + this.defaultMultiplicateur * multiplicateur - 1)
-      this.$emit('update:secondDate', valueCopy)
-      this.onSave()
+      let valueCopy = new Date(this.value.getTime());
+      valueCopy.setDate(
+        valueCopy.getDate() + this.defaultMultiplicateur * multiplicateur - 1
+      );
+      this.$emit('update:secondDate', valueCopy);
+      this.onSave();
     },
     getMonth(value, monthFormat, sliceEnd) {
       if (value) {
-        let month = this.capitalize(value.toLocaleString(this.locale, {month: monthFormat}))
-        return sliceEnd ? month.slice(0, month.length - sliceEnd) : month
+        let month = this.capitalize(
+          value.toLocaleString(this.locale, { month: monthFormat })
+        );
+        return sliceEnd ? month.slice(0, month.length - sliceEnd) : month;
       } else {
-        return void 0
+        return void 0;
       }
     },
     getDay(value) {
-      return value && value.getDate()
+      return value && value.getDate();
     },
     getWeekDay(date) {
-      return moment(date).locale(this.locale).format('ddd').slice(0, 3).toLowerCase()
+      return moment(date)
+        .locale(this.locale)
+        .format('ddd')
+        .slice(0, 3)
+        .toLowerCase();
     },
     minMaxFullYear(id) {
       if (this.minDate && this.maxDate) {
-        let minFullYear = this.minDate.getFullYear()
-        let maxFullYear = this.maxDate.getFullYear()
+        let minFullYear = this.minDate.getFullYear();
+        let maxFullYear = this.maxDate.getFullYear();
 
         if (minFullYear !== maxFullYear) {
           if (id === 'min') {
-            return minFullYear
+            return minFullYear;
           } else if (id === 'max') {
-            return maxFullYear
+            return maxFullYear;
           }
         }
       }
@@ -577,18 +647,18 @@ export default {
   },
   watch: {
     value(date) {
-      this.dateKey(date)
+      this.dateKey(date);
     },
     secondDate(date) {
-      this.dateKey(date)
+      this.dateKey(date);
     }
   },
   mounted() {
     if (this.autoInitialize) {
-      this.$emit('input', this.value)
+      this.$emit('input', this.value);
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -621,7 +691,7 @@ export default {
       position: relative;
 
       * {
-        transition: all .1s ease;
+        transition: all 0.1s ease;
       }
 
       .ds-month {
@@ -681,12 +751,12 @@ export default {
         color: #252631;
 
         > span {
-          font-family: "Roboto Regular";
+          font-family: 'Roboto Regular';
         }
 
         &.ds-disabled {
           color: @color-gray-400;
-          font-family: "Roboto Light";
+          font-family: 'Roboto Light';
         }
 
         &.ds-selected-year,
@@ -712,7 +782,7 @@ export default {
         height: 16px;
         width: 29px;
         text-transform: capitalize;
-        font-family: "Roboto Regular";
+        font-family: 'Roboto Regular';
         font-size: 14px;
         letter-spacing: 0.2px;
         line-height: 16px;
@@ -728,7 +798,7 @@ export default {
       height: 18px;
       width: 32px;
       color: #252631;
-      font-family: "Roboto Regular";
+      font-family: 'Roboto Regular';
       font-size: 14px;
       line-height: 18px;
       text-align: center;
@@ -737,7 +807,7 @@ export default {
 
     .ds-item-cell.ds-disabled .ds-grid-item-big {
       color: @color-gray-400;
-      font-family: "Roboto Light";
+      font-family: 'Roboto Light';
     }
 
     .ds-item-cell.selected .ds-grid-item-big {
@@ -753,7 +823,7 @@ export default {
       .ds-select-day-list {
         width: 110px;
         color: @color-primary;
-        font-family: "Roboto Medium";
+        font-family: 'Roboto Medium';
         font-size: 14px;
         line-height: 21px;
         border-left: 1px solid @color-gray-300;
@@ -844,7 +914,7 @@ export default {
 
         button {
           color: @color-gray-500;
-          font-family: "Roboto Medium";
+          font-family: 'Roboto Medium';
           height: 14px;
           font-size: 12px;
           line-height: 14px;
@@ -863,7 +933,8 @@ export default {
   }
 }
 
-@media @screen-medium and (orientation: landscape), @screen-small and (orientation: landscape) {
+@media @screen-medium and (orientation: landscape),
+  @screen-small and (orientation: landscape) {
   .ds-datepicker {
     display: flex;
     flex-direction: row;
@@ -890,7 +961,7 @@ export default {
         .ds-datepicker-sidebar-title {
           height: 19px;
           color: #252631;
-          font-family: "Roboto Regular";
+          font-family: 'Roboto Regular';
           font-size: 16px;
           letter-spacing: 0.2px;
           line-height: 19px;
@@ -904,7 +975,7 @@ export default {
         height: 60%;
 
         color: #252631;
-        font-family: "Roboto Regular";
+        font-family: 'Roboto Regular';
         font-size: 20px;
         letter-spacing: 0.2px;
         line-height: 24px;
@@ -926,7 +997,7 @@ export default {
             margin-right: 30px;
 
             button {
-              font-family: "Roboto Medium";
+              font-family: 'Roboto Medium';
               color: @color-gray-500;
             }
           }
@@ -953,5 +1024,4 @@ export default {
     }
   }
 }
-
 </style>

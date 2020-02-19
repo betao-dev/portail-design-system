@@ -29,33 +29,36 @@
     </p>
 
     <p>
-      Grouped fields do not have any fixed widths as their width are
-      pre-defined by the layout and they always have 16px margin between them.
+      Grouped fields do not have any fixed widths as their width are pre-defined
+      by the layout and they always have 16px margin between them.
     </p>
 
     <h4>Validation</h4>
 
     <p>
-      When input field begin validation, it is emit event <b>@validation</b> <br>
+      When input field begin validation, it is emit event <b>@validation</b>
+      <br />
       <i>@return</i> Boolean, is valid field or no.
     </p>
 
     <p>
-      All inputs are listen <b>@validate</b> event, which will run validation inside input,
-      even if this input field was not touched.
+      All inputs are listen <b>@validate</b> event, which will run validation
+      inside input, even if this input field was not touched.
 
       <i>@emit</i> event @validation
     </p>
 
     <p>
-      If you need validate some field(s) separately, you can specify
-      validation by name property. <br>
-      Input with name property will be listen event <b>@validate{name}</b>. <br><br>
+      If you need validate some field(s) separately, you can specify validation
+      by name property. <br />
+      Input with name property will be listen event <b>@validate{name}</b>.
+      <br /><br />
 
-      <i>Example:
-      <br>
-         name: 'test', <br>
-         listener = 'validateTest'
+      <i
+        >Example:
+        <br />
+        name: 'test', <br />
+        listener = 'validateTest'
       </i>
     </p>
     <Description compnent-name="Input"></Description>
@@ -74,8 +77,14 @@
         icon-size="18px"
         v-model="textValue"
       />
-      <Input md label="Medium" v-model="textValue" required/>
-      <Input lg icon="search-solid" icon-size="16px" label="Large" v-model="textValue"/>
+      <Input md label="Medium" v-model="textValue" required />
+      <Input
+        lg
+        icon="search-solid"
+        icon-size="16px"
+        label="Large"
+        v-model="textValue"
+      />
       <Input md label="Mask: 12/20" v-mask="'##/##'" v-model="maskValue" />
       <!-- eslint-disable -->
       <Input
@@ -87,8 +96,10 @@
         placeholder="Search"
         v-model="textValue"
       >
-        <div slot="help">This is an explanation of what the field is used for.</div>
-      <!-- eslint-disable-next-line vue/max-attributes-per-line -->
+        <div slot="help">
+          This is an explanation of what the field is used for.
+        </div>
+        <!-- eslint-disable-next-line vue/max-attributes-per-line -->
       </Input>
 
       <Input
@@ -124,8 +135,8 @@
         :validators="demoValidators"
         v-model="textValue"
       />
-      <Input slideLabel md label="Slide label" v-model="slideTextValue"/>
-      <br/>
+      <Input slideLabel md label="Slide label" v-model="slideTextValue" />
+      <br />
 
       <Input
         md
@@ -155,7 +166,7 @@
         :maxlength="19"
         label="Card number"
       />
-      <br/>
+      <br />
 
       <Input
         md
@@ -190,17 +201,17 @@
 </template>
 
 <script>
-import Input from '../../components/Input'
-import Button from '../../components/Button'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {InputData} from '../../static/index'
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { InputData } from '../../static/index';
 
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default {
-  name: "InputDemo",
-  components: {Input, Button, Description, Collapser},
+  name: 'InputDemo',
+  components: { Input, Button, Description, Collapser },
   data: () => ({
     openUsage: true,
     usage: InputData.usage,
@@ -222,20 +233,26 @@ export default {
           rutrum consectetur nulla, eget euismod justo vehicula
         `,
         validator: () => false
-      },
+      }
     ],
     passwordValidators: [
       {
         name: 'match-fields-values',
         message: `The value of field doesn't match to values related fields`,
-        validator: (value, confirmPassword) => !_.isUndefined(value) && !_.isUndefined(confirmPassword) && (value == confirmPassword)
+        validator: (value, confirmPassword) =>
+          !_.isUndefined(value) &&
+          !_.isUndefined(confirmPassword) &&
+          value == confirmPassword
       }
     ],
     confirmPasswordValidators: [
       {
         name: 'match-fields-values',
         message: `The value of field doesn't match to values related fields`,
-        validator: (value, confirmPassword) => !_.isUndefined(value) && !_.isUndefined(confirmPassword) && (value == confirmPassword)
+        validator: (value, confirmPassword) =>
+          !_.isUndefined(value) &&
+          !_.isUndefined(confirmPassword) &&
+          value == confirmPassword
       }
     ],
     cvvValue: null,
@@ -253,26 +270,26 @@ export default {
   }),
   methods: {
     validate() {
-      const event = new CustomEvent("validate", {})
-      document.dispatchEvent(event)
+      const event = new CustomEvent('validate', {});
+      document.dispatchEvent(event);
     },
     onlastKeyDownDelay(field) {
-      this.showErrorSupport[field] = true
-      this.checkShowErrors()
+      this.showErrorSupport[field] = true;
+      this.checkShowErrors();
     },
     checkShowErrors() {
-      let {firstField, secondField} = this.showErrorSupport
-      let err = this.passwordShowErrors
+      let { firstField, secondField } = this.showErrorSupport;
+      let err = this.passwordShowErrors;
 
       if (firstField === true && secondField === true) {
-        err.firstField = err.secondField = true
+        err.firstField = err.secondField = true;
       }
     },
     clearContent() {
-      this.textValue = ''
+      this.textValue = '';
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

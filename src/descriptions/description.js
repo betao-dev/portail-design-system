@@ -31,18 +31,18 @@ import DraggableList from './data/DraggableList';
 import MultiSelectDropdown from './data/MultiSelectDropdown';
 import Autocomplete from './data/Autocomplete';
 import Star from './data/Star';
-import ExpandableTable from './data/ExpandableTable'
-import FilterSelect from './data/FilterSelect'
-import Chips from './data/Chips'
-import Select from './data/Select'
-import Calendar from './data/Calendar'
-import NumberRange from './data/NumberRange'
-import CheckBox from './data/CheckBox'
-import Toggle from './data/Toggle'
-import Form from './data/Form'
-import Radio from './data/Radio'
-import Slider from './data/Slider'
-import MultiSelect from './data/MultiSelect'
+import ExpandableTable from './data/ExpandableTable';
+import FilterSelect from './data/FilterSelect';
+import Chips from './data/Chips';
+import Select from './data/Select';
+import Calendar from './data/Calendar';
+import NumberRange from './data/NumberRange';
+import CheckBox from './data/CheckBox';
+import Toggle from './data/Toggle';
+import Form from './data/Form';
+import Radio from './data/Radio';
+import Slider from './data/Slider';
+import MultiSelect from './data/MultiSelect';
 
 export default {
   AppHeader,
@@ -90,4 +90,4 @@ export default {
   Radio,
   Slider,
   MultiSelect
-}
+};

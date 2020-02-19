@@ -20,8 +20,8 @@ let usage = `
        :validators="validators"
        @update:chips="updateChips">
 </Chips>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

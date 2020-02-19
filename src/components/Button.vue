@@ -19,7 +19,9 @@
 -->
 
 <template>
-  <div :class="['ds-button-link-wrapper', {'ds-mobile-bottom': mobileBottom}]">
+  <div
+    :class="['ds-button-link-wrapper', { 'ds-mobile-bottom': mobileBottom }]"
+  >
     <template v-if="link">
       <a
         v-on="$listeners"
@@ -38,15 +40,15 @@
         }"
         :disabled="disabled"
         :target="target"
-        :style="{padding, width, color: getTextColor}"
+        :style="{ padding, width, color: getTextColor }"
       >
         <Icon
           v-if="icon"
-          :class="{'ds-button-icon': hasLabel}"
+          :class="{ 'ds-button-icon': hasLabel }"
           :source="icon"
           :size="computedIconSize"
           :color="getIconColor"
-          :style="{marginRight: spaceBetween}"
+          :style="{ marginRight: spaceBetween }"
         />
         <slot></slot>
         <Icon
@@ -55,7 +57,7 @@
           :source="iconRight"
           :size="computedIconSize"
           :color="getIconColor"
-          :style="{marginLeft: spaceBetween}"
+          :style="{ marginLeft: spaceBetween }"
         />
       </a>
     </template>
@@ -75,15 +77,15 @@
           'ds-button-alt-two': altTwo
         }"
         :disabled="disabled"
-        :style="{padding, width, color: getTextColor}"
+        :style="{ padding, width, color: getTextColor }"
       >
         <Icon
           v-if="icon"
-          :class="{'ds-button-icon': hasLabel}"
+          :class="{ 'ds-button-icon': hasLabel }"
           :source="icon"
           :size="computedIconSize"
           :color="getIconColor"
-          :style="{marginRight: spaceBetween}"
+          :style="{ marginRight: spaceBetween }"
         />
         <slot></slot>
         <Icon
@@ -92,7 +94,7 @@
           :source="iconRight"
           :size="computedIconSize"
           :color="getIconColor"
-          :style="{marginLeft: spaceBetween}"
+          :style="{ marginLeft: spaceBetween }"
         />
       </button>
     </template>
@@ -100,12 +102,12 @@
 </template>
 
 <script>
-import Icon from './Icon.vue'
-import {COLORS} from '../styles/vars'
+import Icon from './Icon.vue';
+import { COLORS } from '../styles/vars';
 
 export default {
   name: 'Button',
-  components: {Icon},
+  components: { Icon },
   props: {
     big: Boolean,
     small: Boolean,
@@ -136,25 +138,31 @@ export default {
   }),
   computed: {
     primary() {
-      return !(this.alt || this.altTwo || this.plain || this.plainTwo || this.linkIco)
+      return !(
+        this.alt ||
+        this.altTwo ||
+        this.plain ||
+        this.plainTwo ||
+        this.linkIco
+      );
     },
     hasLabel() {
-      return !!this.$slots.default
+      return !!this.$slots.default;
     },
     computedIconSize() {
-      if (this.iconSize) return this.iconSize
-      else if (this.big) return '28px'
-      else if (this.small || this.plainTwo) return '16px'
-      return '24px'
+      if (this.iconSize) return this.iconSize;
+      else if (this.big) return '28px';
+      else if (this.small || this.plainTwo) return '16px';
+      return '24px';
     },
     getTextColor() {
-      return this.COLORS[this.color] || this.color
+      return this.COLORS[this.color] || this.color;
     },
     getIconColor() {
-      return this.COLORS[this.iconColor] || this.iconColor
+      return this.COLORS[this.iconColor] || this.iconColor;
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -226,7 +234,7 @@ export default {
 
   &.ds-button-primary {
     color: @color-white;
-    font-family: "Roboto Medium";
+    font-family: 'Roboto Medium';
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 16px;
@@ -238,7 +246,8 @@ export default {
       .font-components-button-big();
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background: darken(@color-primary, 5%);
     }
 
@@ -253,7 +262,7 @@ export default {
 
   &.ds-button-red {
     color: @color-red;
-    font-family: "Roboto Medium";
+    font-family: 'Roboto Medium';
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 16px;
@@ -265,7 +274,8 @@ export default {
       .font-components-button-big();
     }
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background: darken(@color-red, 5%);
     }
 
@@ -290,7 +300,7 @@ export default {
 
   &.ds-button-alt-two {
     color: @color-gray-500;
-    font-family: "Roboto Medium";
+    font-family: 'Roboto Medium';
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 16px;
@@ -300,8 +310,11 @@ export default {
     border-radius: 4px;
   }
 
-  &.ds-button-alt, &.ds-button-plain, &.ds-button-link-ico {
-    &:hover, &:focus {
+  &.ds-button-alt,
+  &.ds-button-plain,
+  &.ds-button-link-ico {
+    &:hover,
+    &:focus {
       background: darken(@color-white, 5%);
     }
 
@@ -314,11 +327,13 @@ export default {
     background-color: rgba(0, 0, 0, 0);
     color: @color-dark;
     text-transform: uppercase;
-    font-family: "Roboto Medium";
+    font-family: 'Roboto Medium';
     font-size: 12px;
     line-height: 14px;
 
-    &:hover, &:focus, &:active {
+    &:hover,
+    &:focus,
+    &:active {
       background-color: rgba(0, 0, 0, 0);
     }
 
@@ -331,7 +346,9 @@ export default {
         fill: @color-gray-400;
       }
 
-      &:hover, &:focus, &:active {
+      &:hover,
+      &:focus,
+      &:active {
         background-color: inherit;
       }
     }
@@ -371,5 +388,4 @@ export default {
     text-transform: uppercase;
   }
 }
-
 </style>

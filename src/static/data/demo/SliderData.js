@@ -16,8 +16,8 @@ let usage = `
     ...
   </template>
 </Slider>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

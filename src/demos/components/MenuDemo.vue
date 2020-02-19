@@ -8,27 +8,29 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Button ref="menuDrop" @click="dropdownOpenedMenu = !dropdownOpenedMenu" class="ds-demo-menu-btn">Open menu</Button>
+    <Button
+      ref="menuDrop"
+      @click="dropdownOpenedMenu = !dropdownOpenedMenu"
+      class="ds-demo-menu-btn"
+      >Open menu</Button
+    >
     <Dropdown
       :target="$refs.menuDrop"
       :opened.sync="dropdownOpenedMenu"
       :position="positionMenu"
     >
-      <Menu
-        :items="items"
-        @item:click="menuClick"
-      />
+      <Menu :items="items" @item:click="menuClick" />
     </Dropdown>
   </div>
 </template>
 
 <script>
-import Button from '../../components/Button.vue'
-import Dropdown from '../../components/Dropdown.vue'
-import Menu from '../../components/Menu.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {MenuData} from '../../static/index'
+import Button from '../../components/Button.vue';
+import Dropdown from '../../components/Dropdown.vue';
+import Menu from '../../components/Menu.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { MenuData } from '../../static/index';
 
 export default {
   name: 'MenuDemo',
@@ -46,14 +48,14 @@ export default {
   }),
   methods: {
     menuClick() {
-      this.dropdownOpenedMenu = false
+      this.dropdownOpenedMenu = false;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-  .ds-demo-menu-btn {
-    margin-right: 15px;
-  }
+.ds-demo-menu-btn {
+  margin-right: 15px;
+}
 </style>

@@ -55,7 +55,16 @@
 -->
 
 <template>
-  <div :class="['ds-sidebar-container', {'ds-opened': opened, 'ds-collapsed': collapsed, 'ds-disabled': disabled}]">
+  <div
+    :class="[
+      'ds-sidebar-container',
+      {
+        'ds-opened': opened,
+        'ds-collapsed': collapsed,
+        'ds-disabled': disabled
+      }
+    ]"
+  >
     <div class="ds-sidebar">
       <div class="ds-header">
         <slot name="header">Sidebar header</slot>
@@ -64,10 +73,13 @@
       <div class="ds-items">
         <template v-for="(item, index) in items">
           <a
-            :class="['ds-item', {
-              'ds-active': activeKey(item, index) === active,
-              'ds-disabled': disabled || item.disabled
-            }]"
+            :class="[
+              'ds-item',
+              {
+                'ds-active': activeKey(item, index) === active,
+                'ds-disabled': disabled || item.disabled
+              }
+            ]"
             :href="item.href"
             :key="activeKey(item, index)"
             :tabindex="!disabled && !item.disabled && 0"
@@ -84,42 +96,49 @@
 
             <div class="ds-title">{{ item.title }}</div>
 
-            <div v-if="item.badge" class="ds-badge" :style="{
-              'background-color':
-                disabled || item.disabled ?
-                  COLORS['gray-300'] :
-                  COLORS[item.badge.color] || item.badge.color || 'red',
-            }">
-              {{item.badge.text}}
+            <div
+              v-if="item.badge"
+              class="ds-badge"
+              :style="{
+                'background-color':
+                  disabled || item.disabled
+                    ? COLORS['gray-300']
+                    : COLORS[item.badge.color] || item.badge.color || 'red'
+              }"
+            >
+              {{ item.badge.text }}
             </div>
 
-            <Icon
-              v-if="item.children && item.children.length"
-              expand_more
-            />
+            <Icon v-if="item.children && item.children.length" expand_more />
           </a>
           <section
             :class="[
               'ds-children',
-              {'ds-opened': activeKey(item, index) === active},
+              { 'ds-opened': activeKey(item, index) === active }
             ]"
             :key="index"
           >
             <a
               v-for="(child, childIndex) in item.children"
               :key="activeKey(child, childIndex)"
-              :class="['ds-item', 'ds-child-item', {
-                'ds-active': activeKey(child, childIndex) === activeChild,
-                'ds-disabled': disabled || child.disabled
-              }]"
+              :class="[
+                'ds-item',
+                'ds-child-item',
+                {
+                  'ds-active': activeKey(child, childIndex) === activeChild,
+                  'ds-disabled': disabled || child.disabled
+                }
+              ]"
               :href="item.href"
               :tabindex="
                 !disabled &&
-                activeKey(item, index) === active &&
-                !child.disabled &&
-                0
+                  activeKey(item, index) === active &&
+                  !child.disabled &&
+                  0
               "
-              @keypress.enter.space.prevent="itemClick(child, index, childIndex, $event)"
+              @keypress.enter.space.prevent="
+                itemClick(child, index, childIndex, $event)
+              "
               @click="itemClick(child, index, childIndex, $event)"
             >
               {{ child.title }}
@@ -134,81 +153,84 @@
 </template>
 
 <script>
-import Icon from './Icon.vue'
-import {COLORS} from '../styles/vars'
+import Icon from './Icon.vue';
+import { COLORS } from '../styles/vars';
 
 export default {
   name: 'Sidebar',
   components: {
-    Icon,
+    Icon
   },
   props: {
     items: {
       type: Array,
-      required: true,
+      required: true
     },
     activeKey: {
       type: Function,
-      default: (item, index) => index,
+      default: (item, index) => index
     },
     active: {
-      default: 0,
+      default: 0
     },
     activeChild: {
-      default: 0,
+      default: 0
     },
     opened: Boolean,
     collapsed: Boolean,
-    disabled: Boolean,
+    disabled: Boolean
   },
-  data: () => ({COLORS}),
+  data: () => ({ COLORS }),
   methods: {
     itemClick(item, index, childIndex, event) {
       if (this.disabled || item.disabled) {
-        return
+        return;
       }
-      this.$emit('update:active', this.activeKey(item, index))
-      this.$emit('update:activeChild', this.activeKey ? this.activeKey(item, childIndex) : childIndex)
-      this.$emit('item:click', item, index, childIndex, event)
+      this.$emit('update:active', this.activeKey(item, index));
+      this.$emit(
+        'update:activeChild',
+        this.activeKey ? this.activeKey(item, childIndex) : childIndex
+      );
+      this.$emit('item:click', item, index, childIndex, event);
     },
     outsideClick(event) {
       // Close sidebar on an outside click
       if (!this.opened) {
-        return
+        return;
       }
-      let el = event.target
+      let el = event.target;
       while (el.parentNode) {
         if (el === this.$el) {
-          return
+          return;
         }
-        el = el.parentNode
+        el = el.parentNode;
       }
-      this.$emit('update:opened', false)
-    },
+      this.$emit('update:opened', false);
+    }
   },
   mounted() {
-    document.addEventListener('click', this.outsideClick, true)
+    document.addEventListener('click', this.outsideClick, true);
     if (this.collapsed) {
-      this.$el.parentNode.classList.add('ds-sidebar-collpased-padding')
+      this.$el.parentNode.classList.add('ds-sidebar-collpased-padding');
     } else {
-      this.$el.parentNode.classList.add('ds-sidebar-padding')
+      this.$el.parentNode.classList.add('ds-sidebar-padding');
     }
   },
   beforeDestroy() {
-    document.removeEventListener('click', this.outsideClick, true)
+    document.removeEventListener('click', this.outsideClick, true);
   },
   watch: {
     collapsed(value) {
       if (value) {
-        this.$el.parentNode.classList.remove('ds-sidebar-padding')
-        this.$el.parentNode.classList.add('ds-sidebar-collpased-padding')
+        this.$el.parentNode.classList.remove('ds-sidebar-padding');
+        this.$el.parentNode.classList.add('ds-sidebar-collpased-padding');
       } else {
-        this.$el.parentNode.classList.remove('ds-sidebar-collpased-padding')
-        this.$el.parentNode.classList.add('ds-sidebar-padding')
+        this.$el.parentNode.classList.remove('ds-sidebar-collpased-padding');
+        this.$el.parentNode.classList.add('ds-sidebar-padding');
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -221,7 +243,7 @@ export default {
   overflow: hidden;
   position: fixed;
   z-index: @z-index-sidebar;
-  width:  @sidebar-width;
+  width: @sidebar-width;
   height: @sidebar-height;
 
   &.ds-collapsed {
@@ -231,7 +253,8 @@ export default {
       width: 100%;
       overflow-y: auto;
 
-      .ds-header, .ds-item {
+      .ds-header,
+      .ds-item {
         width: 100%;
 
         .ds-title {
@@ -255,26 +278,28 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  width:  @sidebar-width + 20px;  //
-  overflow-y: scroll;             //
-  & > * {                         // Hiding scrollbar
-    max-width: @sidebar-width;    //
-  }                               //
-
+  width: @sidebar-width + 20px; //
+  overflow-y: scroll; //
+  & > * {
+    // Hiding scrollbar
+    max-width: @sidebar-width; //
+  } //
 
   &.ds-disabled {
     background: @color-gray-100;
   }
 
-  .ds-header, .ds-item {
+  .ds-header,
+  .ds-item {
     box-sizing: border-box;
     height: @sidebar-item-height;
     padding: 21px 26px 21px 28px;
     flex: 0 0 auto;
   }
 
-  ul, li {
-    margin:0;
+  ul,
+  li {
+    margin: 0;
     padding: 0;
     text-indent: 0;
     list-style-type: 0;
@@ -288,10 +313,10 @@ export default {
     align-items: center;
     cursor: pointer;
     display: flex;
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
 
     .ds-icon[expand_more] {
-      transition: transform .1s ease;
+      transition: transform 0.1s ease;
     }
 
     &.ds-active {
@@ -319,7 +344,8 @@ export default {
       }
     }
 
-    &:hover, &:focus  {
+    &:hover,
+    &:focus {
       background-color: @color-gray-100;
       text-decoration: none;
       outline: none;
@@ -363,7 +389,7 @@ export default {
   }
 
   .ds-children {
-    transition: max-height .1s ease;
+    transition: max-height 0.1s ease;
     max-height: 1000px;
     overflow-y: auto;
     &:not(.ds-opened) {
@@ -375,13 +401,13 @@ export default {
     box-sizing: border-box;
     margin-top: auto;
     padding: @sidebar-item-padding;
-    box-shadow: inset 0 1px 0 0 #F1F1F1;
+    box-shadow: inset 0 1px 0 0 #f1f1f1;
   }
 }
 
 @media @hide-sidebar {
   .ds-sidebar-container {
-    transition: left .1s ease;
+    transition: left 0.1s ease;
     &:not(.ds-opened) {
       left: -@sidebar-width;
     }

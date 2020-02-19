@@ -57,8 +57,8 @@ let usage = `
     <Icon source="delete" color="#888" />
   </template>
 </Table>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

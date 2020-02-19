@@ -14,22 +14,20 @@
 </template>
 
 <script>
-  import EmptyState from '../../components/EmptyState'
-  import Collapser from '../../components/Collapser'
-  import Description from '../../descriptions/Description'
-  import {EmptyStateData} from '../../static/index'
+import EmptyState from '../../components/EmptyState';
+import Collapser from '../../components/Collapser';
+import Description from '../../descriptions/Description';
+import { EmptyStateData } from '../../static/index';
 
-  export default {
-    name: 'EmptyStateDemo',
-    components: {EmptyState, Collapser, Description},
-    data: () => ({
-      usage: EmptyStateData.usage,
-      openUsage: true,
-      details: EmptyStateData.details
-    })
-  }
+export default {
+  name: 'EmptyStateDemo',
+  components: { EmptyState, Collapser, Description },
+  data: () => ({
+    usage: EmptyStateData.usage,
+    openUsage: true,
+    details: EmptyStateData.details
+  })
+};
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

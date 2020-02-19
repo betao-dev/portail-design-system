@@ -36,7 +36,7 @@
     </div>
 
     <div class="ds-item-wrapper">
-      <template  v-for="(item, index) in items">
+      <template v-for="(item, index) in items">
         <a
           class="ds-item"
           :class="{ 'ds-disabled': item.disabled }"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import Icon from './Icon.vue'
+import Icon from './Icon.vue';
 
 export default {
   name: 'Menu',
@@ -82,12 +82,12 @@ export default {
   data: () => ({}),
   methods: {
     itemClick(item, index) {
-      if (item.disabled) return
-      this.$emit('item:click', item, index)
-      this.closeMenu()
+      if (item.disabled) return;
+      this.$emit('item:click', item, index);
+      this.closeMenu();
     },
     closeMenu() {
-      this.$emit('update:opened', false)
+      this.$emit('update:opened', false);
     }
   },
   computed: {
@@ -95,10 +95,10 @@ export default {
       return {
         width: this.width,
         height: this.height
-      }
-    },
-  },
-}
+      };
+    }
+  }
+};
 </script>
 
 <style lang="less">
@@ -137,7 +137,6 @@ export default {
   }
 
   .ds-item-wrapper {
-
     .ds-item {
       text-decoration: none;
       color: @color-dark;

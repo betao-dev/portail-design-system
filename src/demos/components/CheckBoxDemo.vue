@@ -14,28 +14,30 @@
     </div>
 
     <div>
-      <CheckBox v-model="value" label="Checkbox Demo"  help="how are you ?"></CheckBox>
+      <CheckBox
+        v-model="value"
+        label="Checkbox Demo"
+        help="how are you ?"
+      ></CheckBox>
     </div>
   </div>
 </template>
 
 <script>
-  import CheckBox from '../../components/CheckBox.vue'
-  import Description from '../../descriptions/Description.vue'
-  import Collapser from '../../components/Collapser.vue'
-  import {CheckBoxData} from '../../static/index'
+import CheckBox from '../../components/CheckBox.vue';
+import Description from '../../descriptions/Description.vue';
+import Collapser from '../../components/Collapser.vue';
+import { CheckBoxData } from '../../static/index';
 
-  export default {
-    name: 'CheckBoxDemo',
-    components: {CheckBox, Description, Collapser},
-    data: () => ({
-      openUsage: true,
-      usage: CheckBoxData.usage,
-      value: true
-    })
-  }
+export default {
+  name: 'CheckBoxDemo',
+  components: { CheckBox, Description, Collapser },
+  data: () => ({
+    openUsage: true,
+    usage: CheckBoxData.usage,
+    value: true
+  })
+};
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

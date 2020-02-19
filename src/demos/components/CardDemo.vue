@@ -49,7 +49,8 @@
             <div class="ds-report-subtitle">
               0 facture(s) impayée(s)
             </div>
-          </Card></div>
+          </Card>
+        </div>
       </div>
 
       <div class="row">
@@ -77,18 +78,18 @@
 </template>
 
 <script>
-import Card from '../../components/Card.vue'
-import Icon from '../../components/Icon.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {CardData} from '../../static/index'
+import Card from '../../components/Card.vue';
+import Icon from '../../components/Icon.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { CardData } from '../../static/index';
 
 export default {
   name: 'CardDemo',
-  components: {Card, Icon, Description, Collapser},
+  components: { Card, Icon, Description, Collapser },
   data: () => ({
     openUsage: true,
     usage: CardData.usage
   })
-}
+};
 </script>

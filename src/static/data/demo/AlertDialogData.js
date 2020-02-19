@@ -1,4 +1,4 @@
-import GeneralData from '../GeneralData'
+import GeneralData from '../GeneralData';
 
 let usage = `
 <AlertDialog
@@ -11,6 +11,6 @@ let usage = `
     ${GeneralData.text}
   </div>
 </AlertDialog>
-`
+`;
 
-export default { usage }
+export default { usage };

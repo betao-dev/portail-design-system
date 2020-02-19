@@ -1,1 +1,1 @@
-export * from './patch-ios-safari-click'
+export * from './patch-ios-safari-click';

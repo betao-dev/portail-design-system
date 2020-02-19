@@ -11,8 +11,8 @@
     <div class="row-col tooltip-buttons">
       <Tooltip placement="right">
         <div slot="popover">
-          C'est vraiment pratique, l’utilisation du mini TPE est très complète (en plus d’être beaucoup moins cher
-          qu'un TPE classique en location).
+          C'est vraiment pratique, l’utilisation du mini TPE est très complète
+          (en plus d’être beaucoup moins cher qu'un TPE classique en location).
         </div>
 
         <Button slot="reference" padding="10px">Custom Tooltip</Button>
@@ -22,21 +22,21 @@
 </template>
 
 <script>
-import Tooltip from '../../components/Tooltip'
-import Button from '../../components/Button.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {TooltipData} from '../../static/index'
+import Tooltip from '../../components/Tooltip';
+import Button from '../../components/Button.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { TooltipData } from '../../static/index';
 
 export default {
   name: 'TooltipDemo',
-  components: {Tooltip, Description, Collapser, Button },
+  components: { Tooltip, Description, Collapser, Button },
   data: () => ({
     openUsage: true,
     usage: TooltipData.usage
   }),
   methods: {}
-}
+};
 </script>
 
 <style lang="less" scoped>

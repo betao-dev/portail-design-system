@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import MultiFileAttach from '../../components/MultiFileAttach.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {MultiFileAttachData} from '../../static/index'
+import MultiFileAttach from '../../components/MultiFileAttach.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { MultiFileAttachData } from '../../static/index';
 
 export default {
   name: 'MultiFileAttachDemo',
-  components: {MultiFileAttach, Description, Collapser},
+  components: { MultiFileAttach, Description, Collapser },
   data() {
     return {
       openUsage: true,
@@ -40,17 +40,17 @@ export default {
           validator: files => files.length > 0
         }
       ]
-    }
+    };
   },
   methods: {
     fileInput(files) {
       if (!this.files.find(f => f.name == files[0].name)) {
-        this.files = [...this.files, ...files]
+        this.files = [...this.files, ...files];
       }
     },
     fileRemove(file) {
-      this.files = this.files.filter(f => f.name !== file.name)
+      this.files = this.files.filter(f => f.name !== file.name);
     }
   }
-}
+};
 </script>

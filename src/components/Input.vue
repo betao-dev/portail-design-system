@@ -1,15 +1,18 @@
 <template>
   <div
-    :class="[getType, {
-      'ds-input': true,
-      'ds-disabled': disabled,
-      'ds-sm': sm,
-      'ds-md': md,
-      'ds-lg': lg,
-      'ds-has-label': label,
-      'ds-input-error': showInvalidBlock
-    }]"
-    :style="{width}"
+    :class="[
+      getType,
+      {
+        'ds-input': true,
+        'ds-disabled': disabled,
+        'ds-sm': sm,
+        'ds-md': md,
+        'ds-lg': lg,
+        'ds-has-label': label,
+        'ds-input-error': showInvalidBlock
+      }
+    ]"
+    :style="{ width }"
     @click="onInputClick"
   >
     <label>
@@ -69,7 +72,11 @@
         :size="iconSize"
         :color="iconColor"
         :source="iconLeft"
-        :class="['ds-general-icon', 'ds-icon-left', {'active-icon': activeIcon}]"
+        :class="[
+          'ds-general-icon',
+          'ds-icon-left',
+          { 'active-icon': activeIcon }
+        ]"
         :style="generalIconStyle"
         :padding="iconPadding"
         @click="onIconClick"
@@ -93,7 +100,7 @@
         }"
         :key="inputId"
         v-model="inputValue"
-        :style="{...getStyle, borderRadius, ...inputStyle}"
+        :style="{ ...getStyle, borderRadius, ...inputStyle }"
         @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
         @blur="inputBlur"
@@ -120,7 +127,7 @@
         }"
         :key="inputId"
         v-model="inputValue"
-        :style="{...getStyle, borderRadius, ...inputStyle}"
+        :style="{ ...getStyle, borderRadius, ...inputStyle }"
         v-mask="mask"
         @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
@@ -134,7 +141,7 @@
         v-if="getIcon && showIcon"
         :size="iconSize"
         :color="iconColor"
-        :class="['ds-general-icon', {'active-icon': activeIcon}]"
+        :class="['ds-general-icon', { 'active-icon': activeIcon }]"
         :style="generalIconStyle"
         :source="getIcon"
         :padding="iconPadding"
@@ -147,8 +154,11 @@
             {{ inputErrors[0] }}
           </span>
         </transition>
-        <span v-if="subLabel && !(inputErrors.length && touched)" class="ds-sub-label">
-          {{subLabel}}
+        <span
+          v-if="subLabel && !(inputErrors.length && touched)"
+          class="ds-sub-label"
+        >
+          {{ subLabel }}
         </span>
       </div>
     </label>
@@ -156,22 +166,22 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash';
 import Popper from 'vue-popperjs';
-import Icon from './Icon'
+import Icon from './Icon';
 import 'vue-popperjs/dist/vue-popper.css';
 import validation from './../mixins/validation';
 
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default {
   name: 'Input',
-  components: {Icon, Popper},
+  components: { Icon, Popper },
   mixins: [validation],
   props: {
     disabled: Boolean,
     help: String,
-    name:  String,
+    name: String,
     icon: String,
     iconLeft: String,
     iconSize: {
@@ -199,7 +209,16 @@ export default {
     type: {
       type: String,
       validator(value) {
-        return ['text', 'password', 'number', 'number-dot', 'payment-card', 'tel'].indexOf(value) !== -1
+        return (
+          [
+            'text',
+            'password',
+            'number',
+            'number-dot',
+            'payment-card',
+            'tel'
+          ].indexOf(value) !== -1
+        );
       },
       default: 'text'
     },
@@ -254,14 +273,19 @@ export default {
     timeoutId: undefined,
     validBacklight: false,
     invalidBacklight: false,
-    offset: {offset: '0, 10px'},
-    id: Math.random().toString(36).substring(7),
-    inputId: Math.random().toString(36).substring(7),
+    offset: { offset: '0, 10px' },
+    id: Math.random()
+      .toString(36)
+      .substring(7),
+    inputId: Math.random()
+      .toString(36)
+      .substring(7),
     showPassword: false
   }),
   mounted() {
     if (this.name) {
-      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() + this.name.slice(1).toLowerCase()}`;
+      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).toLowerCase()}`;
       document.addEventListener(this.validateEventName, this.validate);
     }
 
@@ -269,27 +293,31 @@ export default {
       this.validators.push({
         name: 'required',
         message: 'This field is required',
-        validator: (value) => !!value
-      })
+        validator: value => !!value
+      });
     }
 
-    this.checkValuePattern()
-    this.$emit('validation', this.validation)
-    setTimeout(() => this.slideInit(), 500)
+    this.checkValuePattern();
+    this.$emit('validation', this.validation);
+    setTimeout(() => this.slideInit(), 500);
   },
   computed: {
     inputAttrs() {
       return {
-        type: this.type === 'number' || (this.type === 'password' && this.showPassword) ? 'text' : this.type,
+        type:
+          this.type === 'number' ||
+          (this.type === 'password' && this.showPassword)
+            ? 'text'
+            : this.type,
         placeholder: this.placeholder,
         disabled: this.disabled
-      }
+      };
     },
     locale() {
       if (this.$root === this) {
-        return this.lang || 'fr-fr'
+        return this.lang || 'fr-fr';
       }
-      return this.lang || this.$root.locale || 'fr-fr'
+      return this.lang || this.$root.locale || 'fr-fr';
     },
     /**
      * Validation data for the current value and validators
@@ -303,79 +331,92 @@ export default {
      */
     validation() {
       if (!this.validators || !this.validators.length) {
-        return []
+        return [];
       }
 
-      let data = []
+      let data = [];
       for (let i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
-          this.validators[i].validator(this.inputValue, this.referenceModel),
-        ])
+          this.validators[i].validator(this.inputValue, this.referenceModel)
+        ]);
       }
-      return data
+      return data;
     },
     inputValue: {
       get() {
-        return this.value
+        return this.value;
       },
       set(value) {
-        this.$emit('input', value)
-        this.$emit('change', value)
+        this.$emit('input', value);
+        this.$emit('change', value);
       }
     },
     getType() {
-      return `ds-${this.type}`
+      return `ds-${this.type}`;
     },
     getIcon() {
       if (this.type === 'password') {
         if (this.showPassword) {
-          return 'lock'
+          return 'lock';
         } else {
-          return 'eye'
+          return 'eye';
         }
       }
 
-      return this.icon
+      return this.icon;
     },
     checkMaxLength() {
-      return (this.type === 'text' || this.type === 'password' || this.type === 'number' || this.type === 'number-dot' ||
-              this.type === 'payment-card') && this.maxlength ? 'maxlength' : null
+      return (this.type === 'text' ||
+        this.type === 'password' ||
+        this.type === 'number' ||
+        this.type === 'number-dot' ||
+        this.type === 'payment-card') &&
+        this.maxlength
+        ? 'maxlength'
+        : null;
     },
     checkPasswordType() {
-      return this.getType === 'ds-password' ? this.type : null
+      return this.getType === 'ds-password' ? this.type : null;
     },
     getStyle() {
-      const style = {}
+      const style = {};
 
       if (this.icon) {
-        style.paddingRight = this.calcIconPadding(_.get(this, 'generalIconStyle.right', '6px'))
+        style.paddingRight = this.calcIconPadding(
+          _.get(this, 'generalIconStyle.right', '6px')
+        );
       } else if (this.iconLeft) {
-        style.paddingLeft = this.calcIconPadding(_.get(this, 'generalIconStyle.left', '6px'))
+        style.paddingLeft = this.calcIconPadding(
+          _.get(this, 'generalIconStyle.left', '6px')
+        );
       }
 
       if (this.width) {
-        style.width = this.width
+        style.width = this.width;
       }
 
-      return style
+      return style;
     },
     isInvalidInput() {
-      return this.showInvalidBlock && (this.invalidBacklight || this.constantlyInvalidBacklight)
+      return (
+        this.showInvalidBlock &&
+        (this.invalidBacklight || this.constantlyInvalidBacklight)
+      );
     }
   },
   methods: {
     getNumberFromStringPX(strPX) {
-      return +strPX.substring(0, strPX.length - 2)
+      return +strPX.substring(0, strPX.length - 2);
     },
     calcIconPadding(iconPadding) {
-      let padding = this.getNumberFromStringPX(iconPadding)
-      let iconSize = this.getNumberFromStringPX(this.iconSize)
+      let padding = this.getNumberFromStringPX(iconPadding);
+      let iconSize = this.getNumberFromStringPX(this.iconSize);
 
-      return `${padding + iconSize}px`
+      return `${padding + iconSize}px`;
     },
     onInputClick(e) {
-      this.$emit('click', e)
+      this.$emit('click', e);
     },
     inputFocus() {
       if (this.slideLabel) {
@@ -383,7 +424,7 @@ export default {
         this.slideActive = true;
       }
 
-      this.$emit('inputFocus')
+      this.$emit('inputFocus');
     },
     inputBlur() {
       if (this.slideLabel) {
@@ -395,7 +436,7 @@ export default {
       }
 
       this.touched = true;
-      this.$emit('inputBlur')
+      this.$emit('inputBlur');
     },
     slideInit() {
       if (this.slideLabel && this.value) {
@@ -403,35 +444,37 @@ export default {
       }
     },
     onKeyPress(event) {
-      event = event ? event : window.event
-      let charCode = event.which ? event.which : event.keyCode
+      event = event ? event : window.event;
+      let charCode = event.which ? event.which : event.keyCode;
 
-      if ((this.type === 'payment-card' && charCode > 32 || this.type === 'number' && charCode > 31 ||
-          (this.type === 'number-dot' && (charCode > 31 && charCode !== 46))) &&
-          (charCode < 48 || charCode > 57)) {
-
-        event.preventDefault()
+      if (
+        ((this.type === 'payment-card' && charCode > 32) ||
+          (this.type === 'number' && charCode > 31) ||
+          (this.type === 'number-dot' && charCode > 31 && charCode !== 46)) &&
+        (charCode < 48 || charCode > 57)
+      ) {
+        event.preventDefault();
       }
     },
     onKeyDown() {
       if (this.timeoutId) {
-        clearTimeout(this.timeoutId)
+        clearTimeout(this.timeoutId);
       }
 
       this.timeoutId = setTimeout(() => {
-        this.$emit('lastKeyDownDelay')
-      }, 300)
+        this.$emit('lastKeyDownDelay');
+      }, 300);
     },
     setValidity(field, value) {
-      const orgValidators = cloneDeep(this.validators)
+      const orgValidators = cloneDeep(this.validators);
       this.validators = this.validators.map(validator => {
         if (validator.name === field) {
-          validator.validator = () => value
+          validator.validator = () => value;
         }
-        return validator
-      })
-      this.$emit('validation', this.validation)
-      this.validators = cloneDeep(orgValidators)
+        return validator;
+      });
+      this.$emit('validation', this.validation);
+      this.validators = cloneDeep(orgValidators);
     },
     checkValuePattern(paste, value) {
       if (this.value || paste) {
@@ -439,31 +482,32 @@ export default {
           'number': /[^0-9]+/g,
           'number-dot': /[^0-9.]+/g,
           'payment-card': /[^0-9 ]+/g
-        }
+        };
 
-        let pattern = patternObj[this.type]
-        this.setValueByPatternLength(pattern, value || this.inputValue)
+        let pattern = patternObj[this.type];
+        this.setValueByPatternLength(pattern, value || this.inputValue);
       }
     },
     onPaste(event) {
-      let value = (this.inputValue || '') + event.clipboardData.getData('Text')
-      this.checkValuePattern(true, value)
+      let value = (this.inputValue || '') + event.clipboardData.getData('Text');
+      this.checkValuePattern(true, value);
     },
     setValueByPatternLength(pattern, value) {
       if (pattern) {
-        value = value.replace(pattern, '')
+        value = value.replace(pattern, '');
       }
 
-      this.inputValue = typeof value === 'string' ? value.slice(0, this.maxlength) : value
+      this.inputValue =
+        typeof value === 'string' ? value.slice(0, this.maxlength) : value;
     },
     onIconClick() {
       if (this.type === 'password') {
-        this.showPassword = !this.showPassword
+        this.showPassword = !this.showPassword;
       }
-      this.$emit('icon-click')
+      this.$emit('icon-click');
     },
     setTouched(touched) {
-      this.touched = touched
+      this.touched = touched;
     }
   },
   watch: {
@@ -472,17 +516,17 @@ export default {
         this.slideActive = false;
       }
 
-      this.checkBacklight()
-      this.slideInit()
-      this.$emit('validation', this.validation)
+      this.checkBacklight();
+      this.slideInit();
+      this.$emit('validation', this.validation);
     }
   },
   beforeDestroy() {
     if (this.name) {
       document.removeEventListener(this.validateEventName, this.validate);
     }
-  },
-}
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -503,7 +547,12 @@ export default {
     }
   }
 
-  &.ds-text, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
+  &.ds-text,
+  &.ds-password,
+  &.ds-number,
+  &.ds-number-dot,
+  &.ds-payment-card,
+  &.ds-tel {
     .ds-label-text {
       .font-desktop-x-small-regular-gray();
       display: flex;
@@ -535,7 +584,7 @@ export default {
             white-space: initial;
             .poper();
 
-            &[x-placement^="left"] {
+            &[x-placement^='left'] {
               [x-arrow] {
                 &:before {
                   top: -5px;
@@ -560,9 +609,12 @@ export default {
       font-size: 15px;
       font-family: Arial, Helvetica, sans-serif !important;
       color: #828282;
-      background: linear-gradient(@color-white 90%, hsla(0,0%,100%,0)) !important;
+      background: linear-gradient(
+        @color-white 90%,
+        hsla(0, 0%, 100%, 0)
+      ) !important;
       border-right: 2.5px solid #fff;
-      transition: .4s cubic-bezier(.25,.8,.25,1);
+      transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
       &.ds-slide-label-active {
         transform: translateY(-20px) scale(0.85, 0.85);
@@ -578,7 +630,7 @@ export default {
     }
 
     input {
-      color: #1B1E24;
+      color: #1b1e24;
       font-family: Roboto, sans-serif;
       font-size: 14px;
       line-height: 16px;
@@ -631,19 +683,20 @@ export default {
       }
 
       &:disabled {
-        border: 1px solid #E8ECEF;
+        border: 1px solid #e8ecef;
         background-color: @color-gray-100;
       }
-      &:disabled, &:disabled::placeholder {
+      &:disabled,
+      &:disabled::placeholder {
         .font-desktop-small-regular-light-gray-base();
       }
     }
 
     input + .icon-wrapper {
-        position: absolute;
-        bottom: 24%;
-        right: 6px;
-        height: 50% !important;
+      position: absolute;
+      bottom: 24%;
+      right: 6px;
+      height: 50% !important;
     }
 
     .ds-icon-left {
@@ -680,10 +733,12 @@ export default {
     max-width: 100%;
     width: 100%;
 
-    .error-message-enter-active, .error-message-leave-active {
-      transition: opacity .3s;
+    .error-message-enter-active,
+    .error-message-leave-active {
+      transition: opacity 0.3s;
     }
-    .error-message-enter, .error-message-leave-to {
+    .error-message-enter,
+    .error-message-leave-to {
       opacity: 0;
     }
   }
@@ -724,7 +779,7 @@ export default {
     }
   }
 
-    &.ds-sm {
+  &.ds-sm {
     width: 144px;
 
     input {
@@ -741,7 +796,12 @@ export default {
   }
 
   &.ds-lg {
-    &.ds-text, &.ds-password, &.ds-number, &.ds-number-dot, &.ds-payment-card, &.ds-tel {
+    &.ds-text,
+    &.ds-password,
+    &.ds-number,
+    &.ds-number-dot,
+    &.ds-payment-card,
+    &.ds-tel {
       .ds-label-text {
         font-size: 14px;
         line-height: 16px;

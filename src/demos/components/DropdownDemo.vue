@@ -6,7 +6,10 @@
     <Description compnent-name="Dropdown"></Description>
 
     <Collapser :opened.sync="visiblePosition" label="Position Scheme">
-      <pre class="scheme" v-highlightjs="scheme"><code class="html"></code></pre>
+      <pre
+        class="scheme"
+        v-highlightjs="scheme"
+      ><code class="html"></code></pre>
     </Collapser>
 
     <Collapser :opened.sync="openUsage" label="Usage">
@@ -26,7 +29,7 @@
         Position:<br />
 
         <template v-for="option in positions">
-          <input type="radio" :id="option" :value="option" v-model="position">
+          <input type="radio" :id="option" :value="option" v-model="position" />
           <label :for="option">{{ option }}</label>
           <br />
         </template>
@@ -46,10 +49,9 @@
       </div>
     </Dropdown>
 
-    <a class="hover-me"
-      ref="hoverMe"
-      @mouseover="dropdown3Opened = true"
-    >Hover me!</a>
+    <a class="hover-me" ref="hoverMe" @mouseover="dropdown3Opened = true"
+      >Hover me!</a
+    >
     <Dropdown
       :target="$refs.hoverMe"
       :opened.sync="dropdown3Opened"
@@ -61,20 +63,19 @@
         Good job!
       </div>
     </Dropdown>
-
   </div>
 </template>
 
 <script>
-import Button from '../../components/Button.vue'
-import Collapser from '../../components/Collapser.vue'
-import Dropdown from '../../components/Dropdown.vue'
-import Description from '../../descriptions/Description'
-import {DropdownData} from '../../static/index'
+import Button from '../../components/Button.vue';
+import Collapser from '../../components/Collapser.vue';
+import Dropdown from '../../components/Dropdown.vue';
+import Description from '../../descriptions/Description';
+import { DropdownData } from '../../static/index';
 
 export default {
   name: 'DropdownDemo',
-  components: {Button, Dropdown, Description, Collapser},
+  components: { Button, Dropdown, Description, Collapser },
   data: () => ({
     usage: DropdownData.usage,
     scheme: DropdownData.scheme,
@@ -85,17 +86,16 @@ export default {
     dropdown3Opened: false,
     position: 'bottom-right',
     positions: DropdownData.positions
-  }),
-}
+  })
+};
 </script>
 
 <style lang="less" scoped>
 @import '../../styles/vars';
 
 .dropdown-demo {
-
   .button {
-    margin-right: 8px
+    margin-right: 8px;
   }
 
   .dropdown-content {

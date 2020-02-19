@@ -6,8 +6,8 @@ let usage = `
     :max="100"
     prefix="€"
   />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

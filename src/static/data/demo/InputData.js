@@ -81,8 +81,8 @@ Basic inputs:<br />
   :show-validations="passwordShowErrors.secondField"
   @lastKeyDownDelay="onlastKeyDownDelay('secondField')"
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

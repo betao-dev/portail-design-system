@@ -39,9 +39,14 @@
         <Chips md placeholder="Status" v-model="statusFilter" />
       </template>
 
-      <template v-slot:cell-name="{row, value}">
+      <template v-slot:cell-name="{ row, value }">
         <div class="name-wrapper">
-          <Icon type="circle" size="18px" color="#1eb386" :source="row.type.name === 'Person' ? 'user-solid' : 'building'" />
+          <Icon
+            type="circle"
+            size="18px"
+            color="#1eb386"
+            :source="row.type.name === 'Person' ? 'user-solid' : 'building'"
+          />
           <div class="name-number">
             <div class="name">{{ value }}</div>
             <div class="number">Client ID: {{ row.number }}</div>
@@ -49,104 +54,132 @@
         </div>
       </template>
 
-      <template v-slot:cell-status="{value, orgValue}">
-        <Badge :color="colors[orgValue]" >{{ value }}</Badge>
+      <template v-slot:cell-status="{ value, orgValue }">
+        <Badge :color="colors[orgValue]">{{ value }}</Badge>
       </template>
 
       <template v-slot:cell-actions="{ row }">
-        <Button plain icon="pen-solid" iconSize="14px" iconColor="#778ca2" padding="8px" space-between="0" />
-        <Button plain icon="trash-alt" iconSize="14px" iconColor="#778ca2" padding="8px" space-between="0" />
+        <Button
+          plain
+          icon="pen-solid"
+          iconSize="14px"
+          iconColor="#778ca2"
+          padding="8px"
+          space-between="0"
+        />
+        <Button
+          plain
+          icon="trash-alt"
+          iconSize="14px"
+          iconColor="#778ca2"
+          padding="8px"
+          space-between="0"
+        />
       </template>
     </Table>
   </div>
 </template>
 
 <script>
-  import moment from 'moment'
-  import Table from '../../components/Table'
-  import Badge from '../../components/Badge'
-  import Icon from '../../components/Icon'
-  import Chips from '../../components/Chips'
-  import Input from '../../components/Input'
-  import Select from '../../components/Select'
-  import Collapser from '../../components/Collapser'
-  import Description from '../../descriptions/Description'
-  import {TableData, GeneralData} from '../../static/index'
+import moment from 'moment';
+import Table from '../../components/Table';
+import Badge from '../../components/Badge';
+import Icon from '../../components/Icon';
+import Chips from '../../components/Chips';
+import Input from '../../components/Input';
+import Select from '../../components/Select';
+import Collapser from '../../components/Collapser';
+import Description from '../../descriptions/Description';
+import { TableData, GeneralData } from '../../static/index';
 
-  const COLORS_BY_STATUS = {
-    cancelled: '#30302d',
-    refunded: '#3B9AE3',
-    partial_refunded: '#52a0d8',
-    draft: '#9e9e9e',
-    paid_with_deposit: '#66bb6a',
-    paid: '#66bb6a',
-    converted: '#66bb6a',
-    expired: '#ef5350',
-    pending_with_paid_deposit: '#68b7a3',
-    pending_with_deposit_pending: '#ffa726',
-    waiting: '#ffa726',
-    sent: '#1E88E5',
-    Pending: '#ffa726',
-    Proceeded: '#963CE3',
-    default: '#9e9e9e'
-  };
+const COLORS_BY_STATUS = {
+  cancelled: '#30302d',
+  refunded: '#3B9AE3',
+  partial_refunded: '#52a0d8',
+  draft: '#9e9e9e',
+  paid_with_deposit: '#66bb6a',
+  paid: '#66bb6a',
+  converted: '#66bb6a',
+  expired: '#ef5350',
+  pending_with_paid_deposit: '#68b7a3',
+  pending_with_deposit_pending: '#ffa726',
+  waiting: '#ffa726',
+  sent: '#1E88E5',
+  Pending: '#ffa726',
+  Proceeded: '#963CE3',
+  default: '#9e9e9e'
+};
 
-  export default {
-    name: 'TableDemo',
-    components: {Table, Badge, Icon, Chips, Input, Select, Collapser, Description},
-    data: () => ({
-      usage: TableData.usage,
-      openUsage: true,
-      clients: GeneralData.clients,
-      headers: [
-        { key: 'name', title: 'Name', width: '30%' },
-        { key: 'type.name', title: 'Type', width: '20%' },
-        { key: 'earned', title: 'Earned', prefix: '€', sortable: true },
-        { key: 'invoice_date', title: 'Date', sortable: true, filter: (value) => moment(value).format('DD-MM-YYYY') },
-        { key: 'status', title: 'Status', badge: true },
-        { key: 'actions', title: '', width: '100px'}
-      ],
-      colors: COLORS_BY_STATUS,
-      selectedPage: 1,
-      nameFilter: [],
-      typeFilter: '',
-      typeOptions: [
-        { id: 1, value: 'Person' },
-        { id: 2, value: 'Company' }
-      ],
-      financialFilter: '',
-      invoiceDateFilter: '',
-      statusFilter: []
-    }),
-    methods: {
-      updatePage(page) {
-        this.selectedPage = page
-      }
+export default {
+  name: 'TableDemo',
+  components: {
+    Table,
+    Badge,
+    Icon,
+    Chips,
+    Input,
+    Select,
+    Collapser,
+    Description
+  },
+  data: () => ({
+    usage: TableData.usage,
+    openUsage: true,
+    clients: GeneralData.clients,
+    headers: [
+      { key: 'name', title: 'Name', width: '30%' },
+      { key: 'type.name', title: 'Type', width: '20%' },
+      { key: 'earned', title: 'Earned', prefix: '€', sortable: true },
+      {
+        key: 'invoice_date',
+        title: 'Date',
+        sortable: true,
+        filter: value => moment(value).format('DD-MM-YYYY')
+      },
+      { key: 'status', title: 'Status', badge: true },
+      { key: 'actions', title: '', width: '100px' }
+    ],
+    colors: COLORS_BY_STATUS,
+    selectedPage: 1,
+    nameFilter: [],
+    typeFilter: '',
+    typeOptions: [
+      { id: 1, value: 'Person' },
+      { id: 2, value: 'Company' }
+    ],
+    financialFilter: '',
+    invoiceDateFilter: '',
+    statusFilter: []
+  }),
+  methods: {
+    updatePage(page) {
+      this.selectedPage = page;
     }
   }
+};
 </script>
 
 <style lang="less" scoped>
-  @import '../../styles/vars';
+@import '../../styles/vars';
 
-  .name-wrapper {
+.name-wrapper {
+  display: flex;
+  align-items: center;
+
+  .name-number {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
 
-    .name-number {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-left: 10px;
+    .name {
+      font-size: 16px;
+    }
 
-      .name {
-        font-size: 16px;
-      }
-
-      .number {
-        font-size: 14px;
-        color: @color-gray-500;
-      }
+    .number {
+      font-size: 14px;
+      color: @color-gray-500;
     }
   }
+}
 </style>

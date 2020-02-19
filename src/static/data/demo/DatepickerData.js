@@ -12,8 +12,8 @@ let usage = `
   :dateUnset.sync="dateUnsetRange"
   rangeAvailable>
 </Datepicker>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

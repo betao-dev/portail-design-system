@@ -30,7 +30,7 @@
 <script>
 export default {
   name: 'FullScreenModal'
-}
+};
 </script>
 
 <style lang="less">
@@ -53,14 +53,14 @@ export default {
     background-color: @color-white;
     box-shadow: inset 0 -1px 0 0 @color-gray-300;
   }
-   @media @screen-medium, @screen-small {
-        .ds-modal-header:not(:empty) {
-          padding: 12px;
-        }
-   }
+  @media @screen-medium, @screen-small {
+    .ds-modal-header:not(:empty) {
+      padding: 12px;
+    }
+  }
 
   .ds-modal-main {
-    height:100%;
+    height: 100%;
   }
 }
 </style>

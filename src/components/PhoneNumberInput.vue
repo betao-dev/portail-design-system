@@ -28,9 +28,12 @@
 -->
 
 <template>
-  <div class="ds-phone-numbuer-input" :style="{width}">
+  <div class="ds-phone-numbuer-input" :style="{ width }">
     <div class="ds-label-text">{{ label }}</div>
-    <div :class="['ds-vue-tel-input', { 'ds-disabled': disabled }]" @keydown="keyboardNav">
+    <div
+      :class="['ds-vue-tel-input', { 'ds-disabled': disabled }]"
+      @keydown="keyboardNav"
+    >
       <div
         @click="toggleDropdown"
         v-click-outside="clickedOutside"
@@ -38,11 +41,22 @@
         tabindex="0"
       >
         <span class="ds-selection">
-          <div class="iti-flag" v-if="enabledFlags" :class="activeCountry.iso2.toLowerCase()"></div>
-          <span class="ds-country-code" v-if="enabledCountryCode">+{{ activeCountry.dialCode }}</span>
+          <div
+            class="iti-flag"
+            v-if="enabledFlags"
+            :class="activeCountry.iso2.toLowerCase()"
+          ></div>
+          <span class="ds-country-code" v-if="enabledCountryCode"
+            >+{{ activeCountry.dialCode }}</span
+          >
           <span class="ds-dropdown-arrow">{{ open ? '▲' : '▼' }}</span>
         </span>
-        <ul v-show="open" ref="list" class="ds-phone-numbuer-input-list" :style="{height: listHeight}">
+        <ul
+          v-show="open"
+          ref="list"
+          class="ds-phone-numbuer-input-list"
+          :style="{ height: listHeight }"
+        >
           <li
             class="ds-dropdown-item"
             v-for="(pb, index) in sortedCountries"
@@ -51,9 +65,15 @@
             :class="getItemClass(index, pb.iso2)"
             @mousemove="selectedIndex = index"
           >
-            <div class="iti-flag" v-if="enabledFlags" :class="pb.iso2.toLowerCase()"></div>
+            <div
+              class="iti-flag"
+              v-if="enabledFlags"
+              :class="pb.iso2.toLowerCase()"
+            ></div>
             <strong>{{ pb.name }}</strong>
-            <span v-if="dropdownOptions && !dropdownOptions.disabledDialCode">+{{ pb.dialCode }}</span>
+            <span v-if="dropdownOptions && !dropdownOptions.disabledDialCode"
+              >+{{ pb.dialCode }}</span
+            >
           </li>
         </ul>
       </div>
@@ -67,17 +87,22 @@
         :required="required"
         :autocomplete="autocomplete"
         :name="name"
-        :class="[inputClasses, {'ds-phone-number-input-valid': showValidCheck && validBacklight,
-                                'ds-phone-number-input-error': showInvalidBlock && invalidBacklight}]"
+        :class="[
+          inputClasses,
+          {
+            'ds-phone-number-input-valid': showValidCheck && validBacklight,
+            'ds-phone-number-input-error': showInvalidBlock && invalidBacklight
+          }
+        ]"
         :maxlength="maxLen"
         @blur="onBlur"
         @input="onInput"
-      >
+      />
     </div>
     <div v-if="showInvalidBlock" class="ds-input-phone-number-errors">
-        <span class="ds-error-message">
-          {{ inputErrors[0] }}
-        </span>
+      <span class="ds-error-message">
+        {{ inputErrors[0] }}
+      </span>
     </div>
   </div>
 </template>
@@ -85,7 +110,7 @@
 <script>
 import _ from 'lodash';
 import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js';
-import {CountriesArray} from '../static/index';
+import { CountriesArray } from '../static/index';
 import validation from './../mixins/validation';
 
 const allCountries = CountriesArray.map(country => ({
@@ -93,7 +118,7 @@ const allCountries = CountriesArray.map(country => ({
   iso2: country[1].toUpperCase(),
   dialCode: country[2],
   priority: country[3] || 0,
-  areaCodes: country[4] || null,
+  areaCodes: country[4] || null
 }));
 
 export default {
@@ -107,33 +132,33 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'Enter a phone number',
+      default: 'Enter a phone number'
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     disabledFormatting: {
       type: Boolean,
-      default: false,
+      default: false
     },
     invalidMsg: {
       default: '',
-      type: String,
+      type: String
     },
     required: {
       type: Boolean,
-      default: false,
+      default: false
     },
     defaultCountry: {
       // Default country code, ie: 'AU'
       // Will override the current country of user
       type: String,
-      default: '',
+      default: ''
     },
     enabledCountryCode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     enabledFlags: {
       type: Boolean,
@@ -141,39 +166,39 @@ export default {
     },
     preferredCountries: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     onlyCountries: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     ignoredCountries: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     autocomplete: {
       type: String,
-      default: 'on',
+      default: 'on'
     },
     name: {
       type: String,
-      default: 'telephone',
+      default: 'telephone'
     },
     inputClasses: {
       type: String,
-      default: '',
+      default: ''
     },
     dropdownOptions: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     inputOptions: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     maxLen: {
       type: Number,
-      default: 15,
+      default: 15
     },
     showValidations: {
       type: Boolean,
@@ -227,16 +252,19 @@ export default {
         return this.getCountries(this.onlyCountries);
       }
       if (this.ignoredCountries.length) {
-        return allCountries.filter(({ iso2 }) =>
-          !this.ignoredCountries.includes(iso2.toUpperCase()) &&
-          !this.ignoredCountries.includes(iso2.toLowerCase()))
+        return allCountries.filter(
+          ({ iso2 }) =>
+            !this.ignoredCountries.includes(iso2.toUpperCase()) &&
+            !this.ignoredCountries.includes(iso2.toLowerCase())
+        );
       }
       return allCountries;
     },
     sortedCountries() {
       // Sort the list countries: from preferred countries to all countries
-      const preferredCountries = this.getCountries(this.preferredCountries)
-        .map(country => ({ ...country, preferred: true }));
+      const preferredCountries = this.getCountries(
+        this.preferredCountries
+      ).map(country => ({ ...country, preferred: true }));
       return [...preferredCountries, ...this.filteredCountries];
     },
     formattedResult() {
@@ -247,10 +275,11 @@ export default {
       let phone = this.phone;
       if (this.mode === 'code') {
         // If user manually type the country code
-        const formatter = new AsYouType();// eslint-disable-line
+        const formatter = new AsYouType(); // eslint-disable-line
         formatter.input(this.phone);
         // Find inputted country in the countries list
-        const activeCountry = this.findCountry(formatter.country) || this.activeCountry;
+        const activeCountry =
+          this.findCountry(formatter.country) || this.activeCountry;
         this.setActiveCountry(activeCountry);
       } else if (this.mode === 'prefix') {
         phone = this.phone.slice(1);
@@ -258,10 +287,17 @@ export default {
       if (this.disabledFormatting) {
         return this.phone;
       }
-      return formatNumber(phone, this.activeCountry && this.activeCountry.iso2, 'International');
+      return formatNumber(
+        phone,
+        this.activeCountry && this.activeCountry.iso2,
+        'International'
+      );
     },
     state() {
-      return isValidNumber(this.formattedResult, this.activeCountry && this.activeCountry.iso2);
+      return isValidNumber(
+        this.formattedResult,
+        this.activeCountry && this.activeCountry.iso2
+      );
     },
     response() {
       // If it is a valid number, returns the formatted value
@@ -269,35 +305,41 @@ export default {
       let response = {
         number: this.state ? this.formattedResult : this.phone,
         isValid: this.state,
-        country: this.activeCountry,
-      }
+        country: this.activeCountry
+      };
       // If formatting to the input is disabled, try to return the formatted value to its parent
       if (this.disabledFormatting) {
         _.assign(response, {
-          formattedNumber: formatNumber(this.phone, this.activeCountry && this.activeCountry.iso2, 'International')
-        })
+          formattedNumber: formatNumber(
+            this.phone,
+            this.activeCountry && this.activeCountry.iso2,
+            'International'
+          )
+        });
       }
 
       response.phone = {
         countryCode: response.country.dialCode,
-        phoneNumber: response.number.replace(/[+ ]/g, '').slice(response.country.dialCode.length)
-      }
+        phoneNumber: response.number
+          .replace(/[+ ]/g, '')
+          .slice(response.country.dialCode.length)
+      };
 
       return response;
     },
     validation() {
       if (!this.validators || !this.validators.length) {
-        return []
+        return [];
       }
 
-      let data = []
+      let data = [];
       for (let i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
-          this.validators[i].validator(this.value, this.referenceModel),
-        ])
+          this.validators[i].validator(this.value, this.referenceModel)
+        ]);
       }
-      return data
+      return data;
     }
   },
   watch: {
@@ -331,7 +373,9 @@ export default {
       /**
        * 2. Use the first country from preferred list (if available) or all countries list
        */
-      this.activeCountry = this.findCountry(this.preferredCountries[0]) || this.filteredCountries[0];
+      this.activeCountry =
+        this.findCountry(this.preferredCountries[0]) ||
+        this.filteredCountries[0];
     },
     /**
      * Get the list of countries from the list of iso2 code
@@ -347,11 +391,13 @@ export default {
     getItemClass(index, iso2) {
       const highlighted = this.selectedIndex === index;
       const lastPreferred = index === this.preferredCountries.length - 1;
-      const preferred = !!~this.preferredCountries.map(c => c.toUpperCase()).indexOf(iso2);
+      const preferred = !!~this.preferredCountries
+        .map(c => c.toUpperCase())
+        .indexOf(iso2);
       return {
         'ds-highlighted': highlighted,
         'ds-last-preferred': lastPreferred,
-        'ds-preferred': preferred,
+        'ds-preferred': preferred
       };
     },
     choose(country) {
@@ -365,7 +411,9 @@ export default {
       this.activeCountry = country;
     },
     onInput() {
-      this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
+      this.$refs.input.setCustomValidity(
+        this.response.isValid ? '' : this.invalidMsg
+      );
       if (!this.phone.startsWith('+' + this.activeCountry.dialCode)) {
         this.phone = '+' + this.activeCountry.dialCode;
       }
@@ -397,14 +445,20 @@ export default {
         if (this.selectedIndex === null) {
           this.selectedIndex = 0;
         } else {
-          this.selectedIndex = Math.min(this.sortedCountries.length - 1, this.selectedIndex + 1);
+          this.selectedIndex = Math.min(
+            this.sortedCountries.length - 1,
+            this.selectedIndex + 1
+          );
         }
         const selEle = this.$refs.list.children[this.selectedIndex];
-        if (selEle.offsetTop + selEle.clientHeight
-          > this.$refs.list.scrollTop + this.$refs.list.clientHeight) {
-          this.$refs.list.scrollTop = selEle.offsetTop
-            - this.$refs.list.clientHeight
-            + selEle.clientHeight;
+        if (
+          selEle.offsetTop + selEle.clientHeight >
+          this.$refs.list.scrollTop + this.$refs.list.clientHeight
+        ) {
+          this.$refs.list.scrollTop =
+            selEle.offsetTop -
+            this.$refs.list.clientHeight +
+            selEle.clientHeight;
         }
       } else if (e.keyCode === 38) {
         // up arrow
@@ -435,15 +489,19 @@ export default {
         // don't include preferred countries so we jump to the right place in the alphabet
         const typedCountryI = this.sortedCountries
           .slice(this.preferredCountries.length)
-          .findIndex(c => c.name.toLowerCase().startsWith(this.typeToFindInput));
+          .findIndex(c =>
+            c.name.toLowerCase().startsWith(this.typeToFindInput)
+          );
         if (typedCountryI >= 0) {
           this.selectedIndex = this.preferredCountries.length + typedCountryI;
           const selEle = this.$refs.list.children[this.selectedIndex];
           const needToScrollTop = selEle.offsetTop < this.$refs.list.scrollTop;
-          const needToScrollBottom = selEle.offsetTop + selEle.clientHeight
-            > this.$refs.list.scrollTop + this.$refs.list.clientHeight;
+          const needToScrollBottom =
+            selEle.offsetTop + selEle.clientHeight >
+            this.$refs.list.scrollTop + this.$refs.list.clientHeight;
           if (needToScrollTop || needToScrollBottom) {
-            this.$refs.list.scrollTop = selEle.offsetTop - this.$refs.list.clientHeight / 2;
+            this.$refs.list.scrollTop =
+              selEle.offsetTop - this.$refs.list.clientHeight / 2;
           }
         }
       }
@@ -451,26 +509,26 @@ export default {
   },
   directives: {
     'click-outside': {
-      bind: function (el, binding) {
+      bind: function(el, binding) {
         // Define Handler and cache it on the element
         var bubble = binding.modifiers.bubble;
-        var handler = function (e) {
+        var handler = function(e) {
           if (bubble || (!el.contains(e.target) && el !== e.target)) {
-            binding.value(e)
+            binding.value(e);
           }
         };
         el.__vueClickOutside__ = handler;
         // add Event Listeners
-        document.addEventListener('click', handler)
+        document.addEventListener('click', handler);
       },
-      unbind: function (el) {
+      unbind: function(el) {
         // Remove Event Listeners
         document.removeEventListener('click', el.__vueClickOutside__);
-        el.__vueClickOutside__ = null
+        el.__vueClickOutside__ = null;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -532,7 +590,7 @@ export default {
       padding: @phone-input-padding;
       cursor: pointer;
 
-      &.ds-open{
+      &.ds-open {
         background-color: @color-gray-200;
       }
 
@@ -564,7 +622,7 @@ export default {
       border-radius: 4px;
       padding: 14px 16px 16px;
       background-color: @color-white;
-      color: #1B1E24;
+      color: #1b1e24;
       font-family: Roboto;
       font-size: 14px;
       line-height: 16px;

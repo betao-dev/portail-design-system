@@ -15,50 +15,81 @@
 
 <template>
   <div class="ds-upload-wrapper">
-    <vue-dropzone v-if="multiple" :options="fileUploadOptions" id="ds-file-upload" :style="wrapperStyles" :useCustomSlot="true">
+    <vue-dropzone
+      v-if="multiple"
+      :options="fileUploadOptions"
+      id="ds-file-upload"
+      :style="wrapperStyles"
+      :useCustomSlot="true"
+    >
       <div v-if="inputValue.length === 0" class="ds-dropzone-custom-content">
         <div class="ds-icon-wrapper">
-          <Icon
-            v-if="icon"
-            :source="icon"
-            :size="iconSize"
-          />
+          <Icon v-if="icon" :source="icon" :size="iconSize" />
         </div>
 
         <div class="ds-title">
-          {{title}}
+          {{ title }}
         </div>
       </div>
 
       <div v-else class="ds-selected-files-wrapper">
-        <div v-for="(f, index) in inputValue" :key="index" class="ds-file-wrapper">
+        <div
+          v-for="(f, index) in inputValue"
+          :key="index"
+          class="ds-file-wrapper"
+        >
           <img width="100" height="100" :src="f.dataURL" />
           <div class="remove-icon-wrapper">
-            <Icon source="close" color="#ddd" size="24px" @click.native="removeFile(f)" />
+            <Icon
+              source="close"
+              color="#ddd"
+              size="24px"
+              @click.native="removeFile(f)"
+            />
           </div>
         </div>
       </div>
     </vue-dropzone>
 
-    <vue-dropzone v-else :options="fileUploadOptions" id="ds-file-upload" :style="wrapperStyles" :useCustomSlot="true">
+    <vue-dropzone
+      v-else
+      :options="fileUploadOptions"
+      id="ds-file-upload"
+      :style="wrapperStyles"
+      :useCustomSlot="true"
+    >
       <div class="ds-selected-files-wrapper">
         <div class="ds-file-wrapper">
           <template v-if="checkEmptyFile">
             <div class="ds-file-empty">
-              <Icon source="cloud-upload-alt-solid" color="#778CA2" size="30px" />
+              <Icon
+                source="cloud-upload-alt-solid"
+                color="#778CA2"
+                size="30px"
+              />
               <div>Ajouter un logo</div>
             </div>
           </template>
 
           <template v-else>
-            <img :class="imageType" :src="typeof inputValue === 'object' ? inputValue.dataURL : inputValue" />
+            <img
+              :class="imageType"
+              :src="
+                typeof inputValue === 'object' ? inputValue.dataURL : inputValue
+              "
+            />
             <div class="cloud-icon-wrapper">
               <Icon source="cloud-upload-alt-solid" color="white" size="18px" />
             </div>
           </template>
 
           <div class="remove-icon-wrapper">
-            <Icon source="close" color="#ddd" size="24px" @click.stop="removeFile(inputValue)" />
+            <Icon
+              source="close"
+              color="#ddd"
+              size="24px"
+              @click.stop="removeFile(inputValue)"
+            />
           </div>
         </div>
 
@@ -73,17 +104,16 @@
       {{ inputErrors[0] }}
     </div>
   </div>
-  
 </template>
 
 <script>
-import Icon from './Icon.vue'
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
-import { isEqual, isEmpty } from 'lodash'
+import Icon from './Icon.vue';
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+import { isEqual, isEmpty } from 'lodash';
 
 export default {
-  name: "FileUpload",
+  name: 'FileUpload',
   components: {
     vueDropzone: vue2Dropzone,
     Icon
@@ -112,110 +142,113 @@ export default {
   data() {
     return {
       mainOptions: {
-        addedfile: (file) => {
-          this.touched = true
-          this.errors = []
+        addedfile: file => {
+          this.touched = true;
+          this.errors = [];
 
-          if (this.multiple && this.inputValue.find(f => f.name === file.name)) {
-            let message = this.dsTranslate('File selected')
+          if (
+            this.multiple &&
+            this.inputValue.find(f => f.name === file.name)
+          ) {
+            let message = this.dsTranslate('File selected');
 
-            this.$emit('invalidfile', message)
-            this.errors.push(message)
-            return
+            this.$emit('invalidfile', message);
+            this.errors.push(message);
+            return;
           }
 
           if (!this.fileTypeCheck(file)) {
-            let message = this.dsTranslate('File invalid')
+            let message = this.dsTranslate('File invalid');
 
-            this.$emit('invalidfile', message)
-            this.errors.push(message)
-            return
+            this.$emit('invalidfile', message);
+            this.errors.push(message);
+            return;
           }
 
           setTimeout(() => {
             if (!this.multiple) {
-              this.inputValue = file.dataURL
+              this.inputValue = file.dataURL;
             } else {
-              this.inputValue.push(file)
+              this.inputValue.push(file);
             }
-            this.$emit('input', this.inputValue)
-            this.$emit('validation', this.validation)
-          }, 300)
+            this.$emit('input', this.inputValue);
+            this.$emit('validation', this.validation);
+          }, 300);
         },
         url: 'https://*',
         addRemoveLinks: true,
-        acceptedFiles: "image/*"
+        acceptedFiles: 'image/*'
       },
       touched: false,
       errors: [],
       inputValue: []
-    }
+    };
   },
   methods: {
     removeFile(file) {
       if (!this.multiple) {
-        this.inputValue = null
+        this.inputValue = null;
       } else {
-        this.inputValue = this.inputValue.filter(f => !isEqual(f, file))
+        this.inputValue = this.inputValue.filter(f => !isEqual(f, file));
       }
-      this.$emit('input', this.inputValue)
-      this.$emit('validation', this.validation)
+      this.$emit('input', this.inputValue);
+      this.$emit('validation', this.validation);
     },
     fileTypeCheck(file) {
       if (file.type === this.mainOptions.acceptedFiles) {
-        return true
+        return true;
       }
 
-      if (this.mainOptions.acceptedFiles === "*") {
-        return true
+      if (this.mainOptions.acceptedFiles === '*') {
+        return true;
       }
 
-      if (this.mainOptions.acceptedFiles.includes("/*")) {
-        const type = this.mainOptions.acceptedFiles.replace("/*", '')
+      if (this.mainOptions.acceptedFiles.includes('/*')) {
+        const type = this.mainOptions.acceptedFiles.replace('/*', '');
         if (file.type.includes(type)) {
-          return true
+          return true;
         }
       }
 
-      return false
+      return false;
     }
   },
   computed: {
     checkEmptyFile() {
-      if (isEmpty(this.inputValue)) return true
-      return false
+      if (isEmpty(this.inputValue)) return true;
+      return false;
     },
     fileUploadOptions() {
-      return { ...this.uploadOptions, ...this.mainOptions }
+      return { ...this.uploadOptions, ...this.mainOptions };
     },
     validation() {
       if (!this.validators || !this.validators.length) {
-        return []
+        return [];
       }
 
-      let data = []
+      let data = [];
       for (var i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
           this.validators[i].validator(this.inputValue)
-        ])
+        ]);
       }
-      return data
+      return data;
     },
     inputErrors() {
       if (this.errors.length > 0) {
-        return this.errors
+        return this.errors;
       }
 
-      let errors = []
+      let errors = [];
 
       for (var i = 0; i < this.validation.length; i++) {
         if (!this.validation[i][1]) {
-          errors.push(this.validators[i].message)
+          errors.push(this.validators[i].message);
         }
       }
 
-      return errors
+      return errors;
     },
     wrapperStyles() {
       if (this.disabled) {
@@ -223,25 +256,25 @@ export default {
           backgroundColor: '#F8FAFB',
           borderColor: '#F8FAFB',
           pointerEvents: 'none'
-        }
+        };
       }
 
       return {
         backgroundColor: '#FFFFFF',
         border: 'solid 1px #E8ECEF'
-      } 
+      };
     }
   },
   watch: {
     value(val) {
-      this.inputValue = val
-      this.$emit('validation', this.validation)
+      this.inputValue = val;
+      this.$emit('validation', this.validation);
     }
   },
   mounted() {
-    this.inputValue = this.value
+    this.inputValue = this.value;
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -376,5 +409,4 @@ export default {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-
 </style>

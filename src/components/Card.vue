@@ -16,10 +16,10 @@ export default {
   name: 'Card',
   methods: {
     onClick() {
-      this.$emit('click')
+      this.$emit('click');
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -124,7 +124,7 @@ export default {
       height: 24px;
       padding: 5px 6px 3px;
       border-radius: 12px;
-      background-color: #4A7A91;
+      background-color: #4a7a91;
     }
   }
 
@@ -149,7 +149,7 @@ export default {
       height: 24px;
       padding: 5px 6px 3px;
       border-radius: 12px;
-      background-color: #4A7A91;
+      background-color: #4a7a91;
     }
   }
 }

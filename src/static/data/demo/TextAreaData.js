@@ -14,4 +14,4 @@ let usage = `
 
 export default {
   usage
-}
+};

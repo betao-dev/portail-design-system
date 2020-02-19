@@ -18,8 +18,8 @@ let usage = `
     <Button>Submit</Button>
   </div>
 </Form>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

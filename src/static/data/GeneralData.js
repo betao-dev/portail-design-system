@@ -1,7 +1,7 @@
 let text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
 
 let clients = [
   {
@@ -10,7 +10,8 @@ let clients = [
     earned: '3,123.34',
     number: '293932',
     invoice_date: 'Sat Sep 21 2019 17:00:00 GMT-0700 (Pacific Daylight Time)',
-    invoice_duedate: 'Sat Sep 21 2019 17:00:00 GMT-0700 (Pacific Daylight Time)',
+    invoice_duedate:
+      'Sat Sep 21 2019 17:00:00 GMT-0700 (Pacific Daylight Time)',
     emailed_date: '2000-11-09',
     status: 'converted',
     has_disbursement: true,
@@ -23,7 +24,7 @@ let clients = [
       has_percentage: false
     },
     totalTTC: () => {
-      return 200
+      return 200;
     }
   },
   {
@@ -66,9 +67,9 @@ let clients = [
     emailed_date: '2000-11-09',
     status: 'converted'
   }
-]
+];
 
 export default {
   text,
   clients
-}
+};

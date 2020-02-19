@@ -10,10 +10,7 @@
         <slot name="popover"></slot>
       </div>
 
-      <div
-        class="reference"
-        slot="reference"
-      >
+      <div class="reference" slot="reference">
         <slot name="reference"></slot>
       </div>
     </Popper>
@@ -21,12 +18,11 @@
 </template>
 
 <script>
-
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
 
 export default {
-  name: "Tooltip",
+  name: 'Tooltip',
   props: {
     placement: {
       type: String,
@@ -34,15 +30,17 @@ export default {
     },
     offset: {
       type: Object,
-      default: () => {return {offset: '0, 10px'}}
-    },
+      default: () => {
+        return { offset: '0, 10px' };
+      }
+    }
   },
   components: {
     Popper
   },
   methods: {},
   computed: {}
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -69,5 +67,4 @@ export default {
     position: absolute;
   }
 }
-
 </style>

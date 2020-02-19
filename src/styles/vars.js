@@ -18,4 +18,4 @@ export const COLORS = {
   'red': '#FB4544',
   'yellow': '#ffab2b',
   'green': '#2CE5F6'
-}
+};

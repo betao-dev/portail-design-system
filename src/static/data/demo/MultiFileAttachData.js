@@ -8,8 +8,8 @@ let usage = `
   @fileInput="fileInput"
   @fileRemove="fileRemove"
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

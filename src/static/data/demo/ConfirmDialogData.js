@@ -1,4 +1,4 @@
-import GeneralData from '../GeneralData'
+import GeneralData from '../GeneralData';
 
 let usage = `
 <ConfirmDialog
@@ -14,6 +14,6 @@ let usage = `
     ${GeneralData.text}
   </div>
 </ConfirmDialog>
-`
+`;
 
-export default { usage }
+export default { usage };

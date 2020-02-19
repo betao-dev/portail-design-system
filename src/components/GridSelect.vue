@@ -47,23 +47,26 @@
     <tr v-for="row in items" class="ds-grid-select-row">
       <td
         v-for="item in row"
-        :class="['ds-item-cell', {
-          'ds-disabled': item.disabled,
-          'ds-selected': getSelected(item),
-          'ds-range': getRange(item),
-          'ds-selected-range-start': getSelectedRangeStart(item),
-          'ds-selected-range-end': getSelectedRangeEnd(item)
-        }]"
+        :class="[
+          'ds-item-cell',
+          {
+            'ds-disabled': item.disabled,
+            'ds-selected': getSelected(item),
+            'ds-range': getRange(item),
+            'ds-selected-range-start': getSelectedRangeStart(item),
+            'ds-selected-range-end': getSelectedRangeEnd(item)
+          }
+        ]"
         :tabindex="!item.disabled && 0"
         @click="!item.disabled && select(item)"
         @keydown.enter.space.prevent="select(item)"
-        :style="{width: itemWidth}"
+        :style="{ width: itemWidth }"
       >
-          <span :class="['ds-item', ...item.class]">
-            <slot v-bind="{item}">
-              {{ item.title || item }}
-            </slot>
-          </span>
+        <span :class="['ds-item', ...item.class]">
+          <slot v-bind="{ item }">
+            {{ item.title || item }}
+          </slot>
+        </span>
       </td>
     </tr>
   </table>
@@ -84,67 +87,84 @@ export default {
   },
   computed: {
     itemWidth() {
-      return 100 / this.items[0].length + '%'
+      return 100 / this.items[0].length + '%';
     },
     initDate() {
-      return new Date(this.value).getTime()
+      return new Date(this.value).getTime();
     },
     secondInitDate() {
-      return new Date(this.secondValue).getTime()
+      return new Date(this.secondValue).getTime();
     },
     dateRangeExist() {
-      return this.value && this.secondValue && this.rangeAvailable
+      return this.value && this.secondValue && this.rangeAvailable;
     }
   },
   methods: {
     select(item) {
-      this.$emit('input', item)
+      this.$emit('input', item);
     },
     getSelected(item) {
       if (this.dateRangeExist) {
-        return this.getSingleSelected(item, this.value, this.initDate) ||
+        return (
+          this.getSingleSelected(item, this.value, this.initDate) ||
           this.getSingleSelected(item, this.secondValue, this.secondInitDate)
+        );
       } else {
-        return this.getSingleSelected(item, this.value, this.initDate)
+        return this.getSingleSelected(item, this.value, this.initDate);
       }
     },
     getRange(item) {
       if (this.dateRangeExist && item.key !== undefined) {
-        return this.initDate && this.secondInitDate && (this.initDate < item.key && item.key < this.secondInitDate ||
-          this.secondInitDate < item.key && item.key < this.initDate)
+        return (
+          this.initDate &&
+          this.secondInitDate &&
+          ((this.initDate < item.key && item.key < this.secondInitDate) ||
+            (this.secondInitDate < item.key && item.key < this.initDate))
+        );
       } else if (this.dateRangeExist) {
-        return this.value < item && item < this.secondValue || this.secondValue < item && item < this.value
+        return (
+          (this.value < item && item < this.secondValue) ||
+          (this.secondValue < item && item < this.value)
+        );
       } else {
-        return false
+        return false;
       }
     },
     getSelectedRangeStart(item) {
       if (this.dateRangeExist && this.value < this.secondValue) {
-        return this.getSingleSelected(item, this.value, this.initDate)
+        return this.getSingleSelected(item, this.value, this.initDate);
       } else if (this.dateRangeExist) {
-        return this.getSingleSelected(item, this.secondValue, this.secondInitDate)
+        return this.getSingleSelected(
+          item,
+          this.secondValue,
+          this.secondInitDate
+        );
       } else {
-        return false
+        return false;
       }
     },
     getSelectedRangeEnd(item) {
       if (this.dateRangeExist && this.value > this.secondValue) {
-        return this.getSingleSelected(item, this.value, this.initDate)
+        return this.getSingleSelected(item, this.value, this.initDate);
       } else if (this.dateRangeExist) {
-        return this.getSingleSelected(item, this.secondValue, this.secondInitDate)
+        return this.getSingleSelected(
+          item,
+          this.secondValue,
+          this.secondInitDate
+        );
       } else {
-        return false
+        return false;
       }
     },
     getSingleSelected(item, date, dateMilles) {
       if (item.key !== undefined) {
-        return item.key === dateMilles
+        return item.key === dateMilles;
       } else {
-        return item === date
+        return item === date;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -182,7 +202,7 @@ export default {
         min-width: 24px;
         padding: 0 2px;
         text-align: center;
-        transition: background .1s ease-in-out;
+        transition: background 0.1s ease-in-out;
         user-select: none;
       }
 
