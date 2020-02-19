@@ -18,8 +18,8 @@ let usage = `
     :idMode="true"
     @change="changeSelect"
   />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

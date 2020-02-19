@@ -6,8 +6,8 @@ let usage = `
   label="Phone Number"
   value="+33 2 34 32 42 34"
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

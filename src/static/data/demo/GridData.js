@@ -21,8 +21,8 @@ let usage = `
   <!-- Is equal to: -->
   <div class="row"><div class="col-12"><div>...</div></div></div>
 </div>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

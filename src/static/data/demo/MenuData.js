@@ -3,8 +3,8 @@ let usage = `
   :items="items"
   @item:click="menuClick"
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

@@ -14,22 +14,20 @@
 </template>
 
 <script>
-import Toggle from '../../components/Toggle.vue'
+import Toggle from '../../components/Toggle.vue';
 import Description from '../../descriptions/Description.vue';
 import Collapser from '../../components/Collapser.vue';
-import {ToggleData} from '../../static/index'
+import { ToggleData } from '../../static/index';
 
 export default {
   name: 'ToggleDemo',
-  components: {Toggle, Description, Collapser},
+  components: { Toggle, Description, Collapser },
   data: () => ({
     openUsage: true,
     usage: ToggleData.usage,
     value: true
   })
-}
+};
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

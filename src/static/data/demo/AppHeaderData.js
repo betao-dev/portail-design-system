@@ -8,8 +8,8 @@ let usage = `
     <Button icon="account_circle" plain />
   </template>
 </AppHeader>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

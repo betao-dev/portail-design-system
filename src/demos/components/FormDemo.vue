@@ -26,7 +26,7 @@
             <div class="form-item">
               <Input name="sex" v-model="sex" :validators="inputValidators" />
             </div>
-            
+
             <Button>Submit</Button>
           </div>
         </Form>
@@ -36,16 +36,16 @@
 </template>
 
 <script>
-import Form from '../../components/Form'
-import Button from '../../components/Button.vue'
-import Input from '../../components/Input'
-import Dialog from '../../components/Dialog'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser'
-import { FormData } from '../../static/index'
+import Form from '../../components/Form';
+import Button from '../../components/Button.vue';
+import Input from '../../components/Input';
+import Dialog from '../../components/Dialog';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser';
+import { FormData } from '../../static/index';
 
 export default {
-  name: "FormDemo",
+  name: 'FormDemo',
   components: { Form, Button, Input, Dialog, Description, Collapser },
   data: () => ({
     openUsage: true,
@@ -65,27 +65,27 @@ export default {
   methods: {
     formSubmit() {}
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-  .form-wrapper {
-    padding: 20px;
-    width: 500px;
-    font-family: Roboto Regular;
+.form-wrapper {
+  padding: 20px;
+  width: 500px;
+  font-family: Roboto Regular;
 
-    .form-title {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  .form-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    .form-item {
-      margin-bottom: 20px;
+  .form-item {
+    margin-bottom: 20px;
 
-      > * {
-        width: 100%;
-      }
+    > * {
+      width: 100%;
     }
   }
+}
 </style>

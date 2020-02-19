@@ -4,8 +4,8 @@ let usage = `
              title="Type:"
              titleIcon="tags-solid">
 </MultiSelect>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

@@ -22,54 +22,59 @@
 </template>
 
 <script>
-  import MultiSelectDropdown from '../../components/MultiSelectDropdown'
-  import Description from '../../descriptions/Description'
-  import Collapser from '../../components/Collapser.vue'
-  import {MultiSelectDropdownData} from '../../static/index'
+import MultiSelectDropdown from '../../components/MultiSelectDropdown';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { MultiSelectDropdownData } from '../../static/index';
 
-  export default {
-    name: 'MultiSelectDropdownDemo',
-    components: {MultiSelectDropdown, Description, Collapser},
-    data: () => ({
-      openUsage: true,
-      usage: MultiSelectDropdownData.usage,
-      multiSelectValue: [
-        {
-          id: 1,
-          value: 'Espèces'
-        }, {
-          id: 2,
-          value: 'Chèque'
-        }
-      ],
-      options: [{
+export default {
+  name: 'MultiSelectDropdownDemo',
+  components: { MultiSelectDropdown, Description, Collapser },
+  data: () => ({
+    openUsage: true,
+    usage: MultiSelectDropdownData.usage,
+    multiSelectValue: [
+      {
         id: 1,
         value: 'Espèces'
-      }, {
+      },
+      {
         id: 2,
         value: 'Chèque'
-      }, {
+      }
+    ],
+    options: [
+      {
+        id: 1,
+        value: 'Espèces'
+      },
+      {
+        id: 2,
+        value: 'Chèque'
+      },
+      {
         id: 3,
         value: 'Virement'
-      }, {
+      },
+      {
         id: 4,
         value: 'Carte bancaire'
-      }, {
+      },
+      {
         id: 5,
         value: 'Tout moyen de paiement',
         deselectAll: true
-      }],
-      multiSelectValidators: [
-        {
-          name: 'required',
-          message: 'The field is required',
-          validator: value => value && !!value.length
-        }
-      ]
-    })
-  }
+      }
+    ],
+    multiSelectValidators: [
+      {
+        name: 'required',
+        message: 'The field is required',
+        validator: value => value && !!value.length
+      }
+    ]
+  })
+};
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

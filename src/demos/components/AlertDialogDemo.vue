@@ -9,7 +9,9 @@
     </Collapser>
 
     <div class="button-group">
-      <Button class="button-modal" @click="opened = true">OPEN ALERT DIALOG</Button>
+      <Button class="button-modal" @click="opened = true"
+        >OPEN ALERT DIALOG</Button
+      >
     </div>
 
     <AlertDialog
@@ -26,27 +28,26 @@
 </template>
 
 <script>
-import AlertDialog from '../../components/AlertDialog'
-import Button from '../../components/Button'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser'
-import { AlertDialogData, GeneralData } from '../../static/index'
+import AlertDialog from '../../components/AlertDialog';
+import Button from '../../components/Button';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser';
+import { AlertDialogData, GeneralData } from '../../static/index';
 
 export default {
   name: 'AlertDialogDemo',
   components: { AlertDialog, Button, Description, Collapser },
   data() {
-    return ({
+    return {
       opened: false,
       openUsage: true,
       borderColor: '#e6e7eb',
       usage: AlertDialogData.usage,
       text: GeneralData.text,
       accepted: false
-    })
+    };
   }
-}
+};
 </script>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

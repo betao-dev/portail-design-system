@@ -14,8 +14,8 @@ let usage = `
 >
   {{ item + 10 }}
 </GridSelect>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

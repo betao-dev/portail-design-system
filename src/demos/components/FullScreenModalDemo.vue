@@ -3,9 +3,9 @@
     <h3>FullScreenModal</h3>
 
     Full-screen "window" with an optional header and middle-aligned content
-    (content takes 8 columns in the middle).  The header slot also supports
-    left and right corner buttons, add "left" or "right" to the button
-    component class to get it attached in the respective corner
+    (content takes 8 columns in the middle). The header slot also supports left
+    and right corner buttons, add "left" or "right" to the button component
+    class to get it attached in the respective corner
     <Description compnent-name="FullScreenModal"></Description>
     <Collapser :opened.sync="openUsage" label="Usage">
       <pre v-highlightjs="usage"><code class="html"></code></pre>
@@ -25,15 +25,15 @@
 </template>
 
 <script>
-import FullScreenModal from '../../components/FullScreenModal.vue'
-import Button from '../../components/Button.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {FullScreenModalData} from '../../static/index'
+import FullScreenModal from '../../components/FullScreenModal.vue';
+import Button from '../../components/Button.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { FullScreenModalData } from '../../static/index';
 
 export default {
   name: 'FullScreenModalDemo',
-  components: {FullScreenModal, Button, Description, Collapser},
+  components: { FullScreenModal, Button, Description, Collapser },
   data: () => ({
     openUsage: true,
     usage: FullScreenModalData.usage,
@@ -47,7 +47,7 @@ export default {
     hide() {
       this.showModal = false;
       document.body.style.overflow = 'auto';
-    },
-  },
-}
+    }
+  }
+};
 </script>

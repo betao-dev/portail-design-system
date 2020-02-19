@@ -24,8 +24,8 @@ let usage = `
   </div>
   <div class="ds-todo-badge">Needs Response</div>
 </Card>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

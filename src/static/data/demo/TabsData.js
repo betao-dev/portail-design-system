@@ -37,7 +37,7 @@ let usage = `
     </div>
   </template>
 </Tabs>
-`.slice(1)
+`.slice(1);
 
 let tabs = [
   {
@@ -49,9 +49,9 @@ let tabs = [
   {
     text: 'Commentaires'
   }
-]
+];
 
 export default {
   usage,
   tabs
-}
+};

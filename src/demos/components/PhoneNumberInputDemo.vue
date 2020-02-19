@@ -9,7 +9,7 @@
 
     <PhoneNumberInput
       @onInput="onInput"
-      :inputOptions="{showDialCode: true}"
+      :inputOptions="{ showDialCode: true }"
       label="Phone Number"
       value="+33234324234"
     />
@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import PhoneNumberInput from '../../components/PhoneNumberInput.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {PhoneNumberInputData} from '../../static/index'
+import PhoneNumberInput from '../../components/PhoneNumberInput.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { PhoneNumberInputData } from '../../static/index';
 
 export default {
   name: 'PhoneNumberInputDemo',
@@ -32,16 +32,16 @@ export default {
       phone: {
         number: '',
         isValid: false,
-        country: undefined,
-      },
-    }
+        country: undefined
+      }
+    };
   },
   methods: {
     onInput({ number, isValid, country }) {
       this.phone.number = number;
       this.phone.isValid = isValid;
       this.phone.country = country && country.name;
-    },
+    }
   }
-}
+};
 </script>

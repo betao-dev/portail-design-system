@@ -5,10 +5,7 @@
     :clickOutsideToClose="clickOutsideToClose"
     @update:opened="updateOpenStatus"
   >
-    <div
-      class="ds-confirm-wrapper"
-      :style="getStyle"
-    >
+    <div class="ds-confirm-wrapper" :style="getStyle">
       <div class="ds-confirm-header">
         {{ title }}
       </div>
@@ -18,23 +15,29 @@
       </div>
 
       <div class="ds-confirm-footer">
-        <Button big padding="15px 40px" @click="updateOpenStatus(false)" alt>{{ rejectLabel }}</Button>
+        <Button big padding="15px 40px" @click="updateOpenStatus(false)" alt>{{
+          rejectLabel
+        }}</Button>
         <template v-if="extraButton">
-          <Button big padding="15px 40px" @click="extraButtonClick">{{ extraButtonLabel }}</Button>
+          <Button big padding="15px 40px" @click="extraButtonClick">{{
+            extraButtonLabel
+          }}</Button>
         </template>
-        <Button big padding="15px 40px" @click="acceptStatus" red>{{ acceptLabel }}</Button>
+        <Button big padding="15px 40px" @click="acceptStatus" red>{{
+          acceptLabel
+        }}</Button>
       </div>
     </div>
   </Dialog>
 </template>
 
 <script>
-import Dialog from './Dialog'
-import Button from './Button'
+import Dialog from './Dialog';
+import Button from './Button';
 
 export default {
   name: 'confirm-dialog',
-  components: {Dialog, Button},
+  components: { Dialog, Button },
   props: {
     opened: {
       type: Boolean,
@@ -71,30 +74,29 @@ export default {
   },
   computed: {
     getStyle() {
-      const style = {}
-      style.width = this.width
-      return style
+      const style = {};
+      style.width = this.width;
+      return style;
     }
   },
   methods: {
     updateOpenStatus(status) {
-      this.$emit('update:opened', status)
-      this.$emit('accept', false)
+      this.$emit('update:opened', status);
+      this.$emit('accept', false);
     },
     acceptStatus() {
-      this.$emit('update:opened', false)
-      this.$emit('accept', true)
+      this.$emit('update:opened', false);
+      this.$emit('accept', true);
     },
     extraButtonClick() {
-      this.$emit('update:opened', false),
-      this.$emit('extraAction')
+      this.$emit('update:opened', false), this.$emit('extraAction');
     }
   }
-}
+};
 </script>
 
 <style lang="less">
-@import "../styles/vars";
+@import '../styles/vars';
 
 .ds-confirm-wrapper {
   padding: 40px 28px;
@@ -125,7 +127,7 @@ export default {
   }
 
   .ds-confirm-body {
-    color: #3F4352;
+    color: #3f4352;
     font-size: 16px;
     line-height: 24px;
   }

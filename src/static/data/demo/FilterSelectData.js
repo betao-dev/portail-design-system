@@ -6,8 +6,8 @@ let usage = `
     :validators="multiSelectValidators"
     :placeholder="'Input Value'"
   />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

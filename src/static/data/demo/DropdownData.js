@@ -10,7 +10,7 @@ let usage = `
 >
   ...
 </Dropdown>
-`.slice(1)
+`.slice(1);
 
 const scheme = `
 +--- ----- --------------------------------------------------------+
@@ -41,7 +41,7 @@ const scheme = `
 |            bottom-left   bottom-middle   bottom-right            |
 |                                                                  |
 +------------------------------------------------------------------+
-`
+`;
 
 let positions = [
   'bottom-left',
@@ -56,11 +56,11 @@ let positions = [
   'right-top',
   'top-left',
   'top-middle',
-  'top-right',
-]
+  'top-right'
+];
 
 export default {
   usage,
   scheme,
   positions
-}
+};

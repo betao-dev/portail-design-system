@@ -5,8 +5,8 @@ let usage = `
   :current="current"
   @getCurrent="updatePage"
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

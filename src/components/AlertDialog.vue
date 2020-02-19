@@ -5,10 +5,7 @@
     :clickOutsideToClose="clickOutsideToClose"
     @update:opened="updateOpenStatus"
   >
-    <div
-      class="ds-alert-wrapper"
-      :style="getStyle"
-    >
+    <div class="ds-alert-wrapper" :style="getStyle">
       <div class="ds-alert-header">
         {{ title }}
       </div>
@@ -18,19 +15,19 @@
       </div>
 
       <div class="ds-alert-footer">
-        <Button @click="updateOpenStatus(false)" alt> {{getOkTitle}} </Button>
+        <Button @click="updateOpenStatus(false)" alt> {{ getOkTitle }} </Button>
       </div>
     </div>
   </Dialog>
 </template>
 
 <script>
-import Dialog from './Dialog'
-import Button from './Button'
+import Dialog from './Dialog';
+import Button from './Button';
 
 export default {
   name: 'alert-dialog',
-  components: {Dialog, Button},
+  components: { Dialog, Button },
   props: {
     opened: {
       type: Boolean,
@@ -53,24 +50,24 @@ export default {
   },
   computed: {
     getStyle() {
-      const style = {}
-      style.width = this.width
-      return style
+      const style = {};
+      style.width = this.width;
+      return style;
     },
     getOkTitle() {
-      return this.okTitle ? this.okTitle : this.dsTranslate('OK')
+      return this.okTitle ? this.okTitle : this.dsTranslate('OK');
     }
   },
   methods: {
     updateOpenStatus(status) {
-      this.$emit('update:opened', status)
+      this.$emit('update:opened', status);
     }
   }
-}
+};
 </script>
 
 <style lang="less">
-@import "../styles/vars";
+@import '../styles/vars';
 
 .ds-alert-wrapper {
   padding: 40px 40px 32px 40px;
@@ -85,7 +82,7 @@ export default {
   .ds-alert-header {
     font-size: 24px;
     line-height: 28px;
-    color: #3F4352;
+    color: #3f4352;
     font-weight: 600;
     margin-bottom: 8px;
   }
@@ -98,7 +95,7 @@ export default {
 
   .ds-alert-body {
     margin-bottom: 32px;
-    color: #3F4352;
+    color: #3f4352;
     font-size: 16px;
     line-height: 24px;
   }

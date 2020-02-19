@@ -9,7 +9,9 @@
     </Collapser>
 
     <div class="button-group">
-      <Button class="button-modal" @click="opened = true">OPEN CONFIRM DIALOG</Button>
+      <Button class="button-modal" @click="opened = true"
+        >OPEN CONFIRM DIALOG</Button
+      >
     </div>
 
     <ConfirmDialog
@@ -31,32 +33,31 @@
 </template>
 
 <script>
-import ConfirmDialog from '../../components/ConfirmDialog'
-import Button from '../../components/Button'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser'
-import { ConfirmDialogData, GeneralData } from '../../static/index'
+import ConfirmDialog from '../../components/ConfirmDialog';
+import Button from '../../components/Button';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser';
+import { ConfirmDialogData, GeneralData } from '../../static/index';
 
 export default {
   name: 'ConfirmDialogDemo',
   components: { ConfirmDialog, Button, Description, Collapser },
   data() {
-    return ({
+    return {
       opened: false,
       openUsage: true,
       borderColor: '#e6e7eb',
       usage: ConfirmDialogData.usage,
       text: GeneralData.text,
       accepted: false
-    })
+    };
   },
   methods: {
     accept(status) {
-      this.accepted = status
+      this.accepted = status;
     }
   }
-}
+};
 </script>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

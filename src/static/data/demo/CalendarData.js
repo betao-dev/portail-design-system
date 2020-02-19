@@ -78,8 +78,8 @@ let usage = `
   selectDayList
   shortMonthFormat
 />
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

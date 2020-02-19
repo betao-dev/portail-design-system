@@ -12,8 +12,8 @@ const MyComponent = Vue.extend(components['MyComponent'])
 
 // Create and mount the component
 new MyComponent(...).$mount('#mount-point')
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

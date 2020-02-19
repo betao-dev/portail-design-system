@@ -20,18 +20,18 @@
 </template>
 
 <script>
-import AppHeader from '../../components/AppHeader.vue'
-import Button from '../../components/Button.vue'
-import Description from '../../descriptions/Description'
-import Collapser from '../../components/Collapser.vue'
-import {AppHeaderData} from '../../static/index'
+import AppHeader from '../../components/AppHeader.vue';
+import Button from '../../components/Button.vue';
+import Description from '../../descriptions/Description';
+import Collapser from '../../components/Collapser.vue';
+import { AppHeaderData } from '../../static/index';
 
 export default {
   name: 'AppHeaderDemo',
-  components: {AppHeader, Button, Description, Collapser},
+  components: { AppHeader, Button, Description, Collapser },
   data: () => ({
     usage: AppHeaderData.usage,
     openUsage: true
   })
-}
+};
 </script>

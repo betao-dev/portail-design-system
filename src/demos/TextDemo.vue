@@ -4,7 +4,7 @@
       <h2>Fonts</h2>
 
       <h3>Lato</h3>
-      The font is linked trough css. Available specimens:<br/>
+      The font is linked trough css. Available specimens:<br />
 
       <div class="font-demo">
         <div style="font-weight: 400">400 Regular</div>
@@ -29,19 +29,18 @@
 </template>
 
 <script>
-import {TextData} from '../static/index'
+import { TextData } from '../static/index';
 
 export default {
   name: 'TextDemo',
   data: () => ({
-    linkSnippet: (
+    linkSnippet:
       '<link href="https://fonts.googleapis.com/css?family=' +
-      'Cabin:400,400i,500,600,700" rel="stylesheet">'
-    ),
+      'Cabin:400,400i,500,600,700" rel="stylesheet">',
     usage: TextData.usage,
     fontStyles: TextData.fontStyles
-  }),
-}
+  })
+};
 </script>
 
 <style lang="less">
@@ -59,11 +58,15 @@ export default {
 
 .font-components-button-big {
   .font-components-button-big();
-  &.card { background: @color-primary; }
+  &.card {
+    background: @color-primary;
+  }
 }
 .font-components-button-normal {
   .font-components-button-normal();
-  &.card { background: @color-primary; }
+  &.card {
+    background: @color-primary;
+  }
 }
 .font-components-button-normal-alt {
   .font-components-button-normal-alt();
@@ -76,11 +79,15 @@ export default {
 }
 .font-components-button-normal-center {
   .font-components-button-normal-center();
-  &.card { background: @color-primary; }
+  &.card {
+    background: @color-primary;
+  }
 }
 .font-components-button-normal-right {
   .font-components-button-normal-right();
-  &.card { background: @color-primary; }
+  &.card {
+    background: @color-primary;
+  }
 }
 .font-components-tab-active {
   .font-components-tab-active();

@@ -1,6 +1,6 @@
 {
   "name": "@betao/ds",
-  "version": "0.4.107",
+  "version": "0.4.108",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -17,7 +17,8 @@
     "postbuild": "npm run build-icons",
     "prerelease": "npm run build",
     "release": "release-it",
-    "serve": "vue-cli-service serve --port 8081"
+    "serve": "vue-cli-service serve --port 8081",
+    "format": "prettier --write '**/*.js' '**/*.vue'"
   },
   "main": "./dist/ds.common.js",
   "browser": {
@@ -41,6 +42,7 @@
     "eslint-plugin-vue": "^5.1.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "prettier": "1.19.1",
     "release-it": "^12.4.3",
     "svg-inline-loader": "^0.8.0",
     "vue": "^2.6.0",

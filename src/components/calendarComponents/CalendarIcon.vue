@@ -1,20 +1,22 @@
 <template>
-  <span class="ds-calendar-icon"
+  <span
+    class="ds-calendar-icon"
     v-html="code"
     v-on="$listeners"
-    :style="stylesObject">
+    :style="stylesObject"
+  >
   </span>
 </template>
 
 <script>
-import icons from '../../icons'
-import {COLORS} from '../../styles/vars'
+import icons from '../../icons';
+import { COLORS } from '../../styles/vars';
 
 export default {
   name: 'CalendarIcon',
   props: {
     source: {
-      type: String,
+      type: String
     },
     size: {
       type: String,
@@ -38,30 +40,30 @@ export default {
   computed: {
     code() {
       if (this.source) {
-        return icons[this.source] || this.source
+        return icons[this.source] || this.source;
       }
       for (let key in this.$attrs) {
         if (key in icons) {
-          return icons[key]
+          return icons[key];
         }
       }
-      throw 'Icon code is missing'
+      throw 'Icon code is missing';
     },
     stylesObject() {
       let styles = {
         padding: this.padding,
         fill: this.COLORS[this.color] || this.color
-      }
+      };
 
       if (!this.noSize) {
-        styles.height = this.size
-        styles.width = this.size
+        styles.height = this.size;
+        styles.width = this.size;
       }
 
-      return styles
+      return styles;
     }
   }
-}
+};
 </script>
 
 <style lang="less">

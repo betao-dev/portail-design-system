@@ -8,7 +8,7 @@ let usage = `
     <h4>Mon extrait d'acte de mariage ou un justificatif de PACS</h4>
   </template>
 </Accordion>
-`.slice(1)
+`.slice(1);
 
 let data = [
   {
@@ -36,9 +36,9 @@ let data = [
     name: 'fifth',
     open: false
   }
-]
+];
 
 export default {
   usage,
   data
-}
+};

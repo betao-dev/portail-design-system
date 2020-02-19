@@ -11,14 +11,15 @@
     <AppHeader>
       <template #left>
         <Button
-          id="ds-open-sidebar-button" icon="menu" plain
+          id="ds-open-sidebar-button"
+          icon="menu"
+          plain
           @click="sidebarOpened = !sidebarOpened"
         />
       </template>
       Portail v3 Design System
     </AppHeader>
     <div class="main-content ds-grid">
-
       <div class="row-col">
         Links:
         <a href="https://github.com/betao-dev/portail-design-system">
@@ -48,7 +49,7 @@
         <h2>Vertical Rhythm</h2>
         Vertical Rhythm is used to guide in aligning all the objects on the
         screen vertically.
-        <br/>
+        <br />
         All object are aligned vertically using 4px (@vu less variable) as a
         core unit.
       </div>
@@ -63,21 +64,20 @@
 </template>
 
 <script>
-import Sidebar from './components/Sidebar.vue'
-import AppHeader from './components/AppHeader.vue'
-import Button from './components/Button.vue'
+import Sidebar from './components/Sidebar.vue';
+import AppHeader from './components/AppHeader.vue';
+import Button from './components/Button.vue';
 
-import GridDemo from './demos/GridDemo.vue'
-import ColorsDemo from './demos/ColorsDemo.vue'
-import TextDemo from './demos/TextDemo.vue'
-import IconsDemo from './demos/IconsDemo.vue'
-import ComponentsDemo from './demos/ComponentsDemo.vue'
-
+import GridDemo from './demos/GridDemo.vue';
+import ColorsDemo from './demos/ColorsDemo.vue';
+import TextDemo from './demos/TextDemo.vue';
+import IconsDemo from './demos/IconsDemo.vue';
+import ComponentsDemo from './demos/ComponentsDemo.vue';
 
 let usageJs = `
 import components from '@betao/ds' // Vue components
 import '@betao/ds/css'             // Load prebuilt css
-`.slice(1)
+`.slice(1);
 
 let usageLess = `
 @import '~@betao/ds/vars';
@@ -88,7 +88,7 @@ let usageLess = `
   /* For list of font mixins see Font Styles */
   .font-desktop-body-medium-dark-center();
 }
-`.slice(1)
+`.slice(1);
 
 let usageLayout = `
 <!-- Root element -->
@@ -102,7 +102,7 @@ let usageLayout = `
     <!-- ... -->
   </div>
 </div>
-`.slice(1)
+`.slice(1);
 
 let sidebarIcons = [
   'assignment_outline',
@@ -111,10 +111,10 @@ let sidebarIcons = [
   'work_outline',
   'assessment_outline',
   'new_releases_outline',
-  'help_outline',
-]
+  'help_outline'
+];
 
-let docHeaders = []
+let docHeaders = [];
 
 export default {
   name: 'App',
@@ -126,7 +126,7 @@ export default {
     ColorsDemo,
     TextDemo,
     IconsDemo,
-    ComponentsDemo,
+    ComponentsDemo
   },
   data: () => ({
     installation: `$ npm install "@betao/ds" --save`,
@@ -136,34 +136,34 @@ export default {
     sidebarItems: [],
     sidebarActiveItem: 0,
     sidebarActiveChild: 0,
-    sidebarOpened: false,
+    sidebarOpened: false
   }),
   methods: {
     sidebarClick(item) {
       if (!item.children || !item.children.length) {
-        window.location.hash = item.hash
-        this.sidebarOpened = false
+        window.location.hash = item.hash;
+        this.sidebarOpened = false;
       }
     },
     handleScroll() {
-      let vh = (window.innerHeight || document.documentElement.clientHeight)
+      let vh = window.innerHeight || document.documentElement.clientHeight;
       for (var i = 0; i < docHeaders.length; i++) {
-        let rect = docHeaders[i].getBoundingClientRect()
+        let rect = docHeaders[i].getBoundingClientRect();
         if (rect.top >= 0 && rect.bottom <= vh) {
-          this.sidebarActiveItem = docHeaders[i].id.split(' - ')[0]
-          this.sidebarActiveChild = docHeaders[i].id
-          break
+          this.sidebarActiveItem = docHeaders[i].id.split(' - ')[0];
+          this.sidebarActiveChild = docHeaders[i].id;
+          break;
         }
       }
-    },
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
     // Compile sidebar items automatically from h2 and h3 headers
-    docHeaders = document.querySelectorAll('h2, h3')
-    let sidebarItems = []
+    docHeaders = document.querySelectorAll('h2, h3');
+    let sidebarItems = [];
     let parentHeader = null;
-    let children = []
+    let children = [];
 
     for (var i = 0; i <= docHeaders.length; i++) {
       if (docHeaders[i] === undefined || docHeaders[i].tagName === 'H2') {
@@ -172,35 +172,36 @@ export default {
             icon: sidebarIcons[sidebarItems.length % sidebarIcons.length],
             title: parentHeader.innerText,
             hash: parentHeader.id,
-            children,
-          })
+            children
+          });
         }
         if (docHeaders[i] === undefined) {
-          break
+          break;
         }
-        docHeaders[i].id = docHeaders[i].innerText
-        parentHeader = docHeaders[i]
-        children = []
-      } else {  // if H3
-        docHeaders[i].id = parentHeader.id + ' - ' + docHeaders[i].innerText
+        docHeaders[i].id = docHeaders[i].innerText;
+        parentHeader = docHeaders[i];
+        children = [];
+      } else {
+        // if H3
+        docHeaders[i].id = parentHeader.id + ' - ' + docHeaders[i].innerText;
         children.push({
           title: docHeaders[i].innerText,
-          hash: docHeaders[i].id,
-        })
+          hash: docHeaders[i].id
+        });
       }
     }
-    sidebarItems[0].badge = {text: 2, color: 'red'}
+    sidebarItems[0].badge = { text: 2, color: 'red' };
     sidebarItems[sidebarItems.length - 1].badge = {
       text: 'New',
       color: 'primary'
-    }
+    };
 
-    this.sidebarItems = sidebarItems
+    this.sidebarItems = sidebarItems;
   },
-  beforeDestroy () {
+  beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -208,9 +209,9 @@ export default {
 @import './styles/grid';
 @import './styles/vars';
 
-
 /* "Reset" */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100%;

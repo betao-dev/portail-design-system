@@ -25,8 +25,8 @@ let usage = `
   </template>
   <template #footer></template>
 </Stepper>  
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

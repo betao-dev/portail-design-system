@@ -1,4 +1,4 @@
-import GeneralData from '../GeneralData'
+import GeneralData from '../GeneralData';
 
 let usage = `
 <Dialog :opened.sync="opened"
@@ -28,8 +28,8 @@ let usage = `
     ...
   </div>
 </Dialog>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

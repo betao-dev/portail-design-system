@@ -10,7 +10,12 @@
     </Collapser>
 
     <div class="collapser-demo-wrapper">
-      <Collapser :opened.sync="openCollapser" :label="label" titleAlignment="left" bgColor="#EEEEEE">
+      <Collapser
+        :opened.sync="openCollapser"
+        :label="label"
+        titleAlignment="left"
+        bgColor="#EEEEEE"
+      >
         <p>We are the stewards of the hierarchy</p>
       </Collapser>
     </div>
@@ -18,25 +23,25 @@
 </template>
 
 <script>
-  import Collapser from '../../components/Collapser'
-  import Description from '../../descriptions/Description'
-  import {CollapserData} from '../../static/index'
+import Collapser from '../../components/Collapser';
+import Description from '../../descriptions/Description';
+import { CollapserData } from '../../static/index';
 
-  export default {
-    name: 'CollapserDemo',
-    components: {Collapser, Description},
-    data: () => ({
-      usage: CollapserData.usage,
-      openUsage: true,
-      data: undefined,
-      label: 'Collapser',
-      openCollapser: false
-    })
-  }
+export default {
+  name: 'CollapserDemo',
+  components: { Collapser, Description },
+  data: () => ({
+    usage: CollapserData.usage,
+    openUsage: true,
+    data: undefined,
+    label: 'Collapser',
+    openCollapser: false
+  })
+};
 </script>
 
 <style lang="less" scoped>
-  .collapser-demo-wrapper {
-    margin-top: 50px;
-  }
+.collapser-demo-wrapper {
+  margin-top: 50px;
+}
 </style>

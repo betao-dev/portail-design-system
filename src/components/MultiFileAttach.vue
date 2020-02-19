@@ -18,10 +18,16 @@
 <template>
   <div>
     <div class="ds-input-wrapper">
-      <input type="file" id="ds-file-input" ref="file" @change="fileInputChange" multiple />
+      <input
+        type="file"
+        id="ds-file-input"
+        ref="file"
+        @change="fileInputChange"
+        multiple
+      />
       <Input
         type="text"
-        :class="{'ds-error': inputErrors.length && touched}"
+        :class="{ 'ds-error': inputErrors.length && touched }"
         :label="label"
         v-model="selectedFileText"
         disabled
@@ -42,7 +48,7 @@
 
     <div class="ds-files-wrapper" v-if="files.length > 0">
       <div v-for="file in files" :key="file.name" class="ds-file-name">
-        <span class="ds-name">{{file.name}}</span>
+        <span class="ds-name">{{ file.name }}</span>
         <Icon
           close
           class="ds-close"
@@ -58,11 +64,11 @@
 
 <script>
 import Input from './Input';
-import Icon from './Icon'
+import Icon from './Icon';
 
 export default {
   name: 'MultiFileAttach',
-  components: {Input, Icon},
+  components: { Input, Icon },
   props: {
     label: String,
     files: Array,
@@ -83,89 +89,99 @@ export default {
   data() {
     return {
       touched: false
-    }
+    };
   },
   computed: {
     selectedFileText() {
-      let filesCount = this.files.length
+      let filesCount = this.files.length;
 
       if (filesCount === 0) {
-        return ''
+        return '';
       } else if (filesCount === 1) {
-        return filesCount + ' file selected'
+        return filesCount + ' file selected';
       } else {
-        return filesCount + ' files selected'
+        return filesCount + ' files selected';
       }
     },
     currentTotalSize() {
       let totalSize = 0;
       this.files.forEach(file => {
-        totalSize += file.size
-      })
-      return totalSize
+        totalSize += file.size;
+      });
+      return totalSize;
     },
     validation() {
       if (!this.validators || !this.validators.length) {
-        return []
+        return [];
       }
 
-      let data = []
+      let data = [];
       for (var i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
-          this.validators[i].validator(this.files),
-        ])
+          this.validators[i].validator(this.files)
+        ]);
       }
-      return data
+      return data;
     },
     inputErrors() {
-      let errors = []
+      let errors = [];
       if (this.currentTotalSize / (1024 * 1000) > this.maxTotalSize) {
-        errors.push(this.dsTranslateComplex(['Total size less', 'MB'], [`${this.maxTotalSize}`]))
-        this.$emit('validation', [['max-total-size', false]])
+        errors.push(
+          this.dsTranslateComplex(
+            ['Total size less', 'MB'],
+            [`${this.maxTotalSize}`]
+          )
+        );
+        this.$emit('validation', [['max-total-size', false]]);
       }
 
       if (this.files.length >= this.maxFileCount) {
-        errors.push(this.dsTranslateComplex(['Total file count less'], [`${this.maxFileCount}`]))
-        this.$emit('validation', [['max-file-count', false]])
+        errors.push(
+          this.dsTranslateComplex(
+            ['Total file count less'],
+            [`${this.maxFileCount}`]
+          )
+        );
+        this.$emit('validation', [['max-file-count', false]]);
       }
 
       for (var i = 0; i < this.validation.length; i++) {
         if (!this.validation[i][1]) {
-          errors.push(this.validators[i].message)
+          errors.push(this.validators[i].message);
         }
       }
 
-      return errors
-    },
+      return errors;
+    }
   },
   methods: {
     fileInputChange(e) {
-      this.$emit('fileInput', e.target.files)
-      this.$refs.file.type = 'text'
-      this.$refs.file.type = 'file'
+      this.$emit('fileInput', e.target.files);
+      this.$refs.file.type = 'text';
+      this.$refs.file.type = 'file';
     },
     fileInputOpen() {
-      this.touched = true
+      this.touched = true;
       document.getElementById('ds-file-input').click();
     },
     removeFile(file) {
-      this.$emit('fileRemove', file)
+      this.$emit('fileRemove', file);
     },
     attachedTotalSize(files) {
       let totalSize = 0;
       Object.keys(files).forEach(key => {
-        totalSize += files[key].size
-      })
-      return totalSize
+        totalSize += files[key].size;
+      });
+      return totalSize;
     }
   },
   watch: {
     files() {
-      this.$emit('validation', this.validation)
+      this.$emit('validation', this.validation);
     }
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -215,8 +231,8 @@ export default {
 
   .ds-file-name {
     height: 24px;
-    background-color: #F4F6FB;
-    border: 1px solid #E6E7EB;
+    background-color: #f4f6fb;
+    border: 1px solid #e6e7eb;
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -245,5 +261,4 @@ export default {
   display: block;
   max-width: 100%;
 }
-
 </style>

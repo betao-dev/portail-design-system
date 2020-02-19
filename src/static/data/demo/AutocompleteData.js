@@ -28,8 +28,8 @@ let usage = `
               :data-list="dataList"
               :validators="validators">
 </Autocomplete>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

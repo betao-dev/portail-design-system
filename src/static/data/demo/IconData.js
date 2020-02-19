@@ -5,8 +5,8 @@ let usage = `
 <Icon account_circle size="36px" padding="18px 2px" color="red" />
 <Icon account_circle size="52px" padding="10px 2px" color="gray-400" />
 <Icon account_circle size="72px" color="#55aaff" :tooltip="tooltip"/>
-`.slice(1)
+`.slice(1);
 
 export default {
   usage
-}
+};

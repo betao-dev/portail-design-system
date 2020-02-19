@@ -25,7 +25,7 @@
           'ds-checkbox-text-bold': boldLabel
         }"
       >
-        <span class="ds-main-label">{{label}}</span>
+        <span class="ds-main-label">{{ label }}</span>
         <span
           v-if="help || $slots.help"
           class="ds-help-label"
@@ -66,232 +66,232 @@
 </template>
 
 <script>
-  import Icon from './Icon';
-  import Popper from 'vue-popperjs';
-  import 'vue-popperjs/dist/vue-popper.css';
+import Icon from './Icon';
+import Popper from 'vue-popperjs';
+import 'vue-popperjs/dist/vue-popper.css';
 
-  export default {
-    name: 'CheckBox',
-    components: {Icon, Popper},
-    props: {
-      value: Boolean,
-      label: String,
-      boldLabel: Boolean,
-      help: String
-    },
-    data: () => ({
-      offset: {offset: '0, 10px'}
-    }),
-    computed: {
-      checkboxValue: {
-        get() {
-          return this.value
-        },
-        set(value) {
-          this.$emit('input', value)
-        }
+export default {
+  name: 'CheckBox',
+  components: { Icon, Popper },
+  props: {
+    value: Boolean,
+    label: String,
+    boldLabel: Boolean,
+    help: String
+  },
+  data: () => ({
+    offset: { offset: '0, 10px' }
+  }),
+  computed: {
+    checkboxValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit('input', value);
       }
     }
   }
+};
 </script>
 
 <style lang="less" scoped>
-  @import '../styles/vars';
+@import '../styles/vars';
 
-  .ds-checkbox-component-wrapper {
-    .ds-checkbox-wrapper {
-      display: inline-flex;
+.ds-checkbox-component-wrapper {
+  .ds-checkbox-wrapper {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+
+    .ds-checkbox-container {
+      display: inline-block;
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+      border-radius: 2px;
+
+      &.ds-checkbox-container-active {
+        background-color: rgba(30, 179, 134, 0.15);
+      }
+
+      &.ds-checkbox-container-inactive {
+        background-color: @color-gray-300;
+      }
+    }
+
+    .ds-checkbox-icon {
+      position: absolute;
+      left: 5px;
+    }
+
+    .ds-checkbox-text {
+      height: 16px;
+      font-size: 14px;
+      line-height: 16px;
+      display: flex;
       align-items: center;
-      position: relative;
 
-      .ds-checkbox-container {
-        display: inline-block;
+      &.ds-checkbox-text-active {
+        font-family: 'Roboto Light';
+        color: @color-dark;
+        margin-left: 10px;
+      }
+
+      &.ds-checkbox-text-inactive {
+        font-family: 'Roboto Light';
+        color: @color-gray-500;
+        margin-left: 10px;
+      }
+
+      &.ds-checkbox-text-bold {
+        color: #1b1e24;
+        font-family: Roboto, sans-serif;
+        margin-left: 12px;
+      }
+
+      .ds-main-label {
+        margin-right: 5px;
+      }
+
+      .ds-help-label {
         cursor: pointer;
-        height: 20px;
-        width: 20px;
-        border-radius: 2px;
+        color: @color-gray-500;
+        font-family: Roboto, sans-serif;
+        font-size: 12px;
+        line-height: 14px;
 
-        &.ds-checkbox-container-active {
-          background-color: rgba(30, 179, 134, 0.15);
-        }
+        &::v-deep {
+          .popper {
+            background-color: @color-gray-500;
+            border-radius: 2px;
+            color: @color-white;
+            border: solid 1px @color-gray-500;
+            font-family: @font-family;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 16px;
+            position: relative;
+            text-align: left;
+            box-shadow: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            max-width: 330px;
+            min-width: 300px;
+            width: auto;
+            white-space: initial;
 
-        &.ds-checkbox-container-inactive {
-          background-color: @color-gray-300;
-        }
-      }
+            &[x-placement^='bottom'] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  top: -5px;
+                  border-bottom: 15px solid @color-gray-500;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
+                  z-index: 1;
+                }
 
-      .ds-checkbox-icon {
-        position: absolute;
-        left: 5px;
-      }
-
-      .ds-checkbox-text {
-        height: 16px;
-        font-size: 14px;
-        line-height: 16px;
-        display: flex;
-        align-items: center;
-
-        &.ds-checkbox-text-active {
-          font-family: "Roboto Light";
-          color: @color-dark;
-          margin-left: 10px;
-        }
-
-        &.ds-checkbox-text-inactive {
-          font-family: "Roboto Light";
-          color: @color-gray-500;
-          margin-left: 10px;
-        }
-
-        &.ds-checkbox-text-bold {
-          color: #1B1E24;
-          font-family: Roboto, sans-serif;
-          margin-left: 12px;
-        }
-
-        .ds-main-label {
-          margin-right: 5px;
-        }
-
-        .ds-help-label {
-          cursor: pointer;
-          color: @color-gray-500;
-          font-family: Roboto, sans-serif;
-          font-size: 12px;
-          line-height: 14px;
-
-          &::v-deep {
-            .popper {
-              background-color: @color-gray-500;
-              border-radius: 2px;
-              color: @color-white;
-              border: solid 1px @color-gray-500;
-              font-family: @font-family;
-              font-size: 12px;
-              line-height: 16px;
-              padding: 16px;
-              position: relative;
-              text-align: left;
-              box-shadow: none;
-              margin-top: 10px;
-              margin-bottom: 10px;
-              max-width: 330px;
-              min-width: 300px;
-              width: auto;
-              white-space: initial;
-
-              &[x-placement^="bottom"] {
-                [x-arrow] {
-                  &:before {
-                    content: '';
-                    position: absolute;
-                    left: -10px;
-                    top: -5px;
-                    border-bottom: 15px solid @color-gray-500;
-                    border-right: 15px solid transparent;
-                    border-left: 15px solid transparent;
-                    z-index: 1;
-                  }
-
-                  &:after {
-                    content: '';
-                    position: absolute;
-                    left: -10px;
-                    top: -5px;
-                    border-bottom: 15px solid @color-gray-500;
-                    border-right: 15px solid transparent;
-                    border-left: 15px solid transparent;
-                    z-index: 2;
-                  }
+                &:after {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  top: -5px;
+                  border-bottom: 15px solid @color-gray-500;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
+                  z-index: 2;
                 }
               }
+            }
 
-              &[x-placement^="top"] {
-                [x-arrow] {
-                  &:before {
-                    content: '';
-                    position: absolute;
-                    left: -10px;
-                    bottom: -5px;
-                    border-top: 15px solid @color-gray-500;
-                    border-right: 15px solid transparent;
-                    border-left: 15px solid transparent;
-                    z-index: 1;
-                  }
+            &[x-placement^='top'] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  bottom: -5px;
+                  border-top: 15px solid @color-gray-500;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
+                  z-index: 1;
+                }
 
-                  &:after {
-                    content: '';
-                    position: absolute;
-                    left: -10px;
-                    bottom: -5px;
-                    border-top: 15px solid @color-gray-500;
-                    border-right: 15px solid transparent;
-                    border-left: 15px solid transparent;
-                    z-index: 2;
-                  }
+                &:after {
+                  content: '';
+                  position: absolute;
+                  left: -10px;
+                  bottom: -5px;
+                  border-top: 15px solid @color-gray-500;
+                  border-right: 15px solid transparent;
+                  border-left: 15px solid transparent;
+                  z-index: 2;
                 }
               }
+            }
 
-              &[x-placement^="left"] {
-                [x-arrow] {
-                  &:before {
-                    content: '';
-                    position: absolute;
-                    top: -5px;
-                    right: -10px;
-                    border-left: 15px solid @color-gray-500;
-                    border-top: 15px solid transparent;
-                    border-bottom: 15px solid transparent;
-                    z-index: 1;
-                  }
+            &[x-placement^='left'] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  top: -5px;
+                  right: -10px;
+                  border-left: 15px solid @color-gray-500;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
+                  z-index: 1;
+                }
 
-                  &:after {
-                    content: '';
-                    position: absolute;
-                    top: -10px;
-                    right: -5px;
-                    border-left: 15px solid @color-gray-500;
-                    border-top: 15px solid transparent;
-                    border-bottom: 15px solid transparent;
-                    z-index: 2;
-                  }
+                &:after {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  right: -5px;
+                  border-left: 15px solid @color-gray-500;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
+                  z-index: 2;
                 }
               }
+            }
 
-              &[x-placement^="right"] {
-                [x-arrow] {
-                  &:before {
-                    content: '';
-                    position: absolute;
-                    top: -10px;
-                    left: -5px;
-                    border-right: 15px solid @color-gray-500;
-                    border-top: 15px solid transparent;
-                    border-bottom: 15px solid transparent;
-                    z-index: 1;
-                  }
+            &[x-placement^='right'] {
+              [x-arrow] {
+                &:before {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  left: -5px;
+                  border-right: 15px solid @color-gray-500;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
+                  z-index: 1;
+                }
 
-                  &:after {
-                    content: '';
-                    position: absolute;
-                    top: -10px;
-                    left: -5px;
-                    border-right: 15px solid @color-gray-500;
-                    border-top: 15px solid transparent;
-                    border-bottom: 15px solid transparent;
-                    z-index: 2;
-                  }
+                &:after {
+                  content: '';
+                  position: absolute;
+                  top: -10px;
+                  left: -5px;
+                  border-right: 15px solid @color-gray-500;
+                  border-top: 15px solid transparent;
+                  border-bottom: 15px solid transparent;
+                  z-index: 2;
                 }
               }
             }
           }
         }
       }
+    }
 
-      .ds-checkbox-input {
-        display: none;
-      }
+    .ds-checkbox-input {
+      display: none;
     }
   }
+}
 </style>
