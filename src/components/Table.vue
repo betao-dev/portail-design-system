@@ -22,7 +22,7 @@
         >
           <div class="ds-title-wrapper" @click="sorting(header)" v-if="header.title">
             <span class="ds-header-title">{{header.title}}</span>
-            <Icon color="#778CA2" v-if="!(header.sortable === false) && sortKey === header.key" :source="sortType === '+' ? 'arrow_upward' : 'arrow_downward'" size="16px" />
+            <Icon color="#778CA2" v-if="header.sortable && sortKey === header.key" :source="sortType === '+' ? 'arrow_upward' : 'arrow_downward'" size="16px" />
           </div>
           <slot :name="getFilterSlotName(header)"></slot>
         </div>
@@ -95,6 +95,7 @@
       total: Number,
       current: Number,
       identifierField: String,
+      orderingKey: String,
     },
     data: () => ({
       sortType: null,
@@ -153,6 +154,14 @@
     },
     mounted() {
       this.pageItems = this.value
+      if (this.orderingKey) {
+        if (this.orderingKey.includes('-')) {
+          this.sortType = SORT_TYPES.DSC
+        } else {
+          this.sortType = SORT_TYPES.ASC
+        }
+        this.sortKey = this.orderingKey.replace('-', '')
+      }
     },
     watch: {
       value(val) {
