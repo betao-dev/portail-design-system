@@ -199,7 +199,6 @@ export default {
   },
   watch: {
     textareaValue(val) {
-      this.checkBacklight();
       this.$emit('validation', this.validation);
       if (this.maxCharacters) {
         this.notificationStr = `${val.length}/${this.maxCharacters}`;

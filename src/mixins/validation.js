@@ -1,9 +1,9 @@
 import _ from 'lodash';
-
 export default {
   data: () => ({
     previousInvalidState: undefined,
-    validationActive: false
+    validationActive: false,
+    timeoutId: undefined
   }),
   methods: {
     validate() {
@@ -12,27 +12,33 @@ export default {
       this.checkBacklight();
       this.$emit('validation', this.validation);
     },
-    validationBacklight(activeValidation, inactiveValidation) {
-      const isInvalid = activeValidation === 'invalidBacklight';
-      const toInvalid = !this.previousInvalidState && isInvalid;
-      const toValid =
-        this.previousInvalidState && activeValidation === 'validBacklight';
+    validationBacklight(activeValidation, inactiveValidation, forceRun) {
       const isExistPreviousState = _.isUndefined(this.previousInvalidState);
+      const isInvalid = activeValidation === 'invalidBacklight';
+      const toValid =
+        activeValidation === 'validBacklight' &&
+        inactiveValidation === 'invalidBacklight';
 
       if (
-        ((toValid || toInvalid) && !isExistPreviousState) ||
+        (!isExistPreviousState &&
+          ((toValid && this.previousInvalidState) ||
+            (!toValid && !this.previousInvalidState))) ||
         (isExistPreviousState && isInvalid)
       ) {
         this[inactiveValidation] = false;
         this[activeValidation] = true;
+        this.previousInvalidState = isInvalid;
 
-        if (!this.validationActive) {
+        if (!this.validationActive || forceRun) {
           this.validationActive = true;
 
-          setTimeout(() => {
+          if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+          }
+
+          this.timeoutId = setTimeout(() => {
             this[activeValidation] = false;
             this.validationActive = false;
-            this.previousInvalidState = isInvalid;
           }, 2000);
         }
       } else {
@@ -70,12 +76,12 @@ export default {
   watch: {
     showValidCheck(value) {
       if (value) {
-        this.validationBacklight('validBacklight', 'invalidBacklight');
+        this.validationBacklight('validBacklight', 'invalidBacklight', true);
       }
     },
     showInvalidBlock(value) {
       if (value) {
-        this.validationBacklight('invalidBacklight', 'validBacklight');
+        this.validationBacklight('invalidBacklight', 'validBacklight', true);
       }
     }
   },
