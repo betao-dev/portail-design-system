@@ -516,7 +516,6 @@ export default {
         this.slideActive = false;
       }
 
-      this.checkBacklight();
       this.slideInit();
       this.$emit('validation', this.validation);
     }

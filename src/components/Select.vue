@@ -229,7 +229,6 @@ export default {
   },
   watch: {
     value(val) {
-      this.checkBacklight();
       this.$emit('validation', this.validation);
       this.setInputSelectValue(val);
     },
