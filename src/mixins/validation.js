@@ -3,7 +3,7 @@ export default {
   data: () => ({
     previousInvalidState: undefined,
     validationActive: false,
-    timeoutId: undefined
+    validationTimeoutId: undefined
   }),
   methods: {
     validate() {
@@ -32,11 +32,11 @@ export default {
         if (!this.validationActive || forceRun) {
           this.validationActive = true;
 
-          if (this.timeoutId) {
-            clearTimeout(this.timeoutId);
+          if (this.validationTimeoutId) {
+            clearTimeout(this.validationTimeoutId);
           }
 
-          this.timeoutId = setTimeout(() => {
+          this.validationTimeoutId = setTimeout(() => {
             this[activeValidation] = false;
             this.validationActive = false;
           }, 2000);
