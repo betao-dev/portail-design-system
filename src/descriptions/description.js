@@ -43,6 +43,7 @@ import Form from './data/Form';
 import Radio from './data/Radio';
 import Slider from './data/Slider';
 import MultiSelect from './data/MultiSelect';
+import Notification from './data/Notification';
 
 export default {
   AppHeader,
@@ -89,5 +90,6 @@ export default {
   Form,
   Radio,
   Slider,
-  MultiSelect
+  MultiSelect,
+  Notification
 };
