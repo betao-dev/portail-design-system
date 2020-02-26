@@ -149,6 +149,7 @@ export default {
       return get(value, header.key, '');
     },
     sorting(header) {
+      if (!header.sortable) return;
       if (this.sortKey === header.key && this.sortType === SORT_TYPES.ASC) {
         this.sortType = SORT_TYPES.DSC;
       } else {
