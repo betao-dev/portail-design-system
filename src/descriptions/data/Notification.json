@@ -1,0 +1,74 @@
+{
+  "properties": [
+    {
+      "name": "title",
+      "type": "String",
+      "description": "Responsible for displaying the bold title in the center block of notification"
+    },
+    {
+      "name": "description",
+      "type": "String",
+      "description": "Responsible for displaying plain description in the center block under the title of the notification"
+    },
+    {
+      "name": "additionalTitle",
+      "type": "String",
+      "description": "Responsible for displaying the additional title in the right block of notification with color that will be passed color props"
+    },
+    {
+      "name": "additionalDescription",
+      "type": "String",
+      "description": "Responsible for displaying plain description in the right block under the additional title of the notification"
+    },
+    {
+      "name": "icon",
+      "type": "String",
+      "description": "Responsible for displaying an icon in the left block of the notification"
+    },
+    {
+      "name": "color",
+      "type": "String",
+      "description": "Responsible for notification styles color"
+    },
+    {
+      "name": "iconSize",
+      "type": "String",
+      "default": "18px",
+      "description": "Responsible for icon size"
+    },
+    {
+      "name": "badge",
+      "type": "Boolean",
+      "description": "In case when equal true, turn on displaying badge on the right section of notification"
+    },
+    {
+      "name": "badgeTitle",
+      "type": "String",
+      "description": "Responsible for displaying badge title"
+    },
+    {
+      "name": "badgeIcon",
+      "type": "String",
+      "default": "round",
+      "description": "Responsible for displaying badge icon"
+    },
+    {
+      "name": "badgeIconSize",
+      "type": "String",
+      "default": "16px",
+      "description": "Responsible for badge icon size"
+    },
+    {
+      "name": "badgeIconPadding",
+      "type": "String",
+      "default": "0 6px 0 0",
+      "description": "Responsible for badge icon padding. Remark - badge Icon have 5px margin right by default"
+    },
+    {
+      "name": "short",
+      "type": "Boolean",
+      "description": "Responsible for displaying short type of notification without right block"
+    }
+  ],
+  "events": []
+}

@@ -1,0 +1,32 @@
+{
+  "properties": [
+    {
+      "name": "value",
+      "type": "Array",
+      "default": "[]",
+      "description": "Represent the array of objects with properties that will be passed into notification component"
+    },
+    {
+      "name": "width",
+      "type": "String",
+      "description": "Setup width of the notification list component"
+    },
+    {
+      "name": "title",
+      "type": "String",
+      "description": "Represent the title of the notification list component"
+    },
+    {
+      "name": "titleRight",
+      "type": "String",
+      "description": "Represent the right title of the notification list component"
+    }
+  ],
+  "events": [{
+    "name": "active",
+    "description": "Dispatched when the click is triggered by someone of notification item, contain notification object with on that click was triggered"
+  },{
+    "name": "titleRightClick",
+    "description": "Dispatched when the click is triggered on the right title of the header"
+  }]
+}

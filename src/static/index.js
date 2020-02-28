@@ -49,6 +49,8 @@ import FormData from './data/demo/FormData';
 import RadioData from './data/demo/RadioData';
 import SliderData from './data/demo/SliderData';
 import MultiSelectData from './data/demo/MultiSelectData';
+import NotificationData from './data/demo/NotificationData';
+import NotificationListData from './data/demo/NotificationListData';
 
 export {
   CountriesArray,
@@ -100,5 +102,7 @@ export {
   FormData,
   RadioData,
   SliderData,
-  MultiSelectData
+  MultiSelectData,
+  NotificationData,
+  NotificationListData
 };
