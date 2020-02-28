@@ -4,22 +4,31 @@
     class="ds-notification-list-wrapper"
     :style="{ width }"
   >
-    <div class="ds-notification-list-header-base" v-if="!isShort && !headerSlot">
+    <div
+      class="ds-notification-list-header-base"
+      v-if="!isShort && !headerSlot"
+    >
       <div class="ds-notification-list-header">
-        {{title}}
+        {{ title }}
       </div>
       <div class="ds-notification-list-header-right" @click="onTitleRightClick">
-        {{titleRight}}
+        {{ titleRight }}
       </div>
     </div>
 
-    <div class="ds-notification-list-header-short" v-if="isShort && !headerSlot">
-      {{title}}
+    <div
+      class="ds-notification-list-header-short"
+      v-if="isShort && !headerSlot"
+    >
+      {{ title }}
     </div>
 
     <slot name="header"></slot>
     <div
-      :class="['ds-notification-item', {'ds-notification-item-short': notification.short}]"
+      :class="[
+        'ds-notification-item',
+        { 'ds-notification-item-short': notification.short }
+      ]"
       v-for="(notification, index) of value"
       :key="index"
       @click="onNotificationActive(notification)"
@@ -59,7 +68,7 @@ export default {
   },
   computed: {
     isShort() {
-      return !!this.value.find((val) => val.short)
+      return !!this.value.find(val => val.short);
     },
     headerSlot() {
       return !!this.$scopedSlots.header;
@@ -91,7 +100,7 @@ export default {
     .ds-notification-list-header-right {
       height: 14px;
       color: #252631;
-      font-family: "Roboto Medium";
+      font-family: 'Roboto Medium';
       font-size: 12px;
       line-height: 14px;
     }
@@ -100,7 +109,7 @@ export default {
   .ds-notification-list-header-short {
     height: 14px;
     color: @color-gray-500;
-    font-family: "Roboto Medium";
+    font-family: 'Roboto Medium';
     font-size: 12px;
     line-height: 14px;
     margin-bottom: 24px;

@@ -9,9 +9,7 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <NotificationList
-      v-model="notificationListBadge"
-    >
+    <NotificationList v-model="notificationListBadge">
       <template slot="header">
         <div class="ds-notification-list-demo-header">
           <div class="ds-notification-list-demo-header-title">
@@ -28,7 +26,11 @@
       </template>
     </NotificationList>
 
-    <NotificationList v-model="notificationList" title="All Notifications" title-right="Mark all as read">
+    <NotificationList
+      v-model="notificationList"
+      title="All Notifications"
+      title-right="Mark all as read"
+    >
       <template slot="notification1">
         <div class="ds-notification-demo-body">
           <div class="ds-notification-demo-title">
@@ -173,7 +175,7 @@ export default {
         font-weight: bold;
         line-height: 21px;
         text-align: center;
-        user-select: none
+        user-select: none;
       }
     }
   }
