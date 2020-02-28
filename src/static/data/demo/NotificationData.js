@@ -13,18 +13,7 @@ let usage = `
               :additionalTitle="additionalTitle"
               :additionalDescription="additionalDescription">
   <div class="ds-notification-demo-body">
-    <div class="ds-notification-demo-title">
-      Your invoice just got paid
-    </div>
-    <div class="ds-notification-demo-description">
-      <span class="ds-notification-demo-description-backlit">
-        Black Mesa
-      </span>
-      <span>paid Invoice</span>
-      <span class="ds-notification-demo-description-backlit">
-        #123456
-      </span>
-    </div>
+    ...
   </div>
 </Notification>
 

@@ -44,6 +44,7 @@ import Radio from './data/Radio';
 import Slider from './data/Slider';
 import MultiSelect from './data/MultiSelect';
 import Notification from './data/Notification';
+import NotificationList from './data/NotificationList';
 
 export default {
   AppHeader,
@@ -91,5 +92,6 @@ export default {
   Radio,
   Slider,
   MultiSelect,
-  Notification
+  Notification,
+  NotificationList
 };

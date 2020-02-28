@@ -50,6 +50,7 @@ import RadioData from './data/demo/RadioData';
 import SliderData from './data/demo/SliderData';
 import MultiSelectData from './data/demo/MultiSelectData';
 import NotificationData from './data/demo/NotificationData';
+import NotificationListData from './data/demo/NotificationListData';
 
 export {
   CountriesArray,
@@ -102,5 +103,6 @@ export {
   RadioData,
   SliderData,
   MultiSelectData,
-  NotificationData
+  NotificationData,
+  NotificationListData
 };
