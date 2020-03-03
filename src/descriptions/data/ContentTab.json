@@ -8,7 +8,7 @@
     {
       "name": "description",
       "type": "String",
-      "description": "Responsible for the main content placed by the center of it, could be replaced with slot"
+      "description": "Responsible for the main content placed by the center of it, could be replaced with slot, but the main priority have description property"
     },
     {
       "name": "actionText",

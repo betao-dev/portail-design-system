@@ -5,10 +5,10 @@
         {{ header }}
       </div>
       <div class="ds-content-tab-description-wrapper">
-        <div class="ds-content-tab-description" v-if="!defaultSlot">
+        <div class="ds-content-tab-description">
           {{ description }}
         </div>
-        <slot></slot>
+        <slot v-if="!description"></slot>
       </div>
       <div
         class="ds-content-tab-icon-wrapper"
@@ -60,11 +60,6 @@ export default {
   methods: {
     onAction() {
       this.$emit('action', this.action || this.actionText);
-    }
-  },
-  computed: {
-    defaultSlot() {
-      return !!this.$scopedSlots.default;
     }
   }
 };
