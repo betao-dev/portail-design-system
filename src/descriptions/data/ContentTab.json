@@ -1,0 +1,57 @@
+{
+  "properties": [
+    {
+      "name": "header",
+      "type": "String",
+      "description": "Responsible for the header"
+    },
+    {
+      "name": "description",
+      "type": "String",
+      "description": "Responsible for the main content placed by the center of it, could be replaced with slot"
+    },
+    {
+      "name": "actionText",
+      "type": "String",
+      "description": "Responsible for the text that displays on the bottom"
+    },
+    {
+      "name": "action",
+      "type": "String",
+      "description": "Responsible for the action that could be dispatched by 'action' event if we have that property"
+    },
+    {
+      "name": "icon",
+      "type": "String",
+      "description": "Responsible for the source of the display icon"
+    },
+    {
+      "name": "iconColor",
+      "type": "String",
+      "default": "#1EB386",
+      "description": "Responsible for the icon color"
+    },
+    {
+      "name": "iconSize",
+      "type": "String",
+      "default": "18px",
+      "description": "Responsible for the icon size"
+    },
+    {
+      "name": "height",
+      "type": "String",
+      "default": "187px",
+      "description": "Responsible for the content tab height"
+    },
+    {
+      "name": "width",
+      "type": "String",
+      "default": "360px",
+      "description": "Responsible for the content tab width"
+    }
+  ],
+  "events": [{
+    "name": "action",
+    "description": "Dispatched next values like action or actionText props for detecting on which content tab the click was triggered"
+  }]
+}

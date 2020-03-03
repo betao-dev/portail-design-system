@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="43px" height="28px" viewBox="0 0 43 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>Icons/Master Card</title>
+    <desc>Created with Sketch.</desc>
+    <g id="UI-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="[UI]-Icons" transform="translate(-660.000000, -298.000000)">
+            <g id="Icons/Master-Card" transform="translate(659.470909, 298.000000)">
+                <rect id="bg" fill="#F8FAFB" fill-rule="nonzero" x="0.881889764" y="0" width="41.6692913" height="28" rx="4"></rect>
+                <g id="Master-Card" stroke-width="1" fill-rule="evenodd" transform="translate(13.000000, 9.000000)">
+                    <circle id="Oval" fill="#EE0005" fill-rule="nonzero" cx="4.98188679" cy="4.98301887" r="4.97962264"></circle>
+                    <circle id="Oval" fill="#F9A000" fill-rule="nonzero" cx="11.1686792" cy="4.98301887" r="4.97962264"></circle>
+                    <path d="M6.18913208,4.9829434 C6.18913208,6.56407547 6.92618868,7.9729434 8.07532075,8.88509434 C9.22441509,7.97290566 9.96150943,6.56407547 9.96150943,4.9829434 C9.96150943,3.40181132 9.22445283,1.9929434 8.07532075,1.08079245 C6.92622642,1.99301887 6.18913208,3.40184906 6.18913208,4.9829434 Z" id="Shape" fill="#FF6300" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
