@@ -51,6 +51,7 @@ import SliderData from './data/demo/SliderData';
 import MultiSelectData from './data/demo/MultiSelectData';
 import NotificationData from './data/demo/NotificationData';
 import NotificationListData from './data/demo/NotificationListData';
+import ContentTabData from './data/demo/ContentTabData';
 
 export {
   CountriesArray,
@@ -104,5 +105,6 @@ export {
   SliderData,
   MultiSelectData,
   NotificationData,
-  NotificationListData
+  NotificationListData,
+  ContentTabData
 };

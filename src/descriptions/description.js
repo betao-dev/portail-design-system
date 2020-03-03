@@ -45,6 +45,7 @@ import Slider from './data/Slider';
 import MultiSelect from './data/MultiSelect';
 import Notification from './data/Notification';
 import NotificationList from './data/NotificationList';
+import ContentTab from './data/ContentTab';
 
 export default {
   AppHeader,
@@ -93,5 +94,6 @@ export default {
   Slider,
   MultiSelect,
   Notification,
-  NotificationList
+  NotificationList,
+  ContentTab
 };
