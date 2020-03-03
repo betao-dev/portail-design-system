@@ -166,6 +166,12 @@
       "type": "Boolean",
       "default": "true",
       "description": "Keep invalid backlight until field won't be valid"
+    },
+    {
+      "name": "passwordDefaultIcon",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Prevented of changing the icon on click on it for Input component with type password, take the icon for displaying from icon props"
     }
   ],
   "events": [

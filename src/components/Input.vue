@@ -262,6 +262,10 @@ export default {
     constantlyInvalidBacklight: {
       type: Boolean,
       default: false
+    },
+    passwordDefaultIcon: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -356,9 +360,9 @@ export default {
       return `ds-${this.type}`;
     },
     getIcon() {
-      if (this.type === 'password') {
+      if (this.type === 'password' && !this.passwordDefaultIcon) {
         if (this.showPassword) {
-          return 'lock';
+          return 'eye-slash';
         } else {
           return 'eye';
         }
@@ -501,7 +505,7 @@ export default {
         typeof value === 'string' ? value.slice(0, this.maxlength) : value;
     },
     onIconClick() {
-      if (this.type === 'password') {
+      if (this.type === 'password' && !this.passwordDefaultIcon) {
         this.showPassword = !this.showPassword;
       }
       this.$emit('icon-click');
