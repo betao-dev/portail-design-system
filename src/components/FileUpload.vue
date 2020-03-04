@@ -289,6 +289,7 @@ export default {
     position: relative;
     min-height: @file-upload-panel-height;
     padding: 26px;
+    border-radius: 4px;
 
     .ds-dropzone-custom-content {
       position: absolute;
