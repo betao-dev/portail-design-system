@@ -76,6 +76,11 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for displaying validation of input"
+    },
+    {
+      "name": "width",
+      "type": "String",
+      "description": "Setup width of the Select component"
     }
   ],
   "events": [
