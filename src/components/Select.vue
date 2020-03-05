@@ -1,6 +1,7 @@
 <template>
   <div
     :class="['ds-select-wrapper', { 'ds-lg': lg, 'ds-md': md, 'ds-sm': sm }]"
+    :style="{width}"
   >
     <div v-if="label" class="ds-label">{{ label }}</div>
     <Icon
@@ -126,7 +127,8 @@ export default {
     showValidations: {
       type: Boolean,
       default: true
-    }
+    },
+    width: String
   },
   data() {
     return {
