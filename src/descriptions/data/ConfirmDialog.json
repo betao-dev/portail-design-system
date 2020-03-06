@@ -34,6 +34,11 @@
       "name": "clickOutsideToCloase",
       "type": "Boolean",
       "description": "If this property is false, it is impossible to close the modal by clicking outside, default is true"
+    },
+    {
+      "name": "buttonsWidth",
+      "type": "String",
+      "description": "Passing this props into bottom's buttons of confirmation modal component set up the width of buttons"
     }
   ],
   "events": [
