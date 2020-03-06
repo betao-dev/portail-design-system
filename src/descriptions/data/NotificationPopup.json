@@ -1,0 +1,55 @@
+{
+  "properties": [
+    {
+      "name": "message",
+      "type": "String",
+      "description": "Represent message that will be displaying"
+    },
+    {
+      "name": "backgroundColor",
+      "type": "String",
+      "description": "Set the background-color"
+    },
+    {
+      "name": "icon",
+      "type": "String",
+      "description": "Providing the icon name for displaying on the left part of the component"
+    },
+    {
+      "name": "value",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Responsible for a showing of component"
+    },
+    {
+      "name": "iconSize",
+      "type": "String",
+      "default": "22px",
+      "description": "Set the size of the icons"
+    },
+    {
+      "name": "iconColor",
+      "type": "String",
+      "default": "#FFFFFF",
+      "description": "Set the color of the icons"
+    },
+    {
+      "name": "width",
+      "type": "String",
+      "default": "556px",
+      "description": "Set the width of the component"
+    },
+    {
+      "name": "height",
+      "type": "String",
+      "default": "64px",
+      "description": "Set the height of the component"
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "Trigger for change of value"
+    }
+  ]
+}

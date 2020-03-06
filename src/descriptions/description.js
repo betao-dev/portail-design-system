@@ -46,6 +46,7 @@ import MultiSelect from './data/MultiSelect';
 import Notification from './data/Notification';
 import NotificationList from './data/NotificationList';
 import ContentTab from './data/ContentTab';
+import NotificationPopup from './data/NotificationPopup';
 
 export default {
   AppHeader,
@@ -95,5 +96,6 @@ export default {
   MultiSelect,
   Notification,
   NotificationList,
-  ContentTab
+  ContentTab,
+  NotificationPopup
 };
