@@ -52,6 +52,7 @@ import MultiSelectData from './data/demo/MultiSelectData';
 import NotificationData from './data/demo/NotificationData';
 import NotificationListData from './data/demo/NotificationListData';
 import ContentTabData from './data/demo/ContentTabData';
+import NotificationPopupData from './data/demo/NotificationPopupData';
 
 export {
   CountriesArray,
@@ -106,5 +107,6 @@ export {
   MultiSelectData,
   NotificationData,
   NotificationListData,
-  ContentTabData
+  ContentTabData,
+  NotificationPopupData
 };

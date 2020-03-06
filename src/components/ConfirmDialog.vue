@@ -7,7 +7,10 @@
   >
     <div class="ds-confirm-wrapper" :style="getStyle">
       <div class="ds-confirm-header">
-        {{ title }}
+        <span v-if="!titleSlot">
+          {{ title }}
+        </span>
+        <slot name="ds-confirm-title"></slot>
       </div>
 
       <div class="ds-confirm-body">
@@ -15,17 +18,30 @@
       </div>
 
       <div class="ds-confirm-footer">
-        <Button big padding="15px 40px" @click="updateOpenStatus(false)" alt>{{
-          rejectLabel
-        }}</Button>
+        <Button
+          big
+          padding="15px 40px"
+          @click="updateOpenStatus(false)"
+          alt
+          :width="buttonsWidth"
+          >{{ rejectLabel }}</Button
+        >
         <template v-if="extraButton">
-          <Button big padding="15px 40px" @click="extraButtonClick">{{
-            extraButtonLabel
-          }}</Button>
+          <Button
+            big
+            padding="15px 40px"
+            @click="extraButtonClick"
+            :width="buttonsWidth"
+            >{{ extraButtonLabel }}</Button
+          >
         </template>
-        <Button big padding="15px 40px" @click="acceptStatus" red>{{
-          acceptLabel
-        }}</Button>
+        <Button
+          big
+          padding="15px 40px"
+          @click="acceptStatus"
+          :width="buttonsWidth"
+          >{{ acceptLabel }}</Button
+        >
       </div>
     </div>
   </Dialog>
@@ -70,13 +86,17 @@ export default {
     },
     extraButtonLabel: {
       type: String
-    }
+    },
+    buttonsWidth: String
   },
   computed: {
     getStyle() {
       const style = {};
       style.width = this.width;
       return style;
+    },
+    titleSlot() {
+      return !!this.$scopedSlots['ds-confirm-title'];
     }
   },
   methods: {
@@ -113,6 +133,7 @@ export default {
     line-height: 28px;
     color: @color-dark;
     text-align: center;
+    letter-spacing: 0.2px;
   }
 
   .ds-confirm-footer {
@@ -122,7 +143,11 @@ export default {
     margin-top: 24px;
 
     .ds-button-link-wrapper {
-      margin-left: 16px;
+      margin-left: 24px;
+
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
 

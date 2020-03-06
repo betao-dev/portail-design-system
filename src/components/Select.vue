@@ -1,7 +1,7 @@
 <template>
   <div
     :class="['ds-select-wrapper', { 'ds-lg': lg, 'ds-md': md, 'ds-sm': sm }]"
-    :style="{width}"
+    :style="{ width }"
   >
     <div v-if="label" class="ds-label">{{ label }}</div>
     <Icon
