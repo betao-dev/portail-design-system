@@ -72,18 +72,17 @@ export default {
   },
   methods: {
     onClose() {
-      this.opened = !this.opened;
-    }
-  },
-  mounted() {
-    this.notificationTimerId = setTimeout(() => {
       this.opened = false;
-    }, 3000);
+    }
   },
   watch: {
     opened(value) {
       if (!value) {
         clearTimeout(this.notificationTimerId);
+      } else {
+        this.notificationTimerId = setTimeout(() => {
+          this.opened = false;
+        }, 3000);
       }
     }
   }
