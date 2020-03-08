@@ -285,7 +285,7 @@ export default {
         }
 
         &:hover {
-          background-color: rgba(30, 179, 134, 0.05);
+          border: 1px solid #E8ECEF;
         }
       }
 
