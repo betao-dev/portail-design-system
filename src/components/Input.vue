@@ -483,7 +483,7 @@ export default {
     checkValuePattern(paste, value) {
       if (this.value || paste) {
         let patternObj = {
-          'number': /[^0-9]+/g,
+          number: /[^0-9]+/g,
           'number-dot': /[^0-9.]+/g,
           'payment-card': /[^0-9 ]+/g
         };

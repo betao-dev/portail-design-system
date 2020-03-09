@@ -241,7 +241,9 @@ export default {
       if (this.dateUnset) {
         return `Pick a date`;
       } else if (this.secondDate) {
-        return `${this.minDateHeader} ${this.minFullYear} - ${this.maxDateHeader} ${this.maxFullYear}`;
+        return `${this.minDateHeader} ${this.minFullYear} - ${
+          this.maxDateHeader
+        } ${this.maxFullYear}`;
       } else {
         return `${this.minDateHeader}`;
       }

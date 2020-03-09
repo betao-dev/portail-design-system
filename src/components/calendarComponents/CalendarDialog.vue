@@ -12,7 +12,7 @@
         { 'ds-dialog-datepicker-backdrop': datepickerContainer }
       ]"
       :style="{
-        'opacity': backdropOpacity,
+        opacity: backdropOpacity,
         'background-color': backgroundColor
       }"
       @click.stop="backdropClick()"
