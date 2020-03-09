@@ -22,6 +22,7 @@ let usage = `
   v-model="notificationListShort"
   width="280px"
   title="Liste de choses à faire"
+  short
 ></NotificationList>
 `.slice(1);
 

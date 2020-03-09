@@ -71,6 +71,7 @@
       v-model="notificationListShort"
       width="280px"
       title="Liste de choses à faire"
+      short
     ></NotificationList>
   </div>
 </template>
@@ -121,14 +122,12 @@ export default {
     ],
     notificationListShort: [
       {
-        short: true,
         icon: 'exclamation-circle-solid',
         color: '#FB4544',
         title: 'Renseignez votre SIRET',
         description: 'Go to Paramètres du compte and add your SIRET number'
       },
       {
-        short: true,
         icon: 'query_builder',
         color: '#FFAB2B',
         title: 'Ajout des documents nécessaires',

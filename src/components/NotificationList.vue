@@ -33,7 +33,7 @@
       :key="index"
       @click="onNotificationActive(notification)"
     >
-      <Notification v-bind="notification">
+      <Notification v-bind="notification" :short="short">
         <slot :name="getSlotName(index)"></slot>
       </Notification>
     </div>
@@ -50,6 +50,10 @@ export default {
     value: {
       type: Array,
       default: () => []
+    },
+    short: {
+      type: Boolean,
+      default: false
     },
     width: String,
     title: String,
