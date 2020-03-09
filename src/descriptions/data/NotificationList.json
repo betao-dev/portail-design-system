@@ -20,6 +20,12 @@
       "name": "titleRight",
       "type": "String",
       "description": "Represent the right title of the notification list component"
+    },
+    {
+      "name": "short",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Responsible for displaying notification list with short type without right block"
     }
   ],
   "events": [{
