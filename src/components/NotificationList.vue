@@ -4,10 +4,7 @@
     class="ds-notification-list-wrapper"
     :style="{ width }"
   >
-    <div
-      class="ds-notification-list-header-base"
-      v-if="!isShort && !headerSlot"
-    >
+    <div class="ds-notification-list-header-base" v-if="!short && !headerSlot">
       <div class="ds-notification-list-header">
         {{ title }}
       </div>
@@ -16,19 +13,13 @@
       </div>
     </div>
 
-    <div
-      class="ds-notification-list-header-short"
-      v-if="isShort && !headerSlot"
-    >
+    <div class="ds-notification-list-header-short" v-if="short && !headerSlot">
       {{ title }}
     </div>
 
     <slot name="header"></slot>
     <div
-      :class="[
-        'ds-notification-item',
-        { 'ds-notification-item-short': notification.short }
-      ]"
+      :class="['ds-notification-item', { 'ds-notification-item-short': short }]"
       v-for="(notification, index) of value"
       :key="index"
       @click="onNotificationActive(notification)"
@@ -71,9 +62,6 @@ export default {
     }
   },
   computed: {
-    isShort() {
-      return !!this.value.find(val => val.short);
-    },
     headerSlot() {
       return !!this.$scopedSlots.header;
     }
