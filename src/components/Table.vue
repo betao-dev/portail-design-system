@@ -285,7 +285,7 @@ export default {
         }
 
         &:hover {
-          border: 1px solid #E8ECEF;
+          border: 1px solid #e8ecef;
         }
       }
 

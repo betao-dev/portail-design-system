@@ -262,9 +262,9 @@ export default {
     },
     sortedCountries() {
       // Sort the list countries: from preferred countries to all countries
-      const preferredCountries = this.getCountries(
-        this.preferredCountries
-      ).map(country => ({ ...country, preferred: true }));
+      const preferredCountries = this.getCountries(this.preferredCountries).map(
+        country => ({ ...country, preferred: true })
+      );
       return [...preferredCountries, ...this.filteredCountries];
     },
     formattedResult() {

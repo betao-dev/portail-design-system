@@ -143,10 +143,7 @@ export default {
     selectedPage: 1,
     nameFilter: [],
     typeFilter: '',
-    typeOptions: [
-      { id: 1, value: 'Person' },
-      { id: 2, value: 'Company' }
-    ],
+    typeOptions: [{ id: 1, value: 'Person' }, { id: 2, value: 'Company' }],
     financialFilter: '',
     invoiceDateFilter: '',
     statusFilter: []
