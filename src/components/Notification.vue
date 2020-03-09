@@ -41,7 +41,7 @@
         <slot></slot>
         <div class="ds-notification-body-right">
           <Badge
-            v-if="badge"
+            v-if="badge && !short"
             :color="hexToRGBA(color, '0.1')"
             :icon="badgeIcon"
             :icon-color="color"
@@ -53,7 +53,7 @@
               {{ badgeTitle }}
             </span>
           </Badge>
-          <div v-if="!badge" class="ds-notification-additional-data">
+          <div v-if="!badge && !short" class="ds-notification-additional-data">
             <div
               v-if="additionalTitle"
               class="ds-notification-additional-title"
