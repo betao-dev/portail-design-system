@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="range-input-wrapper" :class="{'md': md, 'sm': sm, 'lg': lg}" @click="dropdownOpened = !dropdownOpened">
+    <div
+      class="range-input-wrapper"
+      :class="{ md: md, sm: sm, lg: lg }"
+      @click="dropdownOpened = !dropdownOpened"
+    >
       <Input
         disabled
         :sm="sm"
@@ -80,11 +84,11 @@ export default {
     },
     md: {
       type: Boolean,
-      default: false,
+      default: false
     },
     lg: {
       type: Boolean,
-      default: false,
+      default: false
     },
     minLimit: {
       type: Number,
@@ -121,7 +125,7 @@ export default {
   computed: {
     inputData() {
       if (this.sliderModel[0] === 0 && this.sliderModel[1] === 0) {
-        return this.placeholder
+        return this.placeholder;
       }
       return this.sliderModel[0] + ' - ' + this.sliderModel[1];
     }
@@ -243,7 +247,7 @@ export default {
 
         .vue-slider-dot {
           .vue-slider-dot-handle {
-            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
             border: none !important;
           }
         }
