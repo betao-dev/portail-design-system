@@ -10,6 +10,7 @@
     </Collapser>
 
     <NumberRange
+      md
       :minLimit="0"
       :maxLimit="200"
       :min="0"

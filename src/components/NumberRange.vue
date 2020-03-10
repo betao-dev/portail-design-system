@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="range-input-wrapper" @click="dropdownOpened = !dropdownOpened">
+    <div class="range-input-wrapper" :class="{'md': md, 'sm': sm, 'lg': lg}" @click="dropdownOpened = !dropdownOpened">
       <Input
         disabled
         :sm="sm"
@@ -12,7 +12,6 @@
       />
       <Button
         plain
-        padding="12px"
         class="close-btn"
         icon="close"
         iconColor="#778CA2"
@@ -156,13 +155,31 @@ export default {
 @import '~vue-slider-component/theme/antd.css';
 
 .range-input-wrapper {
-  display: flex;
+  display: inline-block;
   position: relative;
-  align-items: center;
+
+  &.md {
+    .close-btn {
+      top: 4px;
+    }
+  }
+
+  &.sm {
+    .close-btn {
+      top: 3px;
+    }
+  }
+
+  &.lg {
+    .close-btn {
+      top: 9px;
+    }
+  }
 
   .close-btn {
-    position: relative;
-    right: 45px;
+    position: absolute;
+    top: 0;
+    right: 0;
 
     &::v-deep {
       .ds-button {
@@ -170,6 +187,10 @@ export default {
         &:focus,
         &:active {
           background-color: transparent !important;
+        }
+
+        .icon-wrapper {
+          margin-right: 0 !important;
         }
       }
     }
