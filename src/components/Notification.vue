@@ -2,7 +2,7 @@
   <div
     :class="[
       'ds-notification-wrapper',
-      { 'ds-notification-wrapper-base': !short }
+      { 'ds-notification-wrapper-base': !short, 'ds-notification-wrapper-unread': !read && !short }
     ]"
   >
     <div :class="['ds-notification', { 'ds-notification-base': !short }]">
@@ -108,7 +108,8 @@ export default {
       type: String,
       default: '0 6px 0 0'
     },
-    short: Boolean
+    short: Boolean,
+    read: Boolean
   },
   computed: {
     defaultSlot() {
@@ -130,14 +131,6 @@ export default {
 
   &.ds-notification-wrapper-base {
     height: 74px;
-
-    &:hover {
-      .ds-notification {
-        padding-left: 21px;
-      }
-
-      border-left: 3px solid @color-primary;
-    }
   }
 
   .ds-notification {
@@ -239,6 +232,14 @@ export default {
         }
       }
     }
+  }
+
+  &.ds-notification-wrapper-unread {
+    .ds-notification {
+      padding-left: 21px;
+    }
+
+    border-left: 3px solid @color-primary;
   }
 }
 </style>

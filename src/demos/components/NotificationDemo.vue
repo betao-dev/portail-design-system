@@ -23,6 +23,7 @@
       color="#1EB386"
       :additionalTitle="additionalTitle"
       :additionalDescription="additionalDescription"
+      read
     >
       <div class="ds-notification-demo-body">
         <div class="ds-notification-demo-title">

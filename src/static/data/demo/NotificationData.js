@@ -11,7 +11,8 @@ let usage = `
 <Notification icon="file-invoice-solid"
               color="#1EB386"
               :additionalTitle="additionalTitle"
-              :additionalDescription="additionalDescription">
+              :additionalDescription="additionalDescription"
+              read>
   <div class="ds-notification-demo-body">
     ...
   </div>
