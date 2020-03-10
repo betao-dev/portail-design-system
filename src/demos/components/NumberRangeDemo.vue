@@ -12,8 +12,9 @@
     <NumberRange
       :minLimit="0"
       :maxLimit="200"
-      :min="10"
-      :max="100"
+      :min="0"
+      :max="0"
+      placeholder="Number Range Select"
       prefix="€"
     />
   </div>
