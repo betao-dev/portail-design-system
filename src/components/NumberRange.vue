@@ -183,6 +183,9 @@ export default {
 
     &::v-deep {
       .ds-button {
+        padding: 0;
+        margin-right: 5px;
+
         &:hover,
         &:focus,
         &:active {
