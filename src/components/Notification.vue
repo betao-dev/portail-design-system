@@ -2,7 +2,10 @@
   <div
     :class="[
       'ds-notification-wrapper',
-      { 'ds-notification-wrapper-base': !short, 'ds-notification-wrapper-unread': !read && !short }
+      {
+        'ds-notification-wrapper-base': !short,
+        'ds-notification-wrapper-unread': !read && !short
+      }
     ]"
   >
     <div :class="['ds-notification', { 'ds-notification-base': !short }]">
