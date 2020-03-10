@@ -68,6 +68,11 @@
       "name": "short",
       "type": "Boolean",
       "description": "Responsible for displaying short type of notification without right block"
+    },
+    {
+      "name": "read",
+      "type": "Boolean",
+      "description": "Responsible for displaying specific left green border on notification with read property equal to false, for marking unread notification"
     }
   ],
   "events": []
