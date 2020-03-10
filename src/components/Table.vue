@@ -285,7 +285,18 @@ export default {
         }
 
         &:hover {
-          border: 1px solid #e8ecef;
+          border: 1px solid @color-gray-300;
+          padding: 9px 0;
+
+          span {
+            &:first-child {
+              padding-left: 23px;
+            }
+
+            &:last-child {
+              padding-right: 23px;
+            }
+          }
         }
       }
 
