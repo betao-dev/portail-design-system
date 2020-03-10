@@ -180,12 +180,11 @@ export default {
         }
 
         .ds-notification-title-short {
-          height: 17px;
-          color: #1b1e24;
-          font-family: Rubik;
+          height: 21px;
+          color: @color-dark;
+          font-family: Roboto, sans-serif;
           font-size: 14px;
-          line-height: 17px;
-          margin-bottom: 2px;
+          line-height: 21px;
         }
 
         .ds-notification-description {
