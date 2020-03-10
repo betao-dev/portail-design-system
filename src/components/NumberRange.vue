@@ -3,6 +3,9 @@
     <div class="range-input-wrapper" @click="dropdownOpened = !dropdownOpened">
       <Input
         disabled
+        :sm="sm"
+        :md="md"
+        :lg="lg"
         :value="inputData"
         :show-validations="false"
         ref="inputDrop"
@@ -72,6 +75,18 @@ export default {
   name: 'NumberRange',
   components: { Input, Dropdown, Button, VueSlider },
   props: {
+    sm: {
+      type: Boolean,
+      default: false
+    },
+    md: {
+      type: Boolean,
+      default: false,
+    },
+    lg: {
+      type: Boolean,
+      default: false,
+    },
     minLimit: {
       type: Number,
       default: 0
@@ -91,6 +106,10 @@ export default {
     prefix: {
       type: String,
       default: '€'
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   data: () => ({
@@ -102,6 +121,9 @@ export default {
   }),
   computed: {
     inputData() {
+      if (this.sliderModel[0] === 0 && this.sliderModel[1] === 0) {
+        return this.placeholder
+      }
       return this.sliderModel[0] + ' - ' + this.sliderModel[1];
     }
   },
@@ -131,15 +153,16 @@ export default {
 
 <style lang="less" scoped>
 @import '../styles/vars';
+@import '~vue-slider-component/theme/antd.css';
 
 .range-input-wrapper {
-  display: inline-block;
+  display: flex;
   position: relative;
+  align-items: center;
 
   .close-btn {
     position: relative;
     right: 45px;
-    bottom: 5px;
 
     &::v-deep {
       .ds-button {
@@ -189,6 +212,19 @@ export default {
 
   .slider-wrapper {
     margin-bottom: 10px;
+
+    &::v-deep {
+      .vue-slider {
+        height: 6px !important;
+
+        .vue-slider-dot {
+          .vue-slider-dot-handle {
+            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            border: none !important;
+          }
+        }
+      }
+    }
   }
 
   .limit-values {
