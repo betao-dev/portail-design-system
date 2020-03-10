@@ -58,6 +58,12 @@
       "type": "Number",
       "default": "300",
       "description": "Setup transition time"
+    },
+    {
+      "name": "margin",
+      "type": "Number",
+      "default": "4",
+      "description": "Set margin in px"
     }
   ],
   "events": []

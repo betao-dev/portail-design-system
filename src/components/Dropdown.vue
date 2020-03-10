@@ -106,6 +106,10 @@ export default {
     transitionTime: {
       type: Number,
       default: 300
+    },
+    margin: {
+      type: Number,
+      default: 4
     }
   },
   data: () => ({
@@ -178,7 +182,7 @@ export default {
       let contentHeight = (this.contentRect && this.contentRect.height) || 0;
       let contentWidth = (this.contentRect && this.contentRect.width) || 0;
 
-      let margin = 4;
+      let margin = this.margin;
       if (this.position !== 'default') {
         let [primaryAlignment, secondaryAlignment] = this.position.split('-');
 
