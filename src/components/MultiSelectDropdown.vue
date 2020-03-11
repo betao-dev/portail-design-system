@@ -1,5 +1,5 @@
 <template>
-  <div class="ds-multi-select-dropdown-wrapper">
+  <div class="ds-multi-select-dropdown-wrapper" :class="{'sm': sm, 'md': md, 'lg': lg}">
     <div v-if="label" class="ds-label-text">{{ label }}</div>
     <input
       :class="['ds-multi-select', { 'ds-multi-select-error': checkError }]"
@@ -58,12 +58,15 @@ export default {
   name: 'MultiSelectDropdown',
   components: { Dropdown, Icon },
   props: {
+    sm: Boolean,
+    md: Boolean,
+    lg: Boolean,
     value: null,
     options: Array,
     label: String,
     dropDownPosition: {
       type: String,
-      default: 'default'
+      default: 'bottom-middle'
     },
     idMode: {
       type: Boolean,
@@ -202,6 +205,40 @@ export default {
   position: relative;
   width: 252px;
 
+  &.md {
+    input.ds-multi-select {
+      height: 42px;
+    }
+
+    .ds-multi-select-icon {
+      top: 8px;
+    }
+
+    .ds-label-text ~ .ds-multi-select-icon {
+      top: 28px;
+    }
+  }
+
+  &.sm {
+    input.ds-multi-select {
+      height: 38px;
+    }
+  }
+
+  &.lg {
+    input.ds-multi-select {
+      height: 52px;
+    }
+
+    .ds-multi-select-icon {
+      top: 14px;
+    }
+
+    .ds-label-text ~ .ds-multi-select-icon {
+      top: 34px;
+    }
+  }
+
   .ds-label-text {
     .font-desktop-x-small-regular-gray();
     height: 16px;
@@ -237,14 +274,11 @@ export default {
     cursor: pointer;
     position: absolute;
     right: 5px;
+    top: 6px;
   }
 
   .ds-label-text ~ .ds-multi-select-icon {
     top: 26px;
-  }
-
-  .ds-multi-select-icon {
-    top: 6px;
   }
 
   .ds-multi-select-error-message-wrapper {
@@ -263,23 +297,31 @@ export default {
     display: block;
     border-radius: 2px;
     box-shadow: @dropdown-shadow;
-    padding: 15px;
+    padding: 24px 20px;
     background: white;
 
     .ds-checkbox-container-wrapper {
-      /* Customize the label (the ds-checkbox-container) */
+      &:last-child {
+        .ds-checkbox-container {
+          margin-bottom: 0;
+        }
+      }
+
+
       .ds-checkbox-container {
         display: block;
         position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
+        padding-left: 32px;
+        margin-bottom: 24px;
         color: @color-dark;
         cursor: pointer;
-        font-size: 22px;
+        line-height: 20px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        
 
         /* Hide the browser's default checkbox */
         .ds-checkbox-input {
@@ -292,26 +334,22 @@ export default {
           /* When the checkbox is checked, add a blue background */
           &:checked {
             ~ .ds-checkbox-checkmark {
-              background-color: @color-green;
+              background-color: #E8ECEF;
               border-color: rgba(0, 0, 0, 0);
 
               /* Show the ds-checkbox-checkmark when checked and apply styles the ds-checkbox-checkmark/indicator */
               &:after {
                 display: block;
-                left: 6px;
-                top: 2px;
-                width: 5px;
-                height: 10px;
-                border: solid white;
-                border-width: 0 3px 3px 0;
+                left: 7px;
+                top: 3px;
+                width: 4px;
+                height: 8px;
+                border: solid #1EB386;
+                border-width: 0 2px 2px 0;
                 -webkit-transform: rotate(45deg);
                 -ms-transform: rotate(45deg);
                 transform: rotate(45deg);
               }
-            }
-
-            ~ .ds-checkbox-text {
-              color: @color-green;
             }
           }
         }
@@ -323,9 +361,9 @@ export default {
           left: 0;
           height: 20px;
           width: 20px;
-          border: 2px solid @color-gray-500;
           border-radius: 2px;
-          background-color: @color-white;
+          background-color: #E8ECEF;
+          box-sizing: border-box;
 
           /* Create the ds-checkbox-checkmark/indicator (hidden when not checked) */
           &:after {
@@ -336,12 +374,11 @@ export default {
         }
 
         .ds-checkbox-text {
-          font-size: 16px;
+          font-size: 14px;
+          line-height: 16px;
+          color: #1B1E24;
+          font-family: Roboto, sans-serif;
         }
-      }
-
-      &:hover {
-        background-color: @color-gray-200;
       }
     }
   }
