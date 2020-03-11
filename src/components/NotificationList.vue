@@ -95,6 +95,7 @@ export default {
       font-family: 'Roboto Medium';
       font-size: 12px;
       line-height: 14px;
+      cursor: pointer;
     }
   }
 
