@@ -134,10 +134,20 @@ export default {
 
   &.ds-notification-wrapper-base {
     height: 74px;
+
+    &:hover {
+      border: 1px solid @color-gray-300;
+      box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
+
+      .ds-notification-base {
+        padding: 15px 23px;
+      }
+    }
   }
 
   .ds-notification {
     display: flex;
+    box-sizing: border-box;
 
     &.ds-notification-base {
       padding: 16px 24px;
@@ -243,6 +253,14 @@ export default {
     }
 
     border-left: 3px solid @color-primary;
+
+    &:hover {
+      border-left: 3px solid @color-primary;
+
+      .ds-notification-base {
+        padding: 15px 23px 15px 21px;
+      }
+    }
   }
 }
 </style>
