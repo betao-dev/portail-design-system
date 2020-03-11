@@ -137,7 +137,7 @@ export default {
 
     &:hover {
       border: 1px solid @color-gray-300;
-      box-shadow: 0 2px 16px 0 rgba(153,155,168,0.12);
+      box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
 
       .ds-notification-base {
         padding: 15px 23px;

@@ -1,5 +1,8 @@
 <template>
-  <div class="ds-multi-select-dropdown-wrapper" :class="{'sm': sm, 'md': md, 'lg': lg}">
+  <div
+    class="ds-multi-select-dropdown-wrapper"
+    :class="{ sm: sm, md: md, lg: lg }"
+  >
     <div v-if="label" class="ds-label-text">{{ label }}</div>
     <input
       :class="['ds-multi-select', { 'ds-multi-select-error': checkError }]"
@@ -307,7 +310,6 @@ export default {
         }
       }
 
-
       .ds-checkbox-container {
         display: block;
         position: relative;
@@ -321,8 +323,6 @@ export default {
         -ms-user-select: none;
         user-select: none;
 
-        
-
         /* Hide the browser's default checkbox */
         .ds-checkbox-input {
           position: absolute;
@@ -334,7 +334,7 @@ export default {
           /* When the checkbox is checked, add a blue background */
           &:checked {
             ~ .ds-checkbox-checkmark {
-              background-color: #E8ECEF;
+              background-color: #e8ecef;
               border-color: rgba(0, 0, 0, 0);
 
               /* Show the ds-checkbox-checkmark when checked and apply styles the ds-checkbox-checkmark/indicator */
@@ -344,7 +344,7 @@ export default {
                 top: 3px;
                 width: 4px;
                 height: 8px;
-                border: solid #1EB386;
+                border: solid #1eb386;
                 border-width: 0 2px 2px 0;
                 -webkit-transform: rotate(45deg);
                 -ms-transform: rotate(45deg);
@@ -362,7 +362,7 @@ export default {
           height: 20px;
           width: 20px;
           border-radius: 2px;
-          background-color: #E8ECEF;
+          background-color: #e8ecef;
           box-sizing: border-box;
 
           /* Create the ds-checkbox-checkmark/indicator (hidden when not checked) */
@@ -376,7 +376,7 @@ export default {
         .ds-checkbox-text {
           font-size: 14px;
           line-height: 16px;
-          color: #1B1E24;
+          color: #1b1e24;
           font-family: Roboto, sans-serif;
         }
       }
