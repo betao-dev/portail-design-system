@@ -212,62 +212,64 @@ import _ from 'lodash';
 export default {
   name: 'InputDemo',
   components: { Input, Button, Description, Collapser },
-  data: () => ({
-    openUsage: true,
-    usage: InputData.usage,
-    textValue: '',
-    maskValue: '',
-    currencyValue: 20,
-    slideTextValue: 'Test text',
-    demoValidators: [
-      {
-        name: 'required',
-        message: 'The field is required',
-        validator: value => !!value
-      },
-      {
-        name: 'long-error',
-        message: `
+  data() {
+    return {
+      openUsage: true,
+      usage: InputData.usage,
+      textValue: '',
+      maskValue: '',
+      currencyValue: 20,
+      slideTextValue: 'Test text',
+      demoValidators: [
+        {
+          name: 'required',
+          message: this.dsTranslate('Field Required'),
+          validator: value => !!value
+        },
+        {
+          name: 'long-error',
+          message: `
           Long error message: Lorem ipsum dolor sit amet, consectetur
           adipiscing elit. Nam mollis ullamcorper rutrum. Pellentesque
           rutrum consectetur nulla, eget euismod justo vehicula
         `,
-        validator: () => false
+          validator: () => false
+        }
+      ],
+      passwordValidators: [
+        {
+          name: 'match-fields-values',
+          message: `The value of field doesn't match to values related fields`,
+          validator: (value, confirmPassword) =>
+            !_.isUndefined(value) &&
+            !_.isUndefined(confirmPassword) &&
+            value == confirmPassword
+        }
+      ],
+      confirmPasswordValidators: [
+        {
+          name: 'match-fields-values',
+          message: `The value of field doesn't match to values related fields`,
+          validator: (value, confirmPassword) =>
+            !_.isUndefined(value) &&
+            !_.isUndefined(confirmPassword) &&
+            value == confirmPassword
+        }
+      ],
+      cvvValue: null,
+      cardNumber: null,
+      password: undefined,
+      confirmPassword: undefined,
+      passwordShowErrors: {
+        firstField: false,
+        secondField: false
+      },
+      showErrorSupport: {
+        firstField: false,
+        secondField: false
       }
-    ],
-    passwordValidators: [
-      {
-        name: 'match-fields-values',
-        message: `The value of field doesn't match to values related fields`,
-        validator: (value, confirmPassword) =>
-          !_.isUndefined(value) &&
-          !_.isUndefined(confirmPassword) &&
-          value == confirmPassword
-      }
-    ],
-    confirmPasswordValidators: [
-      {
-        name: 'match-fields-values',
-        message: `The value of field doesn't match to values related fields`,
-        validator: (value, confirmPassword) =>
-          !_.isUndefined(value) &&
-          !_.isUndefined(confirmPassword) &&
-          value == confirmPassword
-      }
-    ],
-    cvvValue: null,
-    cardNumber: null,
-    password: undefined,
-    confirmPassword: undefined,
-    passwordShowErrors: {
-      firstField: false,
-      secondField: false
-    },
-    showErrorSupport: {
-      firstField: false,
-      secondField: false
-    }
-  }),
+    };
+  },
   methods: {
     validate() {
       const event = new CustomEvent('validate', {});
