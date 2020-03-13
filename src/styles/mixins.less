@@ -255,6 +255,26 @@
     }
   }
 }
+.poper-white-default-background() {
+  border: 1px solid @color-gray-300 !important;
+  background-color: @color-white !important;
+  box-shadow: 0 2px 16px 0 rgba(153,155,168,0.12) !important;
+}
+
+.poper-white() {
+  .poper();
+  .poper-white-default-background();
+
+  &[x-placement^="bottom"],
+  &[x-placement^="top"],
+  &[x-placement^="right"],
+  &[x-placement^="left"] {
+    [x-arrow] {
+      display: none;
+    }
+  }
+}
+
 .ds-notification-demo-body() {
   .ds-notification-demo-body {
     .ds-notification-demo-title {
