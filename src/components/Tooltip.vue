@@ -74,6 +74,8 @@ export default {
   &.ds-tooltip-wrapper-white {
     span::v-deep {
       .popper {
+        box-sizing: border-box;
+        width: 270px;
         .poper-white();
       }
     }
