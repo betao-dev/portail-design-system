@@ -1,5 +1,5 @@
 <template>
-  <div class="ds-tooltip-wrapper">
+  <div :class="['ds-tooltip-wrapper', { 'ds-tooltip-wrapper-white': white }]">
     <Popper
       :options="{
         placement: placement,
@@ -33,6 +33,10 @@ export default {
       default: () => {
         return { offset: '0, 10px' };
       }
+    },
+    white: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -65,6 +69,14 @@ export default {
 
   [x-arrow] {
     position: absolute;
+  }
+
+  &.ds-tooltip-wrapper-white {
+    span::v-deep {
+      .popper {
+        .poper-white();
+      }
+    }
   }
 }
 </style>
