@@ -297,7 +297,7 @@ export default {
       this.validators.push({
         name: 'required',
         message: this.dsTranslate('Field Required'),
-        validator: value => !!value
+        validator: value => !!(value || '').trim()
       });
     }
 
