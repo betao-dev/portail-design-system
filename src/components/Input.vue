@@ -296,7 +296,7 @@ export default {
     if (this.required) {
       this.validators.push({
         name: 'required',
-        message: 'This field is required',
+        message: this.dsTranslate('Field Required'),
         validator: value => !!value
       });
     }

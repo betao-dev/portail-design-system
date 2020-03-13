@@ -42,25 +42,27 @@ import { SelectData } from '../../static/index';
 export default {
   name: 'SelectDemo',
   components: { Select, Description, Collapser },
-  data: () => ({
-    openUsage: true,
-    usage: SelectData.usage,
-    selectValue: '',
-    selectValue2: { id: 1 },
-    options: [
-      { id: 1, value: 'Espèces' },
-      { id: 2, value: 'Chèque' },
-      { id: 3, value: 'Virement' },
-      { id: 4, value: 'Carte bancaire' }
-    ],
-    selectValidators: [
-      {
-        name: 'required',
-        message: 'The field is required',
-        validator: value => value && !!value
-      }
-    ]
-  })
+  data() {
+    return {
+      openUsage: true,
+      usage: SelectData.usage,
+      selectValue: '',
+      selectValue2: { id: 1 },
+      options: [
+        { id: 1, value: 'Espèces' },
+        { id: 2, value: 'Chèque' },
+        { id: 3, value: 'Virement' },
+        { id: 4, value: 'Carte bancaire' }
+      ],
+      selectValidators: [
+        {
+          name: 'required',
+          message: this.dsTranslate('Field Required'),
+          validator: value => value && !!value
+        }
+      ]
+    };
+  }
 };
 </script>
 

@@ -9,5 +9,6 @@
   "Accept": "accepté",
   "Cancel": "annuler",
   "OK": "D'accord",
-  "Add Logo": "Ajouter un logo"
+  "Add Logo": "Ajouter un logo",
+  "Field Required": "Le champ est obligatoire"
 }
