@@ -53,6 +53,7 @@ import NotificationData from './data/demo/NotificationData';
 import NotificationListData from './data/demo/NotificationListData';
 import ContentTabData from './data/demo/ContentTabData';
 import NotificationPopupData from './data/demo/NotificationPopupData';
+import HelpData from './data/demo/HelpData';
 
 export {
   CountriesArray,
@@ -108,5 +109,6 @@ export {
   NotificationData,
   NotificationListData,
   ContentTabData,
-  NotificationPopupData
+  NotificationPopupData,
+  HelpData
 };
