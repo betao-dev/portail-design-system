@@ -8,10 +8,34 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <div class="row-col">
+    <div class="example-wrapper">
       <MultiSelectDropdown
-        label="Multi select"
-        v-model="multiSelectValue"
+        sm
+        label="Multi Select Small"
+        class="example"
+        v-model="multiSelectValue1"
+        :options="options"
+        :validators="multiSelectValidators"
+        :placeholder="'Input Value'"
+        :idMode="true"
+      />
+
+      <MultiSelectDropdown
+        md
+        label="Multi Select Medium"
+        class="example"
+        v-model="multiSelectValue2"
+        :options="options"
+        :validators="multiSelectValidators"
+        :placeholder="'Input Value'"
+        :idMode="true"
+      />
+
+      <MultiSelectDropdown
+        lg
+        label="Multi Select Large"
+        class="example"
+        v-model="multiSelectValue3"
         :options="options"
         :validators="multiSelectValidators"
         :placeholder="'Input Value'"
@@ -33,7 +57,7 @@ export default {
   data: () => ({
     openUsage: true,
     usage: MultiSelectDropdownData.usage,
-    multiSelectValue: [
+    multiSelectValue1: [
       {
         id: 1,
         value: 'Espèces'
@@ -43,6 +67,8 @@ export default {
         value: 'Chèque'
       }
     ],
+    multiSelectValue2: [],
+    multiSelectValue3: [],
     options: [
       {
         id: 1,
@@ -77,4 +103,13 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.example-wrapper {
+  display: flex;
+  align-items: center;
+
+  .example {
+    margin-right: 10px;
+  }
+}
+</style>

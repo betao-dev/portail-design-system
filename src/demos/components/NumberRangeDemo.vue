@@ -9,15 +9,43 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <NumberRange
-      md
-      :minLimit="0"
-      :maxLimit="200"
-      :min="0"
-      :max="0"
-      placeholder="Number Range Select"
-      prefix="€"
-    />
+    <div class="examples">
+      <NumberRange
+        sm
+        class="example"
+        prefix="€"
+        placeholder="Number Range"
+        :minLimit="0"
+        :maxLimit="200"
+        :min="0"
+        :max="0"
+        @change:range="rangeUpdate"
+      />
+
+      <NumberRange
+        md
+        class="example"
+        prefix="€"
+        placeholder="Number Range Select"
+        :minLimit="0"
+        :maxLimit="200"
+        :min="0"
+        :max="0"
+        @change:range="rangeUpdate"
+      />
+
+      <NumberRange
+        lg
+        class="example"
+        prefix="€"
+        placeholder="Number Range Select"
+        :minLimit="0"
+        :maxLimit="200"
+        :min="0"
+        :max="0"
+        @change:range="rangeUpdate"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,8 +61,20 @@ export default {
   data: () => ({
     usage: NumberRangeData.usage,
     openUsage: true
-  })
+  }),
+  methods: {
+    rangeUpdate() {}
+  }
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.examples {
+  display: flex;
+  align-items: center;
+
+  .example {
+    margin-right: 10px;
+  }
+}
+</style>

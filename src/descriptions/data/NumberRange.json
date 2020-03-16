@@ -1,6 +1,21 @@
 {
   "properties": [
     {
+      "name": "sm",
+      "type": "Boolean",
+      "description": "Small Size of Input"
+    },
+    {
+      "name": "md",
+      "type": "Boolean",
+      "description": "Medium Size of Input"
+    },
+    {
+      "name": "lg",
+      "type": "Boolean",
+      "description": "Large Size of Input"
+    },
+    {
       "name": "min",
       "type": "Number",
       "description": "Min value of the range"
@@ -28,7 +43,7 @@
   ],
   "events": [
     {
-      "name": "change",
+      "name": "change:range",
       "description": "Emit the Object when Min or Max value is changed (ex: {min: 15, max: 200})"
     }
   ]
