@@ -1,6 +1,21 @@
 {
   "properties": [
     {
+      "name": "sm",
+      "type": "Boolean",
+      "description": "Small Size of Input"
+    },
+    {
+      "name": "md",
+      "type": "Boolean",
+      "description": "Medium Size of Input"
+    },
+    {
+      "name": "lg",
+      "type": "Boolean",
+      "description": "Large Size of Input"
+    },
+    {
       "name": "value",
       "type": "null",
       "description": "Binds to input and reflect current data. Could be initialize like null or undefined, but when value will contain data, the data type will be Array"
