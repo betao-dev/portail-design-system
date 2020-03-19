@@ -23,6 +23,7 @@
         >
           <div
             class="ds-title-wrapper"
+            :class="header.sortable && 'ds-sortable'"
             @click="sorting(header)"
             v-if="header.title"
           >
@@ -212,7 +213,6 @@ export default {
         flex-direction: column;
         align-items: flex-start;
         align-self: center;
-        cursor: pointer;
         padding-right: 16px;
         box-sizing: border-box;
 
@@ -222,6 +222,10 @@ export default {
           width: 100%;
           height: 20px;
           margin-bottom: 8px;
+
+          &.ds-sortable {
+            cursor: pointer;
+          }
 
           .ds-header-title {
             font-size: 12px;
