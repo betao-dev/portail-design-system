@@ -1,4 +1,55 @@
 {
-  "properties": [],
+  "properties": [
+    {
+      "name": "target",
+      "type": "null",
+      "description": "DOM element or CSS selector string. Element, next to which, a help should be opened (usually the element that triggers open)"
+    },
+    {
+      "name": "position",
+      "type": "String",
+      "default": "bottom-right",
+      "description": "String. Where help should be placed relatively to the target. Formated as 'primaryAlignment-secondaryAlignment'."
+    },
+    {
+      "name": "just-fade-in",
+      "type": "Boolean",
+      "description": "Change the enter animation to just fade in"
+    },
+    {
+      "name": "just-fade-out",
+      "type": "Boolean",
+      "description": "Change the leave animation to just fade out"
+    },
+    {
+      "name": "just-fade",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Change both"
+    },
+    {
+      "name": "mouseoutClose",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Allow to close help on mouseout event"
+    },
+    {
+      "name": "transitionTime",
+      "type": "Number",
+      "default": "300",
+      "description": "Setup transition time"
+    },
+    {
+      "name": "margin",
+      "type": "Number",
+      "default": "4",
+      "description": "Set margin in px"
+    },
+    {
+      "name": "dark",
+      "type": "Boolean",
+      "description": "Set dark tooltip style"
+    }
+  ],
   "events": []
 }

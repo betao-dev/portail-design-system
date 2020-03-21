@@ -12,14 +12,27 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Help placement="right">
-      <div slot="popover">
-        C'est vraiment pratique, l’utilisation du mini TPE est très complète (en
-        plus d’être beaucoup moins cher qu'un TPE classique en location).
-      </div>
+    <div class="ds-demo-help-wrapper">
+      <Button ref="help" padding="30px" alt-two>
+        Custom Tooltip
+      </Button>
+      <Help :target="$refs.help" :position="position" :margin="20">
+        <div class="ds-help-content">
+          New Tooltip
+        </div>
+      </Help>
+    </div>
 
-      <Button slot="reference" padding="10px">Custom Tooltip</Button>
-    </Help>
+    <div class="ds-demo-help-wrapper">
+      <Button ref="helpDark" padding="30px" alt-two>
+        Dark Custom Tooltip
+      </Button>
+      <Help :target="$refs.helpDark" :position="position" :margin="20" dark>
+        <div class="ds-help-content">
+          New Tooltip
+        </div>
+      </Help>
+    </div>
   </div>
 </template>
 
@@ -35,9 +48,26 @@ export default {
   components: { Help, Button, Collapser, Description },
   data: () => ({
     usage: HelpData.usage,
-    openUsage: true
+    openUsage: true,
+    position: 'right-center'
   })
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.ds-demo-help-wrapper {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.ds-help-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 50px;
+}
+</style>
