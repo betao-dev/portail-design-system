@@ -47,6 +47,7 @@ import Notification from './data/Notification';
 import NotificationList from './data/NotificationList';
 import ContentTab from './data/ContentTab';
 import NotificationPopup from './data/NotificationPopup';
+import Help from './data/Help';
 
 export default {
   AppHeader,
@@ -97,5 +98,6 @@ export default {
   Notification,
   NotificationList,
   ContentTab,
-  NotificationPopup
+  NotificationPopup,
+  Help
 };
