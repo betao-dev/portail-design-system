@@ -71,6 +71,19 @@
 
     <div class="ds-table-footer">
       <div v-if="pagination" class="pagination-wrapper">
+        <div class="ds-size-select-wrapper">
+          <span>Show</span>
+          <Select
+            md
+            class="ds-size-selector"
+            v-model="pageSize"
+            @change="updatePageSize"
+            :valueMode="true"
+            :options="pageSizes"
+          />
+          <span>per page</span>
+        </div>
+
         <Pagination
           :total="total"
           :pageSize="pageSize"
@@ -103,7 +116,10 @@ export default {
       default: () => []
     },
     pagination: Boolean,
-    pageSize: Number,
+    pageSize: {
+      type: Number,
+      default: 10
+    },
     total: Number,
     current: Number,
     identifierField: String,
@@ -112,7 +128,8 @@ export default {
   data: () => ({
     sortType: null,
     sortKey: null,
-    pageItems: []
+    pageItems: [],
+    pageSizes: [5, 10, 15, 20, 25, 50]
   }),
   methods: {
     getSlotName(header) {
@@ -166,6 +183,10 @@ export default {
     },
     updatePage(page) {
       this.$emit('update:page', page);
+    },
+    updatePageSize(size) {
+      this.$emit('update:size', size)
+      this.$emit('update:page', 1)
     }
   },
   mounted() {
@@ -316,8 +337,22 @@ export default {
   .ds-table-footer {
     .pagination-wrapper {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       margin-top: 45px;
+
+      .ds-size-select-wrapper {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        
+        .ds-size-selector {
+          width: 70px;
+        }
+
+        > * {
+          margin-right: 8px;
+        }
+      }
     }
   }
 }
