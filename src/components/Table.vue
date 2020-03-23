@@ -186,8 +186,8 @@ export default {
       this.$emit('update:page', page);
     },
     updatePageSize(size) {
-      this.$emit('update:size', size)
-      this.$emit('update:page', 1)
+      this.$emit('update:size', size);
+      this.$emit('update:page', 1);
     }
   },
   mounted() {
@@ -345,7 +345,7 @@ export default {
         display: flex;
         align-items: center;
         font-size: 14px;
-        
+
         .ds-size-selector {
           width: 70px;
         }

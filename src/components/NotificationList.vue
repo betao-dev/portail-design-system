@@ -13,7 +13,10 @@
       </div>
     </div>
 
-    <div class="ds-notification-list-header-short" v-if="short && !headerSlot && title">
+    <div
+      class="ds-notification-list-header-short"
+      v-if="short && !headerSlot && title"
+    >
       {{ title }}
     </div>
 
