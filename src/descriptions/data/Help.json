@@ -49,6 +49,18 @@
       "name": "dark",
       "type": "Boolean",
       "description": "Set dark tooltip style"
+    },
+    {
+      "name": "leftOffset",
+      "type": "Number",
+      "default": "0",
+      "description": "Left offset of component in px from pre-rendered position that depend on 'position' props"
+    },
+    {
+      "name": "topOffset",
+      "type": "Number",
+      "default": "0",
+      "description": "Top offset of component in px from pre-rendered position that depend on 'position' props"
     }
   ],
   "events": []
