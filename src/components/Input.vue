@@ -522,6 +522,12 @@ export default {
 
       this.slideInit();
       this.$emit('validation', this.validation);
+    },
+    showInvalidBlock: {
+      immediate: true,
+      handler(value) {
+        this.$emit('showInvalidBlock', value);
+      }
     }
   },
   beforeDestroy() {
