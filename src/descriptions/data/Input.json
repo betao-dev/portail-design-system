@@ -206,6 +206,10 @@
     {
       "name": "icon-click",
       "description": "Dispatch when Icon get click and activeIcon prop is true"
+    },
+    {
+      "name": "showInvalidBlock",
+      "description": "Dispatched when showInvalidBlock variable change inside of component"
     }
   ]
 }
