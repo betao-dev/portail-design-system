@@ -13,11 +13,12 @@
       v-model="clients"
       :headers="headers"
       :pagination="true"
-      :pageSize="10"
+      :pageSize="pageSize"
       :total="25"
       orderingKey="invoice_date"
       :current="selectedPage"
       @update:page="updatePage"
+      @update:size="updatePageSize"
     >
       <template slot="filter-name">
         <Chips md v-model="nameFilter" :removable="true" />
@@ -149,11 +150,15 @@ export default {
     ],
     financialFilter: '',
     invoiceDateFilter: '',
-    statusFilter: []
+    statusFilter: [],
+    pageSize: 10
   }),
   methods: {
     updatePage(page) {
       this.selectedPage = page;
+    },
+    updatePageSize(size) {
+      this.pageSize = size
     }
   }
 };

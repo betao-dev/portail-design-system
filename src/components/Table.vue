@@ -76,8 +76,8 @@
           <Select
             md
             class="ds-size-selector"
-            v-model="pageSize"
             @change="updatePageSize"
+            :value="pageSize"
             :valueMode="true"
             :options="pageSizes"
           />
