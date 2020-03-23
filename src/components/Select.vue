@@ -59,7 +59,10 @@
         :key="index"
         @click="selectValue(option)"
       >
-        {{ option.title }} <span v-if="!displayTitle">{{ typeof option !== 'object' ? option : option.value }}</span>
+        {{ option.title }}
+        <span v-if="!displayTitle">{{
+          typeof option !== 'object' ? option : option.value
+        }}</span>
       </div>
     </Dropdown>
   </div>

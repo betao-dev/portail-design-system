@@ -158,7 +158,7 @@ export default {
       this.selectedPage = page;
     },
     updatePageSize(size) {
-      this.pageSize = size
+      this.pageSize = size;
     }
   }
 };
