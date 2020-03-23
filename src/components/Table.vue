@@ -104,11 +104,12 @@ const SORT_TYPES = {
 import Card from './Card';
 import Icon from './Icon';
 import Pagination from './Pagination';
+import Select from './Select';
 import { get } from 'lodash';
 
 export default {
   name: 'Table',
-  components: { Card, Icon, Pagination },
+  components: { Card, Icon, Pagination, Select },
   props: {
     value: Array,
     headers: {
