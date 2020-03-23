@@ -48,7 +48,7 @@
             v-if="item.icon"
             :source="item.icon"
             size="18px"
-            color="gray-400"
+            color="gray-500"
           />
           <span class="ds-menu-title">{{ item.title }}</span>
         </a>
@@ -139,15 +139,20 @@ export default {
   .ds-item-wrapper {
     .ds-item {
       text-decoration: none;
-      color: @color-dark;
+      color: @color-gray-500;
+      font-family: Roboto Medium;
       display: flex;
       align-items: center;
       padding: 20px;
       cursor: pointer;
 
-      &:hover {
+      &:hover:not(.ds-disabled) {
         text-decoration: none;
-        background-color: @color-gray-200;
+        color: @color-dark;
+
+        .ds-icon {
+          fill: @color-dark !important;
+        }
       }
 
       &.ds-disabled {
