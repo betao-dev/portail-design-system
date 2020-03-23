@@ -71,7 +71,15 @@ export default {
       type: Number,
       default: 4
     },
-    dark: Boolean
+    dark: Boolean,
+    leftOffset: {
+      type: Number,
+      default: 0
+    },
+    topOffset: {
+      type: Number,
+      default: 0
+    }
   },
   data: () => ({
     opened: false,
@@ -184,8 +192,8 @@ export default {
       }
 
       return {
-        left: `${left}px`,
-        top: `${top}px`
+        left: `${left + this.leftOffset}px`,
+        top: `${top + this.topOffset}px`
       };
     },
     /**
@@ -402,6 +410,7 @@ export default {
     color: @color-dark;
 
     .ds-help-arrow-base() {
+      pointer-events: none;
       &:after,
       &:before {
         content: '';
