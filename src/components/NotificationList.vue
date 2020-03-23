@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="ds-notification-list-header-short" v-if="short && !headerSlot">
+    <div class="ds-notification-list-header-short" v-if="short && !headerSlot && title">
       {{ title }}
     </div>
 
@@ -105,7 +105,7 @@ export default {
     font-family: 'Roboto Medium';
     font-size: 12px;
     line-height: 14px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     cursor: default;
   }
 
@@ -113,7 +113,7 @@ export default {
     margin-bottom: 8px;
 
     &.ds-notification-item-short {
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
 
     &:last-child {
