@@ -37,7 +37,7 @@
                 'ds-notification-description-short': short
               }"
             >
-              {{ description }}
+              <div v-html="description"></div>
             </div>
           </div>
         </template>
@@ -68,7 +68,7 @@
               v-if="additionalDescription"
               class="ds-notification-additional-description"
             >
-              {{ additionalDescription }}
+              <div v-html="additionalDescription"></div>
             </div>
           </div>
         </div>

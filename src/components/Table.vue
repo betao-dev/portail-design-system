@@ -286,7 +286,7 @@ export default {
         border-radius: 4px;
         box-shadow: none;
         border-color: white;
-        transition: all .2s;
+        transition: all 0.2s;
 
         @media screen and (max-width: 551px) {
           flex-wrap: wrap;
