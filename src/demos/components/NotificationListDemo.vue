@@ -93,7 +93,8 @@ export default {
         icon: 'exclamation-circle-solid',
         color: '#FB4544',
         title: 'Renseignez votre SIRET',
-        description: 'Go to Paramètres du compte and add your SIRET number',
+        description:
+          'Go to Paramètres du compte and add your <span style="color:red">SIRET</span> number',
         badge: true,
         badgeTitle: 'Action requise'
       },
@@ -101,7 +102,8 @@ export default {
         icon: 'query_builder',
         color: '#FFAB2B',
         title: 'Ajout des documents nécessaires',
-        description: 'Go to Paramètres du compte and add your SIRET number',
+        description:
+          'Go to Paramètres du compte and add your <span style="color:red">SIRET</span> number',
         badge: true,
         badgeTitle: 'En traitement'
       }
@@ -125,13 +127,15 @@ export default {
         icon: 'exclamation-circle-solid',
         color: '#FB4544',
         title: 'Renseignez votre SIRET',
-        description: 'Go to Paramètres du compte and add your SIRET number'
+        description:
+          'Go to Paramètres du compte and add your <span style="color:red">SIRET</span> number'
       },
       {
         icon: 'query_builder',
         color: '#FFAB2B',
         title: 'Ajout des documents nécessaires',
-        description: 'Go to Paramètres du compte and add your SIRET number'
+        description:
+          'Go to Paramètres du compte and add your <span style="color:red">SIRET</span> number'
       }
     ]
   })

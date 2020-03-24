@@ -66,10 +66,11 @@ export default {
     usage: NotificationData.usage,
     openUsage: true,
     title: 'Ajout des documents nécessaires',
-    description: 'Go to Paramètres du compte and add your SIRET number',
+    description:
+      'Go to Paramètres du compte and add your <span style="color:red">SIRET</span> number',
     badgeTitle: 'En traitement',
     additionalTitle: '+ $42.20',
-    additionalDescription: '14 Nov 4:00 PM'
+    additionalDescription: '14 Nov 4:00 <span style="color: blue">PM</span>'
   })
 };
 </script>
