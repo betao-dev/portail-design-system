@@ -238,6 +238,10 @@ export default {
         padding-right: 16px;
         box-sizing: border-box;
 
+        &:last-child {
+          padding-right: 0px;
+        }
+
         .ds-title-wrapper {
           display: flex;
           align-items: center;
@@ -280,6 +284,9 @@ export default {
         background-color: @color-white;
         align-items: center;
         border-radius: 4px;
+        box-shadow: none;
+        border-color: white;
+        transition: all .2s;
 
         @media screen and (max-width: 551px) {
           flex-wrap: wrap;
@@ -313,7 +320,7 @@ export default {
         &:hover {
           border: 1px solid @color-gray-300;
           box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
-          padding: 9px 0;
+          transform: scale(1.002);
 
           span {
             &:first-child {
