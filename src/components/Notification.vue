@@ -205,6 +205,10 @@ export default {
             .highlight-text {
               font-family: 'Roboto Medium';
               color: @color-primary;
+
+              &:hover {
+                cursor: pointer;
+              }
             }
           }
         }
@@ -221,6 +225,7 @@ export default {
               font-family: 'Roboto Medium';
 
               &:hover {
+                cursor: pointer;
                 color: @color-dark;
               }
             }
