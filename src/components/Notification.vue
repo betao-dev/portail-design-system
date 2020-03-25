@@ -200,6 +200,13 @@ export default {
           font-size: 14px;
           letter-spacing: 0.2px;
           line-height: 21px;
+
+          &::v-deep {
+            .highlight-text {
+              font-family: 'Roboto Medium';
+              color: @color-primary;
+            }
+          }
         }
 
         .ds-notification-description-short {
@@ -208,6 +215,16 @@ export default {
           font-size: 14px;
           letter-spacing: 0.2px;
           line-height: 21px;
+
+          &::v-deep {
+            .highlight-text {
+              font-family: 'Roboto Medium';
+
+              &:hover {
+                color: @color-dark;
+              }
+            }
+          }
         }
       }
 
