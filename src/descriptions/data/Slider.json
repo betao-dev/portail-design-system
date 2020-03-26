@@ -19,6 +19,11 @@
       "name": "startIndex",
       "type": "Number",
       "description": "Set slide index of slider content from that Slider will start to display content"
+    },
+    {
+      "name": "actionType",
+      "type": "String",
+      "description": "Select terminate action type. slide or fade"
     }
   ],
   "events": []

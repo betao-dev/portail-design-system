@@ -1,6 +1,9 @@
 let usage = `
-<Slider :startIndex.sync="startIndex"
-        header="Testimonials">
+<Slider
+  :startIndex.sync="startIndex"
+  header="Testimonials"
+  actionType="fade"
+>
   <template #slider-1>
     <div class="ds-demo-slider-content">
       C'est vraiment pratique, l’utilisation du mini TPE est très complète

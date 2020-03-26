@@ -21,11 +21,16 @@
         </Icon>
       </div>
     </div>
-    <div class="ds-slider-body">
+    <div :class="{
+      'ds-slider-body': actionType === 'slide',
+      'ds-fade-body': actionType === 'fade'
+    }">
       <div
         :class="{
           'slide-left-to-right': slideLeftToRight,
-          'slide-right-to-left': slideRightToLeft
+          'slide-right-to-left': slideRightToLeft,
+          'fade-in': fadeIn,
+          'fade-out': fadeOut
         }"
       >
         <slot :name="activeSlider"></slot>
@@ -46,11 +51,17 @@ export default {
     header: String,
     width: String,
     height: String,
-    startIndex: Number
+    startIndex: Number,
+    actionType: {
+      type: String,
+      default: 'slide'
+    }
   },
   data: () => ({
     slideLeftToRight: false,
-    slideRightToLeft: false
+    slideRightToLeft: false,
+    fadeIn: false,
+    fadeOut: false
   }),
   computed: {
     activeSlider() {
@@ -85,10 +96,24 @@ export default {
       }
     },
     slideMove(activeSlide, direction) {
-      this[direction] = setTimeout(() => {
-        this.sliderStartIndex = activeSlide;
-        this[direction] = undefined;
-      }, 400);
+      if (this.actionType === 'slide') {
+        this[direction] = setTimeout(() => {
+          this.sliderStartIndex = activeSlide;
+          this[direction] = undefined;
+        }, 400);
+      } else if (this.actionType === 'fade') {
+        this.fadeOut = true
+
+        setTimeout(() => {
+          this.fadeOut = undefined;
+          this.fadeIn = true
+          this.sliderStartIndex = activeSlide;
+        }, 400);
+
+        setTimeout(() => {
+          this.fadeIn = false
+        }, 800);
+      }
     }
   }
 };
@@ -186,6 +211,82 @@ export default {
       animation-duration: 0.4s;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
+    }
+  }
+
+  .ds-fade-body {
+    @keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Firefox < 16 */
+    @-moz-keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Safari, Chrome and Opera > 12.1 */
+    @-webkit-keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Internet Explorer */
+    @-ms-keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Opera < 12.1 */
+    @-o-keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeout {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    /* Firefox < 16 */
+    @-moz-keyframes fadeout {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    /* Safari, Chrome and Opera > 12.1 */
+    @-webkit-keyframes fadeout {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    /* Internet Explorer */
+    @-ms-keyframes fadeout {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    /* Opera < 12.1 */
+    @-o-keyframes fadeout {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    .fade-in {
+      -webkit-animation: fadein 0.4s; /* Safari, Chrome and Opera > 12.1 */
+      -moz-animation: fadein 0.4s; /* Firefox < 16 */
+      -ms-animation: fadein 0.4s; /* Internet Explorer */
+      -o-animation: fadein 0.4s; /* Opera < 12.1 */
+      animation: fadein 0.4s;
+    }
+
+    .fade-out {
+      -webkit-animation: fadeout 0.4s; /* Safari, Chrome and Opera > 12.1 */
+      -moz-animation: fadeout 0.4s; /* Firefox < 16 */
+      -ms-animation: fadeout 0.4s; /* Internet Explorer */
+      -o-animation: fadeout 0.4s; /* Opera < 12.1 */
+      animation: fadeout 0.4s;
     }
   }
 }
