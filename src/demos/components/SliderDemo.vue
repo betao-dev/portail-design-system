@@ -81,7 +81,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .slider {
   margin-bottom: 20px;
 }

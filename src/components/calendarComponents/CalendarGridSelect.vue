@@ -27,11 +27,16 @@
             'ds-range': getRange(item),
             'ds-selected-range-start': getSelectedRangeStart(item),
             'ds-selected-range-end': getSelectedRangeEnd(item),
-            'ds-date-range-equality': dateRangeEquality
+            'ds-date-range-equality': dateRangeEquality,
+            'ds-multi-hover-range': getMultiHoverRange(item),
+            'ds-multi-hover-range-start': getHoverRangeStart(item),
+            'ds-multi-hover-range-end': getHoverRangeEnd(item)
           }
         ]"
         :tabindex="!item.disabled && 0"
         @click="!item.disabled && select(item)"
+        @mouseover="onMouseOver(item)"
+        @mouseout="onMouseOut"
         @keydown.enter.space.prevent="select(item)"
         :style="{ width: itemWidth, display: getDisplay }"
       >
@@ -72,6 +77,9 @@ export default {
     rangeAvailable: Boolean,
     view: String
   },
+  data: () => ({
+    multiHoverDate: undefined
+  }),
   computed: {
     cellWidth() {
       return cellWidth[this.view];
@@ -88,6 +96,12 @@ export default {
     secondInitDate() {
       return new Date(this.secondValue).getTime();
     },
+    multiHoverInitDate() {
+      return new Date(this.multiHoverDate).getTime();
+    },
+    isHoverDataExist() {
+      return this.initDate && this.secondInitDate && this.multiHoverInitDate;
+    },
     dateRangeExist() {
       return this.value && this.secondValue && this.rangeAvailable;
     },
@@ -100,6 +114,105 @@ export default {
     }
   },
   methods: {
+    onMouseOver(item) {
+      if (this.rangeAvailable && this.value) {
+        this.multiHoverDate = item;
+      }
+    },
+    onMouseOut() {
+      this.multiHoverDate = undefined;
+    },
+    getMultiHoverRange(item) {
+      const isHoverRange = this.dateRangeExist && this.isHoverDataExist;
+
+      if (isHoverRange && item.key !== undefined) {
+        if (this.initDate < this.secondInitDate) {
+          return (
+            (this.multiHoverInitDate < item.key && item.key < this.initDate) ||
+            (this.multiHoverInitDate > item.key &&
+              item.key > this.secondInitDate)
+          );
+        } else if (this.secondInitDate < this.initDate) {
+          return (
+            (this.multiHoverInitDate < item.key &&
+              item.key < this.secondInitDate) ||
+            (this.multiHoverInitDate > item.key && item.key > this.initDate)
+          );
+        }
+      } else if (isHoverRange) {
+        if (this.value < this.secondValue) {
+          return (
+            (this.multiHoverDate < item && item < this.value) ||
+            (this.multiHoverDate > item && item > this.secondValue)
+          );
+        } else if (this.secondValue < this.value) {
+          return (
+            (this.multiHoverDate < item && item < this.secondValue) ||
+            (this.multiHoverDate > item && item > this.value)
+          );
+        }
+      } else if (this.rangeAvailable && this.value) {
+        if (item.key !== undefined) {
+          return (
+            (this.initDate < item.key && item.key < this.multiHoverInitDate) ||
+            (this.initDate > item.key && item.key > this.multiHoverInitDate)
+          );
+        } else {
+          return (
+            (this.value < item && item < this.multiHoverDate) ||
+            (this.value > item && item > this.multiHoverDate)
+          );
+        }
+      } else {
+        return false;
+      }
+    },
+    getHoverRangeStart(item) {
+      if (this.isHoverDataExist && this.rangeAvailable) {
+        if (this.getSelectedRangeStart(item)) {
+          if (item.key !== undefined) {
+            return item.key > this.multiHoverInitDate;
+          } else {
+            return item > this.multiHoverDate;
+          }
+        }
+      } else if (this.value && this.rangeAvailable) {
+        return (
+          this.getSingleSelected(item, this.value, this.initDate) &&
+          this.multiHoverInitDate < this.initDate
+        );
+      } else {
+        return false;
+      }
+    },
+    getHoverRangeEnd(item) {
+      if (this.isHoverDataExist && this.rangeAvailable) {
+        const isBoundaryEnd =
+          (this.initDate < this.secondInitDate &&
+            this.secondInitDate < this.multiHoverInitDate) ||
+          (this.secondInitDate < this.initDate &&
+            this.initDate < this.multiHoverInitDate);
+
+        return (
+          isBoundaryEnd &&
+          this.getSingleSelected(
+            item,
+            this.multiHoverDate,
+            this.multiHoverInitDate
+          )
+        );
+      } else if (this.value && this.rangeAvailable) {
+        return (
+          this.getSingleSelected(
+            item,
+            this.multiHoverDate,
+            this.multiHoverInitDate
+          ) && this.multiHoverInitDate > this.initDate
+        );
+      } else {
+        return false;
+      }
+    },
     select(item) {
       this.$emit('input', item);
     },
@@ -224,6 +337,7 @@ export default {
               display: inline-block;
               color: @color-white;
               background-color: @color-primary;
+              border-radius: 4px;
               min-width: 28px;
             }
           }
@@ -258,6 +372,19 @@ export default {
         &.ds-date-range-equality {
           .ds-item {
             background-color: transparent;
+          }
+        }
+
+        &.ds-multi-hover-range {
+          .ds-item {
+            background-color: @color-gray-100;
+          }
+        }
+
+        &.ds-multi-hover-range-start,
+        &.ds-multi-hover-range-end {
+          .ds-item {
+            background-color: @color-gray-100;
           }
         }
       }
@@ -311,6 +438,7 @@ export default {
             font-family: 'Roboto Regular';
             &:hover {
               background-color: darken(@color-white, 10%);
+              border-radius: 4px;
             }
           }
         }
@@ -352,6 +480,7 @@ export default {
       .ds-item-cell {
         > .ds-item {
           > span {
+            border-radius: 4px;
             &:hover {
               background-color: darken(@color-white, 10%);
             }
@@ -360,6 +489,7 @@ export default {
           &.ds-selected-year,
           &.ds-selected-month {
             > span {
+              border-radius: 4px;
               &:hover {
                 background-color: darken(@color-primary, 10%);
               }

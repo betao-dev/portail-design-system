@@ -175,7 +175,7 @@
         <Button plain-two class="ds-datepicker-clear" @click="onClear()">
           Clear
         </Button>
-        <Button class="ds-datepicker-save" @click="onSave()">
+        <Button @click="onSave()">
           Save
         </Button>
       </div>
@@ -545,12 +545,23 @@ export default {
       };
     },
     selectDay(item) {
-      if (
-        this.value &&
-        this.secondDate &&
-        this.rangeAvailable &&
-        !this.dateUnset
-      ) {
+      const isDateRange = this.value && this.secondDate && this.rangeAvailable;
+      let getTimeItem = new Date(item).getTime();
+
+      if (isDateRange) {
+        const isItemEqualFirstDate =
+          getTimeItem == new Date(this.value).getTime();
+        const isItemEqualSecondDate =
+          getTimeItem == new Date(this.secondDate).getTime();
+
+        if (isItemEqualFirstDate || isItemEqualSecondDate) {
+          this.$emit('input', item);
+          this.$emit('update:secondDate', undefined);
+          return;
+        }
+      }
+
+      if (isDateRange && !this.dateUnset) {
         let dateMin, dateMax;
 
         if (this.value - this.secondDate < 0) {
@@ -654,6 +665,10 @@ export default {
     }
   },
   mounted() {
+    if (this.rangeAvailable) {
+      this.defaultDay = false;
+    }
+
     if (this.autoInitialize) {
       this.$emit('input', this.value);
     }
@@ -921,6 +936,10 @@ export default {
           text-transform: uppercase;
         }
       }
+
+      button {
+        border-radius: 4px;
+      }
     }
 
     .ds-close-icon {
@@ -997,6 +1016,7 @@ export default {
             margin-right: 30px;
 
             button {
+              border-radius: 4px;
               font-family: 'Roboto Medium';
               color: @color-gray-500;
             }
