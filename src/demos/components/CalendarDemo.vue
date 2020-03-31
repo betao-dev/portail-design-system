@@ -64,6 +64,8 @@
       v-model="dateValue6"
       :secondDate.sync="dateValue7"
       rangeAvailable
+      @maxSelectedDate="onMaxSelectedDate"
+      @minSelectedDate="onMinSelectedDate"
     />
 
     <Calendar
@@ -114,8 +116,18 @@ export default {
     wrapperStyleObject: {
       alignItems: 'flex-end'
     },
-    fullWidth: true
-  })
+    fullWidth: true,
+    maxSelectedDate: undefined,
+    minSelectedDate: undefined
+  }),
+  methods: {
+    onMaxSelectedDate(maxDate) {
+      this.maxSelectedDate = maxDate;
+    },
+    onMinSelectedDate(minDate) {
+      this.maxSelectedDate = minDate;
+    }
+  }
 };
 </script>
 

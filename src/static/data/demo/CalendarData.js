@@ -59,6 +59,8 @@ let usage = `
   v-model="dateValue6"
   :secondDate.sync="dateValue7"
   rangeAvailable
+  @maxSelectedDate="onMaxSelectedDate"
+  @minSelectedDate="onMinSelectedDate"
 />
 
 <Calendar
