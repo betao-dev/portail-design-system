@@ -475,6 +475,24 @@ export default {
           this.validationBacklight('invalidBacklight', 'validBacklight');
         }
       });
+    },
+    isMinMaxSelectDataExist() {
+      if (
+        this.rangeAvailable &&
+        this.calendarValue &&
+        this.calendarSecondValue
+      ) {
+        const firstDateTime = this.calendarValue.getTime();
+        const secondDateTime = this.calendarSecondValue.getTime();
+
+        if (firstDateTime > secondDateTime) {
+          this.$emit('maxSelectedDate', this.calendarValue);
+          this.$emit('minSelectedDate', this.calendarSecondValue);
+        } else {
+          this.$emit('maxSelectedDate', this.calendarSecondValue);
+          this.$emit('minSelectedDate', this.calendarValue);
+        }
+      }
     }
   },
   watch: {
@@ -510,6 +528,12 @@ export default {
       if (value) {
         this.validationBacklight('invalidBacklight', 'validBacklight');
       }
+    },
+    calendarValue() {
+      this.isMinMaxSelectDataExist();
+    },
+    calendarSecondValue() {
+      this.isMinMaxSelectDataExist();
     }
   },
   mounted() {
@@ -528,6 +552,7 @@ export default {
     document.addEventListener('validate', this.validate);
     this.$emit('validation', this.validation);
 
+    this.isMinMaxSelectDataExist();
     setTimeout(() => this.slideInit(), 500);
   },
   beforeDestroy() {
