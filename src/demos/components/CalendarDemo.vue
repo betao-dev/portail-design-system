@@ -125,7 +125,7 @@ export default {
       this.maxSelectedDate = maxDate;
     },
     onMinSelectedDate(minDate) {
-      this.maxSelectedDate = minDate;
+      this.minSelectedDate = minDate;
     }
   }
 };
