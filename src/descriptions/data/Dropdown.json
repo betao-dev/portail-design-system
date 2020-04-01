@@ -64,6 +64,18 @@
       "type": "Number",
       "default": "4",
       "description": "Set margin in px"
+    },
+    {
+      "name": "leftOffset",
+      "type": "Number",
+      "default": "0",
+      "description": "Left offset of component in px from pre-rendered position that depend on 'position' props"
+    },
+    {
+      "name": "topOffset",
+      "type": "Number",
+      "default": "0",
+      "description": "Top offset of component in px from pre-rendered position that depend on 'position' props"
     }
   ],
   "events": []

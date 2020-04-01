@@ -110,6 +110,14 @@ export default {
     margin: {
       type: Number,
       default: 4
+    },
+    leftOffset: {
+      type: Number,
+      default: 0
+    },
+    topOffset: {
+      type: Number,
+      default: 0
     }
   },
   data: () => ({
@@ -238,8 +246,8 @@ export default {
       }
 
       return {
-        left: left + 'px',
-        top: top + 'px'
+        left: `${left + this.leftOffset}px`,
+        top: `${top + this.topOffset}px`
       };
     },
     /**
