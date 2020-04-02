@@ -26,6 +26,7 @@
       placeholder="Date"
       :dateRange="{ min: 5, max: 10 }"
       v-model="dateValue3"
+      :auto-initialize="false"
     />
 
     <Calendar
@@ -53,25 +54,26 @@
     <Calendar
       md
       label="Changeable Range datepicker"
-      position="default modal"
+      position="bottom-middle modal"
       :backgroundColor="backgroundColor"
       :backdropOpacity="backdropOpacity"
       :wrapperStyleObject="wrapperStyleObject"
       :fullWidth="fullWidth"
       :borderColorDesktop="borderColor"
       positionChangeable
-      placeholder="Date"
+      placeholder="Sélectionner"
       v-model="dateValue6"
       :secondDate.sync="dateValue7"
       rangeAvailable
       @maxSelectedDate="onMaxSelectedDate"
       @minSelectedDate="onMinSelectedDate"
+      :auto-initialize="false"
     />
 
     <Calendar
       md
       label="Changeable Range datepicker with select list"
-      position="default modal"
+      position="bottom-middle modal"
       :backgroundColor="backgroundColor"
       :backdropOpacity="backdropOpacity"
       :wrapperStyleObject="wrapperStyleObject"

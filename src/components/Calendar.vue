@@ -23,12 +23,12 @@
 
       <CalendarIcon
         v-if="iconLeft"
-        source="today"
+        :source="getInputIcon"
         :size="iconSize"
         :color="iconColor"
         :class="['ds-calendar-icon-left', { 'active-icon': activeIcon }]"
         :padding="iconPadding"
-        @click="onIconClick"
+        @click.prevent="onIconClick"
       />
 
       <input
@@ -59,12 +59,12 @@
 
       <CalendarIcon
         v-if="!iconLeft"
-        source="today"
+        :source="getInputIcon"
         :size="iconSize"
         :color="iconColor"
         :class="{ 'active-icon': activeIcon }"
         :padding="iconPadding"
-        @click="onIconClick"
+        @click.prevent="onIconClick"
       />
 
       <div class="ds-drawer" v-if="inputErrors.length && validateAvailable">
@@ -94,6 +94,8 @@
         :selectDayList="selectDayList"
         :isMobile="isMobile"
         :dateUnset.sync="dateUnset"
+        :auto-initialize="autoInitialize"
+        :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
       ></Datepicker>
     </CalendarDropdown>
@@ -120,6 +122,8 @@
         :selectDayList="selectDayList"
         :isMobile="isMobile"
         :dateUnset.sync="dateUnset"
+        :auto-initialize="autoInitialize"
+        :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
       ></Datepicker>
     </CalendarDialog>
@@ -171,7 +175,7 @@ export default {
     },
     iconSize: {
       type: String,
-      default: '24px'
+      default: '18px'
     },
     iconColor: {
       type: String,
@@ -200,7 +204,11 @@ export default {
       type: Boolean,
       default: false
     },
-    inputBorderBacklight: Boolean
+    inputBorderBacklight: Boolean,
+    autoInitialize: {
+      type: Boolean,
+      default: true
+    }
   },
   data: () => ({
     calendarVisible: false,
@@ -216,7 +224,8 @@ export default {
     oldValue: undefined,
     validationTimeoutId: undefined,
     validBacklight: false,
-    invalidBacklight: false
+    invalidBacklight: false,
+    alternatingDateName: undefined
   }),
   computed: {
     inputValueWrapper() {
@@ -372,6 +381,9 @@ export default {
       return (
         this.inputErrors.length > 0 && this.validateAvailable && this.backlight
       );
+    },
+    getInputIcon() {
+      return this.value ? 'close' : 'calendar';
     }
   },
   methods: {
@@ -425,6 +437,15 @@ export default {
       document.body.style.overflowX = 'hidden';
     },
     onIconClick() {
+      if (this.value) {
+        this.dateUnset = true;
+        this.$emit('input', null);
+
+        if (this.rangeAvailable) {
+          this.$emit('update:secondDate', undefined);
+        }
+      }
+
       this.$emit('icon-click');
     },
     validate() {
@@ -723,7 +744,7 @@ export default {
   }
 
   input + .ds-calendar-icon {
-    pointer-events: none;
+    cursor: pointer;
     position: absolute;
     bottom: 8%;
     right: 6px;
@@ -732,7 +753,6 @@ export default {
 
   input + .active-icon {
     cursor: pointer;
-    pointer-events: auto;
   }
 
   input {
@@ -773,7 +793,7 @@ export default {
   }
 
   .ds-calendar-icon-left {
-    pointer-events: none;
+    cursor: pointer;
     position: absolute;
     bottom: 5px;
     left: 6px;

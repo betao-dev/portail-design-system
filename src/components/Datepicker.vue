@@ -166,7 +166,7 @@
           <div class="ds-select-day-list">
             <div @click="setInitDay">À la réception</div>
             <div v-for="i in 6" @click="setDayRange(i)">
-              Dans les {{ i * defaultMultiplicateur }} jours
+              Dans les {{ i * defaultMultiplier }} jours
             </div>
           </div>
         </div>
@@ -220,7 +220,8 @@ export default {
     autoInitialize: {
       type: Boolean,
       default: true
-    }
+    },
+    alternatingDateName: String
   },
   data() {
     return {
@@ -229,12 +230,10 @@ export default {
       ie:
         window.navigator.userAgent.indexOf('MSIE ') > 0 ||
         !!navigator.userAgent.match(/Trident.*rv:11\./),
-      defaultMultiplicateur: 15,
-      defaultDay: true
+      defaultMultiplier: 15,
+      defaultDay: true,
+      autoInitializeInit: false
     };
-  },
-  created() {
-    this.range && this.setRange();
   },
   computed: {
     additionalHeaderDate() {
@@ -583,14 +582,14 @@ export default {
           let diffSecondValue = Math.abs(this.secondDate - item);
 
           if (diffValue < diffSecondValue) {
-            this.$emit('input', item);
+            this.checkAlternating('input', item);
           } else {
-            this.$emit('update:secondDate', item);
+            this.checkAlternating('update:secondDate', item);
           }
         } else if (dateMax.value > item) {
-          this.$emit(dateMin.id, item);
+          this.checkAlternating(dateMin.id, item);
         } else {
-          this.$emit(dateMax.id, item);
+          this.checkAlternating(dateMax.id, item);
         }
       } else if (
         this.value &&
@@ -598,6 +597,11 @@ export default {
         !this.dateUnset &&
         !this.defaultDay
       ) {
+        if (!this.autoInitialize && !this.autoInitializeInit) {
+          this.$emit('input', this.value);
+          this.autoInitializeInit = true;
+        }
+
         this.$emit('update:secondDate', item);
       } else {
         this.$emit('input', item);
@@ -616,7 +620,7 @@ export default {
     setDayRange(multiplicateur) {
       let valueCopy = new Date(this.value.getTime());
       valueCopy.setDate(
-        valueCopy.getDate() + this.defaultMultiplicateur * multiplicateur - 1
+        valueCopy.getDate() + this.defaultMultiplier * multiplicateur - 1
       );
       this.$emit('update:secondDate', valueCopy);
       this.onSave();
@@ -654,13 +658,23 @@ export default {
           }
         }
       }
+    },
+    checkAlternating(updateAlternating, item) {
+      if (updateAlternating === this.alternatingDateName) {
+        this.$emit('input', item);
+        this.$emit('update:secondDate', undefined);
+      } else {
+        this.$emit(updateAlternating, item);
+      }
     }
   },
   watch: {
     value(date) {
+      this.$emit('update:alternatingDateName', 'input');
       this.dateKey(date);
     },
     secondDate(date) {
+      this.$emit('update:alternatingDateName', 'update:secondDate');
       this.dateKey(date);
     }
   },
@@ -672,6 +686,8 @@ export default {
     if (this.autoInitialize) {
       this.$emit('input', this.value);
     }
+
+    this.autoInitializeInit = this.autoInitialize;
   }
 };
 </script>

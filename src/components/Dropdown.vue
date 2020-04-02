@@ -294,7 +294,7 @@ export default {
       el.style.opacity = '0';
       setTimeout(() => {
         el.style.opacity = '1';
-      }, 0)
+      }, 0);
       this.freezeScrollX = window.pageXOffset;
       this.freezeScrollY = window.pageYOffset;
       window.addEventListener('scroll', this.preventScroll);
