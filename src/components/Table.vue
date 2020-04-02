@@ -286,7 +286,7 @@ export default {
         border-radius: 4px;
         box-shadow: none;
         border-color: white;
-        transition: all 0.2s;
+        box-sizing: border-box;
 
         @media screen and (max-width: 551px) {
           flex-wrap: wrap;
@@ -320,7 +320,10 @@ export default {
         &:hover {
           border: 1px solid @color-gray-300;
           box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
-          transform: scale(1.002);
+          padding: 9px 0;
+          z-index: 99;
+          margin-right: -2px;
+          margin-left: -1px;
 
           span {
             &:first-child {

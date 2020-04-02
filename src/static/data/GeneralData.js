@@ -28,6 +28,7 @@ let clients = [
     }
   },
   {
+    id: '1',
     name: 'Adam L2',
     type: { name: 'Company' },
     earned: '3,123.34',
@@ -38,6 +39,7 @@ let clients = [
     status: 'converted'
   },
   {
+    id: '2',
     name: 'Adam L3',
     type: { name: 'Company' },
     earned: '3,123.34',
@@ -48,6 +50,7 @@ let clients = [
     status: 'expired'
   },
   {
+    id: '3',
     name: 'Adam L4',
     type: { name: 'Person' },
     earned: '3,123.34',
@@ -58,6 +61,7 @@ let clients = [
     status: 'sent'
   },
   {
+    id: '4',
     name: 'Adam L2',
     type: { name: 'Company' },
     earned: '3,123.34',
