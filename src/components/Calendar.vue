@@ -16,7 +16,7 @@
             ? 'ds-slide-label-inactive'
             : ''
         ]"
-        @click="onInputPrevent($event, true)"
+        @click="onInputPrevent($event)"
       >
         {{ label }}
       </div>
@@ -34,6 +34,7 @@
       <input
         type="tel"
         v-model="inputValueWrapper"
+        :maxlength="getMaxlength"
         :class="[
           'ds-has-icon',
           {
@@ -50,11 +51,9 @@
         :style="getStyle"
         :placeholder="placeholder"
         :disabled="disabled"
-        @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
         @blur="inputBlur"
-        @mousedown="onInputPrevent($event)"
-        readonly
+        @keypress="onKeyPress"
       />
 
       <CalendarIcon
@@ -132,6 +131,7 @@
 
 <script>
 import _ from 'lodash';
+import moment from 'moment';
 
 import Datepicker from './Datepicker';
 import CalendarDropdown from './calendarComponents/CalendarDropdown';
@@ -225,18 +225,78 @@ export default {
     validationTimeoutId: undefined,
     validBacklight: false,
     invalidBacklight: false,
-    alternatingDateName: undefined
+    alternatingDateName: undefined,
+    editMode: false,
+    inputModifyValue: undefined,
+    inputModifyValuePreviousLength: undefined
   }),
   computed: {
-    inputValueWrapper() {
-      if (this.dateUnset) {
-        return '';
-      } else if (!this.secondDate) {
-        return this.inputValue;
-      } else if (this.value < this.secondDate) {
-        return `${this.inputValue} - ${this.secondInputValue}`;
-      } else {
-        return `${this.secondInputValue} - ${this.inputValue}`;
+    inputValueWrapper: {
+      get() {
+        if (!this.editMode) {
+          if (this.dateUnset) {
+            return '';
+          } else if (!this.secondDate) {
+            return this.inputValue;
+          } else if (this.value < this.secondDate) {
+            return `${this.inputValue} - ${this.secondInputValue}`;
+          } else {
+            return `${this.secondInputValue} - ${this.inputValue}`;
+          }
+        } else {
+          return this.inputModifyValue;
+        }
+      },
+      set(value) {
+        let lastIndex;
+        if (this.inputModifyValuePreviousLength <= value.length) {
+          switch (value.length) {
+            case 10:
+              this.inputModifyValue = this.rangeAvailable
+                ? value + ' - '
+                : value;
+              break;
+            case 11:
+              // eslint-disable-next-line no-case-declarations
+              lastIndex = value.length - 1;
+              if (value[lastIndex] !== ' ') {
+                let endString = ` - ${value[lastIndex]}`;
+                this.inputModifyValue = value.slice(0, lastIndex) + endString;
+              }
+              break;
+            case 2:
+            case 5:
+            case 15:
+            case 18:
+              this.inputModifyValue = value + '/';
+              break;
+            case 3:
+            case 6:
+            case 16:
+            case 19:
+              // eslint-disable-next-line no-case-declarations
+              lastIndex = value.length - 1;
+              if (value[lastIndex] !== '/') {
+                let endString = `/${value[lastIndex]}`;
+                this.inputModifyValue = value.slice(0, lastIndex) + endString;
+              }
+              break;
+            default:
+              this.inputModifyValue = value;
+              break;
+          }
+        } else {
+          this.inputModifyValue = value;
+        }
+
+        this.inputModifyValuePreviousLength = this.inputModifyValue.length;
+
+        if (this.inputModifyValuePreviousLength === 10) {
+          // console.log('moment ', moment(this.inputModifyValue.slice(0, 10)).format('DD/MM/YYYY'));
+        }
+
+        if (this.inputModifyValuePreviousLength === 23) {
+        }
       }
     },
     inputValue() {
@@ -280,6 +340,7 @@ export default {
         return date;
       },
       set(value) {
+        this.editMode = false;
         this.$emit('input', value);
       }
     },
@@ -290,6 +351,7 @@ export default {
           : null;
       },
       set(value) {
+        this.editMode = false;
         this.$emit('update:secondDate', value);
       }
     },
@@ -383,15 +445,36 @@ export default {
       );
     },
     getInputIcon() {
-      return this.value ? 'close' : 'calendar';
+      return (this.value && this.editMode === false) ||
+        (this.editMode === true &&
+          (this.inputModifyValuePreviousLength === 10 ||
+            this.inputModifyValuePreviousLength === 23))
+        ? 'close'
+        : 'calendar';
+    },
+    getMaxlength() {
+      return this.rangeAvailable ? 23 : 10;
     }
   },
   methods: {
-    onInputPrevent(event, callInputFocus) {
-      event.preventDefault();
-      if (callInputFocus) {
-        this.inputFocus();
+    onKeyPress(event) {
+      this.inputModifyValue = this.inputValueWrapper;
+      this.inputModifyValuePreviousLength = _.get(
+        this,
+        'inputModifyValue.length',
+        0
+      );
+      this.editMode = true;
+      event = event ? event : window.event;
+      let charCode = event.which ? event.which : event.keyCode;
+
+      if ((charCode > 31 && charCode < 48) || charCode > 57) {
+        event.preventDefault();
       }
+    },
+    onInputPrevent(event) {
+      event.preventDefault();
+      this.inputFocus();
     },
     inputFocus() {
       if (this.slideLabel) {
@@ -399,9 +482,11 @@ export default {
         this.slideActive = true;
       }
       this.touched = true;
-
       this.calendarVisible = !this.calendarVisible;
-      this.$refs.input.blur();
+
+      if (this.getCalendarPosition === 'modal') {
+        this.$refs.input.blur();
+      }
 
       this.$emit('inputFocus');
     },
@@ -437,13 +522,15 @@ export default {
       document.body.style.overflowX = 'hidden';
     },
     onIconClick() {
-      if (this.value) {
+      if (this.value && !this.editMode) {
         this.dateUnset = true;
         this.$emit('input', null);
 
         if (this.rangeAvailable) {
           this.$emit('update:secondDate', undefined);
         }
+      } else if (this.inputModifyValue && this.editMode) {
+        this.inputModifyValue = undefined;
       }
 
       this.$emit('icon-click');
