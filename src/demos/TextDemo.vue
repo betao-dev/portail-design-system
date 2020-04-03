@@ -3,7 +3,7 @@
     <div class="row-col">
       <h2>Fonts</h2>
 
-      <h3>Lato</h3>
+      <h3>Roboto</h3>
       The font is linked trough css. Available specimens:<br />
 
       <div class="font-demo">
