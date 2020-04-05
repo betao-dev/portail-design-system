@@ -16,7 +16,7 @@
             ? 'ds-slide-label-inactive'
             : ''
         ]"
-        @click="onInputPrevent($event)"
+        @click.prevent="onInputPrevent()"
       >
         {{ label }}
       </div>
@@ -96,6 +96,7 @@
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
+        @selectDate="onSelectDate"
       ></Datepicker>
     </CalendarDropdown>
 
@@ -124,6 +125,7 @@
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
+        @selectDate="onSelectDate"
       ></Datepicker>
     </CalendarDialog>
   </div>
@@ -131,7 +133,6 @@
 
 <script>
 import _ from 'lodash';
-import moment from 'moment';
 
 import Datepicker from './Datepicker';
 import CalendarDropdown from './calendarComponents/CalendarDropdown';
@@ -228,7 +229,7 @@ export default {
     alternatingDateName: undefined,
     editMode: false,
     inputModifyValue: undefined,
-    inputModifyValuePreviousLength: undefined
+    inputModifyValuePreviousLength: 0
   }),
   computed: {
     inputValueWrapper: {
@@ -292,10 +293,12 @@ export default {
         this.inputModifyValuePreviousLength = this.inputModifyValue.length;
 
         if (this.inputModifyValuePreviousLength === 10) {
-          // console.log('moment ', moment(this.inputModifyValue.slice(0, 10)).format('DD/MM/YYYY'));
+          this.calcCalendarFirstValue(this.inputModifyValue);
         }
 
         if (this.inputModifyValuePreviousLength === 23) {
+          this.calcCalendarFirstValue(this.inputModifyValue);
+          this.calcCalendarSecondValue(this.inputModifyValue);
         }
       }
     },
@@ -340,7 +343,6 @@ export default {
         return date;
       },
       set(value) {
-        this.editMode = false;
         this.$emit('input', value);
       }
     },
@@ -351,7 +353,6 @@ export default {
           : null;
       },
       set(value) {
-        this.editMode = false;
         this.$emit('update:secondDate', value);
       }
     },
@@ -457,13 +458,28 @@ export default {
     }
   },
   methods: {
-    onKeyPress(event) {
-      this.inputModifyValue = this.inputValueWrapper;
-      this.inputModifyValuePreviousLength = _.get(
-        this,
-        'inputModifyValue.length',
-        0
+    onSelectDate() {
+      this.editMode = false;
+    },
+    calcCalendarFirstValue(value) {
+      this.calendarValue = new Date(
+        value
+          .slice(0, 10)
+          .split('/')
+          .reverse()
+          .join('-')
       );
+    },
+    calcCalendarSecondValue(value) {
+      this.calendarSecondValue = new Date(
+        value
+          .slice(13)
+          .split('/')
+          .reverse()
+          .join('-')
+      );
+    },
+    onKeyPress(event) {
       this.editMode = true;
       event = event ? event : window.event;
       let charCode = event.which ? event.which : event.keyCode;
@@ -472,8 +488,7 @@ export default {
         event.preventDefault();
       }
     },
-    onInputPrevent(event) {
-      event.preventDefault();
+    onInputPrevent() {
       this.inputFocus();
     },
     inputFocus() {

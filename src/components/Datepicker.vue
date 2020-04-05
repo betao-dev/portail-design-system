@@ -505,6 +505,7 @@ export default {
       } else if (this.view === 'day') {
         this.selectDay(new Date(item.valueOf()));
       }
+      this.$emit('selectDate');
       this.$emit('update:dateUnset', false);
     },
     shift(delta) {
@@ -605,6 +606,10 @@ export default {
         this.$emit('update:secondDate', item);
       } else {
         this.$emit('input', item);
+        if (!this.autoInitialize && !this.autoInitializeInit) {
+          this.onSave();
+          this.autoInitializeInit = true;
+        }
       }
 
       this.defaultDay = false;
@@ -672,6 +677,7 @@ export default {
     value(date) {
       this.$emit('update:alternatingDateName', 'input');
       this.dateKey(date);
+      this.displayed = new Date(date);
     },
     secondDate(date) {
       this.$emit('update:alternatingDateName', 'update:secondDate');
