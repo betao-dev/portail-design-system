@@ -164,9 +164,9 @@
           class="ds-select-day-list-wrapper"
         >
           <div class="ds-select-day-list">
-            <div @click="setInitDay">À la réception</div>
-            <div v-for="i in 6" @click="setDayRange(i)">
-              Dans les {{ i * defaultMultiplier }} jours
+            <div @click="setInitDay">Aujourd'hui</div>
+            <div v-for="i in dateRangeList" @click="setDayRange(i)">
+              Il y a {{ i }} jours
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default {
       ie:
         window.navigator.userAgent.indexOf('MSIE ') > 0 ||
         !!navigator.userAgent.match(/Trident.*rv:11\./),
-      defaultMultiplier: 15,
+      dateRangeList: [15, 30, 40, 60, 90],
       defaultDay: true,
       autoInitializeInit: false
     };
@@ -622,11 +622,9 @@ export default {
     setInitDay() {
       this.$emit('update:secondDate', undefined);
     },
-    setDayRange(multiplicateur) {
+    setDayRange(range) {
       let valueCopy = new Date(this.value.getTime());
-      valueCopy.setDate(
-        valueCopy.getDate() + this.defaultMultiplier * multiplicateur - 1
-      );
+      valueCopy.setDate(valueCopy.getDate() + range - 1);
       this.$emit('update:secondDate', valueCopy);
       this.onSave();
     },
@@ -868,7 +866,7 @@ export default {
 
         > div {
           cursor: pointer;
-          margin-bottom: 13px;
+          margin-bottom: 20px;
         }
       }
     }
