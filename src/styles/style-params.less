@@ -89,25 +89,34 @@
   line-height: @font-desktop-small-regular-gray-line-height;
 }
 
+.calendar-placeholder-base() {
+  height: 21px;
+  color: @color-gray-400;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
 .input-placeholder() {
   &::-webkit-input-placeholder {
-    .font-desktop-input-small-regular-gray-base();
+    .calendar-placeholder-base();
   }
 
   &:-moz-placeholder{
-    .font-desktop-input-small-regular-gray-base();
+    .calendar-placeholder-base();
   }
 
   &::-moz-placeholder{
-    .font-desktop-input-small-regular-gray-base();
+    .calendar-placeholder-base();
   }
 
   &:-ms-input-placeholder{
-    .font-desktop-input-small-regular-gray-base();
+    .calendar-placeholder-base();
   }
 
   &::placeholder {
-    .font-desktop-input-small-regular-gray-base();
+    .calendar-placeholder-base();
   }
 }
 

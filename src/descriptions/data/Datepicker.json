@@ -58,6 +58,11 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for auto initialize value of datepicker"
+    },
+    {
+      "name": "alternatingDateName",
+      "type": "String",
+      "description": "Allow handling next functionality like if we select a date and we go past - future - future or future - future or any same double combination, we only select that date"
     }
   ],
   "events": [

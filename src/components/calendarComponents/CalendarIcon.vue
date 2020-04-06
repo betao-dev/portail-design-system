@@ -20,7 +20,7 @@ export default {
     },
     size: {
       type: String,
-      default: '24px'
+      default: '18px'
     },
     padding: {
       type: String,

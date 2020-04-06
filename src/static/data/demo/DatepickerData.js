@@ -10,8 +10,9 @@ let usage = `
   v-model="dateSelected2"
   :secondDate.sync="secondDate"
   :dateUnset.sync="dateUnsetRange"
-  rangeAvailable>
-</Datepicker>
+  rangeAvailable
+  :alternatingDateName.sync="alternatingDateName"
+></Datepicker>
 `.slice(1);
 
 export default {

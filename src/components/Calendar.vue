@@ -16,24 +16,31 @@
             ? 'ds-slide-label-inactive'
             : ''
         ]"
-        @click="onInputPrevent($event, true)"
+        @click.prevent="onInputPrevent()"
       >
         {{ label }}
       </div>
 
       <CalendarIcon
         v-if="iconLeft"
-        source="today"
+        :source="getInputIcon"
         :size="iconSize"
         :color="iconColor"
-        :class="['ds-calendar-icon-left', { 'active-icon': activeIcon }]"
+        :class="[
+          'ds-calendar-icon-left',
+          {
+            'active-icon': activeIcon,
+            'ds-calendar-icon-input-empty': !inputValueWrapper
+          }
+        ]"
         :padding="iconPadding"
-        @click="onIconClick"
+        @click.prevent="onIconClick"
       />
 
       <input
         type="tel"
         v-model="inputValueWrapper"
+        :maxlength="getMaxlength"
         :class="[
           'ds-has-icon',
           {
@@ -50,21 +57,22 @@
         :style="getStyle"
         :placeholder="placeholder"
         :disabled="disabled"
-        @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
         @blur="inputBlur"
-        @mousedown="onInputPrevent($event)"
-        readonly
+        @keypress="onKeyPress"
       />
 
       <CalendarIcon
         v-if="!iconLeft"
-        source="today"
+        :source="getInputIcon"
         :size="iconSize"
         :color="iconColor"
-        :class="{ 'active-icon': activeIcon }"
+        :class="{
+          'active-icon': activeIcon,
+          'ds-calendar-icon-input-empty': !inputValueWrapper
+        }"
         :padding="iconPadding"
-        @click="onIconClick"
+        @click.prevent="onIconClick"
       />
 
       <div class="ds-drawer" v-if="inputErrors.length && validateAvailable">
@@ -94,7 +102,10 @@
         :selectDayList="selectDayList"
         :isMobile="isMobile"
         :dateUnset.sync="dateUnset"
+        :auto-initialize="autoInitialize"
+        :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
+        @selectDate="onResetEditDate"
       ></Datepicker>
     </CalendarDropdown>
 
@@ -120,7 +131,10 @@
         :selectDayList="selectDayList"
         :isMobile="isMobile"
         :dateUnset.sync="dateUnset"
+        :auto-initialize="autoInitialize"
+        :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
+        @selectDate="onResetEditDate"
       ></Datepicker>
     </CalendarDialog>
   </div>
@@ -171,7 +185,7 @@ export default {
     },
     iconSize: {
       type: String,
-      default: '24px'
+      default: '18px'
     },
     iconColor: {
       type: String,
@@ -200,7 +214,11 @@ export default {
       type: Boolean,
       default: false
     },
-    inputBorderBacklight: Boolean
+    inputBorderBacklight: Boolean,
+    autoInitialize: {
+      type: Boolean,
+      default: true
+    }
   },
   data: () => ({
     calendarVisible: false,
@@ -216,18 +234,31 @@ export default {
     oldValue: undefined,
     validationTimeoutId: undefined,
     validBacklight: false,
-    invalidBacklight: false
+    invalidBacklight: false,
+    alternatingDateName: undefined,
+    editMode: false,
+    inputEdit: undefined,
+    inputEditLength: 0
   }),
   computed: {
-    inputValueWrapper() {
-      if (this.dateUnset) {
-        return '';
-      } else if (!this.secondDate) {
-        return this.inputValue;
-      } else if (this.value < this.secondDate) {
-        return `${this.inputValue} - ${this.secondInputValue}`;
-      } else {
-        return `${this.secondInputValue} - ${this.inputValue}`;
+    inputValueWrapper: {
+      get() {
+        if (!this.editMode) {
+          if (this.dateUnset) {
+            return '';
+          } else if (!this.secondDate) {
+            return this.inputValue;
+          } else if (this.value < this.secondDate) {
+            return `${this.inputValue} - ${this.secondInputValue}`;
+          } else {
+            return `${this.secondInputValue} - ${this.inputValue}`;
+          }
+        } else {
+          return this.inputEdit;
+        }
+      },
+      set(value) {
+        this.setInputValueWrapper(value);
       }
     },
     inputValue() {
@@ -372,14 +403,157 @@ export default {
       return (
         this.inputErrors.length > 0 && this.validateAvailable && this.backlight
       );
+    },
+    getInputIcon() {
+      return this.inputValueWrapper ? 'close' : 'calendar';
+    },
+    getMaxlength() {
+      return this.rangeAvailable ? 23 : 10;
     }
   },
   methods: {
-    onInputPrevent(event, callInputFocus) {
-      event.preventDefault();
-      if (callInputFocus) {
-        this.inputFocus();
+    setInputValueWrapper(value) {
+      let lastIndex = value.length - 1;
+
+      if (this.inputEditLength < value.length) {
+        switch (value.length) {
+          case 11:
+            this.checkMissedString(value, lastIndex, ' ', ' - ');
+            break;
+          case 12:
+            this.checkMissedString(value, lastIndex, '-', '- ');
+            break;
+          case 13:
+            this.checkMissedString(value, lastIndex, ' ', ' ');
+            break;
+          case 2:
+          case 5:
+          case 15:
+          case 18:
+            this.inputEdit = value + '/';
+            break;
+          case 3:
+          case 6:
+          case 16:
+          case 19:
+            this.checkMissedString(value, lastIndex, '/', '/');
+            break;
+          default:
+            this.inputEdit = value;
+            break;
+        }
+      } else {
+        this.inputEdit = value;
       }
+
+      this.inputEditLength = this.inputEdit.length;
+
+      if (this.inputEditLength === 0) {
+        this.resetDates();
+      }
+
+      if (this.inputEditLength === 10) {
+        this.resetDates();
+        this.calcCalendarFirstValue(this.inputEdit);
+      }
+
+      if (this.inputEditLength === 23) {
+        this.calcCalendarFirstValue(this.inputEdit);
+        this.calcCalendarSecondValue(this.inputEdit);
+      }
+    },
+    checkMissedString(value, lastIndex, lastCharacter, insertString) {
+      if (value[lastIndex] !== lastCharacter) {
+        let endString = `${insertString}${value[lastIndex]}`;
+        this.inputEdit = value.slice(0, lastIndex) + endString;
+      }
+    },
+    resetDates() {
+      this.$emit('input', null);
+      if (this.rangeAvailable) {
+        this.$emit('update:secondDate', undefined);
+      }
+    },
+    onResetEditDate() {
+      this.editMode = false;
+      this.inputEdit = undefined;
+    },
+    calcCalendarFirstValue(value) {
+      this.calendarValue = new Date(
+        value
+          .slice(0, 10)
+          .split('/')
+          .reverse()
+          .join('-')
+      );
+    },
+    calcCalendarSecondValue(value) {
+      this.calendarSecondValue = new Date(
+        value
+          .slice(13)
+          .split('/')
+          .reverse()
+          .join('-')
+      );
+    },
+    onKeyPress(event) {
+      this.editMode = true;
+      event = event ? event : window.event;
+      const charCode = event.which ? event.which : event.keyCode;
+      const systemCharCodes = charCode > 31 && charCode < 48;
+
+      /*
+        preventing the first character of the day's number
+        be more than 3 for calendarValue and calendarSecondValue
+      */
+      if (
+        (this.inputEditLength === 0 || this.inputEditLength === 10) &&
+        (systemCharCodes || charCode > 51)
+      ) {
+        event.preventDefault();
+      }
+
+      /*
+        preventing the second character of the day's number be more than 1,
+        if the first character more than 2 for calendarValue and calendarSecondValue
+      */
+      if (
+        ((this.inputEditLength === 1 && this.inputEdit[0] > 2) ||
+          (this.inputEditLength === 14 && this.inputEdit[13] > 2)) &&
+        (systemCharCodes || charCode > 49)
+      ) {
+        event.preventDefault();
+      }
+
+      /*
+        preventing the first character of the mounth's number
+        be more than 1 for calendarValue and calendarSecondValue
+       */
+      if (
+        (this.inputEditLength === 3 || this.inputEditLength === 16) &&
+        (systemCharCodes || charCode > 49)
+      ) {
+        event.preventDefault();
+      }
+
+      /*
+        preventing the second character of the mounth's number be more than 2,
+        if the first character more than 0 for calendarValue and calendarSecondValue
+      */
+      if (
+        ((this.inputEditLength === 4 && this.inputEdit[3] > 0) ||
+          (this.inputEditLength === 17 && this.inputEdit[16] > 0)) &&
+        (systemCharCodes || charCode > 50)
+      ) {
+        event.preventDefault();
+      }
+
+      if (systemCharCodes || charCode > 57) {
+        event.preventDefault();
+      }
+    },
+    onInputPrevent() {
+      this.inputFocus();
     },
     inputFocus() {
       if (this.slideLabel) {
@@ -387,9 +561,11 @@ export default {
         this.slideActive = true;
       }
       this.touched = true;
-
       this.calendarVisible = !this.calendarVisible;
-      this.$refs.input.blur();
+
+      if (this.getCalendarPosition === 'modal') {
+        this.$refs.input.blur();
+      }
 
       this.$emit('inputFocus');
     },
@@ -425,6 +601,11 @@ export default {
       document.body.style.overflowX = 'hidden';
     },
     onIconClick() {
+      if (this.inputEdit) {
+        this.onResetEditDate();
+      }
+
+      this.resetDates();
       this.$emit('icon-click');
     },
     validate() {
@@ -723,7 +904,7 @@ export default {
   }
 
   input + .ds-calendar-icon {
-    pointer-events: none;
+    cursor: pointer;
     position: absolute;
     bottom: 8%;
     right: 6px;
@@ -732,7 +913,6 @@ export default {
 
   input + .active-icon {
     cursor: pointer;
-    pointer-events: auto;
   }
 
   input {
@@ -773,7 +953,7 @@ export default {
   }
 
   .ds-calendar-icon-left {
-    pointer-events: none;
+    cursor: pointer;
     position: absolute;
     bottom: 5px;
     left: 6px;
@@ -782,6 +962,10 @@ export default {
 
   .ds-calendar-icon-left + input {
     padding-left: 40px;
+  }
+
+  .ds-calendar-icon-input-empty {
+    pointer-events: none;
   }
 }
 </style>

@@ -36,6 +36,7 @@
         :secondDate.sync="secondDate"
         :dateUnset.sync="dateUnsetRange"
         rangeAvailable
+        :alternatingDateName.sync="alternatingDateName"
       ></Datepicker>
     </div>
   </div>
@@ -62,7 +63,8 @@ export default {
       usage: DatepickerData.usage,
       openUsage: true,
       dateUnset: false,
-      dateUnsetRange: false
+      dateUnsetRange: false,
+      alternatingDateName: undefined
     };
   }
 };
