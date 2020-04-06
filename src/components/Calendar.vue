@@ -26,7 +26,13 @@
         :source="getInputIcon"
         :size="iconSize"
         :color="iconColor"
-        :class="['ds-calendar-icon-left', { 'active-icon': activeIcon }]"
+        :class="[
+          'ds-calendar-icon-left',
+          {
+            'active-icon': activeIcon,
+            'ds-calendar-icon-input-empty': !inputValueWrapper
+          }
+        ]"
         :padding="iconPadding"
         @click.prevent="onIconClick"
       />
@@ -61,7 +67,10 @@
         :source="getInputIcon"
         :size="iconSize"
         :color="iconColor"
-        :class="{ 'active-icon': activeIcon }"
+        :class="{
+          'active-icon': activeIcon,
+          'ds-calendar-icon-input-empty': !inputValueWrapper
+        }"
         :padding="iconPadding"
         @click.prevent="onIconClick"
       />
@@ -96,7 +105,7 @@
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
-        @selectDate="onSelectDate"
+        @selectDate="onResetEditDate"
       ></Datepicker>
     </CalendarDropdown>
 
@@ -125,7 +134,7 @@
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
         @save="onSave"
-        @selectDate="onSelectDate"
+        @selectDate="onResetEditDate"
       ></Datepicker>
     </CalendarDialog>
   </div>
@@ -228,8 +237,8 @@ export default {
     invalidBacklight: false,
     alternatingDateName: undefined,
     editMode: false,
-    inputModifyValue: undefined,
-    inputModifyValuePreviousLength: 0
+    inputEdit: undefined,
+    inputEditLength: 0
   }),
   computed: {
     inputValueWrapper: {
@@ -245,61 +254,11 @@ export default {
             return `${this.secondInputValue} - ${this.inputValue}`;
           }
         } else {
-          return this.inputModifyValue;
+          return this.inputEdit;
         }
       },
       set(value) {
-        let lastIndex;
-        if (this.inputModifyValuePreviousLength <= value.length) {
-          switch (value.length) {
-            case 10:
-              this.inputModifyValue = this.rangeAvailable
-                ? value + ' - '
-                : value;
-              break;
-            case 11:
-              // eslint-disable-next-line no-case-declarations
-              lastIndex = value.length - 1;
-              if (value[lastIndex] !== ' ') {
-                let endString = ` - ${value[lastIndex]}`;
-                this.inputModifyValue = value.slice(0, lastIndex) + endString;
-              }
-              break;
-            case 2:
-            case 5:
-            case 15:
-            case 18:
-              this.inputModifyValue = value + '/';
-              break;
-            case 3:
-            case 6:
-            case 16:
-            case 19:
-              // eslint-disable-next-line no-case-declarations
-              lastIndex = value.length - 1;
-              if (value[lastIndex] !== '/') {
-                let endString = `/${value[lastIndex]}`;
-                this.inputModifyValue = value.slice(0, lastIndex) + endString;
-              }
-              break;
-            default:
-              this.inputModifyValue = value;
-              break;
-          }
-        } else {
-          this.inputModifyValue = value;
-        }
-
-        this.inputModifyValuePreviousLength = this.inputModifyValue.length;
-
-        if (this.inputModifyValuePreviousLength === 10) {
-          this.calcCalendarFirstValue(this.inputModifyValue);
-        }
-
-        if (this.inputModifyValuePreviousLength === 23) {
-          this.calcCalendarFirstValue(this.inputModifyValue);
-          this.calcCalendarSecondValue(this.inputModifyValue);
-        }
+        this.setInputValueWrapper(value);
       }
     },
     inputValue() {
@@ -446,20 +405,78 @@ export default {
       );
     },
     getInputIcon() {
-      return (this.value && this.editMode === false) ||
-        (this.editMode === true &&
-          (this.inputModifyValuePreviousLength === 10 ||
-            this.inputModifyValuePreviousLength === 23))
-        ? 'close'
-        : 'calendar';
+      return this.inputValueWrapper ? 'close' : 'calendar';
     },
     getMaxlength() {
       return this.rangeAvailable ? 23 : 10;
     }
   },
   methods: {
-    onSelectDate() {
+    setInputValueWrapper(value) {
+      let lastIndex = value.length - 1;
+
+      if (this.inputEditLength < value.length) {
+        switch (value.length) {
+          case 11:
+            this.checkMissedString(value, lastIndex, ' ', ' - ');
+            break;
+          case 12:
+            this.checkMissedString(value, lastIndex, '-', '- ');
+            break;
+          case 13:
+            this.checkMissedString(value, lastIndex, ' ', ' ');
+            break;
+          case 2:
+          case 5:
+          case 15:
+          case 18:
+            this.inputEdit = value + '/';
+            break;
+          case 3:
+          case 6:
+          case 16:
+          case 19:
+            this.checkMissedString(value, lastIndex, '/', '/');
+            break;
+          default:
+            this.inputEdit = value;
+            break;
+        }
+      } else {
+        this.inputEdit = value;
+      }
+
+      this.inputEditLength = this.inputEdit.length;
+
+      if (this.inputEditLength === 0) {
+        this.resetDates();
+      }
+
+      if (this.inputEditLength === 10) {
+        this.resetDates();
+        this.calcCalendarFirstValue(this.inputEdit);
+      }
+
+      if (this.inputEditLength === 23) {
+        this.calcCalendarFirstValue(this.inputEdit);
+        this.calcCalendarSecondValue(this.inputEdit);
+      }
+    },
+    checkMissedString(value, lastIndex, lastCharacter, insertString) {
+      if (value[lastIndex] !== lastCharacter) {
+        let endString = `${insertString}${value[lastIndex]}`;
+        this.inputEdit = value.slice(0, lastIndex) + endString;
+      }
+    },
+    resetDates() {
+      this.$emit('input', null);
+      if (this.rangeAvailable) {
+        this.$emit('update:secondDate', undefined);
+      }
+    },
+    onResetEditDate() {
       this.editMode = false;
+      this.inputEdit = undefined;
     },
     calcCalendarFirstValue(value) {
       this.calendarValue = new Date(
@@ -482,9 +499,56 @@ export default {
     onKeyPress(event) {
       this.editMode = true;
       event = event ? event : window.event;
-      let charCode = event.which ? event.which : event.keyCode;
+      const charCode = event.which ? event.which : event.keyCode;
+      const systemCharCodes = charCode > 31 && charCode < 48;
 
-      if ((charCode > 31 && charCode < 48) || charCode > 57) {
+      /*
+        preventing the first character of the day's number
+        be more than 3 for calendarValue and calendarSecondValue
+      */
+      if (
+        (this.inputEditLength === 0 || this.inputEditLength === 10) &&
+        (systemCharCodes || charCode > 51)
+      ) {
+        event.preventDefault();
+      }
+
+      /*
+        preventing the second character of the day's number be more than 1,
+        if the first character more than 2 for calendarValue and calendarSecondValue
+      */
+      if (
+        ((this.inputEditLength === 1 && this.inputEdit[0] > 2) ||
+          (this.inputEditLength === 14 && this.inputEdit[13] > 2)) &&
+        (systemCharCodes || charCode > 49)
+      ) {
+        event.preventDefault();
+      }
+
+      /*
+        preventing the first character of the mounth's number
+        be more than 1 for calendarValue and calendarSecondValue
+       */
+      if (
+        (this.inputEditLength === 3 || this.inputEditLength === 16) &&
+        (systemCharCodes || charCode > 49)
+      ) {
+        event.preventDefault();
+      }
+
+      /*
+        preventing the second character of the mounth's number be more than 2,
+        if the first character more than 0 for calendarValue and calendarSecondValue
+      */
+      if (
+        ((this.inputEditLength === 4 && this.inputEdit[3] > 0) ||
+          (this.inputEditLength === 17 && this.inputEdit[16] > 0)) &&
+        (systemCharCodes || charCode > 50)
+      ) {
+        event.preventDefault();
+      }
+
+      if (systemCharCodes || charCode > 57) {
         event.preventDefault();
       }
     },
@@ -537,17 +601,11 @@ export default {
       document.body.style.overflowX = 'hidden';
     },
     onIconClick() {
-      if (this.value && !this.editMode) {
-        this.dateUnset = true;
-        this.$emit('input', null);
-
-        if (this.rangeAvailable) {
-          this.$emit('update:secondDate', undefined);
-        }
-      } else if (this.inputModifyValue && this.editMode) {
-        this.inputModifyValue = undefined;
+      if (this.inputEdit) {
+        this.onResetEditDate();
       }
 
+      this.resetDates();
       this.$emit('icon-click');
     },
     validate() {
@@ -904,6 +962,10 @@ export default {
 
   .ds-calendar-icon-left + input {
     padding-left: 40px;
+  }
+
+  .ds-calendar-icon-input-empty {
+    pointer-events: none;
   }
 }
 </style>
