@@ -625,6 +625,7 @@ export default {
       }
 
       this.$emit('update:secondDate', undefined);
+      this.$emit('selectDate');
     },
     setDayRange(range) {
       let valueCopy = new Date(this.value.getTime());
@@ -635,6 +636,7 @@ export default {
       }
 
       this.$emit('update:secondDate', valueCopy);
+      this.$emit('selectDate');
       this.onSave();
     },
     getMonth(value, monthFormat, sliceEnd) {
