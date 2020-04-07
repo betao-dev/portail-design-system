@@ -620,22 +620,20 @@ export default {
       }
     },
     setInitDay() {
-      if (!this.autoInitialize) {
-        this.$emit('input', new Date());
-      }
-
-      this.$emit('update:secondDate', undefined);
-      this.$emit('selectDate');
+      this.setDaysRangeHelper(new Date(), undefined);
     },
     setDayRange(range) {
       let valueCopy = new Date(this.value.getTime());
       valueCopy.setDate(valueCopy.getDate() + range - 1);
 
+      this.setDaysRangeHelper(this.value, valueCopy);
+    },
+    setDaysRangeHelper(firstDate, secondDate) {
       if (!this.autoInitialize) {
-        this.$emit('input', this.value);
+        this.$emit('input', firstDate);
       }
 
-      this.$emit('update:secondDate', valueCopy);
+      this.$emit('update:secondDate', secondDate);
       this.$emit('selectDate');
       this.onSave();
     },
