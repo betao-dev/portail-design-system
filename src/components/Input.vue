@@ -386,11 +386,11 @@ export default {
     getStyle() {
       const style = {};
 
-      if (this.icon) {
+      if (this.icon || this.type === 'password') {
         style.paddingRight = this.calcIconPadding(
           _.get(this, 'generalIconStyle.right', '6px')
         );
-      } else if (this.iconLeft) {
+      } else if (this.iconLeft || this.type === 'password') {
         style.paddingLeft = this.calcIconPadding(
           _.get(this, 'generalIconStyle.left', '6px')
         );
@@ -416,8 +416,9 @@ export default {
     calcIconPadding(iconPadding) {
       let padding = this.getNumberFromStringPX(iconPadding);
       let iconSize = this.getNumberFromStringPX(this.iconSize);
+      let inputInitial = this.lg ? 16 : 12;
 
-      return `${padding + iconSize}px`;
+      return `${padding + iconSize + inputInitial}px`;
     },
     onInputClick(e) {
       this.$emit('click', e);
