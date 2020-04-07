@@ -620,6 +620,10 @@ export default {
       }
     },
     setInitDay() {
+      if (!this.autoInitialize) {
+        this.$emit('input', new Date());
+      }
+
       this.$emit('update:secondDate', undefined);
     },
     setDayRange(range) {
