@@ -625,6 +625,11 @@ export default {
     setDayRange(range) {
       let valueCopy = new Date(this.value.getTime());
       valueCopy.setDate(valueCopy.getDate() + range - 1);
+
+      if (!this.autoInitialize) {
+        this.$emit('input', this.value);
+      }
+
       this.$emit('update:secondDate', valueCopy);
       this.onSave();
     },
