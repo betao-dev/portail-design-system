@@ -85,6 +85,11 @@
       "name": "width",
       "type": "String",
       "description": "Set button width"
+    },
+    {
+      "name": "backgroundColor",
+      "type": "String",
+      "description": "Set background color"
     }
   ],
   "events": [

@@ -39,6 +39,11 @@
       "name": "buttonsWidth",
       "type": "String",
       "description": "Passing this props into bottom's buttons of confirmation modal component set up the width of buttons"
+    },
+    {
+      "name": "acceptButtonColor",
+      "type": "String",
+      "description": "Can contain color value that in case of exists this property will be passed to accept button"
     }
   ],
   "events": [

@@ -40,7 +40,12 @@
         }"
         :disabled="disabled"
         :target="target"
-        :style="{ padding, width, color: getTextColor }"
+        :style="{
+          padding,
+          width,
+          color: getTextColor,
+          backgroundColor: getBackgroundColor
+        }"
       >
         <Icon
           v-if="icon"
@@ -77,7 +82,12 @@
           'ds-button-alt-two': altTwo
         }"
         :disabled="disabled"
-        :style="{ padding, width, color: getTextColor }"
+        :style="{
+          padding,
+          width,
+          color: getTextColor,
+          backgroundColor: getBackgroundColor
+        }"
       >
         <Icon
           v-if="icon"
@@ -128,6 +138,7 @@ export default {
     padding: String,
     color: String,
     width: String,
+    backgroundColor: String,
     spaceBetween: {
       type: String,
       default: '8px'
@@ -157,6 +168,9 @@ export default {
     },
     getTextColor() {
       return this.COLORS[this.color] || this.color;
+    },
+    getBackgroundColor() {
+      return this.COLORS[this.backgroundColor] || this.backgroundColor;
     },
     getIconColor() {
       return this.COLORS[this.iconColor] || this.iconColor;
