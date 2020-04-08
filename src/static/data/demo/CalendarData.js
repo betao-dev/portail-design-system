@@ -3,6 +3,7 @@ let usage = `
   sm
   label="Date input"
   v-model="dateValue"
+  :auto-initialize="false"
 />
 
 <Calendar
