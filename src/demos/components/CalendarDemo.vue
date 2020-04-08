@@ -8,7 +8,12 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Calendar sm label="Date input" v-model="dateValue" />
+    <Calendar
+      sm
+      label="Date input"
+      v-model="dateValue"
+      :auto-initialize="false"
+    />
 
     <Calendar
       sm

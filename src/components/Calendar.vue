@@ -6,7 +6,7 @@
     <label :class="{ 'ds-no-label': !label }">
       <div
         v-if="label"
-        :id="id"
+        :id="labelId"
         :class="[
           'ds-label-text',
           { 'ds-slide-label': slideLabel, 'ds-label-focus': labelFocus },
@@ -29,11 +29,11 @@
         :class="[
           'ds-calendar-icon-left',
           {
-            'active-icon': activeIcon,
-            'ds-calendar-icon-input-empty': !inputValueWrapper
+            'active-icon': activeIcon
           }
         ]"
         :padding="iconPadding"
+        :id="iconId"
         @click.prevent="onIconClick"
       />
 
@@ -68,10 +68,10 @@
         :size="iconSize"
         :color="iconColor"
         :class="{
-          'active-icon': activeIcon,
-          'ds-calendar-icon-input-empty': !inputValueWrapper
+          'active-icon': activeIcon
         }"
         :padding="iconPadding"
+        :id="iconId"
         @click.prevent="onIconClick"
       />
 
@@ -88,7 +88,8 @@
       :opened.sync="calendarVisible"
       :position="getCalendarPosition"
       :borderColor="!isMobile && borderColorDesktop"
-      :labelId="id"
+      :labelId="labelId"
+      :iconId="iconId"
       :activeDatepickerComponent="activeCalendarComponent"
       :margin="marginDropdown"
       just-fade
@@ -227,7 +228,10 @@ export default {
     touched: false,
     windowWidth: window.innerWidth,
     positions: Array,
-    id: Math.random()
+    labelId: Math.random()
+      .toString(36)
+      .substring(7),
+    iconId: Math.random()
       .toString(36)
       .substring(7),
     dateUnset: false,
@@ -605,6 +609,16 @@ export default {
         this.onResetEditDate();
       }
 
+      if (!this.inputValueWrapper) {
+        this.calendarVisible = !this.calendarVisible;
+
+        if (this.calendarVisible) {
+          this.$refs.input.focus();
+        } else {
+          this.$refs.input.blur();
+        }
+      }
+
       this.resetDates();
       this.$emit('icon-click');
     },
@@ -916,7 +930,7 @@ export default {
   }
 
   input {
-    cursor: pointer;
+    cursor: auto;
   }
 
   .ds-drawer {
@@ -962,10 +976,6 @@ export default {
 
   .ds-calendar-icon-left + input {
     padding-left: 40px;
-  }
-
-  .ds-calendar-icon-input-empty {
-    pointer-events: none;
   }
 }
 </style>

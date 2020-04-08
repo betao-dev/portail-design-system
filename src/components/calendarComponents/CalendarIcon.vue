@@ -4,6 +4,7 @@
     v-html="code"
     v-on="$listeners"
     :style="stylesObject"
+    :id="id"
   >
   </span>
 </template>
@@ -30,7 +31,8 @@ export default {
     noSize: {
       type: Boolean,
       default: false
-    }
+    },
+    id: String
   },
   data: () => ({
     icons,

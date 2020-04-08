@@ -66,9 +66,8 @@ export default {
       type: Boolean,
       default: false
     },
-    labelId: {
-      type: String
-    },
+    labelId: String,
+    iconId: String,
     activeDatepickerComponent: {
       type: String
     },
@@ -342,7 +341,10 @@ export default {
         return;
       }
 
-      if (_.get(event, 'srcElement.id') === this.labelId) {
+      if (
+        _.get(event, 'srcElement.id') === this.labelId ||
+        _.get(event, 'srcElement.parentElement.id') === this.iconId
+      ) {
         return;
       }
 
