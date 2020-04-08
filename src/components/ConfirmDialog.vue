@@ -40,6 +40,7 @@
           padding="15px 40px"
           @click="acceptStatus"
           :width="buttonsWidth"
+          :[checkAcceptButtonColor]="acceptButtonColor"
           >{{ acceptLabel }}</Button
         >
       </div>
@@ -76,6 +77,7 @@ export default {
       type: String,
       default: 'Accept'
     },
+    acceptButtonColor: String,
     rejectLabel: {
       type: String,
       default: 'Cancel'
@@ -97,6 +99,9 @@ export default {
     },
     titleSlot() {
       return !!this.$scopedSlots['ds-confirm-title'];
+    },
+    checkAcceptButtonColor() {
+      return this.acceptButtonColor ? 'background-color' : null;
     }
   },
   methods: {
