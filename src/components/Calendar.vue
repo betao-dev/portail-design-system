@@ -105,6 +105,7 @@
         :dateUnset.sync="dateUnset"
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
+        :dayListPositive="dayListPositive"
         @save="onSave"
         @selectDate="onResetEditDate"
       ></Datepicker>
@@ -134,6 +135,7 @@
         :dateUnset.sync="dateUnset"
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
+        :dayListPositive="dayListPositive"
         @save="onSave"
         @selectDate="onResetEditDate"
       ></Datepicker>
@@ -209,6 +211,10 @@ export default {
     secondDate: null,
     rangeAvailable: Boolean,
     selectDayList: Boolean,
+    dayListPositive: {
+      type: Boolean,
+      default: true
+    },
     shortMonthFormat: Boolean,
     iconLeft: Boolean,
     backlight: {

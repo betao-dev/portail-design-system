@@ -164,9 +164,11 @@
           class="ds-select-day-list-wrapper"
         >
           <div class="ds-select-day-list">
-            <div @click="setInitDay">Aujourd'hui</div>
+            <div @click="setInitDay">
+              {{ dayListPositive ? 'À la réception' : "Aujourd'hui" }}
+            </div>
             <div v-for="i in dateRangeList" @click="setDayRange(i)">
-              Il y a {{ i }} jours
+              {{ dayListPositive ? 'Dans les' : 'Il y a' }} {{ i }} jours
             </div>
           </div>
         </div>
@@ -212,6 +214,10 @@ export default {
     secondDate: null,
     rangeAvailable: Boolean,
     selectDayList: Boolean,
+    dayListPositive: {
+      type: Boolean,
+      default: true
+    },
     isMobile: Boolean,
     dateUnset: {
       type: Boolean,
@@ -230,7 +236,7 @@ export default {
       ie:
         window.navigator.userAgent.indexOf('MSIE ') > 0 ||
         !!navigator.userAgent.match(/Trident.*rv:11\./),
-      dateRangeList: [15, 30, 40, 60, 90],
+      dateRangeList: [15, 30, 45, 60, 90],
       defaultDay: true,
       autoInitializeInit: false
     };
@@ -623,8 +629,9 @@ export default {
       this.setDaysRangeHelper(new Date(), undefined);
     },
     setDayRange(range) {
+      let rangeChangeDays = this.dayListPositive ? range - 1 : -range + 1;
       let valueCopy = new Date(this.value.getTime());
-      valueCopy.setDate(valueCopy.getDate() + range - 1);
+      valueCopy.setDate(valueCopy.getDate() + rangeChangeDays);
 
       this.setDaysRangeHelper(this.value, valueCopy);
     },
