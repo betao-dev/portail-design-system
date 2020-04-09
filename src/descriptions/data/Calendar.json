@@ -185,6 +185,12 @@
       "description": "Allowed display on desktop version of calendar sidebar on right side with list days for select of date range"
     },
     {
+      "name": "dayListPositive",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Set positive or negative days list range depend on the value"
+    },
+    {
       "name": "shortMonthFormat",
       "type": "Boolean",
       "description": "Set as true for displaying date in next format: 23 Nov 2019"

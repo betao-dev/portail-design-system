@@ -48,6 +48,12 @@
       "description": "Allowed display on desktop version of datepicker sidebar on right side with list days for select of date range"
     },
     {
+      "name": "dayListPositive",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Set positive or negative days list range depend on the value"
+    },
+    {
       "name": "dateUnset",
       "type": "Boolean",
       "default": "false",
