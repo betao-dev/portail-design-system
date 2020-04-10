@@ -271,7 +271,9 @@ export default {
     },
     getSingleSelected(item, date, dateMilles) {
       if (item.key !== undefined) {
-        return item.key === dateMilles;
+        return (
+          new Date(item.key).setHours(1) === new Date(dateMilles).setHours(1)
+        );
       } else {
         return item === date;
       }
