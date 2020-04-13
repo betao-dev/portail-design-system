@@ -50,13 +50,15 @@
             'ds-slide-input': slideLabel,
             'ds-text-right': textAlign === 'right',
             'ds-placeholder-md': placeholderMd,
-            'ds-calendar-input-focus': calendarVisible && inputBorderBacklight
+            'ds-calendar-input-focus': calendarVisible && inputBorderBacklight,
+            'ds-calendar-input-read': !editableMode
           }
         ]"
         ref="input"
         :style="getStyle"
         :placeholder="placeholder"
         :disabled="disabled"
+        :readonly="!editableMode"
         @click.prevent="inputFocus"
         @blur="inputBlur"
         @keypress="onKeyPress"
@@ -225,6 +227,10 @@ export default {
     autoInitialize: {
       type: Boolean,
       default: true
+    },
+    editableMode: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -894,6 +900,10 @@ export default {
     &.ds-valid-backlight {
       border-color: @color-primary;
       background-color: #e9f8f3;
+    }
+
+    &.ds-calendar-input-read {
+      cursor: pointer;
     }
 
     &:disabled {
