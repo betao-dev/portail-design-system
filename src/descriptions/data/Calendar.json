@@ -222,6 +222,12 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for auto initialize value of Calendar's input"
+    },
+    {
+      "name": "editableMode",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Allow manually writing date inside input of Calendar"
     }
   ],
   "events": [
