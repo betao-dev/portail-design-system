@@ -629,40 +629,13 @@ export default {
       this.setDaysRangeHelper(new Date(), undefined);
     },
     setDayRange(range) {
-      let firstDate, secondDate;
-      let firstDateMls = this.value.getTime();
       let rangeChangeDays = this.dayListPositive ? range - 1 : -range + 1;
-
-      if (!this.dayListPositive && this.secondDate) {
-        let secondDateMls = this.secondDate.getTime();
-
-        if (firstDateMls < secondDateMls) {
-          ({ firstDate, secondDate } = this.calcEdgeDates(
-            secondDateMls,
-            rangeChangeDays
-          ));
-        } else if (firstDateMls > secondDateMls) {
-          ({ firstDate, secondDate } = this.calcEdgeDates(
-            firstDateMls,
-            rangeChangeDays
-          ));
-        } else {
-          this.$emit('selectDate');
-          this.onSave();
-          return;
-        }
-      } else {
-        ({ firstDate, secondDate } = this.calcEdgeDates(
-          firstDateMls,
-          rangeChangeDays
-        ));
-      }
-
+      let { firstDate, secondDate } = this.calcEdgeDates(rangeChangeDays);
       this.setDaysRangeHelper(firstDate, secondDate);
     },
-    calcEdgeDates(initMls, rangeDays) {
-      let firstDate = new Date(initMls);
-      let secondDate = new Date(initMls);
+    calcEdgeDates(rangeDays) {
+      let firstDate = new Date();
+      let secondDate = new Date(firstDate.getTime());
       secondDate.setDate(secondDate.getDate() + rangeDays);
 
       return { firstDate, secondDate };
