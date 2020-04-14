@@ -8,7 +8,11 @@
       <div class="ds-notification-list-header">
         {{ title }}
       </div>
-      <div class="ds-notification-list-header-right" @click="onTitleRightClick">
+      <div
+        v-show="titleRight"
+        class="ds-notification-list-header-right"
+        @click="onTitleRightClick"
+      >
         {{ titleRight }}
       </div>
     </div>
@@ -51,7 +55,7 @@ export default {
     },
     width: String,
     title: String,
-    titleRight: String
+    titleRight: null
   },
   methods: {
     getSlotName(index) {

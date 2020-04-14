@@ -18,7 +18,7 @@
     },
     {
       "name": "titleRight",
-      "type": "String",
+      "type": "null",
       "description": "Represent the right title of the notification list component"
     },
     {
