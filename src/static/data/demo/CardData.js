@@ -1,7 +1,15 @@
 let usage = `
-<Card>Hello, World!</Card>
+<Card alt>
+  <div class="ds-card-content-wrapper">
+    Hello, World!
+  </div>
+</Card>
 <!-- OR -->
-<div class="ds-card">Hello, World!</div>
+<div class="ds-card ds-card-alt">
+  <div class="ds-card-content-wrapper">
+    Hello, World!
+  </div>
+</div>
 
 <!-- Dashboard Report card -->
 <Card class="ds-dashboard-report">
