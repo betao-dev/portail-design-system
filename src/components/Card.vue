@@ -8,12 +8,17 @@
     <Card>Hello, World!</Card>
 -->
 <template>
-  <div @click="onClick" class="ds-card"><slot></slot></div>
+  <div @click="onClick" :class="['ds-card', { 'ds-card-alt': alt }]">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Card',
+  props: {
+    alt: Boolean
+  },
   methods: {
     onClick() {
       this.$emit('click');
@@ -23,13 +28,19 @@ export default {
 </script>
 
 <style lang="less">
-@import '~@/styles/vars';
+@import '../styles/vars';
 
 .ds-card {
   border-radius: @card-br;
   background-color: @color-white;
   box-shadow: @card-shadow;
   padding: @card-padding;
+
+  &.ds-card-alt {
+    border-radius: 4px;
+    box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.16);
+    padding: 0;
+  }
 
   // Dashboard report card
   &.ds-dashboard-report {

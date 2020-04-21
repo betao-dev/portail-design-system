@@ -9,7 +9,13 @@
     </Collapser>
 
     <div class="ds-grid">
-      <div class="row-col"><Card>Hello, World!</Card></div>
+      <div class="row-col">
+        <Card alt>
+          <div class="ds-card-content-wrapper">
+            Hello, World!
+          </div>
+        </Card>
+      </div>
 
       <div class="row">
         <div class="col-4">
@@ -93,3 +99,8 @@ export default {
   })
 };
 </script>
+<style lang="less" scoped>
+.ds-card-content-wrapper {
+  padding: 20px 24px;
+}
+</style>

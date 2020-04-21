@@ -1,5 +1,11 @@
 {
-  "properties": [],
+  "properties": [
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "Provide the alternative style way"
+    }
+  ],
   "events": []
 }
 
