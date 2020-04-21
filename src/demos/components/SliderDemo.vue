@@ -59,6 +59,29 @@
         </div>
       </template>
     </Slider>
+
+    <Slider class="slider"
+            alt
+            :startIndex.sync="altSlideStartIndex"
+            actionType="slide"
+            header="Partenaires"
+            altHeaderRight="Tous les partenaires"
+            altButtonTitle="Découvrir"
+            altFooterTitle="MonaBanq"
+            altFooterAdditional="Finance">
+      <template #slider-1>
+        C'est vraiment pratique, l’utilisation du mini TPE est très complète
+        (en plus d’être beaucoup moins cher qu'un TPE classique en location).
+        Pouvoir faire en même temps caisse enregistreuse et avoir
+        immédiatement les statistiques des ventes, c'est un vrai plus !
+      </template>
+      <template #slider-2>
+        Slide 2
+      </template>
+      <template #slider-3>
+        Mister France
+      </template>
+    </Slider>
   </div>
 </template>
 
@@ -75,7 +98,8 @@ export default {
     openUsage: true,
     usage: SliderData.usage,
     slideStartIndex: 2,
-    fadeStartIndex: 1
+    fadeStartIndex: 1,
+    altSlideStartIndex: 1
   })
 };
 </script>

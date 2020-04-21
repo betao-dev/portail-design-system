@@ -1,5 +1,5 @@
 <template>
-  <div class="ds-slider" :style="{ width, height }">
+  <div class="ds-slider" :style="{ width, height }" v-if="!alt">
     <div class="ds-slider-header">
       <span class="ds-slider-title">{{ header }}</span>
       <div class="ds-title-header-controls" v-if="slideCount > 1">
@@ -39,15 +39,36 @@
       </div>
     </div>
   </div>
+  <div class="ds-slider-alt" v-else :style="{ width, height }">
+    <div class="ds-slider-alt-header">
+      <div>{{header}}</div>
+      <div>{{altHeaderRight}}</div>
+    </div>
+    <div class="ds-slider-alt-body"
+         :style="{ width: altBodyWidth, height: altBodyHeight }">
+      <slot :name="activeSlider"></slot>
+    </div>
+    <div class="ds-slider-alt-footer">
+      <div>
+        <div>{{altFooterTitle}}</div>
+        <div>{{altFooterAdditional}}</div>
+      </div>
+      <div>
+        <Button big padding="15px 30px">{{altButtonTitle}}</Button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Icon from './Icon';
+import Button from './Button';
 
 export default {
   name: 'Slider',
   components: {
-    Icon
+    Icon,
+    Button
   },
   props: {
     header: String,
@@ -57,7 +78,14 @@ export default {
     actionType: {
       type: String,
       default: 'slide'
-    }
+    },
+    alt: Boolean,
+    altBodyWidth: String,
+    altBodyHeight: String,
+    altHeaderRight: String,
+    altButtonTitle: String,
+    altFooterTitle: String,
+    altFooterAdditional: String
   },
   data: () => ({
     slideLeftToRight: false,
@@ -330,6 +358,27 @@ export default {
       -o-animation: fadeout 0.4s; /* Opera < 12.1 */
       animation: fadeout 0.4s;
     }
+  }
+}
+.ds-slider-alt {
+  width: 100%;
+  height: 100%;
+
+  .ds-slider-alt-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  }
+
+  .ds-slider-alt-body {
+
+  }
+
+  .ds-slider-alt-footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: @color-white;
+    padding: 20px;
   }
 }
 </style>
