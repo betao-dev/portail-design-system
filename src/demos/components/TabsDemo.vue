@@ -9,72 +9,106 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Tabs
-      :tabs="tabs"
-      :active="active"
-      :enableLoader="enableLoader"
-      :disabled="disabled"
-      :additional-content-styles="styles"
-      tabs-align="flex-start"
-      alt-tabs
-      @tab:click="onTabClick"
-    >
-      <template #tabs-header-additional-content>
-        <Toggle v-model="toggleValue" label="A company"></Toggle>
-      </template>
-      <template #tabs-1>
-        <div class="body-title">Infos personelles</div>
-        <div class="ds-demo-tabs-body">
-          <Card class="ds-dashboard-report">
-            <div class="report-title">
-              Chiffre d'affaires réalisé en 2018
-            </div>
-            <div class="ds-report-amount green">
-              <Icon arrow_upward></Icon>95,00 €
-            </div>
-            <div class="ds-report-subtitle">
-              dont 0,00 € ce mois-ci
-            </div>
-          </Card>
-        </div>
-      </template>
-      <template #tabs-2>
-        <div class="body-title">Adresse</div>
-        <div class="ds-demo-tabs-body">
-          <div class="ds-demo-tab-icons">
-            <Icon account_circle size="12px" padding="30px 2px" />
-            <Icon
-              account_circle
-              size="16px"
-              padding="28px 2px"
-              color="primary"
-            />
-            <Icon account_circle padding="24px 2px" color="blue" />
-            <Icon account_circle size="36px" padding="18px 2px" color="red" />
-            <Icon
-              account_circle
-              size="52px"
-              padding="10px 2px"
-              color="gray-400"
-            />
-            <Icon account_circle size="72px" color="#55aaff" />
+    <h3>Normal Usage</h3>
+    <div class="tabs-container">
+      <Tabs
+        :tabs="tabs"
+        :active="active"
+        :enableLoader="enableLoader"
+        :disabled="disabled"
+        :additional-content-styles="styles"
+        tabs-align="flex-start"
+        alt-tabs
+        @tab:click="onTabClick"
+      >
+        <template #tabs-header-additional-content>
+          <Toggle v-model="toggleValue" label="A company"></Toggle>
+        </template>
+        <template #tabs-1>
+          <div class="body-title">Infos personelles</div>
+          <div class="ds-demo-tabs-body">
+            <Card class="ds-dashboard-report">
+              <div class="report-title">
+                Chiffre d'affaires réalisé en 2018
+              </div>
+              <div class="ds-report-amount green">
+                <Icon arrow_upward></Icon>95,00 €
+              </div>
+              <div class="ds-report-subtitle">
+                dont 0,00 € ce mois-ci
+              </div>
+            </Card>
           </div>
-        </div>
-      </template>
-      <template #tabs-3>
-        <div class="body-title">Commentaires</div>
-        <div class="ds-demo-tabs-body">
-          <div class="ds-demo-tab-inputs">
-            <Input sm label="Small" />
-            <Input md label="Medium" />
-            <Input lg label="Large" />
+        </template>
+        <template #tabs-2>
+          <div class="body-title">Adresse</div>
+          <div class="ds-demo-tabs-body">
+            <div class="ds-demo-tab-icons">
+              <Icon account_circle size="12px" padding="30px 2px" />
+              <Icon
+                account_circle
+                size="16px"
+                padding="28px 2px"
+                color="primary"
+              />
+              <Icon account_circle padding="24px 2px" color="blue" />
+              <Icon account_circle size="36px" padding="18px 2px" color="red" />
+              <Icon
+                account_circle
+                size="52px"
+                padding="10px 2px"
+                color="gray-400"
+              />
+              <Icon account_circle size="72px" color="#55aaff" />
+            </div>
           </div>
-        </div>
-      </template>
-    </Tabs>
-    <Button class="loader-mode-button" @click="loaderMode = !loaderMode"
-      >Switch loader mode</Button
-    >
+        </template>
+        <template #tabs-3>
+          <div class="body-title">Commentaires</div>
+          <div class="ds-demo-tabs-body">
+            <div class="ds-demo-tab-inputs">
+              <Input sm label="Small" />
+              <Input md label="Medium" />
+              <Input lg label="Large" />
+            </div>
+          </div>
+        </template>
+      </Tabs>
+    </div>
+
+    <h3>Customized Tab</h3>
+    <div class="tabs-container">
+      <Tabs
+        :tabs="2"
+        :active="customTabActive"
+        :full-header="true"
+        :card-wrapper="true"
+        @tab:click="onCustomTabClick"
+      >
+        <template #tab-header-1>
+          <div>
+            <div>Customized Header Line1</div>
+            <div>Customized Header Line2</div>
+          </div>
+        </template>
+
+        <template #tab-header-2>
+          Nice
+        </template>
+
+        <template #tabs-1>
+          Tab 1
+        </template>
+        <template #tabs-2>
+          Tab 2
+        </template>
+      </Tabs>
+    </div>
+
+
+    <Button class="loader-mode-button" @click="loaderMode = !loaderMode">
+      Switch loader mode
+    </Button>
     <p><b>Loader mode during 3 sec:</b> {{ loaderMode }}</p>
   </div>
 </template>
@@ -107,7 +141,9 @@ export default {
       openUsage: true,
       usage: TabsData.usage,
       active: 1,
+      customTabActive: 1,
       tabs: TabsData.tabs,
+      customTabs: TabsData.customTabs,
       enableLoader: false,
       loaderMode: false,
       disabled: false,
@@ -131,6 +167,9 @@ export default {
           this.disabled = false;
         }, 3000);
       }
+    },
+    onCustomTabClick(tab, index) {
+      this.customTabActive = index;
     }
   }
 };
@@ -159,5 +198,9 @@ export default {
 
 .loader-mode-button {
   margin: 16px 0 0;
+}
+
+.tabs-container {
+  margin-bottom: 20px;
 }
 </style>

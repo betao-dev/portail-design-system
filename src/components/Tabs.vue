@@ -34,7 +34,7 @@
     @tab:click - Return tab object
 -->
 <template>
-  <div class="ds-tabs-container">
+  <div class="ds-tabs-container" :class="cardWrapper && 'ds-card-wrapper'">
     <div
       :class="{
         'ds-simple-tabs-header': simpleTabs,
@@ -43,7 +43,7 @@
       }"
       :style="{ 'justify-content': tabsAlign }"
     >
-      <div class="ds-tabs-row">
+      <div class="ds-tabs-row" :class="fullHeader && 'full-header'">
         <template v-for="(tab, index) in tabs">
           <div
             v-if="!tab.hidden"
@@ -59,11 +59,17 @@
             ]"
             @click="onTabClick(tab, index)"
           >
-            {{ tab.text }}
+            <template v-if="$slots[`tab-header-${index + 1}`]">
+              <slot :name="`tab-header-${index + 1}`"></slot>
+            </template>
+            <template v-else>
+              {{ tab.text }}
+            </template>
           </div>
         </template>
       </div>
     </div>
+
     <span
       class="ds-tabs-header-additional-content"
       :style="additionalContentStyles"
@@ -101,6 +107,14 @@ export default {
     },
     simpleTabs: Boolean,
     altTabs: Boolean,
+    fullHeader: {
+      type: Boolean,
+      default: false
+    },
+    cardWrapper: {
+      type: Boolean,
+      default: false
+    },
     active: {
       required: true,
       type: Number
@@ -108,7 +122,7 @@ export default {
     disabled: Boolean,
     tabs: {
       required: true,
-      type: Array
+      type: [Array, Number]
     },
     enableLoader: {
       type: Boolean,
@@ -183,6 +197,20 @@ export default {
 .ds-tabs-container {
   position: relative;
 
+  &.ds-card-wrapper {
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 16px 0 rgba(153,155,168,0.16);
+
+    .ds-tabs-header {
+      border-bottom: 1px solid #F2F4F6;
+    }
+
+    .ds-tabs-body {
+      padding: 20px;
+    }
+  }
+
   .ds-tabs-header,
   .ds-simple-tabs-header {
     display: flex;
@@ -192,6 +220,20 @@ export default {
     .ds-tabs-row {
       display: flex;
       width: 50%;
+
+      &.full-header {
+        width: 100%;
+
+        .ds-tab {
+          flex: 1;
+          padding: 19px;
+          line-height: 19px;
+          font-size: 16px;
+          height: auto;
+          border-left: none;
+          border-right: none;
+        }
+      }
 
       @media @screen-mobile-all {
         & {
@@ -213,6 +255,20 @@ export default {
 
     .ds-tabs-row {
       display: flex;
+
+      &.full-header {
+        width: 100%;
+
+        .ds-tab {
+          flex: 1;
+          padding: 19px;
+          line-height: 19px;
+          font-size: 16px;
+          height: auto;
+          border-left: none;
+          border-right: none;
+        }
+      }
 
       .ds-alt-tab > {
         margin-right: 26px;
@@ -301,6 +357,20 @@ export default {
     .ds-simple-tabs-header {
       border: 1px solid @color-gray-300;
       .ds-tabs-row {
+        &.full-header {
+          width: 100%;
+
+          .ds-tab {
+            flex: 1;
+            padding: 19px;
+            line-height: 19px;
+            font-size: 16px;
+            height: auto;
+            border-left: none;
+            border-right: none;
+          }
+        }
+
         .ds-simple-tab {
           height: 36px;
           border-right: 1px solid @color-gray-300;
