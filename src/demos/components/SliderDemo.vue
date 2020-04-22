@@ -60,26 +60,37 @@
       </template>
     </Slider>
 
-    <Slider class="slider"
-            alt
-            :startIndex.sync="altSlideStartIndex"
-            actionType="slide"
-            header="Partenaires"
-            altHeaderRight="Tous les partenaires"
-            altButtonTitle="Découvrir"
-            altFooterTitle="MonaBanq"
-            altFooterAdditional="Finance">
+    <Slider
+      class="slider"
+      alt
+      :startIndex.sync="altSlideStartIndex"
+      actionType="fade"
+      header="Partenaires"
+      altHeaderRight="Tous les partenaires"
+      altButtonTitle="Découvrir"
+      altFooterTitle="MonaBanq"
+      altFooterAdditional="Finance"
+    >
       <template #slider-1>
-        C'est vraiment pratique, l’utilisation du mini TPE est très complète
-        (en plus d’être beaucoup moins cher qu'un TPE classique en location).
-        Pouvoir faire en même temps caisse enregistreuse et avoir
-        immédiatement les statistiques des ventes, c'est un vrai plus !
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/e/e9/2016_BMW_i8.jpg"
+          width="100%"
+          height="600px"
+        />
       </template>
       <template #slider-2>
-        Slide 2
+        <img
+          src="https://images.autotrader.com/scaler/620/420/cms/images/cars/mazda/mazda3/2014/real-world/225938.jpg"
+          width="100%"
+          height="600px"
+        />
       </template>
       <template #slider-3>
-        Mister France
+        <img
+          src="https://topgearrussia.ru/data/topgear/preview/2018-06/15/image-3a6c67d51529094657-640x400.jpg"
+          width="100%"
+          height="600px"
+        />
       </template>
     </Slider>
   </div>

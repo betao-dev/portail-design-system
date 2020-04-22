@@ -1,7 +1,9 @@
 <template>
   <div class="ds-slider" :style="{ width, height }" v-if="!alt">
     <div class="ds-slider-header">
-      <span class="ds-slider-title">{{ header }}</span>
+      <span class="ds-slider-title">
+        {{ header }}
+      </span>
       <div class="ds-title-header-controls" v-if="slideCount > 1">
         <Icon
           angle_left_solid
@@ -41,20 +43,55 @@
   </div>
   <div class="ds-slider-alt" v-else :style="{ width, height }">
     <div class="ds-slider-alt-header">
-      <div>{{header}}</div>
-      <div>{{altHeaderRight}}</div>
+      <div class="ds-header-title">
+        {{ header }}
+      </div>
+      <div class="ds-header-right">
+        {{ altHeaderRight }}
+      </div>
     </div>
-    <div class="ds-slider-alt-body"
-         :style="{ width: altBodyWidth, height: altBodyHeight }">
+    <div
+      class="ds-slider-alt-body"
+      :style="{ width: altBodyWidth, height: altBodyHeight }"
+    >
       <slot :name="activeSlider"></slot>
     </div>
+    <div class="ds-slider-control-left">
+      <div class="ds-control-box"></div>
+      <Icon
+        class="ds-control-arrow-left"
+        angle_left_solid
+        size="18px"
+        color="white"
+        @click="changeSlide(startIndex - 1)"
+      >
+      </Icon>
+    </div>
+    <div class="ds-slider-control-right">
+      <div class="ds-control-box"></div>
+      <Icon
+        class="ds-control-arrow-right"
+        angle_right_solid
+        size="18px"
+        color="white"
+        @click="changeSlide(startIndex + 1)"
+      >
+      </Icon>
+    </div>
+
     <div class="ds-slider-alt-footer">
-      <div>
-        <div>{{altFooterTitle}}</div>
-        <div>{{altFooterAdditional}}</div>
+      <div class="ds-footer-titles-wrapper">
+        <div class="ds-footer-title">
+          {{ altFooterTitle }}
+        </div>
+        <div class="ds-footer-additional">
+          {{ altFooterAdditional }}
+        </div>
       </div>
       <div>
-        <Button big padding="15px 30px">{{altButtonTitle}}</Button>
+        <Button big padding="15px 30px">
+          {{ altButtonTitle }}
+        </Button>
       </div>
     </div>
   </div>
@@ -363,15 +400,66 @@ export default {
 .ds-slider-alt {
   width: 100%;
   height: 100%;
+  cursor: default;
 
   .ds-slider-alt-header {
     display: flex;
     justify-content: space-between;
     padding-bottom: 20px;
+
+    .ds-header-title {
+      height: 19px;
+      color: @color-gray-500;
+      font-family: Roboto, sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      line-height: 19px;
+    }
+
+    .ds-header-right {
+      height: 12px;
+      color: @color-dark;
+      font-family: 'Roboto Medium';
+      font-size: 12px;
+      letter-spacing: 0;
+      line-height: 12px;
+      border-bottom: 1px solid @color-dark;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
   }
 
   .ds-slider-alt-body {
+    background-color: @color-white;
+  }
 
+  .ds-slider-control-left,
+  .ds-slider-control-right {
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50%;
+
+    .ds-control-box {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: @color-primary;
+    }
+
+    .ds-control-arrow-left,
+    .ds-control-arrow-right {
+      position: relative;
+      bottom: 25px;
+    }
+
+    .ds-control-arrow-left {
+      left: 6px;
+    }
+
+    .ds-control-arrow-right {
+      left: 8px;
+    }
   }
 
   .ds-slider-alt-footer {
@@ -379,6 +467,30 @@ export default {
     justify-content: space-between;
     background-color: @color-white;
     padding: 20px;
+
+    .ds-footer-titles-wrapper {
+      .ds-footer-title {
+        height: 19px;
+        color: @color-dark;
+        font-family: Roboto, sans-serif;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+        line-height: 19px;
+      }
+
+      .ds-footer-additional {
+        height: 21px;
+        color: @color-dark;
+        font-family: 'Roboto Light';
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 21px;
+      }
+
+      :nth-child(2) {
+        margin-top: 6px;
+      }
+    }
   }
 }
 </style>
