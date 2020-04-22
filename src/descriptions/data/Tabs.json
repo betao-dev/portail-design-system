@@ -58,6 +58,16 @@
       "name": "additionalContentStyles",
       "type": "Object",
       "description": "Object of styles for additional container"
+    },
+    {
+      "name": "fullHeader",
+      "type": "Boolean",
+      "description": "If this value is true, width of the header is 100% of the container. Default value is false"
+    },
+    {
+      "name": "cardWrapper",
+      "type": "Boolean",
+      "description": "If this value is true, Card style is applied to the wrapper of the tab. Default is false"
     }
   ],
   "events": [
