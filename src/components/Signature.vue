@@ -70,7 +70,7 @@ export default {
   }),
   methods: {
     getSignaturePad() {
-      let canvas = this.$refs.signaturePad.signaturePad._canvas;
+      let canvas = this.$refs.signaturePad.signaturePad.canvas;
       let ctx = canvas.getContext('2d');
 
       return { canvas, ctx };
