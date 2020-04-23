@@ -37,9 +37,32 @@ let usage = `
     </div>
   </template>
 </Tabs>
+
+<Tabs
+  :tabs="2"
+  :active="customTabActive"
+  :full-header="true"
+  :card-wrapper="true"
+  @tab:click="onCustomTabClick"
+>
+  <template #tab-header-1>
+    How things are going?
+  </template>
+
+  <template #tab-header-2>
+    Nice
+  </template>
+
+  <template #tabs-1>
+    Tab 1
+  </template>
+  <template #tabs-2>
+    Tab 2
+  </template>
+</Tabs>
 `.slice(1);
 
-let tabs = [
+const tabs = [
   {
     text: 'Infos personelles'
   },
@@ -51,7 +74,12 @@ let tabs = [
   }
 ];
 
+const customTabs = [
+  {}, {}
+]
+
 export default {
   usage,
-  tabs
+  tabs,
+  customTabs
 };
