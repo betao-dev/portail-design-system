@@ -105,7 +105,6 @@
       </Tabs>
     </div>
 
-
     <Button class="loader-mode-button" @click="loaderMode = !loaderMode">
       Switch loader mode
     </Button>

@@ -74,9 +74,7 @@ const tabs = [
   }
 ];
 
-const customTabs = [
-  {}, {}
-]
+const customTabs = [{}, {}];
 
 export default {
   usage,
