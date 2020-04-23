@@ -24,7 +24,36 @@
       "name": "actionType",
       "type": "String",
       "description": "Select terminate action type. slide or fade"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "Turned on alternative slider mode in which support usual props and also props that are starts with prefix alt"
+    },
+    {
+      "name": "altHeaderRight",
+      "type": "String",
+      "description": "Set header-right"
+    },
+    {
+      "name": "altButtonTitle",
+      "type": "String",
+      "description": "Set button title"
+    },
+    {
+      "name": "altFooterTitles",
+      "type": "Array",
+      "description": "Provided Array with one object to one slide with two literals: title, additional"
     }
   ],
-  "events": []
+  "events": [
+    {
+      "name": "active-slide",
+      "description": "Emitted when the click is triggered at footer button"
+    },
+    {
+      "name": "active",
+      "description": "Emitted when the click is triggered at right header"
+    }
+  ]
 }
