@@ -1,23 +1,41 @@
 let usage = `
 <Slider
-  :startIndex.sync="startIndex"
+  class="ds-slider"
   header="Testimonials"
-  actionType="fade"
+  actionType="slide"
+  :startIndex.sync="fadeStartIndex"
 >
   <template #slider-1>
-    <div class="ds-demo-slider-content">
-      C'est vraiment pratique, l’utilisation du mini TPE est très complète
-      (en plus d’être beaucoup moins cher qu'un TPE classique en location).
-      Pouvoir faire en même temps caisse enregistreuse et avoir immédiatement les statistiques des ventes,
-      c'est un vrai plus !
+   <div class="ds-demo-slider-content">
+      ...
     </div>
   </template>
   <template #slider-2>
-    ...
+    <div class="ds-demo-slider-content">
+      ...
+    </div>
   </template>
-  <template #slider-3>
     ...
+</Slider>
+
+<Slider
+  class="ds-demo-slider"
+  alt
+  :startIndex.sync="altSlideStartIndex"
+  actionType="fade"
+  header="Partenaires"
+  altHeaderRight="Tous les partenaires"
+  altButtonTitle="Découvrir"
+  :altFooterTitles="altSliderFooterTitles"
+  height="312px"
+  width="362px"
+>
+  <template #slider-1>
+    <div class="ds-slider-alt-content">
+      ...
+    </div>
   </template>
+    ...
 </Slider>
 `.slice(1);
 

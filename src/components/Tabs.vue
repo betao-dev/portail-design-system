@@ -199,11 +199,11 @@ export default {
 
   &.ds-card-wrapper {
     border-radius: 4px;
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 16px 0 rgba(153,155,168,0.16);
+    background-color: #ffffff;
+    box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.16);
 
     .ds-tabs-header {
-      border-bottom: 1px solid #F2F4F6;
+      border-bottom: 1px solid #f2f4f6;
     }
 
     .ds-tabs-body {

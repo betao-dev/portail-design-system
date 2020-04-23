@@ -1,6 +1,6 @@
 {
   "name": "@betao/ds",
-  "version": "0.4.176",
+  "version": "0.4.177",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -87,7 +87,7 @@
     "moment": "^2.24.0",
     "v-mask": "^2.0.2",
     "vue-popperjs": "^2.0.4",
-    "vue-signature-pad": "^1.1.9-beta.1",
+    "vue-signature-pad": "^1.1.18",
     "vue-slider-component": "^3.0.43",
     "vue2-dropzone": "3.5.2",
     "vuedraggable": "^2.23.0"
