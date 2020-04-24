@@ -46,7 +46,11 @@
       </div>
     </div>
     <div class="ds-slider-alt-body">
-      <div class="ds-slider-control-left" @click="changeSlide(startIndex - 1)">
+      <div
+        v-if="slideCount > 1"
+        class="ds-slider-control-left"
+        @click="changeSlide(startIndex - 1)"
+      >
         <div class="ds-control-box"></div>
         <Icon
           class="ds-control-arrow-left"
@@ -56,7 +60,11 @@
         >
         </Icon>
       </div>
-      <div class="ds-slider-control-right" @click="changeSlide(startIndex + 1)">
+      <div
+        v-if="slideCount > 1"
+        class="ds-slider-control-right"
+        @click="changeSlide(startIndex + 1)"
+      >
         <div class="ds-control-box"></div>
         <Icon
           class="ds-control-arrow-right"
