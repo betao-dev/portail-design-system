@@ -353,6 +353,10 @@ export default {
         min-width: 100%;
         transform: translate(-50%, -50%);
       }
+
+      .ds-slider-alt-content > * {
+        min-width: 100%;
+      }
     }
   }
 
