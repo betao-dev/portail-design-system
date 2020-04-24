@@ -19,6 +19,7 @@ import PhoneNumberInput from './data/PhoneNumberInput';
 import FileUpload from './data/FileUpload';
 import MultiFileAttach from './data/MultiFileAttach';
 import Stepper from './data/Stepper';
+import SlideStepper from './data/SlideStepper';
 import TextArea from './data/TextArea';
 import Signature from './data/Signature';
 import Pagination from './data/Pagination';
@@ -71,6 +72,7 @@ export default {
   FileUpload,
   MultiFileAttach,
   Stepper,
+  SlideStepper,
   TextArea,
   Signature,
   Pagination,
