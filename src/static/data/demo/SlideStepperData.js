@@ -58,8 +58,8 @@ let usage = `
     </div>
   </template>
 </SlideStepper>
-`
+`;
 
 export default {
-  usage,
-}
+  usage
+};

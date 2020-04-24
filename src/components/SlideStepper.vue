@@ -2,10 +2,20 @@
   <div class="ds-slide-stepper-container">
     <div class="ds-slide-stepper-header">
       <div class="ds-previous" @click="prev">
-        <Icon v-if="current > 1" source="angle_left_solid" size="18px" color="#1EB386" />
+        <Icon
+          v-if="current > 1"
+          source="angle_left_solid"
+          size="18px"
+          color="#1EB386"
+        />
       </div>
       <div class="ds-next" @click="next">
-        <Icon v-if="current < stepSize" source="angle_right_solid" size="18px" color="#1EB386" />
+        <Icon
+          v-if="current < stepSize"
+          source="angle_right_solid"
+          size="18px"
+          color="#1EB386"
+        />
       </div>
 
       <div
@@ -48,7 +58,7 @@ export default {
   components: { Icon },
   mounted() {
     if (this.currentStep) {
-      this.current = this.currentStep
+      this.current = this.currentStep;
     }
   },
   props: {
@@ -64,35 +74,35 @@ export default {
   data() {
     return {
       current: 1
-    }
+    };
   },
   methods: {
     prev() {
       if (this.current > 1) {
-        this.current--
+        this.current--;
       }
     },
     next() {
       if (this.current < this.stepSize) {
-        this.current++
+        this.current++;
       }
     }
   },
   watch: {
     currentStep(newVal) {
       if (newVal) {
-        this.current = newVal
+        this.current = newVal;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
 .ds-slide-stepper-container {
   border-radius: 4px;
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 16px 0 rgba(153,155,168,0.16);
+  background-color: #ffffff;
+  box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.16);
 
   .ds-slide-stepper-header {
     padding: 17px 46px;
@@ -140,7 +150,7 @@ export default {
 
     .ds-step-divider {
       margin-right: 5px;
-      background-color: #1EB386;
+      background-color: #1eb386;
       height: 3px;
       opacity: 0.3;
       flex: 1;
@@ -170,4 +180,3 @@ export default {
   }
 }
 </style>
-

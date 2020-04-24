@@ -27,7 +27,9 @@
 
         <template #header-4>
           <div class="title">Step 4</div>
-          <div class="sub-title">You can customize every header based on your requirement</div>
+          <div class="sub-title">
+            You can customize every header based on your requirement
+          </div>
         </template>
 
         <template #header-5>
@@ -77,7 +79,7 @@
 import SlideStepper from '../../components/SlideStepper';
 import Description from '../../descriptions/Description';
 import Collapser from '../../components/Collapser';
-import { SlideStepperData } from '../../static/index'
+import { SlideStepperData } from '../../static/index';
 
 export default {
   name: 'SlideStepperDemo',
@@ -90,21 +92,20 @@ export default {
     return {
       openUsage: true,
       usage: SlideStepperData.usage
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
 @import '../../styles/vars';
-
 
 .ds-slider-step-container {
   width: 400px;
 
   .title {
     font-size: 18px;
-    color: #1EB386;
+    color: #1eb386;
     line-height: 28px;
     text-align: center;
   }

@@ -54,7 +54,7 @@ import NotificationListData from './data/demo/NotificationListData';
 import ContentTabData from './data/demo/ContentTabData';
 import NotificationPopupData from './data/demo/NotificationPopupData';
 import HelpData from './data/demo/HelpData';
-import SlideStepperData from './data/demo/SlideStepperData'
+import SlideStepperData from './data/demo/SlideStepperData';
 
 export {
   CountriesArray,
