@@ -1,0 +1,15 @@
+{
+  "properties": [
+    {
+      "name": "stepSize",
+      "type": "Number",
+      "description": "Count of steps"
+    },
+    {
+      "name": "currentStep",
+      "type": "Number",
+      "description": "default step"
+    }
+  ],
+  "events": []
+}
