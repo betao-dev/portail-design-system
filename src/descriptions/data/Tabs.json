@@ -68,6 +68,11 @@
       "name": "cardWrapper",
       "type": "Boolean",
       "description": "If this value is true, Card style is applied to the wrapper of the tab. Default is false"
+    },
+    {
+      "name": "inactiveTabs",
+      "type": "Boolean",
+      "description": "Set opacity 50% for inactive tabs"
     }
   ],
   "events": [

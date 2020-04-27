@@ -54,7 +54,8 @@
                 'ds-simple-tab': simpleTabs,
                 'ds-alt-tab': altTabs,
                 'ds-tab': !simpleTabs && !altTabs,
-                'ds-disabled': disabled || tab.disabled
+                'ds-disabled': disabled || tab.disabled,
+                'ds-inactive-tab': inactiveTabs
               }
             ]"
             @click="onTabClick(tab, index)"
@@ -119,6 +120,7 @@ export default {
       required: true,
       type: Number
     },
+    inactiveTabs: Boolean,
     disabled: Boolean,
     tabs: {
       required: true,
@@ -307,6 +309,7 @@ export default {
       }
 
       &.ds-active {
+        opacity: 1;
         box-shadow: inset 0 -3px 0 -1px @color-primary;
       }
     }
@@ -322,6 +325,7 @@ export default {
 
     &:not(.ds-disabled) {
       &.ds-simple-active {
+        opacity: 1;
         color: @color-primary;
         background-color: @color-white;
       }
@@ -338,10 +342,15 @@ export default {
 
     &:not(.ds-disabled) {
       &.ds-alt-active {
+        opacity: 1;
         color: @color-dark;
         border-bottom: 1.5px solid @color-dark;
       }
     }
+  }
+
+  .ds-inactive-tab {
+    opacity: 50%;
   }
 
   .ds-tabs-header-additional-content {
@@ -382,6 +391,7 @@ export default {
         }
 
         .ds-simple-active {
+          opacity: 1;
           background-color: @color-white;
           color: @color-dark;
         }
