@@ -55,7 +55,7 @@
                 'ds-alt-tab': altTabs,
                 'ds-tab': !simpleTabs && !altTabs,
                 'ds-disabled': disabled || tab.disabled,
-                'ds-inactive-tab': inactiveTabs
+                'ds-inactive-tab': !activeTabClass(index) && inactiveTabs
               }
             ]"
             @click="onTabClick(tab, index)"
@@ -350,7 +350,7 @@ export default {
   }
 
   .ds-inactive-tab {
-    opacity: 50%;
+    opacity: 0.5;
   }
 
   .ds-tabs-header-additional-content {
