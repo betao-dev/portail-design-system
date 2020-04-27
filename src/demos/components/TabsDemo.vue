@@ -81,8 +81,9 @@
       <Tabs
         :tabs="2"
         :active="customTabActive"
-        :full-header="true"
-        :card-wrapper="true"
+        full-header
+        card-wrapper
+        inactive-tabs
         @tab:click="onCustomTabClick"
       >
         <template #tab-header-1>
