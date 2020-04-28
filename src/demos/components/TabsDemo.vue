@@ -25,7 +25,7 @@
           <Toggle v-model="toggleValue" label="A company"></Toggle>
         </template>
         <template #tabs-1>
-          <div class="body-title">Infos personelles</div>
+          <div class="ds-demo-body-title">Infos personelles</div>
           <div class="ds-demo-tabs-body">
             <Card class="ds-dashboard-report">
               <div class="report-title">
@@ -41,7 +41,7 @@
           </div>
         </template>
         <template #tabs-2>
-          <div class="body-title">Adresse</div>
+          <div class="ds-demo-body-title">Adresse</div>
           <div class="ds-demo-tabs-body">
             <div class="ds-demo-tab-icons">
               <Icon account_circle size="12px" padding="30px 2px" />
@@ -64,7 +64,7 @@
           </div>
         </template>
         <template #tabs-3>
-          <div class="body-title">Commentaires</div>
+          <div class="ds-demo-body-title">Commentaires</div>
           <div class="ds-demo-tabs-body">
             <div class="ds-demo-tab-inputs">
               <Input sm label="Small" />
@@ -85,28 +85,47 @@
         card-wrapper
         inactive-tabs
         @tab:click="onCustomTabClick"
+        class="ds-demo-income-overdue"
       >
         <template #tab-header-1>
-          <div>
+          <div key="alt-tab-1">
             <div>Customized Header Line1</div>
             <div>Customized Header Line2</div>
           </div>
         </template>
 
         <template #tab-header-2>
-          Nice
+          <div key="alt-tab-2">
+            Tab Header 2
+          </div>
         </template>
 
         <template #tabs-1>
-          Tab 1
+          <div class="ds-demo-income-overdue-empty-body-wrapper">
+            <div class="ds-demo-income-overdue-empty-body-data">
+              <div class="ds-demo-empty-body-title">
+                Créer ma première facture
+              </div>
+              <div class="ds-demo-empty-body-additional-info">
+                Vous n’avez pas encore créé de facture pour le moment. Cliquez
+                sur le bouton ci-dessous pour éditer votre première facture.
+              </div>
+            </div>
+            <Button width="100%" padding="15px">Créer</Button>
+          </div>
         </template>
         <template #tabs-2>
-          Tab 2
+          <div class="ds-demo-tabs-body-alt">
+            Tab 2
+          </div>
         </template>
       </Tabs>
     </div>
 
-    <Button class="loader-mode-button" @click="loaderMode = !loaderMode">
+    <Button
+      class="ds-demo-loader-mode-button"
+      @click="loaderMode = !loaderMode"
+    >
       Switch loader mode
     </Button>
     <p><b>Loader mode during 3 sec:</b> {{ loaderMode }}</p>
@@ -177,7 +196,7 @@ export default {
 
 <style scoped lang="less">
 @import '../../styles/vars';
-.body-title {
+.ds-demo-body-title {
   background-color: @color-white;
   text-align: center;
   padding: 10px 0;
@@ -196,11 +215,46 @@ export default {
   }
 }
 
-.loader-mode-button {
+.ds-demo-tabs-body-alt {
+  padding: 20px;
+}
+
+.ds-demo-loader-mode-button {
   margin: 16px 0 0;
 }
 
-.tabs-container {
-  margin-bottom: 20px;
+.ds-demo-income-overdue {
+  height: 372px;
+
+  .ds-demo-income-overdue-empty-body-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 295px;
+    padding: 50px 20px 20px;
+    box-sizing: border-box;
+
+    .ds-demo-income-overdue-empty-body-data {
+      .ds-demo-empty-body-title {
+        color: @color-dark;
+        font-family: Roboto, sans-serif;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+        line-height: 19px;
+        text-align: center;
+        margin-bottom: 7px;
+      }
+
+      .ds-demo-empty-body-additional-info {
+        color: @color-gray-400;
+        font-family: Roboto, sans-serif;
+        font-size: 12px;
+        letter-spacing: 0;
+        line-height: 18px;
+        text-align: center;
+        margin-bottom: 50px;
+      }
+    }
+  }
 }
 </style>
