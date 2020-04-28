@@ -166,8 +166,6 @@ export default {
   }
 
   .ds-slider-stepper-body {
-    padding: 20px;
-
     .ds-step-body {
       display: none;
       width: 100%;

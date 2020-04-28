@@ -207,10 +207,6 @@ export default {
     .ds-tabs-header {
       border-bottom: 1px solid #f2f4f6;
     }
-
-    .ds-tabs-body {
-      padding: 20px;
-    }
   }
 
   .ds-tabs-header,
