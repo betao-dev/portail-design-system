@@ -100,8 +100,8 @@
         <div class="ds-footer-title">
           {{ getAltFooterTitle }}
         </div>
-        <div class="ds-footer-additional">
-          {{ getAltFooterAdditional }}
+        <div class="ds-footer-short-title">
+          {{ getAltFooterShortTitle }}
         </div>
       </div>
       <div class="ds-footer-button-wrapper" v-if="altButtonTitle">
@@ -136,7 +136,10 @@ export default {
     alt: Boolean,
     altHeaderRight: String,
     altButtonTitle: String,
-    altFooterTitles: Array
+    altFooterTitles: {
+      type: Array,
+      default: () => []
+    }
   },
   data: () => ({
     slideLeftToRight: false,
@@ -157,7 +160,7 @@ export default {
       }
     },
     slideCount() {
-      return Object.keys(this.$slots).length;
+      return this.altFooterTitles.length;
     },
     getAltFooterTitle() {
       return _.get(
@@ -165,10 +168,10 @@ export default {
         `[${this.sliderStartIndex - 1}].title`
       );
     },
-    getAltFooterAdditional() {
+    getAltFooterShortTitle() {
       return _.get(
         this.altFooterTitles,
-        `[${this.sliderStartIndex - 1}].additional`
+        `[${this.sliderStartIndex - 1}].short_title`
       );
     }
   },
@@ -291,6 +294,11 @@ export default {
       border-bottom: 1px solid @color-dark;
       text-transform: uppercase;
       cursor: pointer;
+
+      &:hover {
+        color: @color-primary;
+        border-bottom-color: @color-primary;
+      }
     }
   }
 
@@ -376,7 +384,7 @@ export default {
         line-height: 19px;
       }
 
-      .ds-footer-additional {
+      .ds-footer-short-title {
         height: 21px;
         color: @color-dark;
         font-family: 'Roboto Light';

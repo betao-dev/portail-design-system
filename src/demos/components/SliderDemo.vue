@@ -88,15 +88,15 @@ export default {
     altSliderFooterTitles: [
       {
         title: 'MonaBanq 1',
-        additional: 'Finance 1'
+        short_title: 'Finance 1'
       },
       {
         title: 'MonaBanq 2',
-        additional: 'Finance 2'
+        short_title: 'Finance 2'
       },
       {
         title: 'MonaBanq 3',
-        additional: 'Finance 3'
+        short_title: 'Finance 3'
       }
     ]
   })

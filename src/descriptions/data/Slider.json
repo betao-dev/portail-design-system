@@ -43,7 +43,8 @@
     {
       "name": "altFooterTitles",
       "type": "Array",
-      "description": "Provided Array with one object to one slide with two literals: title, additional"
+      "default": "[]",
+      "description": "Provided Array with one object to one slide with two literals: title, short_title"
     }
   ],
   "events": [
