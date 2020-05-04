@@ -145,7 +145,9 @@ export default {
     slideLeftToRight: false,
     slideRightToLeft: false,
     fadeIn: false,
-    fadeOut: false
+    fadeOut: false,
+    fadeOutTimeout: undefined,
+    fadeInTimeout: undefined
   }),
   computed: {
     activeSlider() {
@@ -160,7 +162,9 @@ export default {
       }
     },
     slideCount() {
-      return this.altFooterTitles.length;
+      return this.alt
+        ? this.altFooterTitles.length
+        : Object.keys(this.$slots).length;
     },
     getAltFooterTitle() {
       return _.get(
@@ -198,18 +202,33 @@ export default {
           this[direction] = undefined;
         }, 400);
       } else if (this.actionType === 'fade') {
-        this.fadeOut = true;
-
-        setTimeout(() => {
-          this.fadeOut = undefined;
-          this.fadeIn = true;
+        if (this.fadeOutTimeout || this.fadeInTimeout) {
+          this.fadeTimeoutCheck('fadeOut', 'fadeOutTimeout');
+          this.fadeTimeoutCheck('fadeIn', 'fadeInTimeout');
           this.sliderStartIndex = activeSlide;
+        }
+
+        this.fadeOut = true;
+        this.fadeOutTimeout = setTimeout(() => {
+          this.fadeClear('fadeOut', 'fadeOutTimeout');
+          this.sliderStartIndex = activeSlide;
+          this.fadeIn = true;
         }, 400);
 
-        setTimeout(() => {
-          this.fadeIn = false;
+        this.fadeInTimeout = setTimeout(() => {
+          this.fadeClear('fadeIn', 'fadeInTimeout');
         }, 800);
       }
+    },
+    fadeTimeoutCheck(fadeName, fadeTimeoutName) {
+      if (this[fadeTimeoutName]) {
+        clearTimeout(this[fadeTimeoutName]);
+        this.fadeClear(fadeName, fadeTimeoutName);
+      }
+    },
+    fadeClear(fadeName, fadeTimeoutName) {
+      this[fadeName] = false;
+      this[fadeTimeoutName] = undefined;
     },
     emitActiveSlide() {
       this.$emit('active-slide', this.sliderStartIndex);
@@ -494,11 +513,11 @@ export default {
 }
 
 .ds-fade-in {
-  -webkit-animation: fade 0.4s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fade 0.4s; /* Firefox < 16 */
-  -ms-animation: fade 0.4s; /* Internet Explorer */
-  -o-animation: fade 0.4s; /* Opera < 12.1 */
-  animation: fade 0.4s;
+  -webkit-animation: fade 0.4s 0.4s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fade 0.4s 0.4s; /* Firefox < 16 */
+  -ms-animation: fade 0.4s 0.4s; /* Internet Explorer */
+  -o-animation: fade 0.4s 0.4s; /* Opera < 12.1 */
+  animation: fade 0.4s 0.4s;
 }
 
 .ds-fade-out {
