@@ -292,6 +292,7 @@ export default {
   .ds-slider-alt-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-bottom: 20px;
 
     .ds-header-title {
