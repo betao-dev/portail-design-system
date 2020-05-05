@@ -23,6 +23,12 @@
       "description": "String. Color variable name or a CSS value"
     },
     {
+      "name": "backgroundColor",
+      "type": "String",
+      "default": "#F2F4F6",
+      "description": "Set the background color only when icon props type is set is different from the default"
+    },
+    {
       "name": "tooltip",
       "type": "String",
       "description": "Responsible for displaying tooltip on mouseover event on Icon"
@@ -32,6 +38,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "When props is equal true Icon component doesn't setup width and height by default"
+    },
+    {
+      "name": "type",
+      "type": "String",
+      "default": "null",
+      "description": "Available only circle type that creates that figure around the icon"
     }
   ]
 ,
