@@ -82,6 +82,7 @@
         :tabs="2"
         :active="customTabActive"
         full-header
+        plain-header
         card-wrapper
         inactive-tabs
         @tab:click="onCustomTabClick"
@@ -89,14 +90,14 @@
       >
         <template #tab-header-1>
           <div key="alt-tab-1">
-            <div>Customized Header Line1</div>
-            <div>Customized Header Line2</div>
+            <div>Customized header line1</div>
+            <div>Customized header line2</div>
           </div>
         </template>
 
         <template #tab-header-2>
           <div key="alt-tab-2">
-            Tab Header 2
+            Tab header 2
           </div>
         </template>
 

@@ -22,6 +22,7 @@ let usage = `
   :tabs="2"
   :active="customTabActive"
   full-header
+  plain-header
   card-wrapper
   inactive-tabs
   @tab:click="onCustomTabClick"
