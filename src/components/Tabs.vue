@@ -55,7 +55,8 @@
                 'ds-alt-tab': altTabs,
                 'ds-tab': !simpleTabs && !altTabs,
                 'ds-disabled': disabled || tab.disabled,
-                'ds-inactive-tab': !activeTabClass(index) && inactiveTabs
+                'ds-inactive-tab': !activeTabClass(index) && inactiveTabs,
+                'ds-plain-header': plainHeader
               }
             ]"
             @click="onTabClick(tab, index)"
@@ -130,7 +131,8 @@ export default {
       type: Boolean,
       default: false
     },
-    additionalContentStyles: Object
+    additionalContentStyles: Object,
+    plainHeader: Boolean
   },
   data: () => ({
     startX: undefined,
@@ -302,6 +304,10 @@ export default {
       &:focus,
       &.ds-active {
         .font-components-tab-active();
+
+        &.ds-plain-header {
+          text-transform: none;
+        }
       }
 
       &.ds-active {
@@ -347,6 +353,10 @@ export default {
 
   .ds-inactive-tab {
     opacity: 0.5;
+  }
+
+  .ds-plain-header {
+    text-transform: none;
   }
 
   .ds-tabs-header-additional-content {

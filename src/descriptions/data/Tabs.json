@@ -73,6 +73,11 @@
       "name": "inactiveTabs",
       "type": "Boolean",
       "description": "Set opacity 50% for inactive tabs"
+    },
+    {
+      "name": "plainHeader",
+      "type": "Boolean",
+      "description": "Unset text-transform uppercase for header slot"
     }
   ],
   "events": [
