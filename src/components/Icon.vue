@@ -82,6 +82,10 @@ export default {
       default: '0'
     },
     color: String,
+    backgroundColor: {
+      type: String,
+      default: '#F2F4F6'
+    },
     tooltip: String,
     noSize: {
       type: Boolean,
@@ -131,7 +135,7 @@ export default {
         styles.width = '40px';
         styles.height = '40px';
         styles.borderRadius = '20px';
-        styles.backgroundColor = '#F2F4F6';
+        styles.backgroundColor = this.backgroundColor;
       }
 
       return styles;
