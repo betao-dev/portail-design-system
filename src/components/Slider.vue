@@ -328,6 +328,8 @@ export default {
     position: relative;
     overflow: hidden;
     margin: 0;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.16);
 
     .ds-slider-control-left,
     .ds-slider-control-right {
@@ -393,6 +395,8 @@ export default {
     justify-content: space-between;
     background-color: @color-white;
     padding: 20px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.16);
 
     .ds-footer-titles-wrapper {
       .ds-footer-title {
@@ -428,6 +432,7 @@ export default {
             letter-spacing: 0.3px;
             line-height: 16px;
             text-align: center;
+            font-weight: normal;
           }
         }
       }
