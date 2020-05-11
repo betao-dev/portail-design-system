@@ -32,6 +32,11 @@
       "name": "disabled",
       "type": "Boolean",
       "description": "Disables the entire component"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "Turned on alternative sidebar mode styles"
     }
   ],
   "events": []

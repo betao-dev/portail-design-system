@@ -61,89 +61,107 @@
       {
         'ds-opened': opened,
         'ds-collapsed': collapsed,
-        'ds-disabled': disabled
+        'ds-disabled': disabled,
+        'ds-alt': alt
       }
     ]"
   >
     <div class="ds-sidebar">
       <div class="ds-header">
-        <slot name="header">Sidebar header</slot>
+        <slot name="header">
+          <div class="ds-header-default">
+            Sidebar header
+          </div>
+        </slot>
       </div>
 
       <div class="ds-items">
         <template v-for="(item, index) in items">
-          <a
-            :class="[
-              'ds-item',
-              {
-                'ds-active': activeKey(item, index) === active,
-                'ds-disabled': disabled || item.disabled
-              }
-            ]"
-            :href="item.href"
-            :key="activeKey(item, index)"
-            :tabindex="!disabled && !item.disabled && 0"
-            @keypress.enter.space.prevent="itemClick(item, index, null, $event)"
-            @click="itemClick(item, index, null, $event)"
-          >
-            <Icon
-              v-if="item.icon"
-              :source="item.icon"
-              size="22px"
-              padding="6px 0"
-              color="gray-400"
-            />
-
-            <div class="ds-title">{{ item.title }}</div>
-
-            <div
-              v-if="item.badge"
-              class="ds-badge"
-              :style="{
-                'background-color':
-                  disabled || item.disabled
-                    ? COLORS['gray-300']
-                    : COLORS[item.badge.color] || item.badge.color || 'red'
-              }"
-            >
-              {{ item.badge.text }}
-            </div>
-
-            <Icon v-if="item.children && item.children.length" expand_more />
-          </a>
-          <section
-            :class="[
-              'ds-children',
-              { 'ds-opened': activeKey(item, index) === active }
-            ]"
-            :key="index"
-          >
+          <div class="ds-item-wrapper">
             <a
-              v-for="(child, childIndex) in item.children"
-              :key="activeKey(child, childIndex)"
               :class="[
                 'ds-item',
-                'ds-child-item',
                 {
-                  'ds-active': activeKey(child, childIndex) === activeChild,
-                  'ds-disabled': disabled || child.disabled
+                  'ds-active': activeKey(item, index) === active,
+                  'ds-disabled': disabled || item.disabled,
+                  'ds-item-opened': isActiveChild
                 }
               ]"
               :href="item.href"
-              :tabindex="
-                !disabled &&
-                  activeKey(item, index) === active &&
-                  !child.disabled &&
-                  0
-              "
+              :key="activeKey(item, index)"
+              :tabindex="!disabled && !item.disabled && 0"
               @keypress.enter.space.prevent="
-                itemClick(child, index, childIndex, $event)
+                itemClick(item, index, null, $event)
               "
-              @click="itemClick(child, index, childIndex, $event)"
+              @click="itemClick(item, index, null, $event)"
             >
-              {{ child.title }}
+              <Icon
+                v-if="item.icon"
+                :source="item.icon"
+                size="22px"
+                padding="6px 0"
+                color="gray-400"
+              />
+
+              <div class="ds-title">{{ item.title }}</div>
+
+              <div
+                v-if="item.badge"
+                class="ds-badge"
+                :style="{
+                  'background-color':
+                    disabled || item.disabled
+                      ? COLORS['gray-300']
+                      : COLORS[item.badge.color] || item.badge.color || 'red'
+                }"
+              >
+                {{ item.badge.text }}
+              </div>
+
+              <Icon
+                class="ds-expand-icon"
+                v-if="item.children && item.children.length"
+                :source="
+                  activeKey(item, index) === active
+                    ? 'expand_less'
+                    : 'expand_more'
+                "
+              />
             </a>
-          </section>
+            <section
+              :class="[
+                'ds-children',
+                { 'ds-opened': activeKey(item, index) === active }
+              ]"
+              :key="index"
+            >
+              <a
+                v-for="(child, childIndex) in item.children"
+                :key="activeKey(child, childIndex)"
+                :class="[
+                  'ds-item',
+                  'ds-child-item',
+                  {
+                    'ds-active': activeKey(child, childIndex) === activeChild,
+                    'ds-disabled': disabled || child.disabled
+                  }
+                ]"
+                :href="item.href"
+                :tabindex="
+                  !disabled &&
+                    activeKey(item, index) === active &&
+                    !child.disabled &&
+                    0
+                "
+                @keypress.enter.space.prevent="
+                  itemClick(child, index, childIndex, $event)
+                "
+                @click="itemClick(child, index, childIndex, $event)"
+              >
+                {{ child.title }}
+              </a>
+            </section>
+          </div>
         </template>
       </div>
 
@@ -176,11 +194,15 @@ export default {
     activeChild: {
       default: 0
     },
+    alt: Boolean,
     opened: Boolean,
     collapsed: Boolean,
     disabled: Boolean
   },
-  data: () => ({ COLORS }),
+  data: () => ({
+    COLORS,
+    isActiveChild: false
+  }),
   methods: {
     itemClick(item, index, childIndex, event) {
       if (this.disabled || item.disabled) {
@@ -227,6 +249,12 @@ export default {
       } else {
         this.$el.parentNode.classList.remove('ds-sidebar-collpased-padding');
         this.$el.parentNode.classList.add('ds-sidebar-padding');
+      }
+    },
+    activeChild: {
+      immediate: true,
+      handler(value) {
+        this.isActiveChild = value.toString().split('-').length > 1;
       }
     }
   }
@@ -402,6 +430,121 @@ export default {
     margin-top: auto;
     padding: @sidebar-item-padding;
     box-shadow: inset 0 1px 0 0 #f1f1f1;
+  }
+}
+
+.ds-sidebar-container {
+  &.ds-alt {
+    .ds-sidebar {
+      .ds-header,
+      .ds-items,
+      .ds-footer {
+        background-color: #2d3047;
+      }
+
+      .ds-header {
+        height: 70px;
+        padding: 0 14px;
+
+        .ds-header-default {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          color: @color-gray-400;
+          cursor: default;
+        }
+      }
+
+      .ds-items {
+        .ds-item-wrapper {
+          min-height: 58px;
+          margin: 0 14px;
+          .ds-item {
+            border-radius: 4px;
+            height: 52px;
+            padding: 15px 12px;
+
+            .ds-title {
+              height: 16px;
+              font-family: Roboto, sans-serif;
+              font-size: 14px;
+              letter-spacing: 0.3px;
+              line-height: 16px;
+              color: @color-gray-400;
+              padding-left: 12px;
+            }
+
+            .icon-wrapper {
+              .ds-icon {
+                fill: @color-gray-400 !important;
+              }
+            }
+
+            &:not(.ds-active) {
+              &:hover,
+              &:focus {
+                background-color: #2d3047;
+                color: #fafbff;
+
+                .ds-title {
+                  color: #fafbff;
+                }
+
+                .icon-wrapper {
+                  .ds-icon {
+                    fill: #fafbff !important;
+                  }
+                }
+              }
+            }
+
+            &.ds-active {
+              border-left: none;
+
+              .ds-title {
+                color: #2d3047;
+              }
+
+              &.ds-item-opened {
+                background-color: #2d3047;
+
+                .ds-title {
+                  color: #fafbff;
+                }
+
+                .ds-expand-icon {
+                  .ds-icon svg {
+                    fill: #fafbff !important;
+                  }
+                }
+              }
+            }
+          }
+
+          .ds-children {
+            .ds-child-item {
+              height: 40px !important;
+              padding: 12px 0 12px 44px;
+
+              height: 16px;
+              font-family: Roboto, sans-serif;
+              font-size: 14px;
+              letter-spacing: 0.3px;
+              line-height: 16px;
+              color: #abacb5;
+
+              &.ds-active {
+                color: #2d3047;
+              }
+            }
+          }
+        }
+      }
+
+      .ds-footer {
+        height: 100%;
+      }
+    }
   }
 }
 

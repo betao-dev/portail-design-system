@@ -7,6 +7,7 @@
       :active.sync="sidebarActiveItem"
       :activeChild.sync="sidebarActiveChild"
       :opened.sync="sidebarOpened"
+      alt
     ></Sidebar>
     <AppHeader>
       <template #left>
