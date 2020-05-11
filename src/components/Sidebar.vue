@@ -119,6 +119,7 @@
               </div>
 
               <Icon
+                class="ds-expand-icon"
                 v-if="item.children && item.children.length"
                 :source="
                   activeKey(item, index) === active
@@ -461,8 +462,7 @@ export default {
           .ds-item {
             border-radius: 4px;
             height: 52px;
-            padding-left: 12px;
-            padding-right: 12px;
+            padding: 15px 12px;
 
             .ds-title {
               height: 16px;
@@ -510,6 +510,12 @@ export default {
 
                 .ds-title {
                   color: #fafbff;
+                }
+
+                .ds-expand-icon {
+                  .ds-icon svg {
+                    fill: #fafbff !important;
+                  }
                 }
               }
             }
