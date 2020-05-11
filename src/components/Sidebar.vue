@@ -452,6 +452,7 @@ export default {
           height: 100%;
           color: @color-gray-400;
           cursor: default;
+          margin-left: 14px;
         }
       }
 
