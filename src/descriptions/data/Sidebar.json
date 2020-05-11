@@ -37,6 +37,11 @@
       "name": "alt",
       "type": "Boolean",
       "description": "Turned on alternative sidebar mode styles"
+    },
+    {
+      "name": "subSectionOpened",
+      "type": "Boolean",
+      "description": "Responsible for subsection opened status with and interactions with it"
     }
   ],
   "events": []
