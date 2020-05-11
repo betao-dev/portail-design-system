@@ -7,6 +7,7 @@
       :active.sync="sidebarActiveItem"
       :activeChild.sync="sidebarActiveChild"
       :opened.sync="sidebarOpened"
+      :subSectionOpened.sync="subSectionOpened"
       alt
     ></Sidebar>
     <AppHeader>
@@ -137,7 +138,8 @@ export default {
     sidebarItems: [],
     sidebarActiveItem: 0,
     sidebarActiveChild: 0,
-    sidebarOpened: false
+    sidebarOpened: false,
+    subSectionOpened: false
   }),
   methods: {
     sidebarClick(item) {

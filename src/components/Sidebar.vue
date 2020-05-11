@@ -84,7 +84,7 @@
                 {
                   'ds-active': activeKey(item, index) === active,
                   'ds-disabled': disabled || item.disabled,
-                  'ds-item-opened': isActiveChild
+                  'ds-item-opened': isItemHaveChild(item)
                 }
               ]"
               :href="item.href"
@@ -120,18 +120,21 @@
 
               <Icon
                 class="ds-expand-icon"
-                v-if="item.children && item.children.length"
+                v-if="item.children && item.children.length && !collapsed"
                 :source="
-                  activeKey(item, index) === active
-                    ? 'expand_less'
-                    : 'expand_more'
+                  activeKey(item, index) === active && subSectionOpened
+                    ? 'expand_more'
+                    : 'expand_less'
                 "
               />
             </a>
             <section
               :class="[
                 'ds-children',
-                { 'ds-opened': activeKey(item, index) === active }
+                {
+                  'ds-opened':
+                    activeKey(item, index) === active && subSectionOpened
+                }
               ]"
               :key="index"
             >
@@ -164,7 +167,6 @@
           </div>
         </template>
       </div>
-
       <div class="ds-footer"><slot name="footer"></slot></div>
     </div>
   </div>
@@ -197,18 +199,28 @@ export default {
     alt: Boolean,
     opened: Boolean,
     collapsed: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    subSectionOpened: Boolean
   },
   data: () => ({
     COLORS,
     isActiveChild: false
   }),
   methods: {
+    isItemHaveChild(item) {
+      return item.children && item.children.length > 0;
+    },
     itemClick(item, index, childIndex, event) {
       if (this.disabled || item.disabled) {
         return;
       }
-      this.$emit('update:active', this.activeKey(item, index));
+
+      if (this.isItemHaveChild(item)) {
+        this.$emit('update:sub-section-opened', !this.subSectionOpened);
+        this.$emit('update:active', this.activeKey(item, index));
+        return;
+      }
+
       this.$emit(
         'update:activeChild',
         this.activeKey ? this.activeKey(item, childIndex) : childIndex
@@ -255,6 +267,7 @@ export default {
       immediate: true,
       handler(value) {
         this.isActiveChild = value.toString().split('-').length > 1;
+        this.$emit('update:sub-section-opened', this.isActiveChild);
       }
     }
   }
