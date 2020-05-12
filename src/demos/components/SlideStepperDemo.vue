@@ -31,8 +31,10 @@
         </template>
 
         <template #header-4>
-          <div class="ds-demo-title">Step 4</div>
-          <div class="ds-demo-sub-title">This is step 4</div>
+          <div class="title">Step 4</div>
+          <div class="sub-title">
+            You can customize every header based on your requirement
+          </div>
         </template>
 
         <template #header-5>

@@ -74,20 +74,18 @@
         >
         </Icon>
       </div>
-      <div>
-        <div
-          :class="[
-            'ds-slider-alt-content-wrapper',
-            {
-              'ds-slide-left-to-right': slideLeftToRight,
-              'ds-slide-right-to-left': slideRightToLeft,
-              'ds-fade-in': fadeIn,
-              'ds-fade-out': fadeOut
-            }
-          ]"
-        >
-          <slot :name="activeSlider"></slot>
-        </div>
+      <div
+        :class="[
+          'ds-slider-alt-content-wrapper',
+          {
+            'ds-slide-left-to-right': slideLeftToRight,
+            'ds-slide-right-to-left': slideRightToLeft,
+            'ds-fade-in': fadeIn,
+            'ds-fade-out': fadeOut
+          }
+        ]"
+      >
+        <slot :name="activeSlider"></slot>
       </div>
     </div>
     <div class="ds-slider-alt-footer">
@@ -374,14 +372,20 @@ export default {
     }
 
     .ds-slider-alt-content-wrapper {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
       .ds-slider-alt-content {
         display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        min-height: 100%;
-        min-width: 100%;
-        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
 
       .ds-slider-alt-content > * {
@@ -440,37 +444,40 @@ export default {
   }
 }
 
-@keyframes slide {
+@keyframes slide-right {
   0% {
     transform: translateX(0);
-  }
-  25% {
-    transform: translateX(25%);
-  }
-  50% {
-    transform: translateX(50%);
-  }
-  75% {
-    transform: translateX(75%);
+    transform-origin: center center;
   }
   100% {
     transform: translateX(100%);
+    transform-origin: center center;
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+    transform-origin: center center;
+  }
+  100% {
+    transform: translateX(-100%);
+    transform-origin: center center;
   }
 }
 
 .ds-slide-left-to-right {
-  animation-name: slide;
+  animation-name: slide-right;
   animation-duration: 0.4s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
 
 .ds-slide-right-to-left {
-  animation-name: slide;
+  animation-name: slide-left;
   animation-duration: 0.4s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  animation-direction: reverse;
 }
 
 @keyframes fade {
