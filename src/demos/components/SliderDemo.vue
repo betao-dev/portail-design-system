@@ -38,7 +38,7 @@
       class="ds-demo-slider"
       alt
       :startIndex.sync="altSlideStartIndex"
-      actionType="fade"
+      actionType="slide"
       header="Partenaires"
       altHeaderRight="Tous les partenaires"
       altButtonTitle="Découvrir"
