@@ -12,7 +12,9 @@
     <div class="owl-slider-wrapper">
       <OwlSlider>
         <div class="img-wrapper">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/2016_BMW_i8.jpg" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/e/e9/2016_BMW_i8.jpg"
+          />
         </div>
         <div class="img-wrapper">
           <img
@@ -46,7 +48,7 @@ export default {
     openUsage: true,
     usage: OwlSliderData.usage
   })
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -64,4 +66,3 @@ export default {
   }
 }
 </style>
-
