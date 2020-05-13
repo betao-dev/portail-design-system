@@ -40,7 +40,7 @@ import Icon from './Icon';
 export default {
   name: 'OwlSlider',
   components: { carousel, Icon },
-  props:{
+  props: {
     autoplay: {
       type: Boolean,
       default: false
@@ -66,7 +66,7 @@ export default {
       default: 5000
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
