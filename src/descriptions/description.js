@@ -49,6 +49,7 @@ import NotificationList from './data/NotificationList';
 import ContentTab from './data/ContentTab';
 import NotificationPopup from './data/NotificationPopup';
 import Help from './data/Help';
+import OwlSlider from './data/OwlSlider';
 
 export default {
   AppHeader,
@@ -101,5 +102,6 @@ export default {
   NotificationList,
   ContentTab,
   NotificationPopup,
-  Help
+  Help,
+  OwlSlider
 };

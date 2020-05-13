@@ -86,6 +86,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "v-mask": "^2.0.2",
+    "v-owl-carousel": "^1.0.8",
     "vue-popperjs": "^2.0.4",
     "vue-signature-pad": "^1.1.18",
     "vue-slider-component": "^3.0.43",

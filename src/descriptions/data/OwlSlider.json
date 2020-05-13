@@ -1,0 +1,36 @@
+{
+  "properties": [
+    {
+      "name": "autoplay",
+      "type": "Boolean",
+      "description": "Slide items automatically"
+    },
+    {
+      "name": "loop",
+      "type": "Boolean",
+      "description": "Slide items without end. If user slides items from left to right, first item will come after last item."
+    },
+    {
+      "name": "items",
+      "type": "Number",
+      "description": "Count of slide items"
+    },
+    {
+      "name": "nav",
+      "type": "Boolean",
+      "description": "Show Navigation"
+    },
+    {
+      "name": "dots",
+      "type": "Boolean",
+      "description": "Show dots under the slide"
+    },
+    {
+      "name": "autoPlayTimeout",
+      "type": "Number",
+      "description": "Duration between slides move"
+    }
+  ],
+  "events": [
+  ]
+}
