@@ -9,7 +9,7 @@
       :autoPlayTimeout="autoPlayTimeout"
     >
       <template slot="prev">
-        <div class="custom-prev">
+        <div class="custom-prev" @click="prevClicked">
           <Icon
             class="ds-control-arrow-left"
             angle_left_solid
@@ -19,7 +19,7 @@
         </div>
       </template>
       <template slot="next">
-        <div class="custom-next">
+        <div class="custom-next" @click="nextClicked">
           <Icon
             class="ds-control-arrow-right"
             angle_right_solid
@@ -64,6 +64,14 @@ export default {
     autoPlayTimeout: {
       type: Number,
       default: 5000
+    }
+  },
+  methods: {
+    prevClicked() {
+      this.$emit('prev')
+    },
+    nextClicked() {
+      this.$emit('next')
     }
   }
 }
