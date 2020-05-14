@@ -123,8 +123,8 @@
                 v-if="item.children && item.children.length && !collapsed"
                 :source="
                   activeKey(item, index) === active && subSectionOpened
-                    ? 'expand_more'
-                    : 'expand_less'
+                    ? 'expand_less'
+                    : 'expand_more'
                 "
               />
             </a>
@@ -431,8 +431,8 @@ export default {
 
   .ds-children {
     transition: max-height 0.1s ease;
-    max-height: 1000px;
-    overflow-y: auto;
+    max-height: 5000px;
+    overflow-y: hidden;
     &:not(.ds-opened) {
       max-height: 0;
     }
