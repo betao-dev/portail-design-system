@@ -68,10 +68,10 @@ export default {
   },
   methods: {
     prevClicked() {
-      this.$emit('prev')
+      this.$emit('prev');
     },
     nextClicked() {
-      this.$emit('next')
+      this.$emit('next');
     }
   }
 };
