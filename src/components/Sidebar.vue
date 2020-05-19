@@ -226,6 +226,10 @@ export default {
         this.activeKey ? this.activeKey(item, childIndex) : childIndex
       );
       this.$emit('item:click', item, index, childIndex, event);
+
+      if (childIndex === null) {
+        this.$emit('update:sub-section-opened', false);
+      }
     },
     outsideClick(event) {
       // Close sidebar on an outside click
