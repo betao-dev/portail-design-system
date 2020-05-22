@@ -22,14 +22,14 @@
       </div>
       <div class="ds-icon-wrapper">
         <Icon
+          size="18px"
           :color="iconColor"
-          :source="opened ? 'expand_less' : 'expand_more'"
+          :source="opened ? 'angle_down_solid' : 'angle_up_solid'"
         ></Icon>
       </div>
     </div>
     <div
       class="ds-collapser-body"
-      :style="{ backgroundColor: bgColor }"
       v-show="opened"
     >
       <slot></slot>
@@ -52,11 +52,11 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#ffffff'
+      default: '#E9F8F3'
     },
     iconColor: {
       type: String,
-      default: '#3F4352'
+      default: '#1EB386'
     }
   },
   methods: {
@@ -74,9 +74,8 @@ export default {
   display: flex;
   width: 100%;
   flex-direction: column;
-  box-shadow: @card-shadow;
   margin-bottom: @collapser-margin-bottom;
-  box-shadow: 0 1px 1px 0 rgba(91, 99, 156, 0.26);
+  border-radius: 4px;
 
   .ds-collapser-header {
     cursor: pointer;
@@ -85,7 +84,6 @@ export default {
     height: 56px;
     align-items: center;
 
-    background-color: white;
     .font-components-button-normal-alt-dark();
 
     & > div {
@@ -95,15 +93,16 @@ export default {
 
     .ds-title {
       flex: 1;
-      padding-left: 15px;
+      padding-left: 24px;
       padding-right: 15px;
       display: block;
       height: 24px;
       line-height: 24px;
       font-size: 16px;
-      font-family: Lato;
+      font-family: @robotoFont;
       font-weight: 500;
       overflow: hidden;
+      color: @color-primary;
     }
 
     .ds-icon-wrapper {
