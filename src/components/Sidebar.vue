@@ -82,9 +82,13 @@
               :class="[
                 'ds-item',
                 {
-                  'ds-active': activeKey(item, index) === active,
+                  'ds-active':
+                    activeKey(item, index) === active ||
+                    temporaryActiveItem === activeKey(item, index),
                   'ds-disabled': disabled || item.disabled,
-                  'ds-item-opened': isItemHaveChild(item)
+                  'ds-item-opened':
+                    isItemHaveChild(item) ||
+                    temporaryActiveItem === activeKey(item, index)
                 }
               ]"
               :href="item.href"
@@ -122,7 +126,9 @@
                 class="ds-expand-icon"
                 v-if="item.children && item.children.length && !collapsed"
                 :source="
-                  activeKey(item, index) === active && subSectionOpened
+                  (activeKey(item, index) === active && subSectionOpened) ||
+                  (temporaryActiveItem === activeKey(item, index) &&
+                    temporaryOpened)
                     ? 'expand_less'
                     : 'expand_more'
                 "
@@ -133,7 +139,9 @@
                 'ds-children',
                 {
                   'ds-opened':
-                    activeKey(item, index) === active && subSectionOpened
+                    (activeKey(item, index) === active && subSectionOpened) ||
+                    (temporaryActiveItem === activeKey(item, index) &&
+                      temporaryOpened)
                 }
               ]"
               :key="index"
@@ -204,9 +212,15 @@ export default {
   },
   data: () => ({
     COLORS,
-    isActiveChild: false
+    isActiveChild: false,
+    temporaryActiveItem: undefined,
+    temporaryOpened: false
   }),
   methods: {
+    temporaryReset() {
+      this.temporaryActiveItem = undefined;
+      this.temporaryOpened = false;
+    },
     isItemHaveChild(item) {
       return item.children && item.children.length > 0;
     },
@@ -216,8 +230,21 @@ export default {
       }
 
       if (this.isItemHaveChild(item)) {
-        this.$emit('update:sub-section-opened', !this.subSectionOpened);
-        this.$emit('update:active', this.activeKey(item, index));
+        if (this.activeKey(item, index) === this.active) {
+          this.temporaryReset();
+          this.$emit('update:sub-section-opened', !this.subSectionOpened);
+        }
+
+        if (this.activeKey(item, index) === this.temporaryActiveItem) {
+          this.temporaryOpened = !this.temporaryOpened;
+        } else {
+          this.temporaryOpened = true;
+        }
+
+        if (this.active !== this.activeKey(item, index)) {
+          this.temporaryActiveItem = this.activeKey(item, index);
+        }
+
         return;
       }
 
@@ -230,6 +257,8 @@ export default {
       if (childIndex === null) {
         this.$emit('update:sub-section-opened', false);
       }
+
+      this.temporaryReset();
     },
     outsideClick(event) {
       // Close sidebar on an outside click
