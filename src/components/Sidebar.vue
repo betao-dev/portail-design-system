@@ -528,7 +528,8 @@ export default {
             }
 
             &:not(.ds-active) {
-              &:hover {
+              &:hover,
+              &:focus {
                 background-color: #2d3047;
                 color: #fafbff;
 
