@@ -542,14 +542,14 @@ export default {
           .ds-children {
             .ds-child-item {
               height: 40px !important;
-              padding: 12px 0 12px 44px;
+              padding: 12px 0 12px 46px;
 
               height: 16px;
               font-family: Roboto, sans-serif;
               font-size: 14px;
               letter-spacing: 0.3px;
               line-height: 16px;
-              color: #abacb5;
+              color: @color-gray-400;
 
               &.ds-active {
                 color: #2d3047;
