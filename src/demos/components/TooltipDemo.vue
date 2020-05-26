@@ -15,7 +15,18 @@
           (en plus d’être beaucoup moins cher qu'un TPE classique en location).
         </div>
 
-        <Button slot="reference" padding="10px">Custom Tooltip</Button>
+        <Button slot="reference" padding="10px">Dark Tooltip</Button>
+      </Tooltip>
+    </div>
+
+    <div class="row-col tooltip-buttons">
+      <Tooltip white placement="right">
+        <div slot="popover">
+          C'est vraiment pratique, l’utilisation du mini TPE est très complète
+          (en plus d’être beaucoup moins cher qu'un TPE classique en location).
+        </div>
+
+        <Button slot="reference" padding="10px">White Tooltip</Button>
       </Tooltip>
     </div>
   </div>
