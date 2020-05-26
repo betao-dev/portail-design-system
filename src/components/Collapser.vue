@@ -28,10 +28,7 @@
         ></Icon>
       </div>
     </div>
-    <div
-      class="ds-collapser-body"
-      v-show="opened"
-    >
+    <div class="ds-collapser-body" v-show="opened">
       <slot></slot>
     </div>
   </div>
