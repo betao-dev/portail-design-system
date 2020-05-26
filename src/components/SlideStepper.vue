@@ -32,8 +32,13 @@
       <div
         v-for="step in stepSize"
         :key="step"
-        :class="current == step ? 'current' : ''"
-        class="ds-step-divider"
+        :class="[
+          'ds-step-divider',
+          {
+            'current': current == step,
+            'ds-not-finished-step': current < step && finishedStep < step
+          }
+        ]"
       ></div>
     </div>
 
@@ -69,6 +74,10 @@ export default {
     currentStep: {
       type: Number,
       default: 1
+    },
+    finishedStep: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -99,6 +108,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../styles/vars';
 .ds-slide-stepper-container {
   border-radius: 4px;
   background-color: #ffffff;
@@ -156,6 +166,11 @@ export default {
       flex: 1;
 
       &.current {
+        opacity: 1;
+      }
+
+      &.ds-not-finished-step {
+        background-color: @color-gray-300;
         opacity: 1;
       }
 

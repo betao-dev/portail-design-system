@@ -9,6 +9,11 @@
       "name": "currentStep",
       "type": "Number",
       "description": "default step"
+    },
+    {
+      "name": "finishedStep",
+      "type": "Number",
+      "description": "Last finished step"
     }
   ],
   "events": []
