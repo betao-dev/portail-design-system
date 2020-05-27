@@ -50,6 +50,7 @@ import ContentTab from './data/ContentTab';
 import NotificationPopup from './data/NotificationPopup';
 import Help from './data/Help';
 import OwlSlider from './data/OwlSlider';
+import CollapserMenu from './data/CollapserMenu';
 
 export default {
   AppHeader,
@@ -103,5 +104,6 @@ export default {
   ContentTab,
   NotificationPopup,
   Help,
-  OwlSlider
+  OwlSlider,
+  CollapserMenu
 };

@@ -13,18 +13,21 @@
 <template>
   <div class="ds-collapser" :style="{ backgroundColor: bgColor }">
     <div
-      class="ds-collapser-header"
+      :class="['ds-collapser-header', { 'ds-collapser-header-active': opened }]"
       :style="{ backgroundColor: bgColor }"
       @click="onCollapserClick"
     >
-      <div class="ds-title" :style="{ textAlign: titleAlignment }">
+      <div
+        :class="['ds-title', { 'ds-title-active': opened }]"
+        :style="{ textAlign: titleAlignment }"
+      >
         {{ label }}
       </div>
       <div class="ds-icon-wrapper">
         <Icon
           size="18px"
-          :color="iconColor"
-          :source="opened ? 'angle_down_solid' : 'angle_up_solid'"
+          :color="iconColorWrapper"
+          :source="opened ? 'angle_up_solid' : 'angle_down_solid'"
         ></Icon>
       </div>
     </div>
@@ -47,13 +50,16 @@ export default {
       type: String,
       default: 'center'
     },
-    bgColor: {
-      type: String,
-      default: '#E9F8F3'
-    },
-    iconColor: {
-      type: String,
-      default: '#1EB386'
+    bgColor: String,
+    iconColor: String
+  },
+  computed: {
+    iconColorWrapper() {
+      if (this.iconColor) {
+        return this.iconColor;
+      } else {
+        return this.opened ? 'primary' : 'gray-500';
+      }
     }
   },
   methods: {
@@ -80,8 +86,15 @@ export default {
     width: 100%;
     height: 56px;
     align-items: center;
+    border-radius: 4px;
+    background-color: @color-white;
 
     .font-components-button-normal-alt-dark();
+
+    &.ds-collapser-header-active {
+      background-color: #e9f8f3;
+      border-radius: 4px 4px 0 0;
+    }
 
     & > div {
       display: flex;
@@ -93,13 +106,18 @@ export default {
       padding-left: 24px;
       padding-right: 15px;
       display: block;
-      height: 24px;
-      line-height: 24px;
-      font-size: 16px;
-      font-family: @robotoFont;
-      font-weight: 500;
       overflow: hidden;
-      color: @color-primary;
+      font-weight: normal;
+      font-family: @robotoFont;
+      color: @color-dark;
+      height: 19px;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      line-height: 19px;
+
+      &.ds-title-active {
+        color: @color-primary;
+      }
     }
 
     .ds-icon-wrapper {
@@ -109,7 +127,8 @@ export default {
 
   .ds-collapser-body {
     padding: @collapser-body-padding;
-    background-color: white;
+    background-color: @color-white;
+    border-radius: 0 0 4px 4px;
   }
 }
 </style>

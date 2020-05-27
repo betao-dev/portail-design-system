@@ -56,6 +56,7 @@ import NotificationPopupData from './data/demo/NotificationPopupData';
 import HelpData from './data/demo/HelpData';
 import SlideStepperData from './data/demo/SlideStepperData';
 import OwlSliderData from './data/demo/OwlSliderData';
+import CollapserMenuData from './data/demo/CollapserMenuData';
 
 export {
   CountriesArray,
@@ -114,5 +115,6 @@ export {
   NotificationPopupData,
   HelpData,
   SlideStepperData,
-  OwlSliderData
+  OwlSliderData,
+  CollapserMenuData
 };

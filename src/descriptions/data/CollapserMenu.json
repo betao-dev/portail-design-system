@@ -1,0 +1,15 @@
+{
+  "properties": [
+    {
+      "name": "titles",
+      "type": "Array",
+      "description": "Represent array of titles for collapser items, property is required"
+    },
+    {
+      "name": "active",
+      "type": "Number",
+      "description": "Represent the active collapser item, property is required"
+    }
+  ],
+  "events": []
+}
