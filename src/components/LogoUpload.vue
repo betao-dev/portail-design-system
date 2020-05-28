@@ -21,7 +21,9 @@
           </template>
 
           <template v-else>
-            <img :src="inputValue === 'object' ? inputValue.dataURL : inputValue" />
+            <img
+              :src="inputValue === 'object' ? inputValue.dataURL : inputValue"
+            />
           </template>
         </div>
       </div>
@@ -86,7 +88,7 @@ export default {
       touched: false,
       errors: [],
       inputValue: null
-    }
+    };
   },
   methods: {
     removeFile() {
@@ -153,15 +155,15 @@ export default {
     },
     wrapperStyles() {
       const wrapperStyle = {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFFFFF'
       };
 
       if (this.checkEmptyFile) {
         wrapperStyle.border = 'dashed 1px #1EB386';
       } else {
-        wrapperStyle.border = 'solid 1px #E8ECEF'
+        wrapperStyle.border = 'solid 1px #E8ECEF';
       }
-      
+
       return wrapperStyle;
     }
   },
@@ -174,7 +176,7 @@ export default {
   mounted() {
     this.inputValue = this.value;
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -213,7 +215,7 @@ export default {
           font-size: 12px;
           line-height: 14px;
           color: @color-gray-500;
-          font-family: "Roboto Medium";
+          font-family: 'Roboto Medium';
           background-color: white;
           text-transform: uppercase;
 
@@ -230,7 +232,6 @@ export default {
       }
     }
   }
-
 
   .logo-footer {
     margin-top: 12px;

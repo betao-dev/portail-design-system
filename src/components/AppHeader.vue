@@ -44,6 +44,10 @@ export default {
     font-size: 20px;
     line-height: 30px;
   }
+  @media @hide-sidebar {
+    position: sticky;
+    top: 0;
+  }
 
   @media @screen-small {
     height: @app-header-height-small;
