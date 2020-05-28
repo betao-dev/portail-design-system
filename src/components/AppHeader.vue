@@ -47,6 +47,8 @@ export default {
   }
   @media @hide-sidebar {
     position: sticky;
+    padding-left: 16px;
+    padding-right: 16px;
     top: 0;
   }
 
