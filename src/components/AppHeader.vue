@@ -58,7 +58,6 @@ export default {
   @media @screen-small {
     .ds-title {
       .font-desktop-body-medium-dark();
-      padding: @app-header-title-padding-small;
     }
   }
 }
