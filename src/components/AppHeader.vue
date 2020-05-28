@@ -36,6 +36,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: stretch;
+  z-index: 1000;
 
   .ds-title {
     flex: 1 0 auto;
