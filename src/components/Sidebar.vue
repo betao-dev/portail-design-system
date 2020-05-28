@@ -597,6 +597,7 @@ export default {
 
 @media @hide-sidebar {
   .ds-sidebar-container {
+    top: 64px;
     transition: left 0.1s ease;
     &:not(.ds-opened) {
       left: -@sidebar-width;
