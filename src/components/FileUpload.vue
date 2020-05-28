@@ -17,7 +17,7 @@
   <div class="ds-upload-wrapper">
     <vue-dropzone
       v-if="multiple"
-      :options="fileUploadOptions"
+      :options="mainOptions"
       id="ds-file-upload"
       :style="wrapperStyles"
       :useCustomSlot="true"
@@ -53,7 +53,7 @@
 
     <vue-dropzone
       v-else
-      :options="fileUploadOptions"
+      :options="mainOptions"
       id="ds-file-upload"
       :style="wrapperStyles"
       :useCustomSlot="true"
@@ -217,9 +217,6 @@ export default {
     checkEmptyFile() {
       if (isEmpty(this.inputValue)) return true;
       return false;
-    },
-    fileUploadOptions() {
-      return { ...this.uploadOptions, ...this.mainOptions };
     },
     validation() {
       if (!this.validators || !this.validators.length) {

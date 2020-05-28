@@ -51,6 +51,7 @@ import NotificationPopup from './data/NotificationPopup';
 import Help from './data/Help';
 import OwlSlider from './data/OwlSlider';
 import CollapserMenu from './data/CollapserMenu';
+import LogoUpload from './data/LogoUpload';
 
 export default {
   AppHeader,
@@ -105,5 +106,6 @@ export default {
   NotificationPopup,
   Help,
   OwlSlider,
-  CollapserMenu
+  CollapserMenu,
+  LogoUpload
 };

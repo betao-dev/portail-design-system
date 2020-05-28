@@ -1,0 +1,15 @@
+{
+  "properties": [
+    {
+      "name": "value",
+      "type": "File, String",
+      "description": "Base64 String or File Object"
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "emitted if the file is updated or removed, this will be used for v-model"
+    }
+  ]
+}
