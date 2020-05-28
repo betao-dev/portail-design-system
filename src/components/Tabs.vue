@@ -60,6 +60,7 @@
               }
             ]"
             @click="onTabClick(tab, index)"
+            @touchend="onTabClick(tab, index)"
           >
             <template v-if="$slots[`tab-header-${index + 1}`]">
               <slot :name="`tab-header-${index + 1}`"></slot>
