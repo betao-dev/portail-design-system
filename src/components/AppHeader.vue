@@ -36,6 +36,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: stretch;
+  z-index: 1000;
 
   .ds-title {
     flex: 1 0 auto;
@@ -44,13 +45,19 @@ export default {
     font-size: 20px;
     line-height: 30px;
   }
-
-  @media @screen-small {
-    height: @app-header-height-small;
+  @media @hide-sidebar {
+    position: sticky;
+    top: 0;
 
     .ds-title {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  @media @screen-small {
+    .ds-title {
       .font-desktop-body-medium-dark();
-      padding: @app-header-title-padding-small;
     }
   }
 }

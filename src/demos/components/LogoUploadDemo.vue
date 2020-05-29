@@ -24,7 +24,7 @@ export default {
   components: {
     LogoUpload,
     Description,
-    Collapser,
+    Collapser
   },
   data: () => ({
     openUsage: true,
@@ -32,5 +32,5 @@ export default {
     file: null
   }),
   methods: {}
-}
+};
 </script>

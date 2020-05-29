@@ -6,7 +6,7 @@
       :activeKey="(item, index) => item.hash"
       :active.sync="sidebarActiveItem"
       :activeChild.sync="sidebarActiveChild"
-      :opened.sync="sidebarOpened"
+      :opened="sidebarOpened"
       :subSectionOpened.sync="subSectionOpened"
       alt
     ></Sidebar>
