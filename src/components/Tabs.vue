@@ -60,7 +60,6 @@
               }
             ]"
             @click="onTabClick(tab, index)"
-            @touchend="onTabClick(tab, index)"
           >
             <template v-if="$slots[`tab-header-${index + 1}`]">
               <slot :name="`tab-header-${index + 1}`"></slot>
@@ -136,7 +135,6 @@ export default {
     plainHeader: Boolean
   },
   data: () => ({
-    startX: undefined,
     minDistance: 100,
     idContent: 'ds-tabs-content-'.concat(
       Math.random()
@@ -157,24 +155,6 @@ export default {
       if (this.disabled || tab.disabled) return;
       this.$emit('tab:click', tab, ++index);
     },
-    swipeTab(regulator) {
-      let futureTab = this.active + regulator;
-
-      if (futureTab < this.tabs.length && futureTab >= 0) {
-        this.onTabClick(this.tabs[futureTab], futureTab);
-      }
-    },
-    touchstart(event) {
-      this.startX = event.changedTouches[0].pageX;
-      event.preventDefault();
-    },
-    touchend(event) {
-      let endX = event.changedTouches[0].pageX - this.startX;
-      if (Math.abs(endX) > this.minDistance) {
-        this.swipeTab(endX > 0 ? 1 : -1);
-      }
-      event.preventDefault();
-    },
     activeTabClass(index) {
       if (this.activeTab(index)) {
         if (this.simpleTabs) {
@@ -185,12 +165,6 @@ export default {
           return 'ds-active';
         }
       }
-    }
-  },
-  mounted() {
-    if (!this.simpleTabs) {
-      this.$el.addEventListener('touchstart', this.touchstart);
-      this.$el.addEventListener('touchend', this.touchend);
     }
   }
 };
