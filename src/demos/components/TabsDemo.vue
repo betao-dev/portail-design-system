@@ -9,7 +9,7 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <h3>Normal Usage</h3>
+    <h4>Normal Usage</h4>
     <div class="tabs-container">
       <Tabs
         :tabs="tabs"
@@ -76,7 +76,7 @@
       </Tabs>
     </div>
 
-    <h3>Customized Tab</h3>
+    <h4>Customized Tab</h4>
     <div class="tabs-container">
       <Tabs
         :tabs="2"
