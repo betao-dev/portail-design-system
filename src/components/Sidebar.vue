@@ -225,6 +225,7 @@ export default {
       return item.children && item.children.length > 0;
     },
     itemClick(item, index, childIndex, event) {
+      let reset = false;
       if (this.disabled || item.disabled) {
         return;
       }
@@ -236,12 +237,13 @@ export default {
         }
 
         if (this.activeKey(item, index) === this.temporaryActiveItem) {
-          this.temporaryOpened = !this.temporaryOpened;
+          this.temporaryReset();
+          reset = true;
         } else {
           this.temporaryOpened = true;
         }
 
-        if (this.active !== this.activeKey(item, index)) {
+        if (this.active !== this.activeKey(item, index) && !reset) {
           this.temporaryActiveItem = this.activeKey(item, index);
         }
 
