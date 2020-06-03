@@ -239,6 +239,7 @@ export default {
         if (this.activeKey(item, index) === this.temporaryActiveItem) {
           this.temporaryReset();
           reset = true;
+          this.$emit('sub-section-closed');
         } else {
           this.temporaryOpened = true;
         }
