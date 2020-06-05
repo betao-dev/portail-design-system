@@ -328,6 +328,10 @@ export default {
 
   .ds-inactive-tab {
     opacity: 0.5;
+
+    &:hover {
+      opacity: 0.75;
+    }
   }
 
   .ds-plain-header {
