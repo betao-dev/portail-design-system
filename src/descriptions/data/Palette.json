@@ -1,0 +1,25 @@
+{
+  "properties": [
+    {
+      "name": "value",
+      "type": "Array",
+      "description": "Represent current color gradient"
+    },
+    {
+      "name": "colors",
+      "type": "Array",
+      "description": "Represent colors for creating gradients"
+    },
+    {
+      "name": "opacities",
+      "type": "Array",
+      "description": "Represent opacities for creating gradients"
+    },
+    {
+      "name": "autoInit",
+      "type": "Boolean",
+      "description": "Set selected gradients of the first color"
+    }
+  ],
+  "events": []
+}

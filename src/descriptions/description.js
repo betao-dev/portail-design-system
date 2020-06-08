@@ -52,6 +52,7 @@ import Help from './data/Help';
 import OwlSlider from './data/OwlSlider';
 import CollapserMenu from './data/CollapserMenu';
 import LogoUpload from './data/LogoUpload';
+import Palette from './data/Palette';
 
 export default {
   AppHeader,
@@ -107,5 +108,6 @@ export default {
   Help,
   OwlSlider,
   CollapserMenu,
-  LogoUpload
+  LogoUpload,
+  Palette
 };

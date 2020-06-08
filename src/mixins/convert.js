@@ -18,7 +18,7 @@ export default {
         b = `0x${h[5]}${h[6]}`;
       }
 
-      return `rgb(${+r}, ${+g}, ${+b}, ${+a})`;
+      return `rgba(${+r}, ${+g}, ${+b}, ${+a})`;
     }
   }
 };
