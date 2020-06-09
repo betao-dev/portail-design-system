@@ -4,6 +4,12 @@
       "name": "value",
       "type": "File, String",
       "description": "Base64 String or File Object"
+    },
+    {
+      "name": "iconUploadSize",
+      "type": "String",
+      "default": "30px",
+      "description": "Setup upload icon size"
     }
   ],
   "events": [

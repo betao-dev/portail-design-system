@@ -14,7 +14,7 @@
               <Icon
                 source="cloud-upload-alt-solid"
                 color="#1EB386"
-                size="30px"
+                :size="iconUploadSize"
               />
               <div>Ajouter un logo</div>
             </div>
@@ -57,7 +57,11 @@ import { isEmpty } from 'lodash';
 export default {
   name: 'LogoUpload',
   props: {
-    value: [File, String]
+    value: [File, String],
+    iconUploadSize: {
+      type: String,
+      default: '30px'
+    }
   },
   components: {
     vueDropzone: vue2Dropzone,
@@ -240,7 +244,9 @@ export default {
       font-size: 12px;
       line-height: 21px;
       color: @color-gray-400;
-      font-family: 'Roboto Regular';
+      font-family: Roboto, sans-serif;
+      letter-spacing: 0;
+      cursor: default;
     }
 
     .actions {
