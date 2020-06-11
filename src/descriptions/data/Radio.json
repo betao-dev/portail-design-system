@@ -6,6 +6,11 @@
       "description": "Binds value property to radio"
     },
     {
+      "name": "radioColor",
+      "type": "String",
+      "description": "Color of the active ratio"
+    },
+    {
       "name": "list",
       "type": "Array",
       "description": "List of objects with title property that reflect titles for radio buttons"
