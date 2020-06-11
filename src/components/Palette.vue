@@ -70,20 +70,29 @@ export default {
     justify-content: center;
     align-items: center;
     margin-right: 9.75px;
-
     height: 47.2px;
-    width: 80.2px;
+    width: 100%;
+    max-width: 80.2px;
     border-radius: 5px;
     box-sizing: border-box;
 
     &.ds-palette-active {
       background-color: @color-white;
       border: 1.6px solid @color-gray-500;
+
+      :first-child {
+        margin-left: 1.5px;
+      }
+
+      :last-child {
+        margin-right: 1.5px;
+      }
     }
 
     .ds-palette-item {
       cursor: pointer;
-      width: 24.5px;
+      width: 100%;
+      max-width: 24px;
       height: 41px;
     }
 
