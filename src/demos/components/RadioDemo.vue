@@ -9,7 +9,11 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Radio v-model="value" :list="radioList"></Radio>
+    <Radio
+      v-model="value"
+      :list="radioList"
+      radioColor="#1EB386"
+    />
   </div>
 </template>
 

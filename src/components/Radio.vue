@@ -1,15 +1,10 @@
 <template>
   <span class="ds-radio-component">
-    <span class="ds-radio-wrapper" v-for="radio in list">
+    <span class="ds-radio-wrapper" v-for="(radio, index) in list" :key="index">
       <label class="ds-radio-body">
         <span
-          :class="[
-            'ds-radio-container',
-            {
-              'ds-radio-container-inactive': !radioActive(radio.title),
-              'ds-radio-container-active': radioActive(radio.title)
-            }
-          ]"
+          class="ds-radio-container"
+          :style="{backgroundColor: radioActive(radio.title) ? radioColor : '#E8ECEF'}"
         >
         </span>
 
@@ -49,6 +44,10 @@ export default {
     spaceBetweenItems: {
       type: String,
       default: '30px'
+    },
+    radioColor: {
+      type: String,
+      default: '#98A9BC'
     }
   },
   computed: {
