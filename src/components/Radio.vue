@@ -4,7 +4,9 @@
       <label class="ds-radio-body">
         <span
           class="ds-radio-container"
-          :style="{backgroundColor: radioActive(radio.title) ? radioColor : '#E8ECEF'}"
+          :style="{
+            backgroundColor: radioActive(radio.title) ? radioColor : '#E8ECEF'
+          }"
         >
         </span>
 
