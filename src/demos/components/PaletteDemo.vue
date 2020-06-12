@@ -36,20 +36,11 @@ export default {
   data: () => ({
     usage: PaletteData.usage,
     openUsage: true,
-    palette: undefined,
+    palette: [],
     secondPalette: undefined,
     colors: ['#778CA2', '#1EB386', '#09AFFF', '#745BCC', '#F03F3F'],
     opacities: [1, 0.6, 0.33]
-  }),
-  watch: {
-    secondPalette: {
-      immediate: true,
-      deep: true,
-      handler(value) {
-        console.log('value ', value);
-      }
-    }
-  }
+  })
 };
 </script>
 

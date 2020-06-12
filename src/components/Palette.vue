@@ -5,8 +5,7 @@
       :class="[
         'ds-palette',
         {
-          'ds-palette-active':
-            value && value.value[0] === defaultColor.value[0]
+          'ds-palette-active': value && value.value[0] === defaultColor.value[0]
         }
       ]"
       @click="setActive(defaultColor)"
@@ -65,7 +64,7 @@ export default {
           value: ['#F0414A', '#F68C8C', '#FAC0C0']
         }
       ]
-    }
+    };
   },
   props: {
     value: null,
