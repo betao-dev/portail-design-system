@@ -1,5 +1,24 @@
 <template>
-  <div class="ds-palette-wrapper">
+  <div v-if="defaultMode" class="ds-palette-wrapper">
+    <div
+      v-for="defaultColor of defaultColors"
+      :class="[
+        'ds-palette',
+        {
+          'ds-palette-active':
+            value && value.value[0] === defaultColor.value[0]
+        }
+      ]"
+      @click="setActive(defaultColor)"
+    >
+      <div
+        class="ds-palette-item"
+        v-for="value of defaultColor.value"
+        :style="{ backgroundColor: value }"
+      ></div>
+    </div>
+  </div>
+  <div v-else class="ds-palette-wrapper">
     <div
       :class="[
         'ds-palette',
@@ -22,22 +41,43 @@ import convert from './../mixins/convert';
 export default {
   name: 'Palette',
   mixins: [convert],
+  data: function() {
+    return {
+      defaultColors: [
+        {
+          id: 1,
+          value: ['#778CA2', '#AEBAC7', '#D2D9E1']
+        },
+        {
+          id: 2,
+          value: ['#40B387', '#78D1B6', '#B5E6D7']
+        },
+        {
+          id: 3,
+          value: ['#11ADF7', '#6CCEF8', '#AFE4FA']
+        },
+        {
+          id: 4,
+          value: ['#745ECC', '#AB9DE0', '#D1C9EE']
+        },
+        {
+          id: 5,
+          value: ['#F0414A', '#F68C8C', '#FAC0C0']
+        }
+      ]
+    }
+  },
   props: {
-    value: {
-      type: Array,
-      required: true
-    },
-    colors: {
-      type: Array,
-      required: true
-    },
-    opacities: {
-      type: Array,
-      required: true
-    },
+    value: null,
+    colors: Array,
+    opacities: Array,
     autoInit: {
       type: Boolean,
       default: false
+    },
+    defaultMode: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -48,12 +88,20 @@ export default {
       });
     },
     setActive(color) {
-      this.$emit('input', this.calcGradient(color));
+      if (this.defaultMode) {
+        this.$emit('input', color);
+      } else {
+        this.$emit('input', this.calcGradient(color));
+      }
     }
   },
   mounted() {
     if (this.autoInit) {
-      this.$emit('input', this.calcGradient(this.colors[0]));
+      if (this.defaultMode) {
+        this.$emit('input', this.defaultColors[0]);
+      } else {
+        this.$emit('input', this.calcGradient(this.colors[0]));
+      }
     }
   }
 };

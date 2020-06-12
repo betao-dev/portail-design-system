@@ -9,12 +9,18 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Palette
-      v-model="palette"
-      :colors="colors"
-      :opacities="opacities"
-      auto-init
-    ></Palette>
+    <div class="palette-wrapper">
+      <Palette
+        v-model="palette"
+        :colors="colors"
+        :opacities="opacities"
+        :default-mode="false"
+        auto-init
+      ></Palette>
+    </div>
+    <div class="palette-wrapper">
+      <Palette v-model="secondPalette" auto-init></Palette>
+    </div>
   </div>
 </template>
 
@@ -30,11 +36,29 @@ export default {
   data: () => ({
     usage: PaletteData.usage,
     openUsage: true,
-    palette: [],
+    palette: undefined,
+    secondPalette: undefined,
     colors: ['#778CA2', '#1EB386', '#09AFFF', '#745BCC', '#F03F3F'],
     opacities: [1, 0.6, 0.33]
-  })
+  }),
+  watch: {
+    secondPalette: {
+      immediate: true,
+      deep: true,
+      handler(value) {
+        console.log('value ', value);
+      }
+    }
+  }
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.palette-wrapper {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+</style>

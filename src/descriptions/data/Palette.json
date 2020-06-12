@@ -2,7 +2,7 @@
   "properties": [
     {
       "name": "value",
-      "type": "Array",
+      "type": "null",
       "description": "Represent current color gradient"
     },
     {
@@ -18,7 +18,14 @@
     {
       "name": "autoInit",
       "type": "Boolean",
+      "default": "false",
       "description": "Set selected gradients of the first color"
+    },
+    {
+      "name": "defaultMode",
+      "type": "Boolean",
+      "default": "true",
+      "description": "When setup as true the component use predefined colors, and don't use colors and opacities props"
     }
   ],
   "events": []
