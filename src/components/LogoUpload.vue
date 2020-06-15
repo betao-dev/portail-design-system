@@ -3,12 +3,17 @@
     <vue-dropzone
       id="ds-file-upload"
       ref="pane"
-      :options="mainOptions"
+      :options="{ ...mainOptions }"
       :style="wrapperStyles"
       :useCustomSlot="true"
     >
       <div class="ds-selected-files-wrapper">
-        <div class="ds-file-wrapper">
+        <div
+          :class="[
+            'ds-file-wrapper',
+            { 'ds-file-wrapper-cover-initial': initialImageCover }
+          ]"
+        >
           <template v-if="checkEmptyFile">
             <div class="ds-file-empty">
               <Icon
@@ -30,10 +35,13 @@
     </vue-dropzone>
 
     <div class="logo-footer">
-      <div class="empty-message" v-if="checkEmptyFile">
+      <div
+        :class="['empty-message', { 'empty-message-invalid': !isValid }]"
+        v-if="checkEmptyFile || !this.isValid"
+      >
         Votre logo doit être au format JPG ou PNG et inférieur à 1Mo.
       </div>
-      <div class="actions" v-else>
+      <div class="actions" v-if="!checkEmptyFile">
         <div class="remove-action" @click="removeFile">
           <Icon source="trash-alt" size="18px" color="#778CA2" />
           <span>Effacer logo</span>
@@ -61,6 +69,19 @@ export default {
     iconUploadSize: {
       type: String,
       default: '30px'
+    },
+    sizeRestriction: {
+      type: Number,
+      default: 1
+    },
+    acceptedFiles: {
+      type: [String, Array],
+      default: 'image/*'
+    },
+    isValid: Boolean,
+    initialImageCover: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -73,21 +94,24 @@ export default {
         addedfile: file => {
           this.touched = true;
           this.errors = [];
-          if (!this.fileTypeCheck(file)) {
-            let message = this.dsTranslate('File invalid');
-            this.$emit('invalidfile', message);
-            this.errors.push(message);
-            return;
+
+          if (!this.sizeCheck(file)) {
+            return this.fileInvalid();
           }
+
+          if (!this.fileTypeCheck(file)) {
+            return this.fileInvalid();
+          }
+
           setTimeout(() => {
             this.inputValue = file.dataURL;
+            this.$emit('update:isValid', true);
             this.$emit('input', this.inputValue);
             this.$emit('validation', this.validation);
           }, 300);
         },
         url: 'https://*',
-        addRemoveLinks: true,
-        acceptedFiles: 'image/*'
+        addRemoveLinks: true
       },
       touched: false,
       errors: [],
@@ -95,10 +119,17 @@ export default {
     };
   },
   methods: {
+    fileInvalid() {
+      let message = this.dsTranslate('File invalid');
+      this.$emit('invalidfile', message);
+      this.$emit('update:isValid', false);
+      this.errors.push(message);
+    },
     removeFile() {
       this.inputValue = null;
       this.$emit('input', this.inputValue);
       this.$emit('validation', this.validation);
+      this.$emit('update:isValid', true);
     },
     add() {
       if (this.$refs.pane) {
@@ -106,22 +137,29 @@ export default {
       }
     },
     fileTypeCheck(file) {
-      if (file.type === this.mainOptions.acceptedFiles) {
-        return true;
-      }
-
-      if (this.mainOptions.acceptedFiles === '*') {
-        return true;
-      }
-
-      if (this.mainOptions.acceptedFiles.includes('/*')) {
-        const type = this.mainOptions.acceptedFiles.replace('/*', '');
-        if (file.type.includes(type)) {
+      if (typeof this.acceptedFiles === 'string') {
+        if (file.type === this.acceptedFiles) {
           return true;
         }
-      }
 
-      return false;
+        if (this.acceptedFiles === '*') {
+          return true;
+        }
+
+        if (this.acceptedFiles.includes('/*')) {
+          const type = this.acceptedFiles.replace('/*', '');
+          if (file.type.includes(type)) {
+            return true;
+          }
+        }
+
+        return false;
+      } else if (Array.isArray(this.acceptedFiles)) {
+        return !!this.acceptedFiles.find(type => file.type.includes(type));
+      }
+    },
+    sizeCheck(file) {
+      return this.sizeRestriction >= file.size / 1024 / 1024;
     }
   },
   computed: {
@@ -233,6 +271,12 @@ export default {
           height: 118px;
           width: 100%;
         }
+
+        &.ds-file-wrapper-cover-initial {
+          img {
+            object-fit: initial;
+          }
+        }
       }
     }
   }
@@ -247,6 +291,10 @@ export default {
       font-family: Roboto, sans-serif;
       letter-spacing: 0;
       cursor: default;
+
+      &.empty-message-invalid {
+        color: @color-red;
+      }
     }
 
     .actions {

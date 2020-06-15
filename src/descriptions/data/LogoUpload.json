@@ -10,6 +10,29 @@
       "type": "String",
       "default": "30px",
       "description": "Setup upload icon size"
+    },
+    {
+      "name": "sizeRestriction",
+      "type": "Number",
+      "default": "1",
+      "description": "Setup file size restriction in MB"
+    },
+    {
+      "name": "acceptedFiles",
+      "type": "String, Array",
+      "default": "image/*",
+      "description": "Set allowed type restriction like: Array types ['jpg', 'png'] or String like provided for default"
+    },
+    {
+      "name": "isValid",
+      "type": "Boolean",
+      "description": "Represents the validation state of the component"
+    },
+    {
+      "name": "initialImageCover",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Set initial cover of the image"
     }
   ],
   "events": [
