@@ -8,7 +8,12 @@
     </Collapser>
 
     <div class="row logo-upload">
-      <LogoUpload v-model="file" />
+      <LogoUpload
+        v-model="file"
+        :accepted-files="acceptedFiles"
+        :is-valid.sync="isValid"
+        :initial-image-cover="true"
+      />
     </div>
   </div>
 </template>
@@ -29,8 +34,9 @@ export default {
   data: () => ({
     openUsage: true,
     usage: LogoUploadData.usage,
-    file: null
-  }),
-  methods: {}
+    file: null,
+    acceptedFiles: ['jpg', 'png'],
+    isValid: true
+  })
 };
 </script>
