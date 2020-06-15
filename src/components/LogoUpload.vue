@@ -254,7 +254,7 @@ export default {
       justify-content: space-between;
       font-size: 12px;
       text-transform: uppercase;
-      font-family: 'Roboto Medium';
+      font-family: Roboto Medium, sans-serif;
 
       .remove-action {
         display: flex;
@@ -262,6 +262,8 @@ export default {
         line-height: 14px;
         color: @color-gray-500;
         cursor: pointer;
+        font-weight: 500;
+        letter-spacing: 0;
 
         .icon-wrapper {
           margin-right: 8px;
@@ -274,6 +276,8 @@ export default {
         line-height: 14px;
         color: @color-primary;
         cursor: pointer;
+        font-weight: 500;
+        letter-spacing: 0;
 
         .icon-wrapper {
           margin-right: 8px;
