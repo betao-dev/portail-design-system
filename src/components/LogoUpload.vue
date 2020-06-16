@@ -38,9 +38,9 @@
       <div
         :class="[
           'empty-message',
-          { 'empty-message-invalid': !isValid || tmpInvalid }
+          { 'empty-message-invalid': !isValid || isTemporaryInvalid }
         ]"
-        v-if="checkEmptyFile || tmpInvalid"
+        v-if="checkEmptyFile || isTemporaryInvalid"
       >
         Votre logo doit être au format JPG ou PNG et inférieur à 1Mo.
       </div>
@@ -106,7 +106,7 @@ export default {
             return this.fileInvalid();
           }
 
-          this.tmpInvalid = false;
+          this.isTemporaryInvalid = false;
           setTimeout(() => {
             this.inputValue = file.dataURL;
             this.$emit('update:isValid', true);
@@ -121,7 +121,7 @@ export default {
       errors: [],
       inputValue: null,
       timeoutId: undefined,
-      tmpInvalid: false
+      isTemporaryInvalid: false
     };
   },
   methods: {
@@ -140,9 +140,9 @@ export default {
         clearTimeout(this.timeoutId);
       }
 
-      this.tmpInvalid = true;
+      this.isTemporaryInvalid = true;
       this.timeoutId = setTimeout(() => {
-        this.tmpInvalid = false;
+        this.isTemporaryInvalid = false;
       }, 3000);
     },
     removeFile() {
