@@ -44,7 +44,8 @@
         :class="[{ 'ds-border-content': borderColor }]"
         :style="{
           transition: `transform ${transitionTime}ms ease`,
-          borderColor
+          borderColor,
+          minWidth: targetElement && fullWidth ? targetElement.getBoundingClientRect().width + 'px' : 'auto'
         }"
       >
         <slot></slot>
@@ -118,6 +119,10 @@ export default {
     topOffset: {
       type: Number,
       default: 0
+    },
+    fullWidth: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
