@@ -45,7 +45,10 @@
         :style="{
           transition: `transform ${transitionTime}ms ease`,
           borderColor,
-          minWidth: targetElement && fullWidth ? targetElement.getBoundingClientRect().width + 'px' : 'auto'
+          minWidth:
+            targetElement && fullWidth
+              ? targetElement.getBoundingClientRect().width + 'px'
+              : 'auto'
         }"
       >
         <slot></slot>
