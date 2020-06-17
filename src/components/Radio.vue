@@ -50,6 +50,10 @@ export default {
     radioColor: {
       type: String,
       default: '#98A9BC'
+    },
+    objectMode: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
