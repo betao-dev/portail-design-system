@@ -55,15 +55,7 @@ export default {
         title: 'Prestation de services'
       }
     ]
-  }),
-  watch: {
-    value(value) {
-      console.log('value ', value);
-    },
-    value2(value) {
-      console.log('value2 ', value);
-    }
-  }
+  })
 };
 </script>
 

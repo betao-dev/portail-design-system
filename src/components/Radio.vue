@@ -5,19 +5,19 @@
         <span
           class="ds-radio-container"
           :style="{
-            backgroundColor: radioActive(radio.title) ? radioColor : '#E8ECEF'
+            backgroundColor: radioActive(radio) ? radioColor : '#E8ECEF'
           }"
         >
         </span>
 
-        <span :class="[{ 'ds-radio-circle': radioActive(radio.title) }]"></span>
+        <span :class="[{ 'ds-radio-circle': radioActive(radio) }]"></span>
 
         <span
           :class="[
             'ds-radio-text',
             {
-              'ds-radio-text-active': radioActive(radio.title),
-              'ds-radio-text-inactive': !radioActive(radio.title)
+              'ds-radio-text-active': radioActive(radio),
+              'ds-radio-text-inactive': !radioActive(radio)
             }
           ]"
           :style="{ marginRight: spaceBetweenItems }"
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   name: 'Radio',
   props: {
@@ -59,16 +61,30 @@ export default {
   computed: {
     radioValue: {
       get() {
-        return this.value;
+        return this.getRadioValue();
       },
       set(value) {
-        this.$emit('input', value);
+        this.$emit('input', this.setRadioValue(value));
       }
     }
   },
   methods: {
+    getRadioValue() {
+      return this.objectMode ? _.get(this.value, 'title') : this.value;
+    },
+    setRadioValue(value) {
+      if (this.objectMode) {
+        return this.list.find(item => item.title === value);
+      } else {
+        return value;
+      }
+    },
     radioActive(itemValue) {
-      return this.value === itemValue;
+      if (this.objectMode) {
+        return _.get(this.value, 'title') === _.get(itemValue, 'title');
+      } else {
+        return this.value === itemValue.title;
+      }
     }
   }
 };
