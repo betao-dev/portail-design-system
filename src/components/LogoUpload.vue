@@ -114,7 +114,8 @@ export default {
             this.$emit('validation', this.validation);
           }, 300);
         },
-        url: 'https://*',
+        url: () => '',
+        autoProcessQueue: false,
         addRemoveLinks: true
       },
       touched: false,
