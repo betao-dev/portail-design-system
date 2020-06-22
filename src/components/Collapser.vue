@@ -13,6 +13,17 @@
 <template>
   <div class="ds-collapser" :style="{ backgroundColor: bgColor }">
     <div
+      v-if="headerSlotName"
+      :class="[
+        'ds-collapser-header-custom',
+        { 'ds-collapser-header-custom-active': opened }
+      ]"
+      @click="onCollapserClick"
+    >
+      <slot :name="headerSlotName"></slot>
+    </div>
+    <div
+      v-else
       :class="['ds-collapser-header', { 'ds-collapser-header-active': opened }]"
       :style="{ backgroundColor: bgColor }"
       @click="onCollapserClick"
@@ -32,7 +43,7 @@
       </div>
     </div>
     <div class="ds-collapser-body" v-show="opened">
-      <slot></slot>
+      <slot :name="bodySlotName"></slot>
     </div>
   </div>
 </template>
@@ -51,7 +62,12 @@ export default {
       default: 'center'
     },
     bgColor: String,
-    iconColor: String
+    iconColor: String,
+    bodySlotName: {
+      type: [Number, String],
+      default: 'default'
+    },
+    headerSlotName: String
   },
   computed: {
     iconColorWrapper() {
@@ -79,6 +95,12 @@ export default {
   flex-direction: column;
   margin-bottom: @collapser-margin-bottom;
   border-radius: 4px;
+
+  .ds-collapser-header-custom {
+    &.ds-collapser-header-custom-active {
+      border-radius: 4px 4px 0 0;
+    }
+  }
 
   .ds-collapser-header {
     cursor: pointer;

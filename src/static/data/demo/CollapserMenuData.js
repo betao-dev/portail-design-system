@@ -1,11 +1,27 @@
 let usage = `
-<CollapserMenu :active.sync="active" :titles="titles">
+<CollapserMenu
+  :active.sync="active"
+  :titles="titles">
   <template #1>
-    <div class="ds-demo-collapser-menu-content">
-      First Step
-    </div>
-  </template>
     ...
+    First Step
+  </template>
+  ...
+</CollapserMenu>
+
+<CollapserMenu
+  :active.sync="secondActive"
+  :count-items="3"
+  :header-slot-active="headerSlotActive"
+>
+  <template #header1>
+    ...
+    Custom header 1
+  </template>
+  <template #1>
+    ...
+    First Step body
+  </template>
 </CollapserMenu>
 `.slice(1);
 

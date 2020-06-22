@@ -3,12 +3,28 @@
     {
       "name": "titles",
       "type": "Array",
-      "description": "Represent array of titles for collapser items, property is required"
+      "description": "Represent array of titles for collapser items"
     },
     {
       "name": "active",
       "type": "Number",
       "description": "Represent the active collapser item, property is required"
+    },
+    {
+      "name": "titleAlignment",
+      "type": "String",
+      "description": "Alignment of the title"
+    },
+    {
+      "name": "headerSlotActive",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Setup as true for passing header slots to collapser component"
+    },
+    {
+      "name": "countItems",
+      "type": "Number",
+      "description": "Represent count of pairs of headers and bodies that will be rendered"
     }
   ],
   "events": []

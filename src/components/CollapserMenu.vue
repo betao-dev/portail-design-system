@@ -1,18 +1,28 @@
 <template>
   <div class="ds-collapser-menu-wrapper">
-    <div class="ds-collapser-menu-list" v-if="titles.length > 0">
+    <div
+      class="ds-collapser-menu-list"
+      v-if="(countItems || titles.length) > 0"
+    >
       <div
         class="ds-collapser-menu-item"
-        v-for="(title, index) of titles"
+        v-for="(title, index) in countItems || titles"
         :key="index"
       >
         <Collapser
-          :label="title"
-          title-alignment="left"
+          :[checkLabel]="title"
+          :[checkAlignment]="titleAlignment"
+          :header-slot-name="getHeaderSlotName(index)"
+          :body-slot-name="index + 1"
           :opened="activeItem === index + 1"
           @update:opened="getOpened(index, $event)"
         >
-          <slot :name="index + 1"></slot>
+          <template v-slot:[getHeaderSlotName(index)]>
+            <slot :name="getHeaderSlotName(index)"></slot>
+          </template>
+          <template v-slot:[index+1]>
+            <slot :name="index + 1"></slot>
+          </template>
         </Collapser>
       </div>
     </div>
@@ -25,13 +35,19 @@ export default {
   name: 'CollapserMenu',
   components: { Collapser },
   props: {
-    titles: {
-      type: Array,
-      required: true
+    titles: Array,
+    titleAlignment: {
+      type: String,
+      default: 'left'
     },
+    countItems: Number,
     active: {
       type: Number,
       required: true
+    },
+    headerSlotActive: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -42,12 +58,23 @@ export default {
       set(value) {
         this.$emit('update:active', value);
       }
+    },
+    checkLabel() {
+      return this.countItems ? null : 'label';
+    },
+    checkAlignment() {
+      return this.countItems ? null : 'title-alignment';
     }
   },
   methods: {
     getOpened(index) {
       let collapserItem = index + 1;
       this.activeItem = this.activeItem === collapserItem ? 0 : collapserItem;
+    },
+    getHeaderSlotName(index) {
+      if (this.headerSlotActive) {
+        return `header${index + 1}`;
+      }
     }
   }
 };
