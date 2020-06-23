@@ -24,7 +24,8 @@
           'ds-slide-label': slideLabel,
           'ds-label-focus': labelFocus,
           'ds-label-error': showInvalidBlock,
-          'ds-slide-label-active': slideActive
+          'ds-slide-label-active': slideActive,
+          'ds-label-alt': labelAlt
         }"
       >
         <span class="ds-main-label">{{ label }}</span>
@@ -136,6 +137,8 @@
         @keydown="onKeyDown"
         @paste.prevent="onPaste($event)"
       />
+
+      <slot></slot>
 
       <Icon
         v-if="getIcon && showIcon"
@@ -264,6 +267,10 @@ export default {
       default: false
     },
     passwordDefaultIcon: {
+      type: Boolean,
+      default: false
+    },
+    labelAlt: {
       type: Boolean,
       default: false
     }
@@ -835,6 +842,22 @@ export default {
     &.ds-has-label {
       input + .icon-wrapper {
         bottom: 6%;
+      }
+    }
+  }
+
+  &.ds-lg,
+  &.ds-md,
+  &.ds-sm {
+    .ds-label-text {
+      &.ds-label-alt {
+        color: @color-dark;
+        font-family: Roboto Light;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0;
+        line-height: 16px;
+        margin-bottom: 10px;
       }
     }
   }
