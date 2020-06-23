@@ -29,6 +29,27 @@
         :options="options"
         :idMode="true"
       />
+
+      <Select
+        lg
+        class="ds-select-demo"
+        v-model="selectValue3"
+        label="Select"
+        :options="options2"
+        :validators="selectValidators"
+        :placeholder="'Input Value'"
+        :idMode="true"
+        :option-styles="optionStyles"
+        custom-content
+        reversible-icon
+      >
+        <template #1>
+          <div class="ds-demo-square ds-demo-red-square"></div>
+        </template>
+        <template #2>
+          <div class="ds-demo-square ds-demo-green-square"></div>
+        </template>
+      </Select>
     </div>
   </div>
 </template>
@@ -48,11 +69,16 @@ export default {
       usage: SelectData.usage,
       selectValue: '',
       selectValue2: { id: 1 },
+      selectValue3: '',
       options: [
         { id: 1, value: 'Espèces' },
         { id: 2, value: 'Chèque' },
         { id: 3, value: 'Virement' },
         { id: 4, value: 'Carte bancaire' }
+      ],
+      options2: [
+        { id: 1, value: 'Espèces' },
+        { id: 2, value: 'Chèque' }
       ],
       selectValidators: [
         {
@@ -60,7 +86,11 @@ export default {
           message: this.dsTranslate('Field Required'),
           validator: value => value && !!value
         }
-      ]
+      ],
+      optionStyles: {
+        display: 'flex',
+        justifyContent: 'space-between'
+      }
     };
   }
 };
@@ -68,6 +98,19 @@ export default {
 
 <style lang="less" scoped>
 .ds-select-demo {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+}
+
+.ds-demo-square {
+  width: 20px;
+  height: 20px;
+}
+
+.ds-demo-red-square {
+  background-color: red;
+}
+
+.ds-demo-green-square {
+  background-color: green;
 }
 </style>

@@ -4,6 +4,11 @@
     :style="{ width }"
   >
     <div v-if="label" class="ds-label">{{ label }}</div>
+    <template v-if="customContent && value && value.id">
+      <div class="ds-drop-content-wrapper">
+        <slot :name="value.id"></slot>
+      </div>
+    </template>
     <Icon
       :source="
         openDropDownList && reversibleIcon ? 'expand_less' : 'expand_more'
@@ -55,6 +60,7 @@
     >
       <div
         class="ds-option-wrapper"
+        :style="{ ...optionStyles }"
         v-for="(option, index) in options"
         :key="index"
         @click="selectValue(option)"
@@ -63,6 +69,9 @@
         <span v-if="!displayTitle">{{
           typeof option !== 'object' ? option : option.value
         }}</span>
+        <template v-if="customContent">
+          <slot :name="index + 1"></slot>
+        </template>
       </div>
     </Dropdown>
   </div>
@@ -131,7 +140,12 @@ export default {
       type: Boolean,
       default: true
     },
-    width: String
+    width: String,
+    customContent: {
+      type: Boolean,
+      default: false
+    },
+    optionStyles: Object
   },
   data() {
     return {
@@ -335,6 +349,14 @@ export default {
     &.ds-valid {
       .select-valid-fade-animation();
     }
+  }
+
+  .ds-drop-content-wrapper {
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    right: 35px;
+    bottom: 8px;
   }
 
   .ds-drop-icon {
