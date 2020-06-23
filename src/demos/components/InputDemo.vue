@@ -193,6 +193,22 @@
       />
       <br />
 
+      <Input
+        class="input-tva"
+        label-alt
+        lg
+        v-model="tva"
+        width="388px"
+        label="Numéro de TVA"
+        placeholder="Entrez numéro de TVA"
+      >
+        <div class="tva-block-wrapper">
+          <div class="tva-block">
+            FR
+          </div>
+        </div>
+      </Input>
+
       <Button alt @click="validate()">
         VALIDATE
       </Button>
@@ -267,7 +283,8 @@ export default {
       showErrorSupport: {
         firstField: false,
         secondField: false
-      }
+      },
+      tva: undefined
     };
   },
   methods: {
@@ -295,10 +312,68 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../../styles/vars';
+
 .input-demo {
   .ds-input {
     margin-right: 32px;
     margin-bottom: 60px;
+  }
+}
+
+.input-tva {
+  .placeholder-input(@letterSpacing, @lineHeight) {
+    &::-webkit-input-placeholder {
+      letter-spacing: @letterSpacing;
+      line-height: @lineHeight !important;
+    }
+    &::-moz-placeholder {
+      letter-spacing: @letterSpacing;
+      line-height: @lineHeight !important;
+    }
+    &:-ms-input-placeholder {
+      letter-spacing: @letterSpacing;
+      line-height: @lineHeight !important;
+    }
+    &::placeholder {
+      letter-spacing: @letterSpacing;
+      line-height: @lineHeight !important;
+    }
+  }
+
+  &::v-deep {
+    &.ds-input {
+      &.ds-text {
+        input {
+          padding-left: 70px;
+          .placeholder-input(0, 21px);
+        }
+      }
+    }
+  }
+
+  .tva-block-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 50px;
+    border-radius: 4px;
+    background-color: rgba(30, 179, 134, 0.1);
+    position: absolute;
+    top: 66%;
+    left: 6px;
+    margin-top: -20px;
+
+    .tva-block {
+      height: 21px;
+      width: 17px;
+      color: @color-primary;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 21px;
+    }
   }
 }
 </style>

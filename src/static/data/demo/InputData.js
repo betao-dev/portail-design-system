@@ -52,7 +52,7 @@ Basic inputs:<br />
   label="CVV"
   help="This is an explanation of what the field is used for."
 />
-       
+
 <Input
   v-model="cardNumber"
   type="payment-card"
@@ -81,6 +81,22 @@ Basic inputs:<br />
   :show-validations="passwordShowErrors.secondField"
   @lastKeyDownDelay="onlastKeyDownDelay('secondField')"
 />
+
+<Input
+  class="input-tva"
+  label-alt
+  lg
+  v-model="tva"
+  width="388px"
+  label="Numéro de TVA"
+  placeholder="Entrez numéro de TVA"
+>
+  <div class="tva-block-wrapper">
+    <div class="tva-block">
+      FR
+    </div>
+  </div>
+</Input>
 `.slice(1);
 
 export default {
