@@ -9,7 +9,17 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Radio v-model="value" :list="radioList" radioColor="#1EB386" />
+    <div class="radio-wrapper">
+      <Radio v-model="value" :list="radioList" radioColor="#1EB386" />
+    </div>
+    <div class="radio-wrapper">
+      <Radio
+        v-model="value2"
+        :list="radioList2"
+        radioColor="#1EB386"
+        objectMode
+      />
+    </div>
   </div>
 </template>
 
@@ -26,6 +36,7 @@ export default {
     openUsage: true,
     usage: RadioData.usage,
     value: undefined,
+    value2: undefined,
     radioList: [
       {
         title: 'Madame'
@@ -33,9 +44,27 @@ export default {
       {
         title: 'Monsieur'
       }
+    ],
+    radioList2: [
+      {
+        id: 1,
+        title: 'Vente de marchandises'
+      },
+      {
+        id: 2,
+        title: 'Prestation de services'
+      }
     ]
   })
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.radio-wrapper {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+</style>

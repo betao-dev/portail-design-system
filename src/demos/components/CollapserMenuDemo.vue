@@ -9,23 +9,65 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <CollapserMenu :active.sync="active" :titles="titles">
-      <template #1>
-        <div class="ds-demo-collapser-menu-content">
-          First Step
-        </div>
-      </template>
-      <template #2>
-        <div class="ds-demo-collapser-menu-content">
-          Second Step
-        </div>
-      </template>
-      <template #3>
-        <div class="ds-demo-collapser-menu-content">
-          Third Step
-        </div>
-      </template>
-    </CollapserMenu>
+    <div class="ds-collapser-menu-wrapper">
+      <CollapserMenu :active.sync="active" :titles="titles">
+        <template #1>
+          <div class="ds-demo-collapser-menu-content">
+            First Step
+          </div>
+        </template>
+        <template #2>
+          <div class="ds-demo-collapser-menu-content">
+            Second Step
+          </div>
+        </template>
+        <template #3>
+          <div class="ds-demo-collapser-menu-content">
+            Third Step
+          </div>
+        </template>
+      </CollapserMenu>
+    </div>
+    <div class="ds-collapser-menu-wrapper">
+      <CollapserMenu
+        :active.sync="secondActive"
+        :count-items="3"
+        :header-slot-active="headerSlotActive"
+      >
+        <template #header1>
+          <div>
+            Custom header 1
+          </div>
+        </template>
+        <template #1>
+          <div class="ds-demo-collapser-menu-content">
+            First Step body
+          </div>
+        </template>
+
+        <template #header2>
+          <div>
+            Custom header 2
+          </div>
+        </template>
+        <template #2>
+          <div class="ds-demo-collapser-menu-content">
+            Second Step body
+          </div>
+        </template>
+
+        <template #header3>
+          <div>
+            Custom header 3
+          </div>
+        </template>
+        <template #3>
+          <div class="ds-demo-collapser-menu-content">
+            Third Step body
+          </div>
+        </template>
+      </CollapserMenu>
+    </div>
   </div>
 </template>
 
@@ -41,7 +83,9 @@ export default {
     usage: CollapserMenuData.usage,
     openUsage: true,
     titles: ['First', 'Second', 'Third'],
-    active: 1
+    active: 1,
+    secondActive: 1,
+    headerSlotActive: true
   })
 };
 </script>
@@ -50,5 +94,9 @@ export default {
 @import '../../styles/vars';
 .ds-demo-collapser-menu-content {
   padding: @collapser-body-padding;
+}
+
+.ds-collapser-menu-wrapper {
+  margin-top: 50px;
 }
 </style>

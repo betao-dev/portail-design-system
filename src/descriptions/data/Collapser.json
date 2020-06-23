@@ -24,6 +24,17 @@
       "name": "iconColor",
       "type": "String",
       "description": "Set icon color of Collapser component on header"
+    },
+    {
+      "name": "bodySlotName",
+      "type": "Number, String",
+      "default": "default",
+      "description": "Responsible the presentation of header slot, won't need to be provided in case if headerSlotName isn't using inside the component"
+    },
+    {
+      "name": "headerSlotName",
+      "type": "String",
+      "description": "Responsible the presentation of header slot, when the header slot passed the next props won't be using 'label', 'titleAlignment', 'iconColorWrapper'"
     }
   ],
   "events": [
