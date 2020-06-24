@@ -93,6 +93,17 @@
       "type": "Boolean",
       "default": "false",
       "description": "When set as true select options list can take slots for rendering them inside of options and displaying them into input, also set this option will affect on styles of Select component. Slot content must have width: 50px, height: 40px and Select must be without label"
+    },
+    {
+      "name": "readonly",
+      "type": "Boolean",
+      "default": "true",
+      "description": "When property is turn off, possible to update data property of option in dataMode"
+    },
+    {
+      "name": "dataMode",
+      "type": "Boolean",
+      "description": "In this mode turning on two-way data binding of data property of the option"
     }
   ],
   "events": [

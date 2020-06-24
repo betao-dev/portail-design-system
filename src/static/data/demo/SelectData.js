@@ -25,13 +25,13 @@ let usage = `
     class="ds-select-demo"
     v-model="selectValue3"
     :options="options2"
-    :validators="selectValidators"
-    placeholder="Enter a percentage"
-    id-mode
+    :placeholder="placeholderSelect"
     :option-styles="optionStyles"
     custom-content
     reversible-icon
     width="414px"
+    data-mode
+    :readonly="false"
   >
     <template #1>
       <div class="ds-demo-square">

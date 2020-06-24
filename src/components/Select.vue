@@ -44,7 +44,7 @@
       :placeholder="placeholder"
       :name="name"
       @click="toggleDropList"
-      readonly="readonly"
+      :[checkReadonly]="readonly"
     />
     <transition name="error-message">
       <div class="ds-error-message-wrapper" v-if="checkError">
@@ -165,7 +165,12 @@ export default {
     altIcon: {
       type: Boolean,
       default: false
-    }
+    },
+    readonly: {
+      type: Boolean,
+      default: true
+    },
+    dataMode: Boolean
   },
   data() {
     return {
@@ -188,13 +193,21 @@ export default {
       this.$emit('validation', this.validation);
     },
     selectValue(option) {
+      if (this.dataMode) {
+        if (option.id === this.value.id) {
+          option = { ...option, data: this.inputSelectValue };
+        }
+      }
+
       this.setInputSelectValue(option);
       this.$emit('input', option);
       this.$emit('change', option);
       this.openDropDownList = false;
     },
     setInputSelectValue(value) {
-      if (this.idMode) {
+      if (this.dataMode) {
+        this.inputSelectValue = value.data;
+      } else if (this.idMode) {
         const selectedOption = this.options.find(
           option => option.id === _.get(value, 'id')
         );
@@ -225,6 +238,9 @@ export default {
     }
   },
   computed: {
+    checkReadonly() {
+      return this.readonly ? 'readonly' : null;
+    },
     validation() {
       if (!this.validators || !this.validators.length) {
         return [];
@@ -267,6 +283,11 @@ export default {
     this.$emit('validation', this.validation);
   },
   watch: {
+    inputSelectValue(value) {
+      if (this.dataMode) {
+        this.$emit('input', { ...this.value, data: value });
+      }
+    },
     value(val) {
       this.$emit('validation', this.validation);
       this.setInputSelectValue(val);
