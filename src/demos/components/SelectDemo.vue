@@ -36,13 +36,13 @@
         class="ds-select-demo"
         v-model="selectValue3"
         :options="options2"
-        :validators="selectValidators"
-        placeholder="Enter a percentage"
-        id-mode
+        :placeholder="placeholderSelect"
         :option-styles="optionStyles"
         custom-content
         reversible-icon
         width="414px"
+        data-mode
+        :readonly="false"
       >
         <template #1>
           <div class="ds-demo-square">
@@ -75,7 +75,7 @@ export default {
       usage: SelectData.usage,
       selectValue: '',
       selectValue2: { id: 1 },
-      selectValue3: '',
+      selectValue3: { id: 2, data: undefined },
       options: [
         { id: 1, value: 'Espèces' },
         { id: 2, value: 'Chèque' },
@@ -83,8 +83,8 @@ export default {
         { id: 4, value: 'Carte bancaire' }
       ],
       options2: [
-        { id: 1, value: 'Espèces' },
-        { id: 2, value: 'Chèque' }
+        { id: 1, value: 'Pourcentage', data: undefined },
+        { id: 2, value: 'Montant', data: undefined }
       ],
       selectValidators: [
         {
@@ -99,6 +99,11 @@ export default {
         alignItems: 'center'
       }
     };
+  },
+  computed: {
+    placeholderSelect() {
+      return this.selectValue3.id === 1 ? 'Enter a percentage' : 'Enter a euro';
+    }
   }
 };
 </script>
