@@ -32,22 +32,27 @@
 
       <Select
         lg
+        alt-icon
         class="ds-select-demo"
         v-model="selectValue3"
-        label="Select"
         :options="options2"
         :validators="selectValidators"
-        :placeholder="'Input Value'"
-        :idMode="true"
+        placeholder="Enter a percentage"
+        id-mode
         :option-styles="optionStyles"
         custom-content
         reversible-icon
+        width="414px"
       >
         <template #1>
-          <div class="ds-demo-square ds-demo-red-square"></div>
+          <div class="ds-demo-square">
+            <Icon percent-solid size="18px" color="primary"></Icon>
+          </div>
         </template>
         <template #2>
-          <div class="ds-demo-square ds-demo-green-square"></div>
+          <div class="ds-demo-square">
+            <Icon euro_symbol size="18px" color="primary"></Icon>
+          </div>
         </template>
       </Select>
     </div>
@@ -56,13 +61,14 @@
 
 <script>
 import Select from '../../components/Select';
+import Icon from '../../components/Icon';
 import Description from '../../descriptions/Description';
 import Collapser from '../../components/Collapser.vue';
 import { SelectData } from '../../static/index';
 
 export default {
   name: 'SelectDemo',
-  components: { Select, Description, Collapser },
+  components: { Select, Icon, Description, Collapser },
   data() {
     return {
       openUsage: true,
@@ -89,7 +95,8 @@ export default {
       ],
       optionStyles: {
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
       }
     };
   }
@@ -102,15 +109,12 @@ export default {
 }
 
 .ds-demo-square {
-  width: 20px;
-  height: 20px;
-}
-
-.ds-demo-red-square {
-  background-color: red;
-}
-
-.ds-demo-green-square {
-  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 50px;
+  border-radius: 4px;
+  background-color: rgba(30, 179, 134, 0.1);
 }
 </style>

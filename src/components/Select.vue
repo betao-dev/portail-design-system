@@ -10,6 +10,18 @@
       </div>
     </template>
     <Icon
+      v-if="altIcon"
+      :source="
+        openDropDownList && reversibleIcon
+          ? 'angle_up_solid'
+          : 'angle_down_solid'
+      "
+      color="gray-500"
+      size="18px"
+      class="ds-drop-icon-alt"
+    />
+    <Icon
+      v-else
       :source="
         openDropDownList && reversibleIcon ? 'expand_less' : 'expand_more'
       "
@@ -22,7 +34,8 @@
         {
           'ds-input-error': checkError,
           'ds-error': isInvalidInput,
-          'ds-valid': showValidCheck && validBacklight
+          'ds-valid': showValidCheck && validBacklight,
+          'ds-input-custom': customContent
         }
       ]"
       type="text"
@@ -55,11 +68,14 @@
       :opened.sync="openDropDownList"
       :position="dropdownPosition"
       :style="{ overflow: optionsOverflow }"
-      class="ds-options"
+      :class="['ds-options', { 'ds-options-custom': customContent }]"
       just-fade
     >
       <div
-        class="ds-option-wrapper"
+        :class="[
+          'ds-option-wrapper',
+          { 'ds-option-wrapper-custom': customContent }
+        ]"
         :style="{ ...optionStyles }"
         v-for="(option, index) in options"
         :key="index"
@@ -145,7 +161,11 @@ export default {
       type: Boolean,
       default: false
     },
-    optionStyles: Object
+    optionStyles: Object,
+    altIcon: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -293,9 +313,28 @@ export default {
     .ds-options {
       padding: 12px 18px;
 
+      &.ds-options-custom {
+        top: 58px !important;
+        padding: 12px 20px 15px;
+        border: none;
+      }
+
       .ds-option-wrapper {
         padding: 12px 0;
         line-height: 22px;
+
+        &.ds-option-wrapper-custom {
+          letter-spacing: 0;
+          padding: 3px 0 3px;
+
+          &:first-child {
+            padding-top: 0;
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
       }
     }
   }
@@ -349,14 +388,49 @@ export default {
     &.ds-valid {
       .select-valid-fade-animation();
     }
+
+    &.ds-input-custom {
+      .placeholder-input(@color, @fontFamily, @letterSpacing, @lineHeight) {
+        &::-webkit-input-placeholder {
+          color: @color;
+          font-family: @fontFamily;
+          letter-spacing: @letterSpacing;
+          line-height: @lineHeight;
+        }
+        &::-moz-placeholder {
+          color: @color;
+          font-family: @fontFamily;
+          letter-spacing: @letterSpacing;
+          line-height: @lineHeight;
+        }
+        &:-ms-input-placeholder {
+          color: @color;
+          font-family: @fontFamily;
+          letter-spacing: @letterSpacing;
+          line-height: @lineHeight;
+        }
+        &::placeholder {
+          color: @color;
+          font-family: @fontFamily;
+          letter-spacing: @letterSpacing;
+          line-height: @lineHeight;
+        }
+      }
+
+      padding: 16px 116px 15px 16px;
+      font-family: @robotoFont;
+
+      .placeholder-input(@color-gray-400, @robotoFont, 0, 21px);
+    }
   }
 
   .ds-drop-content-wrapper {
     cursor: pointer;
     position: absolute;
     pointer-events: none;
-    right: 35px;
-    bottom: 8px;
+    top: 50%;
+    margin-top: -20px;
+    right: 50px;
   }
 
   .ds-drop-icon {
@@ -365,6 +439,15 @@ export default {
     pointer-events: none;
     right: 5px;
     bottom: 8px;
+  }
+
+  .ds-drop-icon-alt {
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+    top: 50%;
+    margin-top: -9px;
+    right: 16px;
   }
 
   .ds-error-message-wrapper {
