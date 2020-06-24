@@ -18,6 +18,28 @@ let usage = `
     :idMode="true"
     @change="changeSelect"
   />
+
+  <Select
+    lg
+    alt-icon
+    class="ds-select-demo"
+    v-model="selectValue3"
+    :options="options2"
+    :validators="selectValidators"
+    placeholder="Enter a percentage"
+    id-mode
+    :option-styles="optionStyles"
+    custom-content
+    reversible-icon
+    width="414px"
+  >
+    <template #1>
+      <div class="ds-demo-square">
+        <Icon percent-solid size="18px" color="primary"></Icon>
+      </div>
+    </template>
+    ...
+  </Select>
 `.slice(1);
 
 export default {
