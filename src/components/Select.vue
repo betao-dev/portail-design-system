@@ -477,6 +477,7 @@ export default {
     color: @color-red;
     position: absolute;
     padding: 6px 0 0;
+    line-height: normal;
   }
 
   .ds-select-help {
