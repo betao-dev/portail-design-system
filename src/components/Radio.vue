@@ -81,7 +81,7 @@ export default {
     },
     radioActive(itemValue) {
       if (this.objectMode) {
-        return _.get(this.value, 'title') === _.get(itemValue, 'title');
+        return _.get(this.value, 'id') === _.get(itemValue, 'id');
       } else {
         return this.value === itemValue.title;
       }
