@@ -506,6 +506,7 @@ export default {
     },
     setValueByPatternLength(pattern, value) {
       if (pattern) {
+        value = value.toString();
         value = value.replace(pattern, '');
       }
 
