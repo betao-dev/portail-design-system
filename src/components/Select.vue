@@ -208,6 +208,8 @@ export default {
         if (option.id === this.value.id) {
           option = { ...option, data: this.inputSelectValue };
         }
+
+        this.touched = false;
       }
 
       this.setInputSelectValue(option);
