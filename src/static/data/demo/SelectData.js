@@ -35,6 +35,7 @@ let usage = `
     data-mode
     :readonly="false"
     :maxlength="3"
+    extra-error-padding
   >
     <template #1>
       <div class="ds-demo-square">
