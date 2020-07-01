@@ -115,6 +115,16 @@
       "name": "maxlength",
       "type": "Number",
       "description": "Setup the max allowed length of string that can be stored inside input"
+    },
+    {
+      "name": "extraErrorPadding",
+      "type": "Boolean",
+      "description": "Experimental feature, only working with lg attribute. Add extra padding when select error displaying"
+    },
+    {
+      "name": "referenceModel",
+      "type": "null",
+      "description": "Provided value for validation purpose like equality models of Select component and any other model"
     }
   ],
   "events": [

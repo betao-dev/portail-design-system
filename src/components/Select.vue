@@ -1,6 +1,14 @@
 <template>
   <div
-    :class="['ds-select-wrapper', { 'ds-lg': lg, 'ds-md': md, 'ds-sm': sm }]"
+    :class="[
+      'ds-select-wrapper',
+      {
+        'ds-lg': lg,
+        'ds-md': md,
+        'ds-sm': sm,
+        'ds-select-error': checkError && extraErrorPadding
+      }
+    ]"
     :style="{ width }"
   >
     <div v-if="label" class="ds-label">{{ label }}</div>
@@ -181,7 +189,9 @@ export default {
         return ['text', 'number'].indexOf(value) !== -1;
       }
     },
-    maxlength: Number
+    maxlength: Number,
+    extraErrorPadding: Boolean,
+    referenceModel: null
   },
   data: () => ({
     openDropDownList: false,
@@ -304,7 +314,7 @@ export default {
       for (let i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
-          this.validators[i].validator(this.value)
+          this.validators[i].validator(this.value, this.referenceModel)
         ]);
       }
 
@@ -413,6 +423,19 @@ export default {
             padding-bottom: 0;
           }
         }
+      }
+    }
+
+    &.ds-select-error {
+      padding-bottom: 10px;
+
+      .ds-drop-content-wrapper {
+        margin-top: -25px;
+      }
+
+      .ds-drop-icon-alt,
+      .ds-drop-icon {
+        margin-top: -14px;
       }
     }
   }
