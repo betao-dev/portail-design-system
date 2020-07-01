@@ -104,6 +104,17 @@
       "name": "dataMode",
       "type": "Boolean",
       "description": "In this mode turning on two-way data binding of data property of the option"
+    },
+    {
+      "name": "type",
+      "type": "String",
+      "default": "text",
+      "description": "Can be equal to text or number"
+    },
+    {
+      "name": "maxlength",
+      "type": "Number",
+      "description": "Setup the max allowed length of string that can be stored inside input"
     }
   ],
   "events": [

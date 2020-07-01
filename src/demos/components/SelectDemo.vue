@@ -38,11 +38,14 @@
         :options="options2"
         :placeholder="placeholderSelect"
         :option-styles="optionStyles"
+        :validators="selectValidators3"
         custom-content
         reversible-icon
+        type="number"
         width="414px"
         data-mode
         :readonly="false"
+        :maxlength="3"
       >
         <template #1>
           <div class="ds-demo-square">
@@ -75,7 +78,7 @@ export default {
       usage: SelectData.usage,
       selectValue: '',
       selectValue2: { id: 1 },
-      selectValue3: { id: 2, data: undefined },
+      selectValue3: { id: 1, data: undefined },
       options: [
         { id: 1, value: 'Espèces' },
         { id: 2, value: 'Chèque' },
@@ -91,6 +94,19 @@ export default {
           name: 'required',
           message: this.dsTranslate('Field Required'),
           validator: value => value && !!value
+        }
+      ],
+      selectValidators3: [
+        {
+          name: 'reduction ',
+          message: this.dsTranslate('Reduction percentage message'),
+          validator: value => {
+            if (value.id === 1) {
+              return value && value.data <= 100 && value.data >= 0;
+            } else {
+              return true;
+            }
+          }
         }
       ],
       optionStyles: {

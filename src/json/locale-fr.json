@@ -10,5 +10,6 @@
   "Cancel": "annuler",
   "OK": "D'accord",
   "Add Logo": "Ajouter un logo",
-  "Field Required": "Le champ est obligatoire"
+  "Field Required": "Le champ est obligatoire",
+  "Reduction percentage message": "Veuillez indiquez une réduction entre 0% et 100%"
 }
