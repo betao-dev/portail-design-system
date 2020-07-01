@@ -27,11 +27,14 @@ let usage = `
     :options="options2"
     :placeholder="placeholderSelect"
     :option-styles="optionStyles"
+    :validators="selectValidators3"
     custom-content
     reversible-icon
+    type="number"
     width="414px"
     data-mode
     :readonly="false"
+    :maxlength="3"
   >
     <template #1>
       <div class="ds-demo-square">

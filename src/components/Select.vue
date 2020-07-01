@@ -44,6 +44,9 @@
       :placeholder="placeholder"
       :name="name"
       @click="toggleDropList"
+      @keypress="onKeyPress"
+      @paste.prevent="onPaste($event)"
+      :maxlength="maxlength"
       :[checkReadonly]="readonly"
     />
     <transition name="error-message">
@@ -170,21 +173,29 @@ export default {
       type: Boolean,
       default: true
     },
-    dataMode: Boolean
+    dataMode: Boolean,
+    type: {
+      type: String,
+      default: 'text',
+      validation(value) {
+        return ['text', 'number'].indexOf(value) !== -1;
+      }
+    },
+    maxlength: Number
   },
-  data() {
-    return {
-      openDropDownList: false,
-      touched: false,
-      helpVisible: false,
-      inputSelectValue: undefined,
-      validBacklight: false,
-      invalidBacklight: false
-    };
-  },
+  data: () => ({
+    openDropDownList: false,
+    touched: false,
+    helpVisible: false,
+    inputSelectValue: undefined,
+    validBacklight: false,
+    invalidBacklight: false
+  }),
   methods: {
     openDropList() {
-      this.touched = true;
+      if (!this.dataMode) {
+        this.touched = true;
+      }
       this.openDropDownList = true;
       this.$emit('validation', this.validation);
     },
@@ -197,6 +208,8 @@ export default {
         if (option.id === this.value.id) {
           option = { ...option, data: this.inputSelectValue };
         }
+
+        this.touched = false;
       }
 
       this.setInputSelectValue(option);
@@ -235,6 +248,47 @@ export default {
     },
     setTouched(touched) {
       this.touched = touched;
+    },
+    onKeyPress(event) {
+      this.touched = true;
+      event = event ? event : window.event;
+      let charCode = event.which ? event.which : event.keyCode;
+
+      if (
+        this.type === 'number' &&
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57)
+      ) {
+        event.preventDefault();
+      }
+    },
+    onPaste(event) {
+      this.touched = true;
+      let value =
+        (this.inputSelectValue || '') + event.clipboardData.getData('Text');
+      this.checkValuePattern(true, value);
+    },
+    checkValuePattern(paste, value) {
+      if (this.value || paste) {
+        let patternObj = {
+          number: /[^0-9]+/g
+        };
+
+        let pattern = patternObj[this.type];
+        this.setValueByPatternLength(pattern, value || this.inputSelectValue);
+      }
+    },
+    setValueByPatternLength(pattern, value) {
+      if (pattern) {
+        value = (value || '').toString();
+        value = value.replace(pattern, '');
+      }
+
+      this.inputSelectValue =
+        typeof value === 'string' ? value.slice(0, this.maxlength) : value;
+    },
+    checkMaxLength() {
+      return this.maxlength ? 'maxlength' : null;
     }
   },
   computed: {
@@ -280,6 +334,7 @@ export default {
       });
     }
 
+    this.checkValuePattern();
     this.$emit('validation', this.validation);
   },
   watch: {
@@ -300,7 +355,9 @@ export default {
     },
     openDropDownList(newVal, oldVal) {
       if (!newVal && oldVal) {
-        this.touched = true;
+        if (!this.dataMode) {
+          this.touched = true;
+        }
       }
     }
   }
