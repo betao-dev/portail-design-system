@@ -7,6 +7,7 @@ let usage = `
     :validators="selectValidators"
     :placeholder="'Input Value'"
     :idMode="true"
+    extra-error-padding
   />
 
   <Select

@@ -431,11 +431,18 @@ export default {
 
       .ds-drop-content-wrapper {
         margin-top: -25px;
+
+        + .ds-drop-icon-alt,
+        + .ds-drop-icon {
+          margin-top: -14px;
+        }
       }
 
-      .ds-drop-icon-alt,
-      .ds-drop-icon {
-        margin-top: -14px;
+      &:not(.ds-drop-content-wrapper) {
+        .ds-drop-icon-alt,
+        .ds-drop-icon {
+          top: 50%;
+        }
       }
     }
   }
