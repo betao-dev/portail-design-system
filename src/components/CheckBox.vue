@@ -91,6 +91,11 @@ export default {
         this.$emit('input', value);
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$emit('input', this.checkboxValue);
+    });
   }
 };
 </script>
