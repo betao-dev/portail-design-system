@@ -228,6 +228,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Allow manually writing date inside input of Calendar"
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "With this property calendar will be listening to validation with current value for e.g. 'validateTest'"
     }
   ],
   "events": [

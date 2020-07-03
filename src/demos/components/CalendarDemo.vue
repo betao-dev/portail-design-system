@@ -30,6 +30,8 @@
       :borderColorDesktop="borderColor"
       placeholder="Date"
       :dateRange="{ min: 5, max: 10 }"
+      :validators="calendarValidator"
+      name="calendar"
       v-model="dateValue3"
       :auto-initialize="false"
     />
@@ -93,46 +95,63 @@
       shortMonthFormat
       iconLeft
     />
+
+    <Button @click="validate">Validate Third Calendar</Button>
   </div>
 </template>
 
 <script>
 import Calendar from '../../components/Calendar';
+import Button from '../../components/Button';
 import Description from '../../descriptions/Description';
 import Collapser from '../../components/Collapser';
 import { CalendarData } from '../../static/index';
 
 export default {
   name: 'CalendarDemo',
-  components: { Calendar, Description, Collapser },
-  data: () => ({
-    openUsage: true,
-    usage: CalendarData.usage,
-    dateValue: new Date(),
-    dateValue2: null,
-    dateValue3: null,
-    dateValue4: null,
-    dateValue5: null,
-    dateValue6: null,
-    dateValue7: null,
-    dateValue8: null,
-    dateValue9: null,
-    borderColor: '#e6e7eb',
-    backgroundColor: '#fff',
-    backdropOpacity: '0.8',
-    wrapperStyleObject: {
-      alignItems: 'flex-end'
-    },
-    fullWidth: true,
-    maxSelectedDate: undefined,
-    minSelectedDate: undefined
-  }),
+  components: { Button, Calendar, Description, Collapser },
+  data: function() {
+    return {
+      openUsage: true,
+      usage: CalendarData.usage,
+      dateValue: new Date(),
+      dateValue2: null,
+      dateValue3: null,
+      dateValue4: null,
+      dateValue5: null,
+      dateValue6: null,
+      dateValue7: null,
+      dateValue8: null,
+      dateValue9: null,
+      borderColor: '#e6e7eb',
+      backgroundColor: '#fff',
+      backdropOpacity: '0.8',
+      wrapperStyleObject: {
+        alignItems: 'flex-end'
+      },
+      fullWidth: true,
+      maxSelectedDate: undefined,
+      minSelectedDate: undefined,
+      calendarValidator: [
+        {
+          name: 'required',
+          message: this.dsTranslate('Field Required'),
+          validator: value => !!value
+        }
+      ],
+      calendarValidatorName: 'validateCalendar'
+    };
+  },
   methods: {
     onMaxSelectedDate(maxDate) {
       this.maxSelectedDate = maxDate;
     },
     onMinSelectedDate(minDate) {
       this.minSelectedDate = minDate;
+    },
+    validate() {
+      const event = new CustomEvent(this.calendarValidatorName, {});
+      document.dispatchEvent(event);
     }
   }
 };
