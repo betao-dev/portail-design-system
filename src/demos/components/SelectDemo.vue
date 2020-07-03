@@ -42,7 +42,7 @@
         :validators="selectValidators3"
         custom-content
         reversible-icon
-        type="number"
+        type="number-dot-comma"
         width="414px"
         data-mode
         :readonly="false"

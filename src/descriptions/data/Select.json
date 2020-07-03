@@ -109,7 +109,7 @@
       "name": "type",
       "type": "String",
       "default": "text",
-      "description": "Can be equal to text or number"
+      "description": "Can be equal to 'text', 'number', 'number-dot' or 'number-dot-comma'"
     },
     {
       "name": "maxlength",

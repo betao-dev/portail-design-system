@@ -126,6 +126,10 @@ export default {
     fullWidth: {
       type: Boolean,
       default: false
+    },
+    avoidClose: {
+      type: Array,
+      default: () => []
     }
   },
   data: () => ({
@@ -395,7 +399,16 @@ export default {
         return;
       }
 
-      this.openedDispatchWrapper();
+      if (this.avoidClose.length) {
+        let isAvoidClose = event.path.findIndex(el => {
+          return !!~this.avoidClose.findIndex(avoid => avoid === el.id);
+        });
+        if (!_.isUndefined(isAvoidClose) && ~isAvoidClose) {
+          return;
+        }
+      }
+
+      this.openedDispatchWrapper(true);
     },
 
     /**
@@ -403,7 +416,7 @@ export default {
      */
     escapePress(event) {
       if (this.opened && event.code === 'Escape') {
-        this.openedDispatchWrapper();
+        this.openedDispatchWrapper(true);
       }
     },
 
@@ -449,15 +462,15 @@ export default {
     },
     onMouseout() {
       if (this.mouseoutClose) {
-        this.openedDispatchWrapper();
+        this.openedDispatchWrapper(false);
       }
     },
-    openedDispatchWrapper() {
+    openedDispatchWrapper(hardUpdate) {
       if (
         _.isUndefined(this.activeDatepickerComponent) ||
         this.activeDatepickerComponent === 'Dropdown'
       ) {
-        this.$emit('update:opened', false);
+        this.$emit('update:opened', false, hardUpdate);
       }
     }
   },

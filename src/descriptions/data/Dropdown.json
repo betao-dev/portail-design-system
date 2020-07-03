@@ -76,6 +76,12 @@
       "type": "Number",
       "default": "0",
       "description": "Top offset of component in px from pre-rendered position that depend on 'position' props"
+    },
+    {
+      "name": "avoidClose",
+      "type": "Array",
+      "default": "[]",
+      "description": "Provided the list of ids, to prevent close on outside click"
     }
   ],
   "events": []
