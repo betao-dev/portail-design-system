@@ -218,6 +218,7 @@ export default {
             'password',
             'number',
             'number-dot',
+            'number-dot-comma',
             'payment-card',
             'tel'
           ].indexOf(value) !== -1
@@ -382,6 +383,7 @@ export default {
         this.type === 'password' ||
         this.type === 'number' ||
         this.type === 'number-dot' ||
+        this.type === 'number-dot-comma' ||
         this.type === 'payment-card') &&
         this.maxlength
         ? 'maxlength'
@@ -462,7 +464,11 @@ export default {
       if (
         ((this.type === 'payment-card' && charCode > 32) ||
           (this.type === 'number' && charCode > 31) ||
-          (this.type === 'number-dot' && charCode > 31 && charCode !== 46)) &&
+          (this.type === 'number-dot' && charCode > 31 && charCode !== 46) ||
+          (this.type === 'number-dot-comma' &&
+            charCode > 31 &&
+            charCode !== 46 &&
+            charCode !== 44)) &&
         (charCode < 48 || charCode > 57)
       ) {
         event.preventDefault();
@@ -493,6 +499,7 @@ export default {
         let patternObj = {
           'number': /[^0-9]+/g,
           'number-dot': /[^0-9.]+/g,
+          'number-dot-comma': /[^0-9.,]+/g,
           'payment-card': /[^0-9 ]+/g
         };
 
@@ -569,6 +576,7 @@ export default {
   &.ds-password,
   &.ds-number,
   &.ds-number-dot,
+  &.ds-number-dot-comma,
   &.ds-payment-card,
   &.ds-tel {
     .ds-label-text {
@@ -818,6 +826,7 @@ export default {
     &.ds-password,
     &.ds-number,
     &.ds-number-dot,
+    &.ds-number-dot-comma,
     &.ds-payment-card,
     &.ds-tel {
       .ds-label-text {

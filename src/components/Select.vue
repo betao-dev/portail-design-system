@@ -13,7 +13,11 @@
   >
     <div v-if="label" class="ds-label">{{ label }}</div>
     <template v-if="customContent && value && value.id">
-      <div class="ds-drop-content-wrapper">
+      <div
+        id="custom-content"
+        class="ds-drop-content-wrapper"
+        @click="toggleDropList"
+      >
         <slot :name="value.id"></slot>
       </div>
     </template>
@@ -27,6 +31,8 @@
       color="gray-500"
       size="18px"
       class="ds-drop-icon-alt"
+      id="icon-alt"
+      @click="toggleDropList"
     />
     <Icon
       v-else
@@ -35,6 +41,8 @@
       "
       color="gray-400"
       class="ds-drop-icon"
+      id="icon"
+      @click="toggleDropList"
     />
     <input
       :class="[
@@ -76,9 +84,11 @@
 
     <Dropdown
       :target="$refs.dsSelect"
-      :opened.sync="openDropDownList"
+      :opened="openDropDownList"
+      @update:opened="onDropdownOpened"
       :position="dropdownPosition"
       :style="{ overflow: optionsOverflow }"
+      :avoid-close="avoidClose"
       :class="['ds-options', { 'ds-options-custom': customContent }]"
       just-fade
     >
@@ -186,7 +196,11 @@ export default {
       type: String,
       default: 'text',
       validation(value) {
-        return ['text', 'number'].indexOf(value) !== -1;
+        return (
+          ['text', 'number', 'number-dot', 'number-dot-comma'].indexOf(
+            value
+          ) !== -1
+        );
       }
     },
     maxlength: Number,
@@ -199,9 +213,15 @@ export default {
     helpVisible: false,
     inputSelectValue: undefined,
     validBacklight: false,
-    invalidBacklight: false
+    invalidBacklight: false,
+    avoidClose: ['icon-alt', 'icon']
   }),
   methods: {
+    onDropdownOpened(status, hardUpdate) {
+      if (!this.customContent || hardUpdate) {
+        this.openDropDownList = status;
+      }
+    },
     openDropList() {
       if (!this.dataMode) {
         this.touched = true;
@@ -265,8 +285,12 @@ export default {
       let charCode = event.which ? event.which : event.keyCode;
 
       if (
-        this.type === 'number' &&
-        charCode > 31 &&
+        ((this.type === 'number' && charCode > 31) ||
+          (this.type === 'number-dot' && charCode > 31 && charCode !== 46) ||
+          (this.type === 'number-dot-comma' &&
+            charCode > 31 &&
+            charCode !== 46 &&
+            charCode !== 44)) &&
         (charCode < 48 || charCode > 57)
       ) {
         event.preventDefault();
@@ -281,7 +305,9 @@ export default {
     checkValuePattern(paste, value) {
       if (this.value || paste) {
         let patternObj = {
-          number: /[^0-9]+/g
+          'number': /[^0-9]+/g,
+          'number-dot': /[^0-9.]+/g,
+          'number-dot-comma': /[^0-9.,]+/g
         };
 
         let pattern = patternObj[this.type];
@@ -343,7 +369,9 @@ export default {
         validator: value => !!value
       });
     }
-
+    if (this.customContent) {
+      this.avoidClose.push('custom-content');
+    }
     this.checkValuePattern();
     this.$emit('validation', this.validation);
   },
@@ -525,6 +553,7 @@ export default {
         }
       }
 
+      cursor: default;
       padding: 16px 116px 15px 16px;
       font-family: @robotoFont;
 
@@ -535,7 +564,6 @@ export default {
   .ds-drop-content-wrapper {
     cursor: pointer;
     position: absolute;
-    pointer-events: none;
     top: 50%;
     margin-top: -20px;
     right: 50px;
@@ -544,7 +572,6 @@ export default {
   .ds-drop-icon {
     cursor: pointer;
     position: absolute;
-    pointer-events: none;
     right: 5px;
     bottom: 8px;
   }
@@ -552,7 +579,6 @@ export default {
   .ds-drop-icon-alt {
     cursor: pointer;
     position: absolute;
-    pointer-events: none;
     top: 50%;
     margin-top: -9px;
     right: 16px;

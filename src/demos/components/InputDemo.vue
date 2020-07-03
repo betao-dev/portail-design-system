@@ -146,6 +146,7 @@
         textAlign="right"
         label="Euro Input"
         placeholder="Input Currency"
+        type="number-dot-comma"
         v-model="currencyValue"
       />
 
