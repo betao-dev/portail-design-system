@@ -881,6 +881,7 @@ export default {
         line-height: 21px;
         border-left: 1px solid @color-gray-300;
         padding-left: 25px;
+        box-sizing: content-box;
 
         > div {
           cursor: pointer;

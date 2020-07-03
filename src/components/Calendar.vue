@@ -160,6 +160,7 @@ export default {
   components: { Datepicker, CalendarDropdown, CalendarIcon, CalendarDialog },
   props: {
     value: null,
+    name: String,
     lg: Boolean,
     md: Boolean,
     sm: Boolean,
@@ -234,6 +235,7 @@ export default {
     }
   },
   data: () => ({
+    validateEventName: undefined,
     calendarVisible: false,
     slideActive: undefined,
     labelFocus: undefined,
@@ -744,6 +746,12 @@ export default {
     }
   },
   mounted() {
+    if (this.name) {
+      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).toLowerCase()}`;
+      document.addEventListener(this.validateEventName, this.validate);
+    }
+
     if (
       (this.minDate && this.maxDate && this.value < this.minDate) ||
       this.value > this.maxDate
@@ -765,6 +773,10 @@ export default {
   beforeDestroy() {
     if (this.positionChangeable) {
       window.removeEventListener('resize', this.onResize);
+    }
+
+    if (this.name) {
+      document.removeEventListener(this.validateEventName, this.validate);
     }
 
     document.removeEventListener('validate', this.validate);

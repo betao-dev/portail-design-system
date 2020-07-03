@@ -21,6 +21,8 @@ let usage = `
   :borderColorDesktop="borderColor"
   placeholder="Date"
   :dateRange="{ min: 5, max: 10 }"
+  :validators="calendarValidator"
+  name="calendar"
   v-model="dateValue3"
   :auto-initialize="false"
 />
