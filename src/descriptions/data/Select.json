@@ -125,6 +125,11 @@
       "name": "referenceModel",
       "type": "null",
       "description": "Provided value for validation purpose like equality models of Select component and any other model"
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "With this property select will be listening to validation with current value for e.g. 'validateTest'"
     }
   ],
   "events": [
