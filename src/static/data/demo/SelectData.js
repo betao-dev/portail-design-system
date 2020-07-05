@@ -45,6 +45,21 @@ let usage = `
     </template>
     ...
   </Select>
+
+  <Select
+    lg
+    class="ds-select-demo"
+    v-model="selectValue4"
+    label="Select"
+    :options="options"
+    :validators="selectValidators"
+    :idMode="true"
+    extra-error-padding
+    alt-select
+    alt-icon
+    reversible-icon
+    disabled
+  />
 `.slice(1);
 
 export default {

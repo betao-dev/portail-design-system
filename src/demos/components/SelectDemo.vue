@@ -60,6 +60,23 @@
           </div>
         </template>
       </Select>
+
+      <div class="ds-select-demo-wrapper">
+        <Select
+          lg
+          class="ds-select-demo"
+          v-model="selectValue4"
+          label="Select"
+          :options="options"
+          :validators="selectValidators"
+          :idMode="true"
+          extra-error-padding
+          alt-select
+          alt-icon
+          reversible-icon
+          disabled
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -81,6 +98,7 @@ export default {
       selectValue: '',
       selectValue2: { id: 1 },
       selectValue3: { id: 1, data: undefined },
+      selectValue4: { id: 1 },
       options: [
         { id: 1, value: 'Espèces' },
         { id: 2, value: 'Chèque' },
@@ -127,6 +145,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.ds-select-demo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  background-color: white;
+}
+
 .ds-select-demo {
   margin-bottom: 50px;
 }
