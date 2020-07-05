@@ -130,6 +130,18 @@
       "name": "name",
       "type": "String",
       "description": "With this property select will be listening to validation with current value for e.g. 'validateTest'"
+    },
+    {
+      "name": "disabled",
+      "type": "Boolean",
+      "default": "false",
+      "description": "The select will be deselected when the value is equals to true"
+    },
+    {
+      "name": "altSelect",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Experimental feature, only working with lg attribute. Updated the padding of input and margin of label"
     }
   ],
   "events": [

@@ -6,7 +6,9 @@
         'ds-lg': lg,
         'ds-md': md,
         'ds-sm': sm,
-        'ds-select-error': checkError && extraErrorPadding
+        'ds-select-error': checkError && extraErrorPadding,
+        'ds-select-disabled': disabled,
+        'ds-select-alt': altSelect
       }
     ]"
     :style="{ width }"
@@ -205,7 +207,15 @@ export default {
     },
     maxlength: Number,
     extraErrorPadding: Boolean,
-    referenceModel: null
+    referenceModel: null,
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    altSelect: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => ({
     openDropDownList: false,
@@ -642,6 +652,40 @@ export default {
   .error-message-enter,
   .error-message-leave-to {
     opacity: 0;
+  }
+
+  &.ds-select-alt {
+    .ds-label {
+      margin-bottom: 10px;
+
+      + .ds-drop-icon-alt {
+        top: 66.6%;
+      }
+    }
+
+    .ds-select {
+      padding: 14px 16px 16px;
+    }
+  }
+
+  &.ds-select-disabled {
+    pointer-events: none;
+
+    .ds-label {
+      color: #2d3047;
+      font-weight: 300;
+    }
+
+    .ds-select {
+      border: 1px solid @color-gray-300;
+      border-radius: 4px;
+      background-color: @color-gray-100;
+      color: @color-gray-400;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 16px;
+    }
   }
 }
 </style>
