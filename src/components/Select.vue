@@ -398,6 +398,13 @@ export default {
         }
       }
     }
+  },
+  beforeDestroy() {
+    if (this.name) {
+      document.removeEventListener(this.validateEventName, this.validate);
+    }
+
+    document.removeEventListener('validate', this.validate);
   }
 };
 </script>
