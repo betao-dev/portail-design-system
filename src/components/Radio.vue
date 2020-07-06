@@ -1,5 +1,7 @@
 <template>
-  <span class="ds-radio-component">
+  <span
+    :class="['ds-radio-component', { 'ds-radio-component-disabled': disabled }]"
+  >
     <span class="ds-radio-wrapper" v-for="(radio, index) in list" :key="index">
       <label class="ds-radio-body">
         <span
@@ -54,6 +56,10 @@ export default {
       default: '#98A9BC'
     },
     objectMode: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }
@@ -152,6 +158,11 @@ export default {
         }
       }
     }
+  }
+
+  &.ds-radio-component-disabled {
+    pointer-events: none;
+    opacity: 0.7;
   }
 }
 </style>

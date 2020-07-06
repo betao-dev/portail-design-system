@@ -20,6 +20,15 @@
         objectMode
       />
     </div>
+    <div class="radio-wrapper">
+      <Radio
+        v-model="value3"
+        :list="radioList2"
+        radioColor="#1EB386"
+        objectMode
+        disabled
+      />
+    </div>
   </div>
 </template>
 
@@ -37,6 +46,7 @@ export default {
     usage: RadioData.usage,
     value: undefined,
     value2: undefined,
+    value3: undefined,
     radioList: [
       {
         title: 'Madame'
