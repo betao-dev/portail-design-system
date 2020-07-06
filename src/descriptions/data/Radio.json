@@ -26,6 +26,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "In this mod, the value will represent an object, comparison of active radio button made by id property of the option"
+    },
+    {
+      "name": "disabled",
+      "type": "Boolean",
+      "default": "false",
+      "description": "The radio button will be deselected when the value is equals to true"
     }
   ],
   "events": []
