@@ -34,6 +34,15 @@
       >
         {{ label }}
       </div>
+      <div class="ds-icon-status-wrapper" v-if="isStatus">
+        <Icon
+          size="22px"
+          :color="statusData.status ? 'primary' : 'red'"
+          :source="
+            statusData.status ? 'check-circle' : 'exclamation-circle-solid'
+          "
+        ></Icon>
+      </div>
       <div class="ds-icon-wrapper">
         <Icon
           size="18px"
@@ -49,6 +58,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Icon from './Icon';
 
 export default {
@@ -67,7 +77,11 @@ export default {
       type: [Number, String],
       default: 'default'
     },
-    headerSlotName: String
+    headerSlotName: String,
+    statusData: {
+      type: Object,
+      default: () => {}
+    }
   },
   computed: {
     iconColorWrapper() {
@@ -76,6 +90,9 @@ export default {
       } else {
         return this.opened ? 'primary' : 'gray-500';
       }
+    },
+    isStatus() {
+      return _.get(this.statusData, 'active');
     }
   },
   methods: {
@@ -140,6 +157,10 @@ export default {
       &.ds-title-active {
         color: @color-primary;
       }
+    }
+
+    .ds-icon-status-wrapper {
+      margin-right: 12px;
     }
 
     .ds-icon-wrapper {

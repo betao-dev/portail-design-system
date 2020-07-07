@@ -25,6 +25,12 @@
       "name": "countItems",
       "type": "Number",
       "description": "Represent count of pairs of headers and bodies that will be rendered"
+    },
+    {
+      "name": "statusData",
+      "type": "Array",
+      "default": "[]",
+      "description": "Represent array of status objects that will be passed into collapser component for displaying validation status"
     }
   ],
   "events": []

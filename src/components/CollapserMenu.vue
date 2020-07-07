@@ -15,6 +15,7 @@
           :header-slot-name="getHeaderSlotName(index)"
           :body-slot-name="index + 1"
           :opened="activeItem === index + 1"
+          :statusData="getStatusData(index + 1)"
           @update:opened="getOpened(index, $event)"
         >
           <template v-slot:[getHeaderSlotName(index)]>
@@ -48,6 +49,10 @@ export default {
     headerSlotActive: {
       type: Boolean,
       default: false
+    },
+    statusData: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
@@ -75,6 +80,12 @@ export default {
       if (this.headerSlotActive) {
         return `header${index + 1}`;
       }
+    },
+    getStatusData(number) {
+      let validation = this.statusData.find(
+        validation => validation.name === number
+      );
+      return ~validation ? validation : {};
     }
   }
 };
