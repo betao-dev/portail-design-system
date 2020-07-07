@@ -2,9 +2,12 @@
   <div class="logo-upload">
     <vue-dropzone
       id="ds-file-upload"
+      :class="[
+        'ds-file-upload-area',
+        { 'ds-file-upload-area-full': !checkEmptyFile }
+      ]"
       ref="pane"
       :options="{ ...mainOptions }"
-      :style="wrapperStyles"
       :useCustomSlot="true"
     >
       <div class="ds-selected-files-wrapper">
@@ -215,19 +218,6 @@ export default {
       }
 
       return errors;
-    },
-    wrapperStyles() {
-      const wrapperStyle = {
-        backgroundColor: '#FFFFFF'
-      };
-
-      if (this.checkEmptyFile) {
-        wrapperStyle.border = 'dashed 1px #1EB386';
-      } else {
-        wrapperStyle.border = 'solid 1px #E8ECEF';
-      }
-
-      return wrapperStyle;
     }
   },
   watch: {
@@ -298,6 +288,22 @@ export default {
             object-fit: initial;
           }
         }
+      }
+    }
+  }
+
+  .ds-file-upload-area {
+    background-color: @color-white;
+    border: dashed 1px @color-gray-500;
+
+    &.ds-file-upload-area-full {
+      border: solid 1px @color-gray-300;
+    }
+
+    &:not(.ds-file-upload-area-full) {
+      &:hover {
+        border: dashed 1px @color-primary;
+        background-color: #f4fbf9;
       }
     }
   }
