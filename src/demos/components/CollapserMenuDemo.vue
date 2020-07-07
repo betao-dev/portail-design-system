@@ -10,7 +10,11 @@
     </Collapser>
 
     <div class="ds-collapser-menu-wrapper">
-      <CollapserMenu :active.sync="active" :titles="titles">
+      <CollapserMenu
+        :active.sync="active"
+        :titles="titles"
+        :status-data="statusData"
+      >
         <template #1>
           <div class="ds-demo-collapser-menu-content">
             First Step
@@ -85,7 +89,12 @@ export default {
     titles: ['First', 'Second', 'Third'],
     active: 1,
     secondActive: 1,
-    headerSlotActive: true
+    headerSlotActive: true,
+    statusData: [
+      { name: 1, status: true, active: true },
+      { name: 2, status: false, active: true },
+      { name: 3, status: true, active: true }
+    ]
   })
 };
 </script>

@@ -35,6 +35,12 @@
       "name": "headerSlotName",
       "type": "String",
       "description": "Responsible the presentation of header slot, when the header slot passed the next props won't be using 'label', 'titleAlignment', 'iconColorWrapper'"
+    },
+    {
+      "name": "statusData",
+      "type": "Object",
+      "default": "{}",
+      "description": "Represent object that contains data for displaying validation status"
     }
   ],
   "events": [
