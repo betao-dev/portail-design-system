@@ -90,6 +90,11 @@
       "name": "backgroundColor",
       "type": "String",
       "description": "Set background color"
+    },
+    {
+      "name": "gray",
+      "type": "Boolean",
+      "description": "Set gray button mode"
     }
   ],
   "events": [
