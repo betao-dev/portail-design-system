@@ -19,6 +19,7 @@ let usage = `
 <Button padding="13px 40px" alt-two>Cancel</Button>
 <Button icon="add_circle" icon-color="primary" color="primary" plain-two space-between="4px">Add New Item</Button>
 <Button color="red" link="https://github.com/highqualitycode" icon="insert_chart" small link-ico>Full Report</Button>&nbsp;
+<Button padding="13px 40px" gray>Gray</Button>
 <!-- OR -->
 <button class="ds-button ds-button-primary">
   Button Label

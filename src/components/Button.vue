@@ -30,6 +30,7 @@
           'ds-button': true,
           'ds-button-primary': primary,
           'ds-button-red': red,
+          'ds-button-gray': gray,
           'ds-button-big': big,
           'ds-button-small': small,
           'ds-button-alt': alt,
@@ -74,6 +75,7 @@
           'ds-button': true,
           'ds-button-primary': primary,
           'ds-button-red': red,
+          'ds-button-gray': gray,
           'ds-button-big': big,
           'ds-button-small': small,
           'ds-button-alt': alt,
@@ -122,6 +124,7 @@ export default {
     big: Boolean,
     small: Boolean,
     red: Boolean,
+    gray: Boolean,
     alt: Boolean,
     altTwo: Boolean,
     plain: Boolean,
@@ -212,7 +215,7 @@ export default {
   -moz-appearance: none;
   -webkit-appearance: none;
   background: none;
-  border-radius: 3px;
+  border-radius: 4px;
   border: none;
   box-sizing: border-box;
   cursor: pointer;
@@ -248,7 +251,7 @@ export default {
 
   &.ds-button-primary {
     color: @color-white;
-    font-family: 'Roboto Medium';
+    font-family: Roboto Medium, sans-serif;
     font-size: 14px;
     letter-spacing: 0.3px;
     line-height: 16px;
@@ -299,6 +302,19 @@ export default {
 
     .ds-icon {
       fill: @color-white;
+    }
+  }
+
+  &.ds-button-gray {
+    color: @color-gray-500;
+    background-color: @color-gray-300;
+    font-family: Roboto Medium, sans-serif;
+    border-radius: 4px;
+
+    &:hover,
+    &:focus {
+      color: @color-gray-500;
+      background-color: @color-gray-300;
     }
   }
 

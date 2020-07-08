@@ -8,7 +8,7 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <div style="line-height: 64px">
+    <div style="line-height: 80px">
       <Button big>Big</Button>&nbsp; <Button icon="add">Left Icon</Button>&nbsp;
       <Button icon-right="expand_more">Right Icon</Button>&nbsp;
       <Button alt>Alt</Button>&nbsp;
@@ -45,7 +45,7 @@
       >&nbsp;
       <Button icon="add_circle" plain-two disabled space-between="4px"
         >Add New Item</Button
-      >&nbsp;
+      >&nbsp; <Button padding="13px 40px" gray>Gray</Button>&nbsp;
       <!-- OR -->
       <button class="ds-button ds-button-primary">
         Button Label
