@@ -3,6 +3,7 @@
     :opened="opened"
     :borderColor="borderColor"
     :clickOutsideToClose="clickOutsideToClose"
+    :overflowCheck="overflowCheck"
     @update:opened="updateOpenStatus"
   >
     <div class="ds-confirm-wrapper" :style="getStyle">
@@ -89,7 +90,8 @@ export default {
     extraButtonLabel: {
       type: String
     },
-    buttonsWidth: String
+    buttonsWidth: String,
+    overflowCheck: Boolean
   },
   computed: {
     getStyle() {

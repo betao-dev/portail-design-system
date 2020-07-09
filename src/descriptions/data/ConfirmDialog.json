@@ -44,6 +44,11 @@
       "name": "acceptButtonColor",
       "type": "String",
       "description": "Can contain color value that in case of exists this property will be passed to accept button"
+    },
+    {
+      "name": "overflowCheck",
+      "type": "Boolean",
+      "description": "Check overflow depend on it option"
     }
   ],
   "events": [
