@@ -58,6 +58,8 @@
           ]"
           :style="{
             borderColor,
+            width,
+            height,
             minHeight,
             maxHeight,
             minWidth,
@@ -140,6 +142,8 @@ export default {
     minHeight: String,
     maxHeight: String,
     minWidth: String,
+    width: String,
+    height: String,
     top: String,
     virtualContainerMinHeight: String
   },
