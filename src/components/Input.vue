@@ -85,7 +85,6 @@
 
       <input
         v-if="!mask"
-        :ref="inputRef"
         v-bind="inputAttrs"
         :[checkMaxLength]="maxlength"
         :[checkPasswordType]="type"
@@ -113,7 +112,6 @@
 
       <input
         v-else
-        :ref="inputRef"
         v-bind="inputAttrs"
         :[checkMaxLength]="maxlength"
         :[checkPasswordType]="type"
@@ -276,8 +274,7 @@ export default {
     labelAlt: {
       type: Boolean,
       default: false
-    },
-    inputRef: String
+    }
   },
   data: () => ({
     validateEventName: undefined,
