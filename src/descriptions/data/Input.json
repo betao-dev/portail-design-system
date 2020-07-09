@@ -178,6 +178,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Set alternative label styling mode"
+    },
+    {
+      "name": "inputRef",
+      "type": "String",
+      "description": "Bind prop to ref of input"
     }
   ],
   "events": [
