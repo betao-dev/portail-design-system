@@ -31,6 +31,12 @@
       "type": "Array",
       "default": "[]",
       "description": "Represent array of status objects that will be passed into collapser component for displaying validation status"
+    },
+    {
+      "name": "topAutoScroll",
+      "type": "Boolean",
+      "default": "false",
+      "description": "When the option is equal true page will be auto-scroll to the position of the top the opened section"
     }
   ],
   "events": []
