@@ -78,9 +78,9 @@ export default {
   },
   methods: {
     getOpened(index) {
-      this.onTopAutoScroll(index);
       let collapserItem = index + 1;
       this.activeItem = this.activeItem === collapserItem ? 0 : collapserItem;
+      this.onTopAutoScroll(index);
     },
     getHeaderSlotName(index) {
       if (this.headerSlotActive) {
