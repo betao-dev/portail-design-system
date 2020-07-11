@@ -5,6 +5,7 @@
       v-if="(countItems || titles.length) > 0"
     >
       <div
+        ref="collapserList"
         class="ds-collapser-menu-item"
         v-for="(title, index) in countItems || titles"
         :key="index"
@@ -53,6 +54,10 @@ export default {
     statusData: {
       type: Array,
       default: () => []
+    },
+    topAutoScroll: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -73,6 +78,7 @@ export default {
   },
   methods: {
     getOpened(index) {
+      this.onTopAutoScroll(index);
       let collapserItem = index + 1;
       this.activeItem = this.activeItem === collapserItem ? 0 : collapserItem;
     },
@@ -86,6 +92,12 @@ export default {
         validation => validation.name === number
       );
       return ~validation ? validation : {};
+    },
+    onTopAutoScroll(index) {
+      if (this.topAutoScroll) {
+        let top = this.$refs.collapserList[index].offsetTop;
+        window.scrollTo({ top });
+      }
     }
   }
 };
