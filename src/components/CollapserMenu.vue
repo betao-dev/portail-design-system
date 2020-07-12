@@ -80,7 +80,6 @@ export default {
     getOpened(index) {
       let collapserItem = index + 1;
       this.activeItem = this.activeItem === collapserItem ? 0 : collapserItem;
-      this.onTopAutoScroll(index);
     },
     getHeaderSlotName(index) {
       if (this.headerSlotActive) {
@@ -94,9 +93,14 @@ export default {
       return ~validation ? validation : {};
     },
     onTopAutoScroll(index) {
-      if (this.topAutoScroll) {
-        let top = this.$refs.collapserList[index].offsetTop;
-        window.scrollTo({ top });
+      let top = this.$refs.collapserList[index].offsetTop;
+      window.scrollTo({ top });
+    }
+  },
+  watch: {
+    activeItem(value) {
+      if (this.topAutoScroll && value) {
+        this.onTopAutoScroll(value - 1);
       }
     }
   }
