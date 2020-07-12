@@ -13,27 +13,47 @@ export default {
   name: 'Form',
   components: {},
   props: {},
-  data: () => ({}),
+  data: () => ({
+    errors: []
+  }),
   methods: {
     checkForm(e) {
       e.preventDefault();
       e.stopPropagation();
-      const event = new CustomEvent('validate', {});
-      document.dispatchEvent(event);
 
-      setTimeout(() => {
-        const currentFormElements = document.forms['dsForm'].elements;
-        const emitValue = {};
-        for (let i = 0; i < currentFormElements.length; i++) {
-          if (currentFormElements[i].tagName !== 'BUTTON') {
-            if (!currentFormElements[i].name) return;
-            if (currentFormElements[i].className.includes('ds-error')) return;
-            emitValue[currentFormElements[i].name] =
-              currentFormElements[i].value;
-          }
+      this.errors = [];
+      this.setTouched(true);
+
+      const children = this.$children;
+      const submitVal = {};
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (child.setTouched) {
+          if (!child.name) return;
+          if (!child.inputErrors) return;
+
+          child.inputErrors.map(error => {
+            this.errors.push(`${child.name}: ${error}`);
+          });
+          submitVal[child.name] = child.value;
         }
-        this.$emit('submit', emitValue);
-      }, 10);
+      }
+
+      if (this.errors.length !== 0) return;
+      this.$emit('submit', submitVal);
+    },
+    setTouched(touched) {
+      const children = this.$children;
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (child.setTouched) {
+          child.setTouched(touched);
+        }
+      }
+    },
+    isValid() {
+      if (this.errors.length === 0) return true;
+      return false;
     }
   }
 };
