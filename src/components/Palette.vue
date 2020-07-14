@@ -12,8 +12,8 @@
     >
       <div
         class="ds-palette-item"
-        v-for="value of defaultColor.value"
-        :style="{ backgroundColor: value }"
+        v-for="internalValue of defaultColor.internalValue"
+        :style="{ backgroundColor: internalValue }"
       ></div>
     </div>
   </div>
@@ -45,23 +45,28 @@ export default {
       defaultColors: [
         {
           id: 1,
-          value: ['#778CA2', '#AEBAC7', '#D2D9E1']
+          internalValue: ['#778CA2', '#AEBAC7', '#D2D9E1'],
+          value: ['#778CA2', '#F2F4F6', '#F8FAFB']
         },
         {
           id: 2,
-          value: ['#40B387', '#78D1B6', '#B5E6D7']
+          internalValue: ['#40B387', '#78D1B6', '#B5E6D7'],
+          value: ['#1EB386', '#E9F8F3', '#F8FCFB']
         },
         {
           id: 3,
-          value: ['#11ADF7', '#6CCEF8', '#AFE4FA']
+          internalValue: ['#11ADF7', '#6CCEF8', '#AFE4FA'],
+          value: ['#09AFFF', '#DAF3FF', '#F2FBFF']
         },
         {
           id: 4,
-          value: ['#745ECC', '#AB9DE0', '#D1C9EE']
+          internalValue: ['#745ECC', '#AB9DE0', '#D1C9EE'],
+          value: ['#745BCC', '#EEEBF8', '#F8F7FC']
         },
         {
           id: 5,
-          value: ['#F0414A', '#F68C8C', '#FAC0C0']
+          internalValue: ['#F0414A', '#F68C8C', '#FAC0C0'],
+          value: ['#F03F3F', '#FDEBEB', '#FFF8F8']
         }
       ]
     };
@@ -88,7 +93,9 @@ export default {
     },
     setActive(color) {
       if (this.defaultMode) {
-        this.$emit('input', color);
+        let colorCopy = { ...color };
+        delete colorCopy.internalValue;
+        this.$emit('input', colorCopy);
       } else {
         this.$emit('input', this.calcGradient(color));
       }
