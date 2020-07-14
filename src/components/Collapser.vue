@@ -39,7 +39,9 @@
           size="22px"
           :color="statusData.status ? 'primary' : 'red'"
           :source="
-            statusData.status ? 'check-circle' : 'exclamation-circle-solid'
+            statusData.status
+              ? 'check-circle'
+              : 'exclamation-circle-solid-standard'
           "
         ></Icon>
       </div>
