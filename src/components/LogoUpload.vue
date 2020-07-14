@@ -245,6 +245,7 @@ export default {
     min-height: 120px;
     padding: 0;
     border-radius: 4px;
+    cursor: default;
 
     .ds-selected-files-wrapper {
       display: flex;
@@ -271,9 +272,19 @@ export default {
           font-family: 'Roboto Medium';
           background-color: white;
           text-transform: uppercase;
+          cursor: default;
 
           .icon-wrapper {
+            cursor: pointer;
             margin-bottom: 4px;
+          }
+
+          .icon-wrapper + div {
+            cursor: default;
+          }
+
+          &:hover {
+            background-color: #f4fbf9;
           }
         }
 
@@ -298,12 +309,19 @@ export default {
 
     &.ds-file-upload-area-full {
       border: solid 1px @color-gray-300;
+
+      img {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
     }
 
     &:not(.ds-file-upload-area-full) {
       &:hover {
         border: dashed 1px @color-primary;
-        background-color: #f4fbf9;
       }
     }
   }
