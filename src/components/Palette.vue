@@ -5,7 +5,7 @@
       :class="[
         'ds-palette',
         {
-          'ds-palette-active': value && value.value[0] === defaultColor.value[0]
+          'ds-palette-active': value && value.id === defaultColor.id
         }
       ]"
       @click="setActive(defaultColor)"
@@ -45,27 +45,27 @@ export default {
       defaultColors: [
         {
           id: 1,
-          internalValue: ['#778CA2', '#AEBAC7', '#D2D9E1'],
+          internalValue: ['#778CA2', '#AEBAC7', '#D6DCE3'],
           value: ['#778CA2', '#F2F4F6', '#F8FAFB']
         },
         {
           id: 2,
-          internalValue: ['#40B387', '#78D1B6', '#B5E6D7'],
+          internalValue: ['#1EB386', '#78D1B6', '#BBE8DA'],
           value: ['#1EB386', '#E9F8F3', '#F8FCFB']
         },
         {
           id: 3,
-          internalValue: ['#11ADF7', '#6CCEF8', '#AFE4FA'],
+          internalValue: ['#09AFFF', '#6BCFFF', '#B5E7FF'],
           value: ['#09AFFF', '#DAF3FF', '#F2FBFF']
         },
         {
           id: 4,
-          internalValue: ['#745ECC', '#AB9DE0', '#D1C9EE'],
+          internalValue: ['#745BCC', '#AC9DE0', '#D5CDEF'],
           value: ['#745BCC', '#EEEBF8', '#F8F7FC']
         },
         {
           id: 5,
-          internalValue: ['#F0414A', '#F68C8C', '#FAC0C0'],
+          internalValue: ['#F03F3F', '#F68C8C', '#FAC5C5'],
           value: ['#F03F3F', '#FDEBEB', '#FFF8F8']
         }
       ]
@@ -85,6 +85,11 @@ export default {
     }
   },
   methods: {
+    makeColorCopy(color) {
+      let colorCopy = { ...color };
+      delete colorCopy.internalValue;
+      return colorCopy;
+    },
     calcGradient(color) {
       let tmp = this.opacities.slice();
       return tmp.map(opacity => {
@@ -93,22 +98,19 @@ export default {
     },
     setActive(color) {
       if (this.defaultMode) {
-        let colorCopy = { ...color };
-        delete colorCopy.internalValue;
-        this.$emit('input', colorCopy);
+        this.$emit('input', this.makeColorCopy(color));
       } else {
         this.$emit('input', this.calcGradient(color));
       }
     }
   },
   mounted() {
+    let color = this.value;
     if (this.autoInit) {
-      if (this.defaultMode) {
-        this.$emit('input', this.defaultColors[0]);
-      } else {
-        this.$emit('input', this.calcGradient(this.colors[0]));
-      }
+      color = this.defaultMode ? this.defaultColors[0] : this.colors[0];
     }
+
+    this.setActive(color);
   }
 };
 </script>
