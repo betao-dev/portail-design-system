@@ -253,6 +253,7 @@ export default {
       align-items: center;
       flex-wrap: wrap;
       font-family: @robotoFont;
+      border-radius: 4px;
 
       &:hover {
         background-color: #f4fbf9;
@@ -308,6 +309,10 @@ export default {
 
     &.ds-file-upload-area-full {
       border: solid 1px @color-gray-300;
+
+      .dz-message {
+        border-radius: 4px;
+      }
 
       img {
         cursor: pointer;
