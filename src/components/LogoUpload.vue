@@ -245,7 +245,7 @@ export default {
     min-height: 120px;
     padding: 0;
     border-radius: 4px;
-    cursor: default;
+    cursor: pointer;
 
     .ds-selected-files-wrapper {
       display: flex;
@@ -253,6 +253,10 @@ export default {
       align-items: center;
       flex-wrap: wrap;
       font-family: @robotoFont;
+
+      &:hover {
+        background-color: #f4fbf9;
+      }
 
       .ds-file-wrapper {
         position: relative;
@@ -272,15 +276,10 @@ export default {
           font-family: 'Roboto Medium';
           background-color: white;
           text-transform: uppercase;
-          cursor: default;
 
           .icon-wrapper {
             cursor: pointer;
             margin-bottom: 4px;
-          }
-
-          .icon-wrapper + div {
-            cursor: default;
           }
 
           &:hover {
@@ -312,9 +311,13 @@ export default {
 
       img {
         cursor: pointer;
+      }
 
-        &:hover {
-          opacity: 0.6;
+      &:hover {
+        border: 1px solid @color-primary;
+
+        img {
+          opacity: 0.5;
         }
       }
     }
