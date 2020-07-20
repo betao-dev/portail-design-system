@@ -215,6 +215,10 @@ export default {
     altSelect: {
       type: Boolean,
       default: false
+    },
+    countSymbolAfterDelimiter: {
+      type: Number,
+      default: 2
     }
   },
   data: () => ({
@@ -289,15 +293,59 @@ export default {
     setTouched(touched) {
       this.touched = touched;
     },
+    applyDelimiterHelper(event, partsArray, separator, value, isPaste) {
+      let isApply = partsArray.length > 1;
+      if (isApply) {
+        let lastItem = partsArray[partsArray.length - 1];
+        if (lastItem.length >= this.countSymbolAfterDelimiter) {
+          partsArray.pop();
+          lastItem = lastItem.slice(0, this.countSymbolAfterDelimiter);
+          partsArray.push(lastItem);
+          value = partsArray.join(separator);
+
+          if (!_.isNull(event)) {
+            event.preventDefault();
+          }
+        }
+      }
+
+      if (isPaste) {
+        this.inputSelectValue =
+          typeof value === 'string' ? value.slice(0, this.maxlength) : value;
+      }
+
+      return isApply;
+    },
+    applyDelimiter(event, value, isPaste) {
+      if (this.type === 'number-dot-comma-delimiter' && value) {
+        let commaParts = value.split(',');
+        let dotParts = value.split('.');
+
+        let status = this.applyDelimiterHelper(
+          event,
+          commaParts,
+          ',',
+          value,
+          isPaste
+        );
+
+        if (!status) {
+          this.applyDelimiterHelper(event, dotParts, '.', value, isPaste);
+        }
+      }
+    },
     onKeyPress(event) {
       this.touched = true;
       event = event ? event : window.event;
       let charCode = event.which ? event.which : event.keyCode;
 
+      this.applyDelimiter(event, this.inputSelectValue);
+
       if (
         ((this.type === 'number' && charCode > 31) ||
           (this.type === 'number-dot' && charCode > 31 && charCode !== 46) ||
-          (this.type === 'number-dot-comma' &&
+          ((this.type === 'number-dot-comma' ||
+            this.type === 'number-dot-comma-delimiter') &&
             charCode > 31 &&
             charCode !== 46 &&
             charCode !== 44)) &&
@@ -317,7 +365,8 @@ export default {
         let patternObj = {
           'number': /[^0-9]+/g,
           'number-dot': /[^0-9.]+/g,
-          'number-dot-comma': /[^0-9.,]+/g
+          'number-dot-comma': /[^0-9.,]+/g,
+          'number-dot-comma-delimiter': /[^0-9.,]+/g
         };
 
         let pattern = patternObj[this.type];
@@ -330,8 +379,7 @@ export default {
         value = value.replace(pattern, '');
       }
 
-      this.inputSelectValue =
-        typeof value === 'string' ? value.slice(0, this.maxlength) : value;
+      this.applyDelimiter(null, value, true);
     },
     checkMaxLength() {
       return this.maxlength ? 'maxlength' : null;
@@ -386,9 +434,12 @@ export default {
     this.$emit('validation', this.validation);
   },
   watch: {
-    inputSelectValue(value) {
-      if (this.dataMode) {
-        this.$emit('input', { ...this.value, data: value });
+    inputSelectValue: {
+      deep: true,
+      handler(value) {
+        if (this.dataMode) {
+          this.$emit('input', { ...this.value, data: value });
+        }
       }
     },
     value(val) {
