@@ -142,6 +142,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "Experimental feature, only working with lg attribute. Updated the padding of input and margin of label"
+    },
+    {
+      "name": "countSymbolAfterDelimiter",
+      "type": "Number",
+      "default": "2",
+      "description": "Setup count symbols after the last delimiter, works together with type 'number-dot-comma-delimiter'"
     }
   ],
   "events": [
