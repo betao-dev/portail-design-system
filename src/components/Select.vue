@@ -199,9 +199,13 @@ export default {
       default: 'text',
       validation(value) {
         return (
-          ['text', 'number', 'number-dot', 'number-dot-comma'].indexOf(
-            value
-          ) !== -1
+          [
+            'text',
+            'number',
+            'number-dot',
+            'number-dot-comma',
+            'number-dot-comma-delimiter'
+          ].indexOf(value) !== -1
         );
       }
     },
