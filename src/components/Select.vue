@@ -314,14 +314,13 @@ export default {
       }
 
       if (isPaste) {
-        this.inputSelectValue =
-          typeof value === 'string' ? value.slice(0, this.maxlength) : value;
+        this.applyMaxLength(value);
       }
 
       return isApply;
     },
     applyDelimiter(event, value, isPaste) {
-      if (this.type === 'number-dot-comma-delimiter' && value) {
+      if (value) {
         let commaParts = value.split(',');
         let dotParts = value.split('.');
 
@@ -343,7 +342,9 @@ export default {
       event = event ? event : window.event;
       let charCode = event.which ? event.which : event.keyCode;
 
-      this.applyDelimiter(event, this.inputSelectValue);
+      if (this.type === 'number-dot-comma-delimiter') {
+        this.applyDelimiter(event, this.inputSelectValue);
+      }
 
       if (
         ((this.type === 'number' && charCode > 31) ||
@@ -383,10 +384,18 @@ export default {
         value = value.replace(pattern, '');
       }
 
-      this.applyDelimiter(null, value, true);
+      if (this.type === 'number-dot-comma-delimiter') {
+        this.applyDelimiter(null, value, true);
+      } else {
+        this.applyMaxLength(value);
+      }
     },
     checkMaxLength() {
       return this.maxlength ? 'maxlength' : null;
+    },
+    applyMaxLength(value) {
+      this.inputSelectValue =
+        typeof value === 'string' ? value.slice(0, this.maxlength) : value;
     }
   },
   computed: {
