@@ -83,6 +83,10 @@ export default {
     statusData: {
       type: Object,
       default: () => {}
+    },
+    preventUpdateOpened: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -99,7 +103,11 @@ export default {
   },
   methods: {
     onCollapserClick() {
-      this.$emit('update:opened', !this.opened);
+      this.$emit('beforeUpdateOpened', !this.opened);
+
+      if (!this.preventUpdateOpened) {
+        this.$emit('update:opened', !this.opened);
+      }
     }
   }
 };

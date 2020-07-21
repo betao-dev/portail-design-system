@@ -17,6 +17,8 @@
           :body-slot-name="index + 1"
           :opened="activeItem === index + 1"
           :statusData="getStatusData(index + 1)"
+          :prevent-update-opened="preventUpdateActive"
+          @beforeUpdateOpened="beforeUpdateActive(index)"
           @update:opened="getOpened(index, $event)"
         >
           <template v-slot:[getHeaderSlotName(index)]>
@@ -58,6 +60,10 @@ export default {
     topAutoScroll: {
       type: Boolean,
       default: false
+    },
+    preventUpdateActive: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -77,9 +83,15 @@ export default {
     }
   },
   methods: {
-    getOpened(index) {
+    calculateActiveItem(index) {
       let collapserItem = index + 1;
-      this.activeItem = this.activeItem === collapserItem ? 0 : collapserItem;
+      return this.activeItem === collapserItem ? 0 : collapserItem;
+    },
+    getOpened(index) {
+      this.activeItem = this.calculateActiveItem(index);
+    },
+    beforeUpdateActive(index) {
+      this.$emit('beforeUpdateActive', this.calculateActiveItem(index));
     },
     getHeaderSlotName(index) {
       if (this.headerSlotActive) {

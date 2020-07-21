@@ -41,6 +41,12 @@
       "type": "Object",
       "default": "{}",
       "description": "Represent object that contains data for displaying validation status"
+    },
+    {
+      "name": "preventUpdateOpened",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Preventing auto-updating of the opened property of the Collapser component"
     }
   ],
   "events": [
