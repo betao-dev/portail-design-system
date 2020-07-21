@@ -37,6 +37,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "When the option is equal true page will be auto-scroll to the position of the top the opened section"
+    },
+    {
+      "name": "preventUpdateActive",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Preventing auto-updating of the active property of the CollapserMenu component"
     }
   ],
   "events": []
