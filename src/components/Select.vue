@@ -61,7 +61,7 @@
       v-model="inputSelectValue"
       :placeholder="placeholder"
       :name="name"
-      @click="toggleDropList"
+      @click="toggleDropListWrapper"
       @keypress="onKeyPress"
       @paste.prevent="onPaste($event)"
       :maxlength="maxlength"
@@ -246,6 +246,13 @@ export default {
       }
       this.openDropDownList = true;
       this.$emit('validation', this.validation);
+    },
+    toggleDropListWrapper() {
+      if (this.readonly) {
+        this.toggleDropList();
+      } else {
+        this.openDropDownList = false;
+      }
     },
     toggleDropList() {
       this.openDropDownList = !this.openDropDownList;

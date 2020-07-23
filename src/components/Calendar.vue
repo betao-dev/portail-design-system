@@ -87,7 +87,8 @@
     <CalendarDropdown
       v-show="getCalendarPosition !== 'modal'"
       :target="$refs.input"
-      :opened.sync="calendarVisible"
+      :opened="calendarVisible"
+      @update:opened="onUpdateCalendarVisible"
       :position="getCalendarPosition"
       :borderColor="!isMobile && borderColorDesktop"
       :labelId="labelId"
@@ -115,7 +116,8 @@
 
     <CalendarDialog
       v-show="getCalendarPosition === 'modal'"
-      :opened.sync="calendarVisible"
+      :opened="calendarVisible"
+      @update:opened="onUpdateCalendarVisible"
       :borderColor="!isMobile && borderColorDesktop"
       :datepickerContainer="isMobile"
       :backgroundColor="backgroundColor"
@@ -207,6 +209,7 @@ export default {
     backdropOpacity: String,
     wrapperStyleObject: Object,
     validators: Array,
+    validationClose: Boolean,
     showErrors: {
       type: Boolean,
       default: true
@@ -578,7 +581,9 @@ export default {
         this.labelFocus = true;
         this.slideActive = true;
       }
-      this.touched = true;
+      if (!this.validationClose) {
+        this.touched = true;
+      }
       this.calendarVisible = !this.calendarVisible;
 
       if (this.getCalendarPosition === 'modal') {
@@ -701,6 +706,12 @@ export default {
           this.$emit('maxSelectedDate', this.calendarSecondValue);
           this.$emit('minSelectedDate', this.calendarValue);
         }
+      }
+    },
+    onUpdateCalendarVisible(status) {
+      this.calendarVisible = status;
+      if (!this.touched && this.validationClose) {
+        this.touched = true;
       }
     }
   },
