@@ -174,13 +174,14 @@ import Popper from 'vue-popperjs';
 import Icon from './Icon';
 import 'vue-popperjs/dist/vue-popper.css';
 import validation from './../mixins/validation';
+import touch from './../mixins/touch';
 
 import _ from 'lodash';
 
 export default {
   name: 'Input',
   components: { Icon, Popper },
-  mixins: [validation],
+  mixins: [validation, touch],
   props: {
     disabled: Boolean,
     help: String,
@@ -274,7 +275,8 @@ export default {
     labelAlt: {
       type: Boolean,
       default: false
-    }
+    },
+    touchName: String
   },
   data: () => ({
     validateEventName: undefined,
