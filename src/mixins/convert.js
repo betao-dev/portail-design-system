@@ -19,6 +19,10 @@ export default {
       }
 
       return `rgba(${+r}, ${+g}, ${+b}, ${+a})`;
+    },
+    uppercasePrefixText(prefixText, uppercaseText) {
+      return `${prefixText}${uppercaseText.charAt(0).toUpperCase() +
+        uppercaseText.slice(1).toLowerCase()}`;
     }
   }
 };

@@ -210,8 +210,12 @@
         </div>
       </Input>
 
-      <Button alt @click="validate()">
+      <Button class="valid-button" alt @click="validate()">
         VALIDATE
+      </Button>
+
+      <Button alt @click="unsetTouch()">
+        Reset touch
       </Button>
     </div>
   </div>
@@ -291,6 +295,10 @@ export default {
   methods: {
     validate() {
       const event = new CustomEvent('validate', {});
+      document.dispatchEvent(event);
+    },
+    unsetTouch() {
+      const event = new CustomEvent('touch', { detail: { status: false } });
       document.dispatchEvent(event);
     },
     onlastKeyDownDelay(field) {
@@ -376,5 +384,9 @@ export default {
       line-height: 21px;
     }
   }
+}
+
+.valid-button {
+  margin-right: 32px;
 }
 </style>

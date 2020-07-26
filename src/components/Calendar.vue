@@ -494,6 +494,8 @@ export default {
       if (this.rangeAvailable) {
         this.$emit('update:secondDate', undefined);
       }
+
+      this.checkValidationClose();
     },
     onResetEditDate() {
       this.editMode = false;
@@ -710,6 +712,9 @@ export default {
     },
     onUpdateCalendarVisible(status) {
       this.calendarVisible = status;
+      this.checkValidationClose();
+    },
+    checkValidationClose() {
       if (!this.touched && this.validationClose) {
         this.touched = true;
       }

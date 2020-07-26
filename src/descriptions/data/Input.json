@@ -178,6 +178,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Set alternative label styling mode"
+    },
+    {
+      "name": "touchName",
+      "type": "String",
+      "description": "With this property, Input component will listen to event with prefix 'touch' + and this property capitalized"
     }
   ],
   "events": [

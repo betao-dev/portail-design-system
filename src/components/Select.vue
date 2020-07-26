@@ -123,11 +123,12 @@ import { cloneDeep, isEqual } from 'lodash';
 import Dropdown from './Dropdown';
 import Icon from './Icon';
 import validation from './../mixins/validation';
+import touch from './../mixins/touch';
 
 export default {
   name: 'Select',
   components: { Dropdown, Icon },
-  mixins: [validation],
+  mixins: [validation, touch],
   props: {
     value: null,
     options: Array,
@@ -223,7 +224,8 @@ export default {
     countSymbolAfterDelimiter: {
       type: Number,
       default: 2
-    }
+    },
+    touchName: String
   },
   data: () => ({
     openDropDownList: false,
@@ -641,7 +643,7 @@ export default {
         }
       }
 
-      cursor: default;
+      cursor: text;
       padding: 16px 116px 15px 16px;
       font-family: @robotoFont;
 

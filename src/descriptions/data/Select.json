@@ -148,6 +148,11 @@
       "type": "Number",
       "default": "2",
       "description": "Setup count symbols after the last delimiter, works together with type 'number-dot-comma-delimiter'"
+    },
+    {
+      "name": "touchName",
+      "type": "String",
+      "description": "With this property, Select component will listen to event with prefix 'touch' + and this property capitalized"
     }
   ],
   "events": [
