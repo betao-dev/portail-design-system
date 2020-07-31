@@ -59,6 +59,7 @@ import OwlSliderData from './data/demo/OwlSliderData';
 import CollapserMenuData from './data/demo/CollapserMenuData';
 import LogoUploadData from './data/demo/LogoUploadData';
 import PaletteData from './data/demo/PaletteData';
+import RightSidebarData from './data/demo/RightSidebarData';
 
 export {
   CountriesArray,
@@ -120,5 +121,6 @@ export {
   OwlSliderData,
   CollapserMenuData,
   LogoUploadData,
-  PaletteData
+  PaletteData,
+  RightSidebarData
 };
