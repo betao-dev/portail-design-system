@@ -1,0 +1,21 @@
+{
+  "properties": [
+    {
+      "name": "opened",
+      "type": "Boolean",
+      "description": "Show sidebar based on this property"
+    }
+  ],
+  "events": [
+    {
+      "name": "update:opened",
+      "description": "Emitted when user clicks the overlay of the RightSidebar"
+    }
+  ],
+  "slots": [
+    {
+      "name": "content",
+      "description": "Enable to add contents of the sidebar"
+    }
+  ]
+}
