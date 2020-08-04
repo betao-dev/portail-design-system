@@ -1,12 +1,15 @@
 <template>
   <div class="row-col">
     <h3>RightSidebar</h3>
-    <p>RightSidebar component is used to show the sidebar in the right of the page</p>
+    <p>
+      RightSidebar component is used to show the sidebar in the right of the
+      page
+    </p>
     <Description compnent-name="RightSidebar"></Description>
     <Collapser :opened.sync="openUsage" label="Usage">
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
-    
+
     <div class="right-sidebar-toggle">
       <Button @click="toggleRightSidebar">Toggle Sidebar</Button>
     </div>
@@ -38,19 +41,19 @@ export default {
     Collapser,
     RightSidebar,
     Button,
-    Icon,
+    Icon
   },
   data: () => ({
     usage: RightSidebarData.usage,
     openUsage: true,
-    showSidebar: false,
+    showSidebar: false
   }),
   methods: {
     toggleRightSidebar() {
       this.showSidebar = !this.showSidebar;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -60,7 +63,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2D3047;
+  background-color: #2d3047;
   height: 58px;
   padding: 0 24px;
   color: white;

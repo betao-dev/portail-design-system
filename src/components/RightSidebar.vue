@@ -3,7 +3,7 @@
     <div
       v-if="opened"
       class="ds-rightside-wrapper"
-      :style="{height: height}"
+      :style="{ height: height }"
       @click.self="clickOverlay"
     >
       <div class="main-sidebar">
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       height: '100vh'
-    }
+    };
   },
   methods: {
     clickOverlay() {
@@ -33,9 +33,12 @@ export default {
     }
   },
   mounted() {
-    this.height = `${Math.max(document.body.scrollHeight, document.body.offsetHeight)}px`;
+    this.height = `${Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight
+    )}px`;
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -45,7 +48,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: #2D3047C6;
+  background-color: #2d3047c6;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -60,21 +63,21 @@ export default {
 
 .fade-enter,
 .fade-leave-to {
-  transition: .2s;
+  transition: 0.2s;
 
   .main-sidebar {
     margin-right: -100%;
-    transition: .2s;
+    transition: 0.2s;
   }
 }
 
 .fade-enter-to,
 .fade-leave {
-  transition: .2s;
+  transition: 0.2s;
 
   .main-sidebar {
     margin-right: 0;
-    transition: .2s;
+    transition: 0.2s;
   }
 }
 </style>

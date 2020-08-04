@@ -1,41 +1,52 @@
 <template>
   <span
-    :class="['ds-radio-component', { 'ds-radio-component-disabled': disabled }]"
+    :class="{
+      'ds-radio-component': true,
+      'disabled': disabled
+    }"
   >
-    <span class="ds-radio-wrapper" v-for="(radio, index) in list" :key="index">
-      <label class="ds-radio-body">
-        <span
-          class="ds-radio-container"
-          :style="{
-            backgroundColor: radioActive(radio) ? radioColor : '#E8ECEF'
-          }"
-        >
-        </span>
+    <div v-if="label" class="ds-label">{{ label }}</div>
 
-        <span :class="[{ 'ds-radio-circle': radioActive(radio) }]"></span>
+    <div class="radio-container">
+      <span
+        :key="index"
+        v-for="(radio, index) in list"
+        class="ds-radio-wrapper"
+      >
+        <label class="ds-radio-body">
+          <span
+            class="ds-radio-container"
+            :style="{
+              backgroundColor: radioActive(radio) ? radioColor : '#E8ECEF'
+            }"
+          >
+          </span>
 
-        <span
-          :class="[
-            'ds-radio-text',
-            {
-              'ds-radio-text-active': radioActive(radio),
-              'ds-radio-text-inactive': !radioActive(radio)
-            }
-          ]"
-          :style="{ marginRight: spaceBetweenItems }"
-        >
-          {{ radio.title }}
-        </span>
+          <span :class="[{ 'ds-radio-circle': radioActive(radio) }]"></span>
 
-        <input
-          type="radio"
-          name="default"
-          :value="radio.title"
-          v-model="radioValue"
-          class="ds-radio-input"
-        />
-      </label>
-    </span>
+          <span
+            :class="[
+              'ds-radio-text',
+              {
+                'ds-radio-text-active': radioActive(radio),
+                'ds-radio-text-inactive': !radioActive(radio)
+              }
+            ]"
+            :style="{ marginRight: spaceBetweenItems }"
+          >
+            {{ radio.title }}
+          </span>
+
+          <input
+            type="radio"
+            name="default"
+            :value="radio.title"
+            v-model="radioValue"
+            class="ds-radio-input"
+          />
+        </label>
+      </span>
+    </div>
   </span>
 </template>
 
@@ -47,6 +58,7 @@ export default {
   props: {
     value: null,
     list: Array,
+    label: String,
     spaceBetweenItems: {
       type: String,
       default: '30px'
@@ -100,7 +112,21 @@ export default {
 @import '../styles/vars';
 
 .ds-radio-component {
+  .ds-label {
+    font-size: 14px;
+    line-height: 16px;
+    font-family: @robotoLight;
+    margin-bottom: 14px;
+    color: @color-dark;
+  }
+
+  .radio-container {
+    display: flex;
+  }
+
   .ds-radio-wrapper {
+    display: inline-flex;
+
     .ds-radio-body {
       display: inline-flex;
       align-items: center;
@@ -160,7 +186,7 @@ export default {
     }
   }
 
-  &.ds-radio-component-disabled {
+  &.disabled {
     pointer-events: none;
     opacity: 0.7;
   }

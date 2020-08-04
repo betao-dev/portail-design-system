@@ -10,7 +10,12 @@
     </Collapser>
 
     <div class="radio-wrapper">
-      <Radio v-model="value" :list="radioList" radioColor="#1EB386" />
+      <Radio
+        label="Radio Demo"
+        v-model="value"
+        :list="radioList"
+        radioColor="#1EB386"
+      />
     </div>
     <div class="radio-wrapper">
       <Radio
