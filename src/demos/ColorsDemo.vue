@@ -81,5 +81,33 @@ export default {
     background: @color-yellow;
     color: @color-white;
   }
+  &.color-indigo {
+    background: @color-indigo;
+    color: @color-white;
+  }
+  &.color-orange {
+    background: @color-orange;
+    color: @color-white;
+  }
+  &.color-soft-blue {
+    background: @color-soft-blue;
+    color: @color-dark;
+  }
+  &.color-soft-red {
+    background: @color-soft-red;
+    color: @color-dark;
+  }
+  &.color-soft-yellow {
+    background: @color-soft-yellow;
+    color: @color-dark;
+  }
+  &.color-soft-indigo {
+    background: @color-soft-indigo;
+    color: @color-dark;
+  }
+  &.color-soft-orange {
+    background: @color-soft-orange;
+    color: @color-dark;
+  }
 }
 </style>

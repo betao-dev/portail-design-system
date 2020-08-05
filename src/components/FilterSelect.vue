@@ -341,7 +341,7 @@ export default {
           /* When the checkbox is checked, add a blue background */
           &:checked {
             ~ .ds-checkbox-checkmark {
-              background-color: @color-green;
+              background-color: @color-primary;
               border-color: rgba(0, 0, 0, 0);
 
               /* Show the ds-checkbox-checkmark when checked and apply styles the ds-checkbox-checkmark/indicator */
@@ -360,7 +360,7 @@ export default {
             }
 
             ~ .ds-checkbox-text {
-              color: @color-green;
+              color: @color-primary;
             }
           }
         }

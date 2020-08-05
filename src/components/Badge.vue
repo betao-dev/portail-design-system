@@ -11,15 +11,25 @@
 -->
 
 <template>
-  <div class="ds-badge" :style="{ backgroundColor, borderRadius }">
+  <div
+    class="ds-badge"
+    @click="$emit('click')"
+    :style="{
+      backgroundColor,
+      borderColor: active ? 'transparent' : '#E8ECEF'
+    }"
+  >
+    <div v-if="mark" class="mark" :style="{ backgroundColor: markColor }" />
+
     <Icon
-      v-if="icon"
+      v-else-if="icon"
       class="ds-icon"
       :source="icon"
       :color="iconColor"
       :size="iconSize"
       :style="{ padding: iconPadding }"
     />
+
     <slot></slot>
   </div>
 </template>
@@ -39,15 +49,19 @@ export default {
       default: 'white'
     },
     iconPadding: String,
-    borderRadius: String,
-    color: String
+    color: String,
+    active: Boolean,
+    mark: Boolean
   },
   data: () => ({
     COLORS
   }),
   computed: {
-    backgroundColor() {
+    markColor() {
       return this.COLORS[this.color] || this.color;
+    },
+    backgroundColor() {
+      return this.active ? this.markColor + '19' : 'white';
     }
   }
 };
@@ -60,13 +74,23 @@ export default {
   display: inline-flex;
   align-items: center;
   width: auto;
-  border-radius: @badge-br;
-  color: @color-white;
+  color: @color-dark;
   padding: @badge-padding;
-  cursor: default;
+  cursor: pointer;
+  border: solid 1px @color-gray-300;
+  border-radius: 100px;
+  font-size: 14px;
+  line-height: 16px;
 
   .ds-icon {
     margin-right: @badge-icon-margin;
+  }
+
+  .mark {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin-right: 11px;
   }
 }
 </style>

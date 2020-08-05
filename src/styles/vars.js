@@ -10,12 +10,12 @@ export const COLORS = {
   'gray-400': '#98a9bc',
   'gray-500': '#778ca2',
 
-  'dark': '#252631',
+  'dark': '#2D3047',
   'primary': '#1eb386',
   'white': '#ffffff',
-
-  'blue': '#4d7cfe',
-  'red': '#FB4544',
-  'yellow': '#ffab2b',
-  'green': '#2CE5F6'
+  'blue': '#09AFFF',
+  'red': '#F03F3F',
+  'yellow': '#FFBA49',
+  'indigo': '#745BCC',
+  'orange': '#FE7D51'
 };
