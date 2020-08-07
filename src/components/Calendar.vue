@@ -718,6 +718,9 @@ export default {
       if (!this.touched && this.validationClose) {
         this.touched = true;
       }
+    },
+    setTouched(touched) {
+      this.touched = touched;
     }
   },
   watch: {
