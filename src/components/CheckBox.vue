@@ -77,7 +77,11 @@ export default {
     value: Boolean,
     label: String,
     boldLabel: Boolean,
-    help: String
+    help: String,
+    autoInit: {
+      type: Boolean,
+      default: true
+    }
   },
   data: () => ({
     offset: { offset: '0, 10px' }
@@ -93,9 +97,11 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      this.$emit('input', this.checkboxValue);
-    });
+    if (this.autoInit) {
+      this.$nextTick(() => {
+        this.$emit('input', this.checkboxValue);
+      });
+    }
   }
 };
 </script>

@@ -19,6 +19,12 @@
       "name": "help",
       "type": "String",
       "description": "Show description of help with tooltip effect"
+    },
+    {
+      "name": "autoInit",
+      "type": "Boolean",
+      "default": "true",
+      "description": "When autoInit equals true, component will emit value on mount of it"
     }
   ],
   "events": []
