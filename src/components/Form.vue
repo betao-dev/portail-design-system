@@ -18,8 +18,10 @@ export default {
   }),
   methods: {
     checkForm(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
 
       this.errors = [];
       this.setTouched(true);
