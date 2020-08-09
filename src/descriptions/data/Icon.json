@@ -44,6 +44,12 @@
       "type": "String",
       "default": "null",
       "description": "Available only circle type that creates that figure around the icon"
+    },
+    {
+      "name": "styles",
+      "type": "Object",
+      "default": "{}",
+      "description": "Set someone of styles properties for the Icon wrapper, the object can reset some styles properties of this component"
     }
   ]
 ,
