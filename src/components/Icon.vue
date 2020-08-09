@@ -94,6 +94,10 @@ export default {
     type: {
       type: String,
       default: null
+    },
+    styles: {
+      type: Object,
+      default: () => {}
     }
   },
   data: () => ({
@@ -137,6 +141,8 @@ export default {
         styles.borderRadius = '20px';
         styles.backgroundColor = this.backgroundColor;
       }
+
+      styles = Object.assign({}, styles, this.styles);
 
       return styles;
     }
