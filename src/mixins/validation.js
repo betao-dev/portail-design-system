@@ -46,7 +46,7 @@ export default {
       }
     },
     checkBacklight() {
-      if (this.showValidCheck) {
+      if (this.showValidCheck && this.isCorrect) {
         this.validationBacklight('validBacklight', 'invalidBacklight');
       } else if (this.showInvalidBlock) {
         this.validationBacklight('invalidBacklight', 'validBacklight');
@@ -54,6 +54,9 @@ export default {
     }
   },
   computed: {
+    isCorrect() {
+      return this.showCorrectCheck || _.isUndefined(this.showCorrectCheck);
+    },
     validationShown() {
       return this.showValidations && this.touched;
     },
@@ -75,7 +78,7 @@ export default {
   },
   watch: {
     showValidCheck(value) {
-      if (value) {
+      if (value && this.isCorrect) {
         this.validationBacklight('validBacklight', 'invalidBacklight', true);
       }
     },
