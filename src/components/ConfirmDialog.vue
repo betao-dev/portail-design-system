@@ -21,20 +21,23 @@
       <div class="ds-confirm-footer">
         <Button
           big
+          gray
           padding="15px 40px"
           @click="updateOpenStatus(false)"
-          alt
           :width="buttonsWidth"
-          >{{ rejectLabel }}</Button
         >
+          {{ rejectLabel }}
+        </Button>
+
         <template v-if="extraButton">
           <Button
             big
             padding="15px 40px"
             @click="extraButtonClick"
             :width="buttonsWidth"
-            >{{ extraButtonLabel }}</Button
           >
+            {{ extraButtonLabel }}
+          </Button>
         </template>
         <Button
           big
@@ -42,8 +45,9 @@
           @click="acceptStatus"
           :width="buttonsWidth"
           :[checkAcceptButtonColor]="acceptButtonColor"
-          >{{ acceptLabel }}</Button
         >
+          {{ acceptLabel }}
+        </Button>
       </div>
     </div>
   </Dialog>
