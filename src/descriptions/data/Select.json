@@ -153,6 +153,12 @@
       "name": "touchName",
       "type": "String",
       "description": "With this property, Select component will listen to event with prefix 'touch' + and this property capitalized"
+    },
+    {
+      "name": "showCorrectCheck",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Allowed to display default green background for valid state of select"
     }
   ],
   "events": [

@@ -225,7 +225,11 @@ export default {
       type: Number,
       default: 2
     },
-    touchName: String
+    touchName: String,
+    showCorrectCheck: {
+      type: Boolean,
+      default: true
+    }
   },
   data: () => ({
     openDropDownList: false,
