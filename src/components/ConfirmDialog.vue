@@ -4,6 +4,8 @@
     :borderColor="borderColor"
     :clickOutsideToClose="clickOutsideToClose"
     :overflowCheck="overflowCheck"
+    :height="modalHeight"
+    :width="modalWidth"
     @update:opened="updateOpenStatus"
   >
     <div class="ds-confirm-wrapper" :style="getStyle">
@@ -95,7 +97,9 @@ export default {
       type: String
     },
     buttonsWidth: String,
-    overflowCheck: Boolean
+    overflowCheck: Boolean,
+    modalHeight: String,
+    modalWidth: String
   },
   computed: {
     getStyle() {
