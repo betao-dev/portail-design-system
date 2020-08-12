@@ -17,6 +17,7 @@
       :total="25"
       orderingKey="invoice_date"
       :current="selectedPage"
+      unit="invoices"
       @update:page="updatePage"
       @update:size="updatePageSize"
     >

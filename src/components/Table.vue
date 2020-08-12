@@ -71,25 +71,33 @@
 
     <div class="ds-table-footer">
       <div v-if="pagination" class="pagination-wrapper">
-        <div class="ds-size-select-wrapper">
-          <span>Show</span>
-          <Select
-            md
-            class="ds-size-selector"
-            @change="updatePageSize"
-            :value="pageSize"
-            :valueMode="true"
-            :options="pageSizes"
-          />
-          <span>per page</span>
+        <div class="left">
+          <span>{{ 'Total :' | dsTranslate }}</span>
+          <span> {{ total }} </span>
+          <span> {{ unit }} </span>
         </div>
 
-        <Pagination
-          :total="total"
-          :pageSize="pageSize"
-          :current="current"
-          @page:change="updatePage"
-        />
+        <div class="right">
+          <div class="ds-size-select-wrapper">
+            <span>{{ 'Show' | dsTranslate }}</span>
+            <Select
+              md
+              class="ds-size-selector"
+              @change="updatePageSize"
+              :value="pageSize"
+              :valueMode="true"
+              :options="pageSizes"
+            />
+            <span>{{ 'per page' | dsTranslate }}</span>
+          </div>
+
+          <Pagination
+            :total="total"
+            :pageSize="pageSize"
+            :current="current"
+            @page:change="updatePage"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -123,6 +131,7 @@ export default {
     },
     total: Number,
     current: Number,
+    unit: String,
     identifierField: String,
     orderingKey: String
   },
@@ -349,19 +358,32 @@ export default {
     .pagination-wrapper {
       display: flex;
       justify-content: space-between;
-      margin-top: 45px;
+      margin-top: 24px;
+      align-items: center;
 
-      .ds-size-select-wrapper {
+      .left {
+        font-size: 14px;
+        line-height: 16px;
+        color: @color-gray-500;
+      }
+
+      .right {
         display: flex;
         align-items: center;
-        font-size: 14px;
 
-        .ds-size-selector {
-          width: 70px;
-        }
+        .ds-size-select-wrapper {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          margin-right: 32px;
 
-        > * {
-          margin-right: 8px;
+          .ds-size-selector {
+            width: 70px;
+          }
+
+          > * {
+            margin-right: 8px;
+          }
         }
       }
     }

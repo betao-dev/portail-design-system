@@ -11,5 +11,8 @@
   "OK": "OK",
   "Add Logo": "Add a logo",
   "Field Required": "The field is required",
-  "Reduction percentage message": "Please indicate a reduction between 0% and 100%"
+  "Reduction percentage message": "Please indicate a reduction between 0% and 100%",
+  "Total :": "Total :",
+  "Show": "Show",
+  "per page": "per page"
 }
