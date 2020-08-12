@@ -49,6 +49,16 @@
       "name": "overflowCheck",
       "type": "Boolean",
       "description": "Check overflow depend on it option"
+    },
+    {
+      "name": "modalHeight",
+      "type": "String",
+      "description": "Height of modal that wrap the whole component"
+    },
+    {
+      "name": "modalWidth",
+      "type": "String",
+      "description": "Width of modal that wrap the whole component"
     }
   ],
   "events": [
