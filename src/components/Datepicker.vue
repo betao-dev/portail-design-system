@@ -31,7 +31,8 @@
       {
         'ds-full-width': fullWidth,
         'ds-datepicker-select-day-list': selectDayList && !isMobile,
-        'ds-datepicker-range': !rangeAvailable
+        'ds-datepicker-range': !rangeAvailable,
+        'ds-datepicker-actions': displayActions
       }
     ]"
   >
@@ -79,7 +80,10 @@
         </div>
       </div>
 
-      <div class="ds-datepicker-sidebar-footer-wrapper" v-if="rangeAvailable">
+      <div
+        class="ds-datepicker-sidebar-footer-wrapper"
+        v-if="rangeAvailable || displayActions"
+      >
         <div class="ds-datepicker-sidebar-footer">
           <Button
             plain-two
@@ -173,7 +177,7 @@
           </div>
         </div>
       </div>
-      <div class="ds-datepicker-footer" v-if="rangeAvailable">
+      <div class="ds-datepicker-footer" v-if="rangeAvailable || displayActions">
         <Button plain-two class="ds-datepicker-clear" @click="onClear()">
           Clear
         </Button>
@@ -227,7 +231,11 @@ export default {
       type: Boolean,
       default: true
     },
-    alternatingDateName: String
+    alternatingDateName: String,
+    displayActions: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -987,6 +995,10 @@ export default {
 
     &.ds-datepicker-range {
       height: 365px;
+    }
+
+    &.ds-datepicker-actions {
+      height: 411px;
     }
   }
 }
