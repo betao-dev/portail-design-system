@@ -176,7 +176,9 @@ const ICONS_TO_GET = [
   ['tags-solid', 'baseline'],
   ['tags-solid', 'outline'],
   ['portail-logo', 'baseline'],
-  ['portail-logo', 'outline']
+  ['portail-logo', 'outline'],
+  ['box-solid', 'baseline'],
+  ['box-solid', 'outline']
 ];
 
 // Get svg download link
