@@ -238,6 +238,12 @@
       "name": "validationClose",
       "type": "Boolean",
       "description": "When property is active validation will be triggered on close of dropdown or dialog"
+    },
+    {
+      "name": "usualModal",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Display usual modal window and set displayActions to true for datepicker in modal mode"
     }
   ],
   "events": [

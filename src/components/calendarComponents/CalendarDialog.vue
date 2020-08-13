@@ -2,7 +2,7 @@
   <section
     v-if="opened"
     v-move-to-body
-    class="ds-dialog"
+    :class="['ds-dialog', { 'ds-dialog-usual': usualModal }]"
     :style="dialogStyleObject"
     :id="backdropId"
   >
@@ -96,7 +96,11 @@ export default {
       default: false
     },
     minHeight: String,
-    minWidth: String
+    minWidth: String,
+    usualModal: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => ({
     windowWidth: window.innerWidth,
@@ -320,12 +324,6 @@ export default {
     overflow-x: hidden;
     max-width: 1280px;
 
-    @media @screen-small {
-      width: 100%;
-      height: 100vh;
-      max-height: 100vh;
-    }
-
     .ds-dialog-wrapper {
       height: 100%;
       max-width: 100%;
@@ -365,6 +363,16 @@ export default {
     }
   }
 
+  &:not(.ds-dialog-usual) {
+    .ds-dialog-content {
+      @media @screen-small {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+      }
+    }
+  }
+
   @media only screen and (max-height: 556px) {
     .ds-dialog-content {
       max-height: 100%;
@@ -396,13 +404,15 @@ export default {
 
 @media @screen-small {
   .ds-dialog {
-    .ds-dialog-datepicker-container {
-      margin-bottom: auto;
-      height: 430px;
-    }
+    &:not(.ds-dialog-usual) {
+      .ds-dialog-datepicker-container {
+        margin-bottom: auto;
+        height: 430px;
+      }
 
-    .ds-dialog-datepicker-backdrop {
-      opacity: 1 !important;
+      .ds-dialog-datepicker-backdrop {
+        opacity: 1 !important;
+      }
     }
   }
 }

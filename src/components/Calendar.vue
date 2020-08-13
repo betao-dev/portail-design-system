@@ -126,6 +126,7 @@
       :contentFullWidth="fullWidth"
       :overflowCheck="getCalendarPosition === 'modal' && positionChangeable"
       :activeDatepickerComponent="activeCalendarComponent"
+      :usual-modal="usualModal"
     >
       <Datepicker
         :min="datepickerMin"
@@ -140,6 +141,7 @@
         :auto-initialize="autoInitialize"
         :alternatingDateName.sync="alternatingDateName"
         :dayListPositive="dayListPositive"
+        :display-actions="usualModal"
         @save="onSave"
         @selectDate="onResetEditDate"
       ></Datepicker>
@@ -233,6 +235,10 @@ export default {
       default: true
     },
     editableMode: {
+      type: Boolean,
+      default: false
+    },
+    usualModal: {
       type: Boolean,
       default: false
     }
