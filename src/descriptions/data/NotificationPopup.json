@@ -44,6 +44,12 @@
       "type": "String",
       "default": "64px",
       "description": "Set the height of the component"
+    },
+    {
+      "name": "showTimeMls",
+      "type": "Number",
+      "default": "3000",
+      "description": "Set show time of notification popup in milliseconds"
     }
   ],
   "events": [

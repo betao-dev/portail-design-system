@@ -55,6 +55,10 @@ export default {
     height: {
       type: String,
       default: '64px'
+    },
+    showTimeMls: {
+      type: Number,
+      default: 3000
     }
   },
   data: () => ({
@@ -82,7 +86,7 @@ export default {
       } else {
         this.notificationTimerId = setTimeout(() => {
           this.opened = false;
-        }, 3000);
+        }, this.showTimeMls);
       }
     }
   }
