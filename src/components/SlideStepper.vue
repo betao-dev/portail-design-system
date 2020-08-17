@@ -78,6 +78,10 @@ export default {
     finishedStep: {
       type: Number,
       default: 0
+    },
+    autoStepChange: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -86,14 +90,21 @@ export default {
     };
   },
   methods: {
+    updateStep(step) {
+      if (this.autoStepChange) {
+        this.current = step;
+      } else {
+        this.$emit('update:currentStep', step);
+      }
+    },
     prev() {
       if (this.current > 1) {
-        this.current--;
+        this.updateStep(this.current - 1);
       }
     },
     next() {
       if (this.current < this.stepSize) {
-        this.current++;
+        this.updateStep(this.current + 1);
       }
     }
   },
