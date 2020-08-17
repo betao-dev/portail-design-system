@@ -76,7 +76,7 @@
       </div>
 
       <div class="ds-items">
-        <template v-for="(item, index) in items">
+        <template v-for="(item, index) in itemsWrapper">
           <div class="ds-item-wrapper">
             <a
               :class="[
@@ -121,6 +121,14 @@
               >
                 {{ item.badge.text }}
               </div>
+
+              <Icon
+                class="ds-sidebar-additional-icon"
+                v-if="item.additionalIcon"
+                :source="item.additionalIcon.source"
+                :size="item.additionalIcon.size"
+                :color="item.additionalIcon.color"
+              ></Icon>
 
               <Icon
                 class="ds-expand-icon"
@@ -181,6 +189,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Icon from './Icon.vue';
 import { COLORS } from '../styles/vars';
 
@@ -276,6 +285,11 @@ export default {
         el = el.parentNode;
       }
       this.$emit('update:opened', false);
+    }
+  },
+  computed: {
+    itemsWrapper() {
+      return this.items.filter(item => _.isUndefined(item.hide) || item.hide);
     }
   },
   mounted() {
@@ -401,9 +415,12 @@ export default {
       padding-left: 26px;
       background-color: @color-gray-100;
 
-      .ds-icon svg {
-        fill: @color-primary;
+      :not(.ds-sidebar-additional-icon) {
+        .ds-icon svg {
+          fill: @color-primary;
+        }
       }
+
       .ds-icon[expand_more] {
         transform: rotate(180deg);
       }
@@ -413,9 +430,13 @@ export default {
       background: @color-gray-100;
       color: @color-gray-400;
       cursor: initial;
-      .ds-icon svg {
-        fill: @color-gray-400;
+
+      :not(.ds-sidebar-additional-icon) {
+        .ds-icon svg {
+          fill: @color-gray-400;
+        }
       }
+
       &:hover {
         background: @color-gray-100;
       }
@@ -525,8 +546,10 @@ export default {
             }
 
             .icon-wrapper {
-              .ds-icon {
-                fill: @color-gray-400 !important;
+              &:not(.ds-sidebar-additional-icon) {
+                .ds-icon {
+                  fill: @color-gray-400 !important;
+                }
               }
             }
 
@@ -541,8 +564,10 @@ export default {
                 }
 
                 .icon-wrapper {
-                  .ds-icon {
-                    fill: #fafbff !important;
+                  &:not(.ds-sidebar-additional-icon) {
+                    .ds-icon {
+                      fill: #fafbff !important;
+                    }
                   }
                 }
               }
