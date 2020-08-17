@@ -113,7 +113,7 @@ export default {
     borderColor: [String, Boolean],
     backgroundColor: {
       type: String,
-      default: '#252631'
+      default: '#2D3047'
     },
     dialogStyleObject: Object,
     contentFullWidth: {
