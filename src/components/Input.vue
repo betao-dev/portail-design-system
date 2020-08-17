@@ -710,13 +710,15 @@ export default {
         .placeholder-input(14px, @robotoFont, @form-placeholder-color, 16px);
       }
 
-      &:disabled {
-        border: 1px solid #e8ecef;
-        background-color: @color-gray-100;
-      }
       &:disabled,
       &:disabled::placeholder {
         .font-desktop-small-regular-light-gray-base();
+      }
+
+      &:disabled {
+        border: 1px solid #e8ecef;
+        background-color: @color-gray-100;
+        color: @color-gray-400;
       }
     }
 

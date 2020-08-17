@@ -271,6 +271,17 @@ export default {
         border-color: @color-primary;
         .input-valid-fade-animation();
       }
+
+      &:disabled,
+      &:disabled::placeholder {
+        .font-desktop-small-regular-light-gray-base();
+      }
+
+      &:disabled {
+        border: 1px solid #e8ecef;
+        background-color: @color-gray-100;
+        color: @color-gray-400;
+      }
     }
   }
 

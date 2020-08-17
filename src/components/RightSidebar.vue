@@ -63,21 +63,21 @@ export default {
 
 .fade-enter,
 .fade-leave-to {
-  transition: .5s;
+  transition: 0.5s;
 
   .main-sidebar {
     margin-right: -100%;
-    transition: .5s;
+    transition: 0.5s;
   }
 }
 
 .fade-enter-to,
 .fade-leave {
-  transition: .5s;
+  transition: 0.5s;
 
   .main-sidebar {
     margin-right: 0;
-    transition: .5s;
+    transition: 0.5s;
   }
 }
 </style>
