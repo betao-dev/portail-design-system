@@ -2,7 +2,7 @@
   <transition name="notification-popup">
     <div
       class="ds-notification-popup-wrapper"
-      :style="{ backgroundColor, width, height }"
+      :style="{ backgroundColor, width, height, left: leftOffset }"
       v-if="opened"
     >
       <div class="ds-notification-popup">
@@ -59,7 +59,8 @@ export default {
     showTimeMls: {
       type: Number,
       default: 3000
-    }
+    },
+    leftOffset: String
   },
   data: () => ({
     notificationTimerId: undefined

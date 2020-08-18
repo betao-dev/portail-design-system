@@ -50,6 +50,11 @@
       "type": "Number",
       "default": "3000",
       "description": "Set show time of notification popup in milliseconds"
+    },
+    {
+      "name": "leftOffset",
+      "type": "String",
+      "description": "Set left offset of notification"
     }
   ],
   "events": [
