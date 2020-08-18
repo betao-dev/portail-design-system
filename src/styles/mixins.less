@@ -402,3 +402,29 @@
     }
   }
 }
+
+.alternative-placeholder-wrapper() {
+  .alternative-placeholder() {
+    color: @color-gray-400;
+    font-family: Roboto, sans-serif;
+    font-size: 14px !important;
+    letter-spacing: 0;
+    line-height: 16px;
+  }
+
+  &::-webkit-input-placeholder {
+    .alternative-placeholder();
+  }
+
+  &::-moz-placeholder {
+    .alternative-placeholder();
+  }
+
+  &:-ms-input-placeholder {
+    .alternative-placeholder();
+  }
+
+  &::placeholder {
+    .alternative-placeholder();
+  }
+}

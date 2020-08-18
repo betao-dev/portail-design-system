@@ -159,6 +159,11 @@
       "type": "Boolean",
       "default": "true",
       "description": "Allowed to display default green background for valid state of select"
+    },
+    {
+      "name": "tooltipMessage",
+      "type": "String",
+      "description": "Set icon with tooltip message for the label of the component"
     }
   ],
   "events": [

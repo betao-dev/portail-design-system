@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="['ds-calendar', { 'ds-sm': sm, 'ds-md': md, 'ds-lg': lg }]"
+    :class="[
+      'ds-calendar',
+      { 'ds-sm': sm, 'ds-md': md, 'ds-lg': lg, 'ds-alt-calendar': alt }
+    ]"
     :style="{ width }"
   >
     <label :class="{ 'ds-no-label': !label }">
@@ -239,6 +242,10 @@ export default {
       default: false
     },
     usualModal: {
+      type: Boolean,
+      default: false
+    },
+    alt: {
       type: Boolean,
       default: false
     }
@@ -1029,6 +1036,20 @@ export default {
 
   .ds-calendar-icon-left + input {
     padding-left: 40px;
+  }
+
+  &.ds-alt-calendar {
+    .ds-label-text {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0;
+      line-height: 16px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      .alternative-placeholder-wrapper();
+    }
   }
 }
 </style>

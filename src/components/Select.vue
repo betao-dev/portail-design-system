@@ -13,7 +13,32 @@
     ]"
     :style="{ width }"
   >
-    <div v-if="label" class="ds-label">{{ label }}</div>
+    <div
+      v-if="label"
+      :class="['ds-label', { 'ds-label-tooltip': tooltipMessage }]"
+    >
+      {{ label }}
+
+      <Tooltip
+        class="ds-select-tooltip-wrapper"
+        placement="bottom"
+        v-if="tooltipMessage"
+      >
+        <div slot="popover">
+          <div>
+            {{ tooltipMessage }}
+          </div>
+        </div>
+        <Icon
+          class="ds-tooltip-icon"
+          slot="reference"
+          question-circle
+          size="18px"
+          color="gray-500"
+        ></Icon>
+      </Tooltip>
+    </div>
+
     <template v-if="customContent && value && value.id">
       <div
         id="custom-content"
@@ -229,7 +254,8 @@ export default {
     showCorrectCheck: {
       type: Boolean,
       default: true
-    }
+    },
+    tooltipMessage: String
   },
   data: () => ({
     openDropDownList: false,
@@ -583,11 +609,23 @@ export default {
 
   .ds-label {
     .font-desktop-x-small-regular-gray();
+    font-weight: 300;
     height: 16px;
     margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    letter-spacing: 0;
+
+    &.ds-label-tooltip {
+      display: flex;
+
+      .ds-select-tooltip-wrapper {
+        .ds-tooltip-icon {
+          margin-left: 4px;
+        }
+      }
+    }
   }
 
   .ds-select {
@@ -742,6 +780,10 @@ export default {
 
     .ds-select {
       padding: 14px 16px 16px;
+    }
+
+    input {
+      .alternative-placeholder-wrapper();
     }
   }
 
