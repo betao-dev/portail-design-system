@@ -244,6 +244,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "Display usual modal window and set displayActions to true for datepicker in modal mode"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Set alternative styles for calendar"
     }
   ],
   "events": [
