@@ -619,6 +619,7 @@ export default {
 
     &.ds-label-tooltip {
       display: flex;
+      align-items: center;
 
       .ds-select-tooltip-wrapper {
         .ds-tooltip-icon {
