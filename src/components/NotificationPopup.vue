@@ -104,7 +104,7 @@ export default {
   top: 18px;
   border-radius: 4px;
   box-shadow: 0 2px 16px 0 rgba(30, 179, 134, 0.15);
-  z-index: 999;
+  z-index: 2001;
   cursor: default;
 
   .ds-notification-popup {
