@@ -407,10 +407,6 @@ export default {
         );
       }
 
-      if (this.width) {
-        style.width = this.width;
-      }
-
       return style;
     },
     isInvalidInput() {
