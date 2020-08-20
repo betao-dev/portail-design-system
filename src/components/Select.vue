@@ -22,10 +22,14 @@
       <Tooltip
         class="ds-select-tooltip-wrapper"
         placement="bottom"
-        v-if="tooltipMessage"
+        poperWidth="tooltipWidth"
+        v-if="tooltipMessage || isTooltipSlot"
       >
         <div slot="popover">
-          <div>
+          <div v-if="isTooltipSlot">
+            <slot name="tooltip"></slot>
+          </div>
+          <div v-else>
             {{ tooltipMessage }}
           </div>
         </div>
@@ -255,7 +259,8 @@ export default {
       type: Boolean,
       default: true
     },
-    tooltipMessage: String
+    tooltipMessage: String,
+    tooltipWidth: String
   },
   data: () => ({
     openDropDownList: false,
@@ -461,6 +466,9 @@ export default {
     },
     isInvalidInput() {
       return this.showInvalidBlock && this.invalidBacklight;
+    },
+    isTooltipSlot() {
+      return !!this.$slots.tooltip;
     }
   },
   mounted() {

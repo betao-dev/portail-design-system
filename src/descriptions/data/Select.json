@@ -164,6 +164,11 @@
       "name": "tooltipMessage",
       "type": "String",
       "description": "Set icon with tooltip message for the label of the component"
+    },
+    {
+      "name": "tooltipWidth",
+      "type": "String",
+      "description": "Set tooltip width"
     }
   ],
   "events": [
