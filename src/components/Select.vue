@@ -13,17 +13,14 @@
     ]"
     :style="{ width }"
   >
-    <div
-      v-if="label"
-      :class="['ds-label', { 'ds-label-tooltip': tooltipMessage }]"
-    >
+    <div v-if="label" :class="['ds-label', { 'ds-label-tooltip': isTooltip }]">
       {{ label }}
 
       <Tooltip
         class="ds-select-tooltip-wrapper"
         placement="bottom"
         :poper-width="tooltipWidth"
-        v-if="tooltipMessage || isTooltipSlot"
+        v-if="isTooltip"
       >
         <div slot="popover">
           <div v-if="isTooltipSlot">
@@ -443,6 +440,9 @@ export default {
     }
   },
   computed: {
+    isTooltip() {
+      return this.tooltipMessage || this.isTooltipSlot;
+    },
     checkReadonly() {
       return this.readonly ? 'readonly' : null;
     },
