@@ -22,7 +22,7 @@
       <Tooltip
         class="ds-select-tooltip-wrapper"
         placement="bottom"
-        poperWidth="tooltipWidth"
+        :poper-width="tooltipWidth"
         v-if="tooltipMessage || isTooltipSlot"
       >
         <div slot="popover">
