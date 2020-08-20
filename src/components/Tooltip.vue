@@ -6,7 +6,7 @@
         modifiers: { offset: offset }
       }"
     >
-      <div class="popper">
+      <div class="popper" :style="{ width: poperWidth }">
         <slot name="popover"></slot>
       </div>
 
@@ -37,7 +37,8 @@ export default {
     white: {
       type: Boolean,
       default: false
-    }
+    },
+    poperWidth: String
   },
   components: {
     Popper

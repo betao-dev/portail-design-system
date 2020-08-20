@@ -15,6 +15,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Set white tooltip styles"
+    },
+    {
+      "name": "poperWidth",
+      "type": "String",
+      "description": "Set poper width"
     }
   ],
   "events": []
