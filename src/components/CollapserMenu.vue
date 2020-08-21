@@ -18,6 +18,7 @@
           :opened="activeItem === index + 1"
           :statusData="getStatusData(index + 1)"
           :prevent-update-opened="preventUpdateActive"
+          :grey="grey"
           @beforeUpdateOpened="beforeUpdateActive(index)"
           @update:opened="getOpened(index, $event)"
         >
@@ -64,7 +65,8 @@ export default {
     preventUpdateActive: {
       type: Boolean,
       default: false
-    }
+    },
+    grey: Boolean
   },
   computed: {
     activeItem: {

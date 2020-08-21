@@ -11,7 +11,10 @@
 -->
 
 <template>
-  <div class="ds-collapser" :style="{ backgroundColor: bgColor }">
+  <div
+    :class="['ds-collapser', { 'ds-collapser-grey': grey }]"
+    :style="{ backgroundColor: bgColor }"
+  >
     <div
       v-if="headerSlotName"
       :class="[
@@ -87,7 +90,8 @@ export default {
     preventUpdateOpened: {
       type: Boolean,
       default: false
-    }
+    },
+    grey: Boolean
   },
   computed: {
     iconColorWrapper() {
@@ -122,6 +126,20 @@ export default {
   flex-direction: column;
   margin-bottom: @collapser-margin-bottom;
   border-radius: 4px;
+
+  &.ds-collapser-grey {
+    .ds-collapser-header {
+      background-color: @color-gray-100;
+
+      .ds-title {
+        color: @color-gray-500;
+        font-family: Roboto, sans-serif;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+        line-height: 19px;
+      }
+    }
+  }
 
   .ds-collapser-header-custom {
     &.ds-collapser-header-custom-active {
