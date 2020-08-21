@@ -43,6 +43,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Preventing auto-updating of the active property of the CollapserMenu component"
+    },
+    {
+      "name": "grey",
+      "type": "Boolean",
+      "description": "Set grey background for the headers with grey text"
     }
   ],
   "events": []

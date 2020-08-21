@@ -47,6 +47,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Preventing auto-updating of the opened property of the Collapser component"
+    },
+    {
+      "name": "grey",
+      "type": "Boolean",
+      "description": "Set grey background for the header with grey text"
     }
   ],
   "events": [
