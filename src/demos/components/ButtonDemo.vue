@@ -35,6 +35,17 @@
         >Full Report</Button
       >&nbsp; <Button padding="15px 40px">Add</Button>&nbsp;
       <Button padding="13px 40px" alt-two>Cancel</Button>&nbsp;
+
+      <Button
+        icon="download-solid"
+        icon-color="primary"
+        icon-size="18px"
+        space-between="8px"
+        padding="12px 13px"
+        download
+        >Download</Button
+      >
+
       <Button
         icon="add_circle"
         icon-color="primary"

@@ -17,6 +17,13 @@ let usage = `
 <Button link="https://github.com/highqualitycode" icon="insert_chart" small link-ico>Full Report</Button>&nbsp;
 <Button padding="15px 40px">Add</Button>
 <Button padding="13px 40px" alt-two>Cancel</Button>
+<Button
+  icon="download-solid"
+  icon-color="primary"
+  icon-size="18px"
+  space-between="8px"
+  padding="12px 13px"
+  download>Download</Button>
 <Button icon="add_circle" icon-color="primary" color="primary" plain-two space-between="4px">Add New Item</Button>
 <Button color="red" link="https://github.com/highqualitycode" icon="insert_chart" small link-ico>Full Report</Button>&nbsp;
 <Button padding="13px 40px" gray>Gray</Button>
