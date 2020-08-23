@@ -95,6 +95,11 @@
       "name": "gray",
       "type": "Boolean",
       "description": "Set gray button mode"
+    },
+    {
+      "name": "download",
+      "type": "Boolean",
+      "description": "Set download button mode"
     }
   ],
   "events": [

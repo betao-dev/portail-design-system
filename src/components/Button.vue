@@ -37,7 +37,8 @@
           'ds-button-plain': plain,
           'ds-button-plain-two': plainTwo,
           'ds-button-link-ico': linkIco,
-          'ds-button-alt-two': altTwo
+          'ds-button-alt-two': altTwo,
+          'ds-button-download': download
         }"
         :disabled="disabled"
         :target="target"
@@ -81,7 +82,8 @@
           'ds-button-alt': alt,
           'ds-button-plain': plain,
           'ds-button-plain-two': plainTwo,
-          'ds-button-alt-two': altTwo
+          'ds-button-alt-two': altTwo,
+          'ds-button-download': download
         }"
         :disabled="disabled"
         :style="{
@@ -145,7 +147,8 @@ export default {
     spaceBetween: {
       type: String,
       default: '8px'
-    }
+    },
+    download: Boolean
   },
   data: () => ({
     COLORS
@@ -381,6 +384,25 @@ export default {
       &:active {
         background-color: inherit;
       }
+    }
+  }
+
+  &.ds-button-download {
+    background-color: @color-white;
+    color: @color-primary;
+    font-family: Roboto Medium, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border: 2px solid @color-primary;
+    border-radius: 4px;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: @color-white;
     }
   }
 
