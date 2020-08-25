@@ -29,7 +29,7 @@ export default {
 
 <style lang="less" scoped>
 .ds-rightside-wrapper {
-  position: absolute;
+  position: fixed;
   overflow-x: hidden;
   top: 0;
   bottom: 0;
