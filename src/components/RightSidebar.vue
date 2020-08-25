@@ -1,11 +1,7 @@
 <template>
   <transition name="fade">
-    <div
-      v-if="opened"
-      class="ds-rightside-wrapper"
-      :style="{ height: height }"
-      @click.self="clickOverlay"
-    >
+    <div v-if="opened" class="ds-rightside-wrapper" :style="{ height: height }">
+      <div class="ds-rightside-backdrop" @click.self="clickOverlay"></div>
       <div class="main-sidebar">
         <slot name="content"></slot>
       </div>
@@ -38,15 +34,25 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: #2d3047c6;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   z-index: 9000;
 
+  .ds-rightside-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #2d3047c6;
+    z-index: 9001;
+  }
+
   .main-sidebar {
     width: 462px;
     height: 100%;
+    z-index: 9002;
     background-color: white;
   }
 }
