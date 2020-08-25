@@ -4,6 +4,11 @@
       "name": "opened",
       "type": "Boolean",
       "description": "Show sidebar based on this property"
+    },
+    {
+      "name": "height",
+      "type": "String",
+      "description": "Set height of component"
     }
   ],
   "events": [

@@ -20,30 +20,20 @@ export default {
     opened: {
       type: Boolean,
       default: false
-    }
-  },
-  data() {
-    return {
-      height: '100vh'
-    };
+    },
+    height: String
   },
   methods: {
     clickOverlay() {
       this.$emit('update:opened', !this.opened);
     }
-  },
-  mounted() {
-    this.height = `${Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight
-    )}px`;
   }
 };
 </script>
 
 <style lang="less" scoped>
 .ds-rightside-wrapper {
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
