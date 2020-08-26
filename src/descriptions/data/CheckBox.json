@@ -25,6 +25,11 @@
       "type": "Boolean",
       "default": "true",
       "description": "When autoInit equals true, component will emit value on mount of it"
+    },
+    {
+      "name": "textThrough",
+      "type": "Boolean",
+      "description": "When textThrough equals true, the active text will with a line through and inactive checkbox container will have white background and etc"
     }
   ],
   "events": []
