@@ -319,11 +319,18 @@ export default {
     }
 
     &.ds-checkbox-text-through-wrapper {
+      align-items: flex-start;
+
+      .ds-checkbox-icon {
+        top: 5px;
+      }
+
       .ds-checkbox-container-text-through-inactive {
         background-color: @color-white;
       }
 
       .text-through() {
+        height: unset;
         display: flex;
         align-items: baseline;
         font-family: 'Roboto Light';
