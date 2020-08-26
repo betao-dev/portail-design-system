@@ -1,11 +1,18 @@
 <template>
   <span class="ds-checkbox-component-wrapper">
-    <label class="ds-checkbox-wrapper">
+    <label
+      :class="[
+        'ds-checkbox-wrapper',
+        { 'ds-checkbox-text-through-wrapper': textThrough }
+      ]"
+    >
       <span
         class="ds-checkbox-container"
         :class="{
-          'ds-checkbox-container-inactive': !checkboxValue,
-          'ds-checkbox-container-active': checkboxValue
+          'ds-checkbox-container-inactive': !checkboxValue && !textThrough,
+          'ds-checkbox-container-active': checkboxValue,
+          'ds-checkbox-container-text-through-inactive':
+            !checkboxValue && textThrough
         }"
       >
       </span>
@@ -20,9 +27,13 @@
       <span
         class="ds-checkbox-text"
         :class="{
-          'ds-checkbox-text-active': checkboxValue && !boldLabel,
-          'ds-checkbox-text-inactive': !checkboxValue && !boldLabel,
-          'ds-checkbox-text-bold': boldLabel
+          'ds-checkbox-text-active':
+            checkboxValue && !boldLabel && !textThrough,
+          'ds-checkbox-text-inactive':
+            !checkboxValue && !boldLabel && !textThrough,
+          'ds-checkbox-text-bold': boldLabel,
+          'ds-checkbox-text-through-active': checkboxValue && textThrough,
+          'ds-checkbox-text-through-inactive': !checkboxValue && textThrough
         }"
       >
         <span class="ds-main-label">{{ label }}</span>
@@ -81,7 +92,8 @@ export default {
     autoInit: {
       type: Boolean,
       default: true
-    }
+    },
+    textThrough: Boolean
   },
   data: () => ({
     offset: { offset: '0, 10px' }
@@ -120,6 +132,8 @@ export default {
       cursor: pointer;
       height: 20px;
       width: 20px;
+      min-width: 20px;
+      min-height: 20px;
       border-radius: 2px;
 
       &.ds-checkbox-container-active {
@@ -302,6 +316,34 @@ export default {
 
     .ds-checkbox-input {
       display: none;
+    }
+
+    &.ds-checkbox-text-through-wrapper {
+      .ds-checkbox-container-text-through-inactive {
+        background-color: @color-white;
+      }
+
+      .text-through() {
+        display: flex;
+        align-items: baseline;
+        font-family: 'Roboto Light';
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0;
+        line-height: 20px;
+        margin-left: 10px;
+      }
+
+      .ds-checkbox-text-through-active {
+        .text-through();
+        color: @color-gray-500;
+        text-decoration: line-through;
+      }
+
+      .ds-checkbox-text-through-inactive {
+        .text-through();
+        color: @color-dark;
+      }
     }
   }
 }
