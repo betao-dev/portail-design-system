@@ -138,6 +138,8 @@ export default {
       if (this.type === 'circle') {
         styles.width = '40px';
         styles.height = '40px';
+        styles.minWidth = '40px';
+        styles.minHeight = '40px';
         styles.borderRadius = '20px';
         styles.backgroundColor = this.backgroundColor;
       }
