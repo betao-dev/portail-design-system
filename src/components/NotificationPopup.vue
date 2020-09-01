@@ -78,6 +78,7 @@ export default {
   methods: {
     onClose() {
       this.opened = false;
+      this.$emit('close');
     }
   },
   watch: {
@@ -86,7 +87,7 @@ export default {
         clearTimeout(this.notificationTimerId);
       } else {
         this.notificationTimerId = setTimeout(() => {
-          this.opened = false;
+          this.onClose();
         }, this.showTimeMls);
       }
     }
