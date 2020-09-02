@@ -98,6 +98,9 @@ export default {
   methods: {
     onBlur() {
       this.touched = true;
+    },
+    setTouched(touched) {
+      this.touched = touched;
     }
   },
   computed: {
