@@ -28,6 +28,16 @@
         text-through
       ></CheckBox>
     </div>
+    <div>
+      <CheckBox v-model="value3">
+        <template>
+          <div class="label-wrapper">
+            <span class="number">Avoir #000002</span>
+            <span class="price">(400 €)</span>
+          </div>
+        </template>
+      </CheckBox>
+    </div>
   </div>
 </template>
 
@@ -44,9 +54,29 @@ export default {
     openUsage: true,
     usage: CheckBoxData.usage,
     value: true,
-    value2: true
+    value2: true,
+    value3: false
   })
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.label-wrapper {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 16px;
+  margin-left: 12px;
+
+  .number {
+    font-family: Roboto, sans-serif;
+    color: #1b1e24;
+  }
+
+  .price {
+    font-family: 'Roboto Medium';
+    color: #1eb386;
+    margin-left: 5px;
+  }
+}
+</style>

@@ -33,10 +33,12 @@
             !checkboxValue && !boldLabel && !textThrough,
           'ds-checkbox-text-bold': boldLabel,
           'ds-checkbox-text-through-active': checkboxValue && textThrough,
-          'ds-checkbox-text-through-inactive': !checkboxValue && textThrough
+          'ds-checkbox-text-through-inactive': !checkboxValue && textThrough,
+          'ds-checkbox-text-slot': isLabelSlot
         }"
       >
-        <span class="ds-main-label">{{ label }}</span>
+        <span v-if="!isLabelSlot" class="ds-main-label">{{ label }}</span>
+        <slot></slot>
         <span
           v-if="help || $slots.help"
           class="ds-help-label"
@@ -106,6 +108,9 @@ export default {
       set(value) {
         this.$emit('input', value);
       }
+    },
+    isLabelSlot() {
+      return !!this.$slots.default;
     }
   },
   mounted() {
@@ -312,6 +317,10 @@ export default {
           }
         }
       }
+
+      &.ds-checkbox-text-slot {
+        margin-left: 0;
+      }
     }
 
     .ds-checkbox-input {
@@ -350,6 +359,10 @@ export default {
       .ds-checkbox-text-through-inactive {
         .text-through();
         color: @color-dark;
+      }
+
+      .ds-checkbox-text-slot {
+        margin-left: 0;
       }
     }
   }

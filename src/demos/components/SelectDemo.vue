@@ -77,6 +77,45 @@
           disabled
         />
       </div>
+
+      <div class="ds-select-demo-wrapper">
+        <Select
+          lg
+          class="ds-select-option-checkbox"
+          v-model="selectValue5"
+          label="Utiliser un avoir"
+          placeholder="Sélectionnez un ou des avoirs"
+          :options="options3"
+          :idMode="true"
+          extra-error-padding
+          alt-select
+          alt-icon
+          reversible-icon
+          option-content
+          width="336px"
+        >
+          <template #option1>
+            <CheckBox class="option-checkbox" v-model="checkbox1">
+              <template>
+                <div class="label-wrapper">
+                  <span class="number">Avoir #000001</span>
+                  <span class="price">(230 €)</span>
+                </div>
+              </template>
+            </CheckBox>
+          </template>
+          <template #option2>
+            <CheckBox class="option-checkbox" v-model="checkbox2">
+              <template>
+                <div class="label-wrapper">
+                  <span class="number">Avoir #000002</span>
+                  <span class="price">(400 €)</span>
+                </div>
+              </template>
+            </CheckBox>
+          </template>
+        </Select>
+      </div>
     </div>
   </div>
 </template>
@@ -99,6 +138,7 @@ export default {
       selectValue2: { id: 1 },
       selectValue3: { id: 1, data: undefined },
       selectValue4: { id: 1 },
+      selectValue5: {},
       options: [
         { id: 1, value: 'Espèces' },
         { id: 2, value: 'Chèque' },
@@ -109,6 +149,7 @@ export default {
         { id: 1, value: 'Pourcentage', data: undefined },
         { id: 2, value: 'Montant', data: undefined }
       ],
+      options3: [{ id: 1 }, { id: 2 }],
       selectValidators: [
         {
           name: 'required',
@@ -133,7 +174,9 @@ export default {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
-      }
+      },
+      checkbox1: false,
+      checkbox2: false
     };
   },
   computed: {
@@ -145,6 +188,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../../styles/vars';
+
 .ds-select-demo-wrapper {
   display: flex;
   justify-content: center;
@@ -154,7 +199,8 @@ export default {
   background-color: white;
 }
 
-.ds-select-demo {
+.ds-select-demo,
+.ds-select-option-checkbox {
   margin-bottom: 50px;
 }
 
@@ -166,5 +212,36 @@ export default {
   width: 50px;
   border-radius: 4px;
   background-color: rgba(30, 179, 134, 0.1);
+}
+
+.ds-select-option-checkbox {
+  &::v-deep {
+    .ds-option-content {
+      margin-top: 18px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .label-wrapper {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 16px;
+        margin-left: 12px;
+
+        .number {
+          font-family: Roboto, sans-serif;
+          color: #1b1e24;
+        }
+
+        .price {
+          font-family: 'Roboto Medium';
+          color: @color-primary;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
 }
 </style>

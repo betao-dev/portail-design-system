@@ -169,6 +169,12 @@
       "name": "tooltipWidth",
       "type": "String",
       "description": "Set tooltip width"
+    },
+    {
+      "name": "optionContent",
+      "type": "Boolean",
+      "default": "false",
+      "description": "When set as true select can render slots option1, option2 and etc instead of options props, but options still required"
     }
   ],
   "events": [
