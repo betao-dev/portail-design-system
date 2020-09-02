@@ -60,6 +60,36 @@ let usage = `
     reversible-icon
     disabled
   />
+
+  <Select
+    lg
+    class="ds-select-option-checkbox"
+    v-model="selectValue5"
+    label="Utiliser un avoir"
+    placeholder="Sélectionnez un ou des avoirs"
+    :options="options3"
+    :idMode="true"
+    extra-error-padding
+    alt-select
+    alt-icon
+    reversible-icon
+    option-content
+    width="336px"
+  >
+    <template #option1>
+      <CheckBox class="option-checkbox" v-model="checkbox1">
+        <template>
+          <div class="label-wrapper">
+            <span class="number">Avoir #000001</span>
+            <span class="price">(230 €)</span>
+          </div>
+        </template>
+      </CheckBox>
+    </template>
+    <template #option2>
+        ...
+    </template>
+  </Select>
 `.slice(1);
 
 export default {

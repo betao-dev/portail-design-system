@@ -117,26 +117,39 @@
       :position="dropdownPosition"
       :style="{ overflow: optionsOverflow }"
       :avoid-close="avoidClose"
-      :class="['ds-options', { 'ds-options-custom': customContent }]"
+      :class="[
+        'ds-options',
+        {
+          'ds-options-custom': customContent,
+          'ds-options-content': optionContent
+        }
+      ]"
       just-fade
     >
-      <div
-        :class="[
-          'ds-option-wrapper',
-          { 'ds-option-wrapper-custom': customContent }
-        ]"
-        :style="{ ...optionStyles }"
-        v-for="(option, index) in options"
-        :key="index"
-        @click="selectValue(option)"
-      >
-        {{ option.title }}
-        <span v-if="!displayTitle">{{
-          typeof option !== 'object' ? option : option.value
-        }}</span>
-        <template v-if="customContent">
-          <slot :name="index + 1"></slot>
-        </template>
+      <div v-if="optionContent">
+        <div v-for="(option, index) in options" class="ds-option-content">
+          <slot :name="`option${index + 1}`"></slot>
+        </div>
+      </div>
+      <div v-else>
+        <div
+          :class="[
+            'ds-option-wrapper',
+            { 'ds-option-wrapper-custom': customContent }
+          ]"
+          :style="{ ...optionStyles }"
+          v-for="(option, index) in options"
+          :key="index"
+          @click="selectValue(option)"
+        >
+          {{ option.title }}
+          <span v-if="!displayTitle">{{
+            typeof option !== 'object' ? option : option.value
+          }}</span>
+          <template v-if="customContent">
+            <slot :name="index + 1"></slot>
+          </template>
+        </div>
       </div>
     </Dropdown>
   </div>
@@ -257,7 +270,11 @@ export default {
       default: true
     },
     tooltipMessage: String,
-    tooltipWidth: String
+    tooltipWidth: String,
+    optionContent: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => ({
     openDropDownList: false,
@@ -579,6 +596,14 @@ export default {
             padding-bottom: 0;
           }
         }
+      }
+
+      &.ds-options-content {
+        box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
+        border-radius: 4px;
+        margin-top: 6px;
+        padding: 24px 20px 18px;
+        border: none;
       }
     }
 

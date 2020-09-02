@@ -12,6 +12,17 @@ let usage = `
   label="Joint un chèque à l’ordre du Greffe de votre département (montant exact à vérifier auprès du Greffe, entre 25 et 30 €)"
   text-through
 ></CheckBox>
+
+<CheckBox
+  v-model="value3"
+>
+  <template>
+    <div class="label-wrapper">
+      <span class="number">Avoir #000002</span>
+      <span class="price">(400 €)</span>
+    </div>
+  </template>
+</CheckBox>
 `.slice(1);
 
 export default {
