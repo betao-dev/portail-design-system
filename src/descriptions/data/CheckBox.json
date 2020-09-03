@@ -30,6 +30,11 @@
       "name": "textThrough",
       "type": "Boolean",
       "description": "When textThrough equals true, the active text will with a line through and inactive checkbox container will have white background and etc"
+    },
+    {
+      "name": "disabled",
+      "type": "Boolean",
+      "description": "When set as true checkbox will be disabled"
     }
   ],
   "events": []
