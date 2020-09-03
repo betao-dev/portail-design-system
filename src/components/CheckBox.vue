@@ -1,5 +1,10 @@
 <template>
-  <span class="ds-checkbox-component-wrapper">
+  <span
+    :class="[
+      'ds-checkbox-component-wrapper',
+      { 'ds-checkbox-disabled': disabled }
+    ]"
+  >
     <label
       :class="[
         'ds-checkbox-wrapper',
@@ -95,7 +100,8 @@ export default {
       type: Boolean,
       default: true
     },
-    textThrough: Boolean
+    textThrough: Boolean,
+    disabled: Boolean
   },
   data: () => ({
     offset: { offset: '0, 10px' }
@@ -365,6 +371,10 @@ export default {
         margin-left: 0;
       }
     }
+  }
+
+  &.ds-checkbox-disabled {
+    pointer-events: none;
   }
 }
 </style>
