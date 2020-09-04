@@ -12,13 +12,18 @@ window.CustomEvent = CustomEvent;
 export default {
   name: 'Form',
   components: {},
-  props: {},
+  props: {
+    surfacing: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     errors: []
   }),
   methods: {
     checkForm(e) {
-      if (e) {
+      if (e && !this.surfacing) {
         e.preventDefault();
         e.stopPropagation();
       }
