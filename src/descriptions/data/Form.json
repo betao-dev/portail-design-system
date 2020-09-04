@@ -1,10 +1,16 @@
 {
   "properties": [
     {
-      "name": "surfacing",
+      "name": "prevent",
       "type": "Boolean",
-      "default": "false",
-      "description": "Responsible for surfacing of events"
+      "default": "true",
+      "description": "Responsible for surfacing of preventDefault"
+    },
+    {
+      "name": "stop",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for surfacing of stopPropagation"
     }
   ],
   "events": [

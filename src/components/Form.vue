@@ -13,9 +13,13 @@ export default {
   name: 'Form',
   components: {},
   props: {
-    surfacing: {
+    prevent: {
       type: Boolean,
-      default: false
+      default: true
+    },
+    stop: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
@@ -23,9 +27,9 @@ export default {
   }),
   methods: {
     checkForm(e) {
-      if (e && !this.surfacing) {
-        e.preventDefault();
-        e.stopPropagation();
+      if (e) {
+        this.prevent && e.preventDefault();
+        this.stop && e.stopPropagation();
       }
 
       this.errors = [];
