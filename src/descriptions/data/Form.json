@@ -1,5 +1,12 @@
 {
-  "properties": [],
+  "properties": [
+    {
+      "name": "surfacing",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Responsible for surfacing of events"
+    }
+  ],
   "events": [
     {
       "name": "submit",
