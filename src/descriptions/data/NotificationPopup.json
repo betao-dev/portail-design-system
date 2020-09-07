@@ -55,6 +55,11 @@
       "name": "leftOffset",
       "type": "String",
       "description": "Set left offset of notification"
+    },
+    {
+      "name": "zIndex",
+      "type": "String",
+      "description": "Set z-index of notification"
     }
   ],
   "events": [

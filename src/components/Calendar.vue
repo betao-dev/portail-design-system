@@ -605,6 +605,10 @@ export default {
         this.$refs.input.blur();
       }
 
+      if (this.validationClose && !this.calendarVisible) {
+        this.checkValidationClose();
+      }
+
       this.$emit('inputFocus');
     },
     inputBlur() {
