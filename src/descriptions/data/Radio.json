@@ -32,6 +32,21 @@
       "type": "Boolean",
       "default": "false",
       "description": "The radio button will be deselected when the value is equals to true"
+    },
+    {
+      "name": "validators",
+      "type": "Array<Object>",
+      "description": "Array of validators"
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "With this property Radio will be listening to validation with current value for e.g. 'validateTest'"
+    },
+    {
+      "name": "touchName",
+      "type": "String",
+      "description": "With this property, Radio component will listen to event with prefix 'touch' + and this property capitalized"
     }
   ],
   "events": []
