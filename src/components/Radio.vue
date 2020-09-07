@@ -29,7 +29,8 @@
               'ds-radio-text',
               {
                 'ds-radio-text-active': radioActive(radio),
-                'ds-radio-text-inactive': !radioActive(radio)
+                'ds-radio-text-inactive': !radioActive(radio),
+                'ds-radio-invalid': radioInvalid
               }
             ]"
             :style="{ marginRight: spaceBetweenItems }"
@@ -52,9 +53,11 @@
 
 <script>
 import _ from 'lodash';
+import touch from './../mixins/touch';
 
 export default {
   name: 'Radio',
+  mixins: [touch],
   props: {
     value: null,
     list: Array,
@@ -74,8 +77,18 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    validators: {
+      type: Array,
+      default: () => []
+    },
+    name: String,
+    touchName: String
   },
+  data: () => ({
+    touched: false,
+    validateEventName: undefined
+  }),
   computed: {
     radioValue: {
       get() {
@@ -84,6 +97,33 @@ export default {
       set(value) {
         this.$emit('input', this.setRadioValue(value));
       }
+    },
+    inputErrors() {
+      let errors = [];
+      for (let i = 0; i < this.validation.length; i++) {
+        if (!this.validation[i][1]) {
+          errors.push(this.validators[i].message);
+        }
+      }
+      return errors;
+    },
+    validation() {
+      if (!this.validators || !this.validators.length) {
+        return [];
+      }
+
+      let data = [];
+      for (let i = 0; i < this.validators.length; i++) {
+        data.push([
+          this.validators[i].name,
+          this.validators[i].validator(this.value)
+        ]);
+      }
+
+      return data;
+    },
+    radioInvalid() {
+      return this.inputErrors.length && this.touched;
     }
   },
   methods: {
@@ -103,6 +143,29 @@ export default {
       } else {
         return this.value === itemValue.title;
       }
+    },
+    validate() {
+      this.touched = true;
+      this.$emit('validation', this.validation);
+    },
+    setTouched(touched) {
+      this.touched = touched;
+    }
+  },
+  mounted() {
+    if (this.name) {
+      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).toLowerCase()}`;
+      document.addEventListener(this.validateEventName, this.validate);
+    } else {
+      document.addEventListener('validate', this.validate);
+    }
+  },
+  beforeDestroy() {
+    if (this.name) {
+      document.removeEventListener(this.validateEventName, this.validate);
+    } else {
+      document.removeEventListener('validate', this.validate);
     }
   }
 };
@@ -169,6 +232,10 @@ export default {
 
         .ds-radio-text-inactive {
           color: @color-dark;
+        }
+
+        &.ds-radio-invalid {
+          color: @color-red;
         }
       }
 

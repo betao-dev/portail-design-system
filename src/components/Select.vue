@@ -79,7 +79,8 @@
           'ds-input-error': checkError,
           'ds-error': isInvalidInput,
           'ds-valid': showValidCheck && validBacklight,
-          'ds-input-custom': customContent
+          'ds-input-custom': customContent,
+          'ds-input-alt': altSelect
         }
       ]"
       type="text"
@@ -813,11 +814,22 @@ export default {
     }
 
     .ds-select {
-      padding: 14px 16px 16px;
+      padding: 14px 38px 16px 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     input {
       .alternative-placeholder-wrapper();
+    }
+
+    &.ds-select-error {
+      .ds-label {
+        + .ds-drop-icon-alt {
+          top: calc(50% + 9px);
+        }
+      }
     }
   }
 
