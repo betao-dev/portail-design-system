@@ -2,7 +2,7 @@
   <transition name="notification-popup">
     <div
       class="ds-notification-popup-wrapper"
-      :style="{ backgroundColor, width, height, left: leftOffset }"
+      :style="{ backgroundColor, width, height, left: leftOffset, zIndex }"
       v-if="opened"
     >
       <div class="ds-notification-popup">
@@ -60,7 +60,8 @@ export default {
       type: Number,
       default: 3000
     },
-    leftOffset: String
+    leftOffset: String,
+    zIndex: String
   },
   data: () => ({
     notificationTimerId: undefined
