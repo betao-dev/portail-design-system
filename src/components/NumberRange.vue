@@ -53,13 +53,15 @@
         <div class="min-max-input-wrapper">
           <Input
             placeholder="Montant min."
-            v-model="sliderModel[0]"
+            :value="sliderModel[0]"
+            @input="onMinUpdate"
             width="100px"
           />
           <div class="between">To</div>
           <Input
             placeholder="Montant max."
-            v-model="sliderModel[1]"
+            :value="sliderModel[1]"
+            @input="onMaxUpdate"
             width="100px"
           />
         </div>
@@ -138,6 +140,14 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       (this.sliderModel = [0, 0]), this.$emit('change:range', [0, 0]);
+    },
+    onMinUpdate(data) {
+      this.sliderModel.splice(0, 1, data);
+      this.$emit('change:range', [data, this.sliderModel[1]]);
+    },
+    onMaxUpdate(data) {
+      this.sliderModel.splice(1, 1, data);
+      this.$emit('change:range', [this.sliderModel[0], data]);
     }
   },
   mounted() {
