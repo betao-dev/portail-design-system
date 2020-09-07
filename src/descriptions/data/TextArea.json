@@ -75,6 +75,12 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for displaying validation of textarea"
+    },
+    {
+      "name": "showMaxCharacters",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for displaying max characters info"
     }
   ],
   "events": [

@@ -48,7 +48,9 @@
         </span>
       </transition>
 
-      <div class="ds-notification">{{ notificationStr }}</div>
+      <div class="ds-notification" v-if="showMaxCharacters">
+        {{ notificationStr }}
+      </div>
     </div>
   </div>
 </template>
@@ -83,6 +85,10 @@ export default {
     showValidations: {
       type: Boolean,
       default: true
+    },
+    showMaxCharacters: {
+      type: Boolean,
+      defaule: true
     }
   },
   data: () => ({
