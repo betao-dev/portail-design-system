@@ -139,7 +139,8 @@ export default {
     clearModel(e) {
       e.preventDefault();
       e.stopPropagation();
-      (this.sliderModel = [0, 0]), this.$emit('change:range', [0, 0]);
+      (this.sliderModel = [this.min, this.max]),
+        this.$emit('change:range', [this.min, this.max]);
     },
     onMinUpdate(data) {
       this.sliderModel.splice(0, 1, data);
