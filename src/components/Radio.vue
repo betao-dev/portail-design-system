@@ -17,7 +17,7 @@
           <span
             class="ds-radio-container"
             :style="{
-              backgroundColor: radioActive(radio) ? radioColor : '#E8ECEF'
+              backgroundColor: getRadioContainerColor(radio)
             }"
           >
           </span>
@@ -150,6 +150,15 @@ export default {
     },
     setTouched(touched) {
       this.touched = touched;
+    },
+    getRadioContainerColor(value) {
+      if (this.radioInvalid) {
+        return 'rgba(251, 69, 68, 0.15)';
+      } else if (this.radioActive(value)) {
+        return this.radioColor;
+      } else {
+        return '#E8ECEF';
+      }
     }
   },
   mounted() {
@@ -235,7 +244,7 @@ export default {
         }
 
         &.ds-radio-invalid {
-          color: @color-red;
+          color: #fb4544;
         }
       }
 
