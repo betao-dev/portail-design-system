@@ -35,6 +35,21 @@
       "name": "disabled",
       "type": "Boolean",
       "description": "When set as true checkbox will be disabled"
+    },
+    {
+      "name": "validators",
+      "type": "Array<Object>",
+      "description": "Array of validators"
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "With this property Checkbox will be listening to validation with current value for e.g. 'validateTest'"
+    },
+    {
+      "name": "touchName",
+      "type": "String",
+      "description": "With this property, Checkbox component will listen to event with prefix 'touch' + and this property capitalized"
     }
   ],
   "events": []

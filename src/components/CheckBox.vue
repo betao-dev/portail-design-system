@@ -2,7 +2,10 @@
   <span
     :class="[
       'ds-checkbox-component-wrapper',
-      { 'ds-checkbox-disabled': disabled }
+      {
+        'ds-checkbox-disabled': disabled,
+        'ds-checkbox-invalid': checkboxInvalid
+      }
     ]"
   >
     <label
@@ -88,8 +91,11 @@ import Icon from './Icon';
 import Popper from 'vue-popperjs';
 import 'vue-popperjs/dist/vue-popper.css';
 
+import touch from './../mixins/touch';
+
 export default {
   name: 'CheckBox',
+  mixins: [touch],
   components: { Icon, Popper },
   props: {
     value: Boolean,
@@ -101,10 +107,17 @@ export default {
       default: true
     },
     textThrough: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    validators: {
+      type: Array,
+      default: () => []
+    },
+    name: String,
+    touchName: String
   },
   data: () => ({
-    offset: { offset: '0, 10px' }
+    offset: { offset: '0, 10px' },
+    touched: false
   }),
   computed: {
     checkboxValue: {
@@ -117,6 +130,42 @@ export default {
     },
     isLabelSlot() {
       return !!this.$slots.default;
+    },
+    inputErrors() {
+      let errors = [];
+      for (let i = 0; i < this.validation.length; i++) {
+        if (!this.validation[i][1]) {
+          errors.push(this.validators[i].message);
+        }
+      }
+      return errors;
+    },
+    validation() {
+      if (!this.validators || !this.validators.length) {
+        return [];
+      }
+
+      let data = [];
+      for (let i = 0; i < this.validators.length; i++) {
+        data.push([
+          this.validators[i].name,
+          this.validators[i].validator(this.value)
+        ]);
+      }
+
+      return data;
+    },
+    checkboxInvalid() {
+      return this.inputErrors.length && this.touched;
+    }
+  },
+  methods: {
+    validate() {
+      this.touched = true;
+      this.$emit('validation', this.validation);
+    },
+    setTouched(touched) {
+      this.touched = touched;
     }
   },
   mounted() {
@@ -124,6 +173,21 @@ export default {
       this.$nextTick(() => {
         this.$emit('input', this.checkboxValue);
       });
+    }
+
+    if (this.name) {
+      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).toLowerCase()}`;
+      document.addEventListener(this.validateEventName, this.validate);
+    } else {
+      document.addEventListener('validate', this.validate);
+    }
+  },
+  beforeDestroy() {
+    if (this.name) {
+      document.removeEventListener(this.validateEventName, this.validate);
+    } else {
+      document.removeEventListener('validate', this.validate);
     }
   }
 };
@@ -375,6 +439,18 @@ export default {
 
   &.ds-checkbox-disabled {
     pointer-events: none;
+  }
+
+  &.ds-checkbox-invalid {
+    .ds-checkbox-wrapper {
+      .ds-checkbox-container {
+        background-color: rgba(251, 69, 68, 0.15);
+      }
+
+      .ds-main-label {
+        color: #fb4544;
+      }
+    }
   }
 }
 </style>
