@@ -20,6 +20,12 @@
       "type": "Boolean",
       "default": "true",
       "description": "Allow delegating logic responsible for the update of steps internally in component"
+    },
+    {
+      "name": "turnOffChangeSteps",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Turn off changing steps by removed that possibility from UI"
     }
   ],
   "events": []

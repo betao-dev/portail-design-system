@@ -1,22 +1,24 @@
 <template>
   <div class="ds-slide-stepper-container">
     <div class="ds-slide-stepper-header">
-      <div class="ds-previous" @click="prev">
-        <Icon
-          v-if="current > 1"
-          source="angle_left_solid"
-          size="18px"
-          color="#1EB386"
-        />
-      </div>
-      <div class="ds-next" @click="next">
-        <Icon
-          v-if="current < stepSize"
-          source="angle_right_solid"
-          size="18px"
-          color="#1EB386"
-        />
-      </div>
+      <template v-if="turnOffChangeSteps">
+        <div class="ds-previous" @click="prev">
+          <Icon
+            v-if="current > 1"
+            source="angle_left_solid"
+            size="18px"
+            color="#1EB386"
+          />
+        </div>
+        <div class="ds-next" @click="next">
+          <Icon
+            v-if="current < stepSize"
+            source="angle_right_solid"
+            size="18px"
+            color="#1EB386"
+          />
+        </div>
+      </template>
 
       <div
         v-for="step in stepSize"
@@ -80,6 +82,10 @@ export default {
       default: 0
     },
     autoStepChange: {
+      type: Boolean,
+      default: true
+    },
+    turnOffChangeSteps: {
       type: Boolean,
       default: true
     }
