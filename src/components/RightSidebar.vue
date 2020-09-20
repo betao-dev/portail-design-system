@@ -19,9 +19,35 @@ export default {
     },
     height: String
   },
+  data: () => ({
+    $_defaultStyles: {},
+    scrollPositionY: 0
+  }),
   methods: {
     clickOverlay() {
       this.$emit('update:opened', !this.opened);
+    }
+  },
+  watch: {
+    opened(value) {
+      let htmlStyle = document.getElementsByTagName('html')[0].style;
+
+      if (value) {
+        this.scrollPositionY = window.pageYOffset;
+        this.$_defaultStyles.html = {
+          overflow: htmlStyle.overflow
+        };
+
+        htmlStyle.overflow = 'hidden';
+        window.scrollTo(0, 0);
+      } else {
+        if (this.$_defaultStyles) {
+          Object.assign(htmlStyle, this.$_defaultStyles.html);
+
+          window.scrollTo(0, this.scrollPositionY);
+          this.scrollPositionY = 0;
+        }
+      }
     }
   }
 };
