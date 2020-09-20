@@ -1001,7 +1001,7 @@ export default {
     box-sizing: border-box;
     font-size: 11px;
     line-height: 12px;
-    padding: 3px 0;
+    padding: 6px 0 0;
     position: absolute;
     text-align: left;
     max-width: 100%;
