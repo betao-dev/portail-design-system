@@ -34,8 +34,10 @@ export default {
 
       if (value) {
         this.scrollPositionY = window.pageYOffset;
-        this.$_defaultStyles.html = {
-          overflow: htmlStyle.overflow
+        this.$_defaultStyles = {
+          html: {
+            overflow: htmlStyle.overflow
+          }
         };
 
         htmlStyle.overflow = 'hidden';
