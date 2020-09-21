@@ -159,12 +159,14 @@ import Datepicker from './Datepicker';
 import CalendarDropdown from './calendarComponents/CalendarDropdown';
 import CalendarIcon from './calendarComponents/CalendarIcon';
 import CalendarDialog from './calendarComponents/CalendarDialog';
+import validation from './../mixins/validation';
 
 const DesktopWidth = 960;
 
 export default {
   name: 'Calendar',
   components: { Datepicker, CalendarDropdown, CalendarIcon, CalendarDialog },
+  mixins: [validation],
   props: {
     value: null,
     name: String,
@@ -266,7 +268,6 @@ export default {
       .substring(7),
     dateUnset: false,
     oldValue: undefined,
-    validationTimeoutId: undefined,
     validBacklight: false,
     invalidBacklight: false,
     alternatingDateName: undefined,
@@ -660,11 +661,6 @@ export default {
       this.resetDates();
       this.$emit('icon-click');
     },
-    validate() {
-      this.touched = true;
-      this.checkBacklight();
-      this.$emit('validation', this.validation);
-    },
     onSave() {
       this.calendarVisible = false;
     },
@@ -688,26 +684,12 @@ export default {
         return value.toLocaleDateString(this.locale);
       }
     },
-    validationBacklight(activeValidation, inactiveValidation) {
-      this[inactiveValidation] = false;
-      this[activeValidation] = true;
-
-      if (this.validationTimeoutId) {
-        clearTimeout(this.validationTimeoutId);
-      }
-
-      this.validationTimeoutId = setTimeout(() => {
-        this[activeValidation] = false;
-      }, 2000);
-    },
     checkBacklight() {
-      this.$nextTick(() => {
-        if (this.showValidBacklight) {
-          this.validationBacklight('validBacklight', 'invalidBacklight');
-        } else if (this.showInvalidBacklight) {
-          this.validationBacklight('invalidBacklight', 'validBacklight');
-        }
-      });
+      if (this.showValidBacklight) {
+        this.validationBacklight('validBacklight', 'invalidBacklight');
+      } else if (this.showInvalidBacklight) {
+        this.validationBacklight('invalidBacklight', 'validBacklight');
+      }
     },
     isMinMaxSelectDataExist() {
       if (
@@ -800,7 +782,6 @@ export default {
       window.addEventListener('resize', this.onResize);
     }
 
-    document.addEventListener('validate', this.validate);
     this.$emit('validation', this.validation);
 
     this.isMinMaxSelectDataExist();
@@ -814,8 +795,6 @@ export default {
     if (this.name) {
       document.removeEventListener(this.validateEventName, this.validate);
     }
-
-    document.removeEventListener('validate', this.validate);
   }
 };
 </script>
@@ -941,13 +920,12 @@ export default {
     }
 
     &.ds-error-backlight {
-      border-color: @color-red;
-      background-color: #ffedec;
+      .input-invalid-fade-animation();
     }
 
     &.ds-valid-backlight {
       border-color: @color-primary;
-      background-color: #e9f8f3;
+      .input-valid-fade-animation();
     }
 
     &.ds-calendar-input-read {
