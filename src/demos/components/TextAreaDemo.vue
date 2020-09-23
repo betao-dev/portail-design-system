@@ -31,6 +31,16 @@
         </TextArea>
       </div>
     </div>
+
+    <div class="general-alt-wrapper">
+      <TextArea
+        v-model="emailText"
+        :validators="validators"
+        height="320px"
+        alt
+        :max-characters="2000"
+      ></TextArea>
+    </div>
   </div>
 </template>
 
@@ -47,6 +57,16 @@ export default {
     openUsage: true,
     usage: TextAreaData.usage,
     messageText: null,
+    emailText: `Bonjour Acme Corporation,
+
+Je vous remercie d’avoir fait appel à mes services.Veuillez trouver ci-joint la facture n° 000001 du 02/09/2020 d'un montant de 3800 euros due avant le 17/09/2020.
+
+Vous trouverez dans la facture les moyens de paiements acceptés.
+
+Je reste à votre disposition pour tous renseignements complémentaires,
+
+Cordialement,
+    `,
     labelText: 'Textarea',
     secondlabelText: 'Textarea with errors',
     placeholder: 'Placeholder',
@@ -76,5 +96,9 @@ export default {
     display: inline-block;
     width: 400px;
   }
+}
+
+.general-alt-wrapper {
+  width: 100%;
 }
 </style>

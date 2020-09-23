@@ -250,16 +250,13 @@ export default {
         margin-left: 12px;
       }
 
-      .ds-main-label {
-        margin-right: 5px;
-      }
-
       .ds-help-label {
         cursor: pointer;
         color: @color-gray-500;
         font-family: Roboto, sans-serif;
         font-size: 12px;
         line-height: 14px;
+        margin-left: 5px;
 
         &::v-deep {
           .popper {

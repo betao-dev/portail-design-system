@@ -47,6 +47,17 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for showing error message"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "When the props passed the alternative styles with functionality will be applied, the chip will be saved only if it passes validation check and etc"
+    },
+    {
+      "name": "paddingRight",
+      "type": "String",
+      "default": "185px",
+      "description": "Apply padding right for 'ds-chips-container' when component has a slot right"
     }
   ],
   "events": [

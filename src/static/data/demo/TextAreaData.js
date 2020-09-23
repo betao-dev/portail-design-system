@@ -10,6 +10,13 @@ let usage = `
           :rows="5"
           :validators="validators">
 </TextArea>
+<TextArea
+  v-model="emailText"
+  :validators="validators"
+  height="320px"
+  alt
+  :max-characters="2000"
+></TextArea>
 `.slice(1);
 
 export default {

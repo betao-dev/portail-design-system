@@ -9,6 +9,7 @@
     </Collapser>
 
     <Chips
+      class="ds-demo-chips"
       v-model="simpleChips"
       :searchable="searchable"
       @update:searchable="updateSearchable"
@@ -36,15 +37,29 @@
             </div>
           </div>
         </Dropdown>
-      </template> </Chips
-    ><br />
+      </template>
+      ></Chips
+    >
 
     <Chips
+      class="ds-demo-chips"
       v-model="chips"
       :removable="true"
       :placeholder="placeholder"
       :validators="validators"
     >
+    </Chips>
+
+    <Chips
+      class="ds-demo-chips"
+      v-model="emails"
+      :validators="emailValidators"
+      label="Email du destinataire :"
+      alt
+    >
+      <template slot="right">
+        <CheckBox v-model="sendCopy" label="M’envoyer une copie"></CheckBox>
+      </template>
     </Chips>
   </div>
 </template>
@@ -53,20 +68,32 @@
 import Chips from '../../components/Chips.vue';
 import Input from '../../components/Input';
 import Dropdown from '../../components/Dropdown';
+import CheckBox from '../../components/CheckBox';
 import Description from '../../descriptions/Description';
 import Collapser from '../../components/Collapser.vue';
 import { ChipsData } from '../../static/index';
 
 const EMAIL = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+/* eslint no-useless-escape: "off" */
+const EMAIL2 = /^(([^<>()\[\]\\.,;:\s@"+]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default {
   name: 'ChipsDemo',
-  components: { Chips, Input, Dropdown, Description, Collapser },
+  components: { CheckBox, Chips, Input, Dropdown, Description, Collapser },
   data: () => ({
     openUsage: true,
     usage: ChipsData.usage,
     simpleChips: ['apple', 'banana', 'grapefruit'],
     chips: ['test@gmail.com'],
+    emails: [
+      'test@gmail.com',
+      'sdfsdfsd',
+      'france@gmail.com',
+      'sdfdsfs',
+      'test@gmail.com',
+      'test@gmail.com',
+      'test@gmail.com'
+    ],
     label: 'Recipient email',
     placeholder: 'Add a recipient',
     searchable: false,
@@ -86,7 +113,22 @@ export default {
         message: 'The email field must be a valid email',
         validator: value => EMAIL.test(value)
       }
-    ]
+    ],
+    emailValidators: [
+      {
+        name: 'required',
+        message: 'The field is required',
+        validator: value => {
+          return !!value.length;
+        }
+      },
+      {
+        name: 'email',
+        message: 'The email field must be a valid email',
+        validator: value => EMAIL2.test(value)
+      }
+    ],
+    sendCopy: false
   }),
   methods: {
     searchItemClick(item) {
@@ -136,5 +178,9 @@ export default {
       }
     }
   }
+}
+
+.ds-demo-chips {
+  margin-bottom: 20px;
 }
 </style>

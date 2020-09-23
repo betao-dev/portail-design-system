@@ -23,7 +23,7 @@
 -->
 
 <template>
-  <div class="ds-text-area">
+  <div :class="['ds-text-area', { 'ds-text-area-alt': alt }]">
     <label>
       <div class="ds-label-text" v-if="label">{{ label }}</div>
       <textarea
@@ -37,10 +37,18 @@
           'ds-textarea-error': isInvalid,
           'ds-valid': showValidCheck && validBacklight
         }"
+        :style="{ height }"
         :disabled="disabled"
         @blur="onBlur"
       />
     </label>
+    <div
+      class="ds-alt-notification"
+      :style="styles"
+      v-if="showMaxCharacters && alt"
+    >
+      {{ notificationStr }}
+    </div>
     <div class="ds-textarea-errors-wraper">
       <transition name="error-message">
         <span v-if="isInvalid" class="ds-error-message">
@@ -48,7 +56,7 @@
         </span>
       </transition>
 
-      <div class="ds-notification" v-if="showMaxCharacters">
+      <div class="ds-notification" v-if="showMaxCharacters && !alt">
         {{ notificationStr }}
       </div>
     </div>
@@ -88,8 +96,10 @@ export default {
     },
     showMaxCharacters: {
       type: Boolean,
-      defaule: true
-    }
+      default: true
+    },
+    alt: Boolean,
+    height: String
   },
   data: () => ({
     validateEventName: undefined,
@@ -178,11 +188,19 @@ export default {
     },
     showInvalidBlock() {
       return this.validationShown && this.textareaErrors.length > 0;
+    },
+    styles() {
+      let offset = this.label ? 50 : 20;
+      let top = parseFloat(this.height) - offset;
+
+      return {
+        top: `${top}px`
+      };
     }
   },
   mounted() {
     if (this.maxCharacters) {
-      this.notificationStr = `${this.value ? this.value.length : 0}/${
+      this.notificationStr = `${this.value ? this.value.length : 0} / ${
         this.maxCharacters
       }`;
     }
@@ -210,7 +228,7 @@ export default {
     textareaValue(val) {
       this.$emit('validation', this.validation);
       if (this.maxCharacters) {
-        this.notificationStr = `${val.length}/${this.maxCharacters}`;
+        this.notificationStr = `${val.length} / ${this.maxCharacters}`;
       }
     },
     initialTouched(value) {
@@ -223,6 +241,40 @@ export default {
 <style lang="less" scoped>
 @import '../styles/vars';
 @import '../styles/mixins';
+
+.textarea-base() {
+  &:focus:not(.ds-error):not(.ds-textarea-error) {
+    border-color: @color-primary;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.ds-textarea-error {
+    border-color: @color-red;
+  }
+
+  &.ds-error {
+    .input-invalid-fade-animation();
+  }
+
+  &.ds-valid {
+    border-color: @color-primary;
+    .input-valid-fade-animation();
+  }
+
+  &:disabled,
+  &:disabled::placeholder {
+    .font-desktop-small-regular-light-gray-base();
+  }
+
+  &:disabled {
+    border: 1px solid #e8ecef;
+    background-color: @color-gray-100;
+    color: @color-gray-400;
+  }
+}
 
 .ds-text-area {
   label {
@@ -260,37 +312,7 @@ export default {
         white-space: nowrap;
       }
 
-      &:focus:not(.ds-error):not(.ds-textarea-error) {
-        border-color: @color-primary;
-      }
-
-      &:focus {
-        outline: none;
-      }
-
-      &.ds-textarea-error {
-        border-color: @color-red;
-      }
-
-      &.ds-error {
-        .input-invalid-fade-animation();
-      }
-
-      &.ds-valid {
-        border-color: @color-primary;
-        .input-valid-fade-animation();
-      }
-
-      &:disabled,
-      &:disabled::placeholder {
-        .font-desktop-small-regular-light-gray-base();
-      }
-
-      &:disabled {
-        border: 1px solid #e8ecef;
-        background-color: @color-gray-100;
-        color: @color-gray-400;
-      }
+      .textarea-base();
     }
   }
 
@@ -331,6 +353,39 @@ export default {
     .error-message-enter,
     .error-message-leave-to {
       opacity: 0;
+    }
+  }
+
+  &.ds-text-area-alt {
+    position: relative;
+
+    label {
+      textarea {
+        padding: 6px 0;
+        border: none;
+        border-bottom: 1px solid @color-gray-300;
+        border-radius: 0.5px;
+        color: #1b1e24;
+        font-family: Roboto, sans-serif;
+        letter-spacing: 0;
+        line-height: 21px;
+
+        .textarea-base();
+      }
+    }
+
+    .ds-alt-notification {
+      position: absolute;
+      right: 0;
+      color: @color-gray-500;
+      font-family: Roboto, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0;
+      line-height: 14px;
+
+      &.ds-alt-notification-with-errors {
+        bottom: 26px;
+      }
     }
   }
 }

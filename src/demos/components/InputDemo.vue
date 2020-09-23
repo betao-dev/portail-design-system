@@ -209,6 +209,7 @@
           </div>
         </div>
       </Input>
+      <Input type="subject" v-model="subject" :validators="subjectValidators" />
 
       <Button class="valid-button" alt @click="validate()">
         VALIDATE
@@ -277,6 +278,13 @@ export default {
             value == confirmPassword
         }
       ],
+      subjectValidators: [
+        {
+          name: 'required',
+          message: this.dsTranslate('Field Required'),
+          validator: value => !!value
+        }
+      ],
       cvvValue: null,
       cardNumber: null,
       password: undefined,
@@ -289,7 +297,8 @@ export default {
         firstField: false,
         secondField: false
       },
-      tva: undefined
+      tva: undefined,
+      subject: 'Acme Corporation - Facture n° 000001'
     };
   },
   methods: {

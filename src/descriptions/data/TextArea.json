@@ -81,6 +81,16 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for displaying max characters info"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "When the props passed the alternative styles will be applied"
+    },
+    {
+      "name": "height",
+      "type": "String",
+      "description": "Set the height of textarea"
     }
   ],
   "events": [
