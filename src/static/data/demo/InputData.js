@@ -97,6 +97,8 @@ Basic inputs:<br />
     </div>
   </div>
 </Input>
+
+<Input type="subject" v-model="subject" />
 `.slice(1);
 
 export default {

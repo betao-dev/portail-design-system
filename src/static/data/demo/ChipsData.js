@@ -20,6 +20,17 @@ let usage = `
        :validators="validators"
        @update:chips="updateChips">
 </Chips>
+
+<Chips
+  v-model="emails"
+  :validators="emailValidators"
+  label="Email du destinataire :"
+  alt
+>
+  <template slot="right">
+    <CheckBox v-model="sendCopy" label="M’envoyer une copie"></CheckBox>
+  </template>
+</Chips>
 `.slice(1);
 
 export default {

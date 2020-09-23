@@ -1,13 +1,16 @@
 <template>
-  <div class="ds-chips-wrapper">
+  <div :class="['ds-chips-wrapper', { 'ds-chips-wrapper-alt': alt }]">
     <div
       :class="[
         'ds-chips-container',
         {
           'ds-chips-container-active': active,
-          'ds-chips-container-error': error
+          'ds-chips-container-error': error,
+          'ds-chips-container-valid-backlight': validBacklight,
+          'ds-chips-container-invalid-backlight': invalidBacklight
         }
       ]"
+      :style="{ paddingRight: getPaddingRight }"
     >
       <div
         v-if="label"
@@ -20,7 +23,7 @@
       </div>
 
       <span
-        class="ds-chips"
+        :class="['ds-chips', { 'ds-new-chips': newChip }]"
         tabindex="0"
         @focus="onFocusChips(index)"
         @blur="onBlurChips(index)"
@@ -53,9 +56,15 @@
         @focus="onFocusInput"
         @blur="onBlurInput"
         @keypress="onKeyPress"
+        @keydown="onKeyDown"
         @click="onInputClick"
       />
     </div>
+    <template v-if="isRight">
+      <div class="ds-right-wrapper">
+        <slot name="right"></slot>
+      </div>
+    </template>
     <div v-if="error" class="ds-chips-errors">
       <span v-if="error" class="ds-error-message">
         {{ inputErrors[0] }}
@@ -72,10 +81,12 @@
 
 <script>
 import Icon from './Icon';
+import validation from './../mixins/validation';
 
 export default {
   name: 'Chips',
   components: { Icon },
+  mixins: [validation],
   props: {
     value: null,
     label: String,
@@ -89,6 +100,19 @@ export default {
     showErrors: {
       type: Boolean,
       default: true
+    },
+    alt: Boolean,
+    paddingRight: {
+      type: String,
+      default: '185px'
+    },
+    showCorrectCheck: {
+      type: Boolean,
+      default: true
+    },
+    showValidations: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
@@ -96,7 +120,9 @@ export default {
     newChip: '',
     valueWrapper: [],
     active: false,
-    touched: false
+    touched: false,
+    validBacklight: false,
+    invalidBacklight: false
   }),
   methods: {
     onFocusChips(index) {
@@ -143,16 +169,29 @@ export default {
       this.$emit('update:chips', this.valueWrapper);
     },
     onKeyPress(event) {
-      event = event ? event : window.event;
-      let charCode = event.which ? event.which : event.keyCode;
+      let charCode = this.getCharCode(event);
 
       if (charCode === 32 || charCode === 13) {
         event.preventDefault();
         this.addNewChip();
       }
     },
+    onKeyDown(event) {
+      let charCode = this.getCharCode(event);
+
+      if (charCode === 8 && this.newChip.length === 0) {
+        this.removeChip();
+      }
+    },
+    getCharCode(event) {
+      event = event ? event : window.event;
+      return event.which ? event.which : event.keyCode;
+    },
     addNewChip() {
-      if (this.newChip) {
+      if (
+        this.newChip &&
+        (!this.alt || (this.alt && this.checkValueValidation(this.newChip)))
+      ) {
         this.valueWrapper = this.valueWrapper.concat(this.newChip);
         this.newChip = '';
         this.setTouchEmitValidation();
@@ -160,11 +199,26 @@ export default {
         this.$emit('update:chips', this.valueWrapper);
       }
     },
-    validate() {
+    removeChip() {
+      this.valueWrapper.pop();
       this.setTouchEmitValidation();
+      this.$emit('input', this.valueWrapper);
+      this.$emit('update:chips', this.valueWrapper);
+    },
+    validate() {
+      this.checkBacklight();
+      this.setTouchEmitValidation();
+    },
+    checkValueValidation(value) {
+      return this.validators.every(
+        validator => validator.validator(value) === true
+      );
     }
   },
   computed: {
+    getPaddingRight() {
+      return this.isRight && this.paddingRight;
+    },
     error() {
       return this.inputErrors.length && this.touched && this.showErrors;
     },
@@ -225,12 +279,23 @@ export default {
     },
     getIconColor() {
       return '#98A9BC';
+    },
+    isRight() {
+      return this.$slots.right;
     }
   },
   mounted() {
     document.addEventListener('validate', this.validate);
     document.addEventListener('click', this.outSideClick, true);
     this.$emit('validation', this.validation);
+
+    if (this.alt && this.value && this.value.length > 0) {
+      this.value.forEach(val => {
+        if (this.checkValueValidation(val)) {
+          this.valueWrapper = this.valueWrapper.concat(val);
+        }
+      });
+    }
   },
   beforeDestroy() {
     document.removeEventListener('validate', this.validate);
@@ -245,6 +310,25 @@ export default {
 
 <style lang="less">
 @import '../styles/vars';
+@import '../styles/mixins';
+
+.chips-container-general() {
+  &.ds-chips-container-active {
+    border-bottom: solid 1px @color-primary;
+  }
+
+  &.ds-chips-container-error {
+    border-bottom: solid 1px @color-red;
+  }
+
+  &.ds-chips-container-valid-backlight {
+    .input-valid-fade-animation();
+  }
+
+  &.ds-chips-container-invalid-backlight {
+    .input-invalid-fade-animation();
+  }
+}
 
 .ds-chips-wrapper {
   position: relative;
@@ -330,13 +414,7 @@ export default {
       }
     }
 
-    &.ds-chips-container-active {
-      border: solid 1px @color-primary;
-    }
-
-    &.ds-chips-container-error {
-      border: solid 1px @color-red;
-    }
+    .chips-container-general();
   }
 
   .ds-chips-errors {
@@ -349,6 +427,78 @@ export default {
     top: 0;
     left: 0;
     right: 0;
+  }
+
+  &.ds-chips-wrapper-alt {
+    .ds-chips-container {
+      border: none;
+      border-bottom: 1px solid @color-gray-300;
+      border-radius: 0.5px;
+      padding: 0;
+      min-height: 36px;
+
+      .ds-chips-label {
+        margin-right: 8px;
+        height: 16px;
+        color: @color-gray-400;
+        font-family: Roboto, sans-serif;
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 16px;
+        padding-bottom: 2px;
+      }
+
+      .ds-chips-input {
+        padding: 0;
+        color: @color-dark;
+        font-family: Roboto, sans-serif;
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 21px;
+      }
+
+      .ds-chips {
+        background-color: unset;
+        color: @color-primary;
+        font-family: Roboto, sans-serif;
+        margin: 0 3px 0 0;
+        padding: 0;
+
+        .ds-chip-title {
+          font-size: 14px;
+          letter-spacing: 0;
+          line-height: 21px;
+        }
+
+        &:not(:last-of-type) {
+          &::after {
+            content: ',';
+          }
+        }
+
+        &.ds-new-chips {
+          &::after {
+            content: ',';
+          }
+        }
+      }
+
+      .chips-container-general();
+    }
+
+    .ds-chips-errors {
+      width: 100%;
+      font-size: 11px;
+      position: absolute;
+      padding: 6px 0 0;
+      line-height: normal;
+    }
+
+    .ds-right-wrapper {
+      position: absolute;
+      top: 5px;
+      right: 0;
+    }
   }
 }
 </style>

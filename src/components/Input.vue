@@ -8,7 +8,7 @@
         'ds-sm': sm,
         'ds-md': md,
         'ds-lg': lg,
-        'ds-has-label': label,
+        'ds-has-label': getLabel,
         'ds-input-error': showInvalidBlock
       }
     ]"
@@ -17,7 +17,7 @@
   >
     <label>
       <div
-        v-if="label"
+        v-if="getLabel"
         :id="id"
         :class="{
           'ds-label-text': true,
@@ -28,7 +28,7 @@
           'ds-label-alt': labelAlt
         }"
       >
-        <span class="ds-main-label">{{ label }}</span>
+        <span class="ds-main-label">{{ getLabel }}</span>
 
         <Icon
           class="ds-input-label-icon"
@@ -101,7 +101,7 @@
         }"
         :key="inputId"
         v-model="inputValue"
-        :style="{ ...getStyle, borderRadius, ...inputStyle }"
+        :style="{ ...getStyle, ...getBorderRadius, ...inputStyle }"
         @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
         @blur="inputBlur"
@@ -128,7 +128,7 @@
         }"
         :key="inputId"
         v-model="inputValue"
-        :style="{ ...getStyle, borderRadius, ...inputStyle }"
+        :style="{ ...getStyle, ...getBorderRadius, ...inputStyle }"
         v-mask="mask"
         @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
@@ -221,7 +221,8 @@ export default {
             'number-dot',
             'number-dot-comma',
             'payment-card',
-            'tel'
+            'tel',
+            'subject'
           ].indexOf(value) !== -1
         );
       },
@@ -294,7 +295,9 @@ export default {
     inputId: Math.random()
       .toString(36)
       .substring(7),
-    showPassword: false
+    showPassword: false,
+    internalLabel: undefined,
+    internalBorderRadius: undefined
   }),
   mounted() {
     if (this.name) {
@@ -314,12 +317,18 @@ export default {
     this.checkValuePattern();
     this.$emit('validation', this.validation);
     setTimeout(() => this.slideInit(), 500);
+
+    if (this.type === 'subject') {
+      this.internalBorderRadius = '0.5px';
+      this.internalLabel = 'Objet :';
+    }
   },
   computed: {
     inputAttrs() {
       return {
         type:
           this.type === 'number' ||
+          this.type === 'subject' ||
           (this.type === 'password' && this.showPassword)
             ? 'text'
             : this.type,
@@ -386,7 +395,8 @@ export default {
         this.type === 'number' ||
         this.type === 'number-dot' ||
         this.type === 'number-dot-comma' ||
-        this.type === 'payment-card') &&
+        this.type === 'payment-card' ||
+        this.type === 'subject') &&
         this.maxlength
         ? 'maxlength'
         : null;
@@ -414,6 +424,14 @@ export default {
         this.showInvalidBlock &&
         (this.invalidBacklight || this.constantlyInvalidBacklight)
       );
+    },
+    getBorderRadius() {
+      return {
+        borderRadius: this.internalBorderRadius || this.borderRadius
+      };
+    },
+    getLabel() {
+      return this.internalLabel || this.label;
     }
   },
   methods: {
@@ -576,7 +594,8 @@ export default {
   &.ds-number-dot,
   &.ds-number-dot-comma,
   &.ds-payment-card,
-  &.ds-tel {
+  &.ds-tel,
+  &.ds-subject {
     .ds-label-text {
       .font-desktop-x-small-regular-gray();
       display: flex;
@@ -736,6 +755,30 @@ export default {
     input + .active-icon {
       cursor: pointer;
       pointer-events: auto;
+    }
+  }
+
+  &.ds-subject {
+    .ds-label-text {
+      height: 16px;
+      color: @color-gray-400;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 16px;
+      margin-bottom: 0;
+      position: absolute;
+      top: calc(50% - 10px);
+    }
+
+    input {
+      padding-left: 48px;
+      border: none;
+      border-bottom: 1px solid @color-gray-300;
+      letter-spacing: 0;
+      line-height: 21px;
+      height: 36px;
+      padding-bottom: 12px;
     }
   }
 
