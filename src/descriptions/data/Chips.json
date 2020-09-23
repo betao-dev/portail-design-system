@@ -58,6 +58,18 @@
       "type": "String",
       "default": "185px",
       "description": "Apply padding right for 'ds-chips-container' when component has a slot right"
+    },
+    {
+      "name": "showCorrectCheck",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Allowed to display default green background for valid state of Chips"
+    },
+    {
+      "name": "showValidations",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for displaying validation of Chips"
     }
   ],
   "events": [

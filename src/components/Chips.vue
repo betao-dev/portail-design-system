@@ -5,7 +5,9 @@
         'ds-chips-container',
         {
           'ds-chips-container-active': active,
-          'ds-chips-container-error': error
+          'ds-chips-container-error': error,
+          'ds-chips-container-valid-backlight': validBacklight,
+          'ds-chips-container-invalid-backlight': invalidBacklight
         }
       ]"
       :style="{ paddingRight: getPaddingRight }"
@@ -79,10 +81,12 @@
 
 <script>
 import Icon from './Icon';
+import validation from './../mixins/validation';
 
 export default {
   name: 'Chips',
   components: { Icon },
+  mixins: [validation],
   props: {
     value: null,
     label: String,
@@ -101,6 +105,14 @@ export default {
     paddingRight: {
       type: String,
       default: '185px'
+    },
+    showCorrectCheck: {
+      type: Boolean,
+      default: true
+    },
+    showValidations: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
@@ -108,7 +120,9 @@ export default {
     newChip: '',
     valueWrapper: [],
     active: false,
-    touched: false
+    touched: false,
+    validBacklight: false,
+    invalidBacklight: false
   }),
   methods: {
     onFocusChips(index) {
@@ -192,6 +206,7 @@ export default {
       this.$emit('update:chips', this.valueWrapper);
     },
     validate() {
+      this.checkBacklight();
       this.setTouchEmitValidation();
     },
     checkValueValidation(value) {
@@ -295,6 +310,25 @@ export default {
 
 <style lang="less">
 @import '../styles/vars';
+@import '../styles/mixins';
+
+.chips-container-general() {
+  &.ds-chips-container-active {
+    border-bottom: solid 1px @color-primary;
+  }
+
+  &.ds-chips-container-error {
+    border-bottom: solid 1px @color-red;
+  }
+
+  &.ds-chips-container-valid-backlight {
+    .input-valid-fade-animation();
+  }
+
+  &.ds-chips-container-invalid-backlight {
+    .input-invalid-fade-animation();
+  }
+}
 
 .ds-chips-wrapper {
   position: relative;
@@ -380,13 +414,7 @@ export default {
       }
     }
 
-    &.ds-chips-container-active {
-      border: solid 1px @color-primary;
-    }
-
-    &.ds-chips-container-error {
-      border: solid 1px @color-red;
-    }
+    .chips-container-general();
   }
 
   .ds-chips-errors {
@@ -455,13 +483,15 @@ export default {
         }
       }
 
-      &.ds-chips-container-active {
-        border-bottom: solid 1px @color-primary;
-      }
+      .chips-container-general();
+    }
 
-      &.ds-chips-container-error {
-        border-bottom: solid 1px @color-red;
-      }
+    .ds-chips-errors {
+      width: 100%;
+      font-size: 11px;
+      position: absolute;
+      padding: 6px 0 0;
+      line-height: normal;
     }
 
     .ds-right-wrapper {
