@@ -12,7 +12,10 @@
 
 <template>
   <div
-    :class="['ds-collapser', { 'ds-collapser-grey': grey }]"
+    :class="[
+      'ds-collapser',
+      { 'ds-collapser-grey': grey, 'ds-collapser-alt': alt }
+    ]"
     :style="{ backgroundColor: bgColor }"
   >
     <div
@@ -91,7 +94,8 @@ export default {
       type: Boolean,
       default: false
     },
-    grey: Boolean
+    grey: Boolean,
+    alt: Boolean
   },
   computed: {
     iconColorWrapper() {
@@ -200,6 +204,29 @@ export default {
     padding: @collapser-body-padding;
     background-color: @color-white;
     border-radius: 0 0 4px 4px;
+  }
+
+  &.ds-collapser-alt {
+    .ds-collapser-header {
+      height: unset;
+      min-height: 56px;
+      align-items: unset;
+
+      .ds-title {
+        line-height: 23px;
+        overflow: unset;
+        height: unset;
+        padding: 17px 15px 16px 24px;
+      }
+
+      .ds-icon-status-wrapper {
+        padding-top: 17px;
+      }
+
+      .ds-icon-wrapper {
+        padding-top: 20px;
+      }
+    }
   }
 }
 </style>
