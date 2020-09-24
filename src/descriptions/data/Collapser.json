@@ -52,6 +52,11 @@
       "name": "grey",
       "type": "Boolean",
       "description": "Set grey background for the header with grey text"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "Pass alt prop for applying alternative header styles"
     }
   ],
   "events": [

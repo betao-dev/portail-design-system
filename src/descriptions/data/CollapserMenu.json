@@ -48,6 +48,11 @@
       "name": "grey",
       "type": "Boolean",
       "description": "Set grey background for the headers with grey text"
+    },
+    {
+      "name": "alt",
+      "type": "Boolean",
+      "description": "Pass alt prop into Collapser component for applying alternative header styles"
     }
   ],
   "events": []
