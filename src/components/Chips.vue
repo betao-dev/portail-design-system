@@ -113,7 +113,8 @@ export default {
     showValidations: {
       type: Boolean,
       default: true
-    }
+    },
+    name: String
   },
   data: () => ({
     selectedChips: -1,
@@ -122,7 +123,8 @@ export default {
     active: false,
     touched: false,
     validBacklight: false,
-    invalidBacklight: false
+    invalidBacklight: false,
+    validateEventName: undefined
   }),
   methods: {
     onFocusChips(index) {
@@ -285,8 +287,16 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('validate', this.validate);
     document.addEventListener('click', this.outSideClick, true);
+
+    if (this.name) {
+      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).toLowerCase()}`;
+      document.addEventListener(this.validateEventName, this.validate);
+    } else {
+      document.addEventListener('validate', this.validate);
+    }
+
     this.$emit('validation', this.validation);
 
     if (this.alt && this.value && this.value.length > 0) {
@@ -298,7 +308,11 @@ export default {
     }
   },
   beforeDestroy() {
-    document.removeEventListener('validate', this.validate);
+    if (this.name) {
+      document.removeEventListener(this.validateEventName, this.validate);
+    } else {
+      document.removeEventListener('validate', this.validate);
+    }
   },
   watch: {
     value(val) {
