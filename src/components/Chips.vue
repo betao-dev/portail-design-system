@@ -6,8 +6,8 @@
         {
           'ds-chips-container-active': active,
           'ds-chips-container-error': error,
-          'ds-chips-container-valid-backlight': validBacklight,
-          'ds-chips-container-invalid-backlight': invalidBacklight
+          'ds-chips-container-valid-backlight': showValidCheck && validBacklight,
+          'ds-chips-container-invalid-backlight': showInvalidBlock && invalidBacklight
         }
       ]"
       :style="{ paddingRight: getPaddingRight }"
@@ -206,10 +206,6 @@ export default {
       this.setTouchEmitValidation();
       this.$emit('input', this.valueWrapper);
       this.$emit('update:chips', this.valueWrapper);
-    },
-    validate() {
-      this.checkBacklight();
-      this.setTouchEmitValidation();
     },
     checkValueValidation(value) {
       return this.validators.every(
