@@ -70,6 +70,11 @@
       "type": "Boolean",
       "default": "true",
       "description": "Responsible for displaying validation of Chips"
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "With this property Chips component will be listening to validation with current value for e.g. 'validateTest'"
     }
   ],
   "events": [
