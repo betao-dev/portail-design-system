@@ -209,7 +209,12 @@
           </div>
         </div>
       </Input>
-      <Input type="subject" v-model="subject" :validators="subjectValidators" />
+      <Input
+        type="subject"
+        v-model="subject"
+        :validators="subjectValidators"
+        label="Objet :"
+      />
 
       <Button class="valid-button" alt @click="validate()">
         VALIDATE

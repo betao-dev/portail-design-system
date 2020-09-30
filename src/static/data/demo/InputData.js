@@ -98,7 +98,12 @@ Basic inputs:<br />
   </div>
 </Input>
 
-<Input type="subject" v-model="subject" />
+<Input
+  type="subject"
+  v-model="subject"
+  :validators="subjectValidators"
+  label="Objet :"
+/>
 `.slice(1);
 
 export default {
