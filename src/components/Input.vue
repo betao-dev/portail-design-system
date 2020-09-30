@@ -619,8 +619,8 @@ export default {
 
         &::v-deep {
           .popper {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: 14px;
+            line-height: 18px;
             max-width: 330px;
             min-width: 300px;
             width: auto;
