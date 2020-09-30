@@ -8,7 +8,7 @@
         'ds-sm': sm,
         'ds-md': md,
         'ds-lg': lg,
-        'ds-has-label': getLabel,
+        'ds-has-label': label,
         'ds-input-error': showInvalidBlock
       }
     ]"
@@ -17,7 +17,7 @@
   >
     <label>
       <div
-        v-if="getLabel"
+        v-if="label"
         :id="id"
         :class="{
           'ds-label-text': true,
@@ -28,7 +28,7 @@
           'ds-label-alt': labelAlt
         }"
       >
-        <span class="ds-main-label">{{ getLabel }}</span>
+        <span class="ds-main-label">{{ label }}</span>
 
         <Icon
           class="ds-input-label-icon"
@@ -296,7 +296,6 @@ export default {
       .toString(36)
       .substring(7),
     showPassword: false,
-    internalLabel: undefined,
     internalBorderRadius: undefined
   }),
   mounted() {
@@ -320,7 +319,6 @@ export default {
 
     if (this.type === 'subject') {
       this.internalBorderRadius = '0.5px';
-      this.internalLabel = 'Objet :';
     }
   },
   computed: {
@@ -429,9 +427,6 @@ export default {
       return {
         borderRadius: this.internalBorderRadius || this.borderRadius
       };
-    },
-    getLabel() {
-      return this.internalLabel || this.label;
     }
   },
   methods: {
