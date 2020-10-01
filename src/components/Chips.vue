@@ -6,8 +6,10 @@
         {
           'ds-chips-container-active': active,
           'ds-chips-container-error': error,
-          'ds-chips-container-valid-backlight': showValidCheck && validBacklight,
-          'ds-chips-container-invalid-backlight': showInvalidBlock && invalidBacklight
+          'ds-chips-container-valid-backlight':
+            showValidCheck && validBacklight,
+          'ds-chips-container-invalid-backlight':
+            showInvalidBlock && invalidBacklight
         }
       ]"
       :style="{ paddingRight: getPaddingRight }"
@@ -502,6 +504,7 @@ export default {
       position: absolute;
       padding: 6px 0 0;
       line-height: normal;
+      font-family: Roboto, sans-serif;
     }
 
     .ds-right-wrapper {
