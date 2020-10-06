@@ -136,7 +136,12 @@
         <div
           :class="[
             'ds-option-wrapper',
-            { 'ds-option-wrapper-custom': customContent }
+            {
+              'ds-option-wrapper-custom': customContent,
+              'ds-option-wrapper-selected':
+                (typeof option !== 'object' ? option : option.value) ===
+                inputSelectValue
+            }
           ]"
           :style="{ ...optionStyles }"
           v-for="(option, index) in options"
@@ -597,6 +602,11 @@ export default {
             padding-bottom: 0;
           }
         }
+
+        &:hover,
+        &.ds-option-wrapper-selected {
+          color: @color-primary;
+        }
       }
 
       &.ds-options-content {
@@ -792,6 +802,11 @@ export default {
       line-height: 16px;
       color: #1b1e24;
       font-family: Roboto, sans-serif;
+
+      &:hover,
+      &.ds-option-wrapper-selected {
+        color: @color-primary;
+      }
     }
   }
 
