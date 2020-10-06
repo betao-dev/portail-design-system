@@ -226,6 +226,8 @@ export default {
       }
 
       let data = [];
+      let validateValue =
+        this.alt && this.newChip ? this.newChip : this.valueWrapper;
 
       let requiredValidatorIndex = this.validators.findIndex(
         validator => validator.name === 'required'
@@ -234,22 +236,22 @@ export default {
       if (~requiredValidatorIndex) {
         data.push([
           this.validators[requiredValidatorIndex].name,
-          this.validators[requiredValidatorIndex].validator(this.valueWrapper),
+          this.validators[requiredValidatorIndex].validator(validateValue),
           this.validators[requiredValidatorIndex].message
         ]);
       }
 
       for (let i = 0; i < this.validators.length; i++) {
         let invalid = false;
-        for (let j = 0; j < this.valueWrapper.length; j++) {
+        for (let j = 0; j < validateValue.length; j++) {
           if (
             !invalid &&
-            !this.validators[i].validator(this.valueWrapper[j]) &&
+            !this.validators[i].validator(validateValue[j]) &&
             this.validators[i].name !== 'required'
           ) {
             data.push([
               this.validators[i].name,
-              this.validators[i].validator(this.valueWrapper[j]),
+              this.validators[i].validator(validateValue[j]),
               this.validators[i].message
             ]);
             invalid = true;
@@ -262,15 +264,9 @@ export default {
     inputErrors() {
       let errors = [];
 
-      if (this.alt && this.newChip) {
-        errors = this.validators
-          .filter(validator => !validator.validator(this.newChip))
-          .map(validator => validator.message);
-      } else {
-        for (let i = 0; i < this.validation.length; i++) {
-          if (!this.validation[i][1]) {
-            errors.push(this.validation[i][2]);
-          }
+      for (let i = 0; i < this.validation.length; i++) {
+        if (!this.validation[i][1]) {
+          errors.push(this.validation[i][2]);
         }
       }
 
