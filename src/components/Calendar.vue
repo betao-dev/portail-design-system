@@ -963,7 +963,7 @@ export default {
     cursor: pointer;
     position: absolute;
     bottom: 8%;
-    right: 6px;
+    right: 9px;
     height: 50% !important;
   }
 

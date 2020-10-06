@@ -735,7 +735,7 @@ export default {
     input + .icon-wrapper {
       position: absolute;
       bottom: 24%;
-      right: 6px;
+      right: 9px;
       height: 50% !important;
     }
 
