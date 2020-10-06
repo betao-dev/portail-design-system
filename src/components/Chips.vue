@@ -210,9 +210,7 @@ export default {
       this.$emit('update:chips', this.valueWrapper);
     },
     checkValueValidation(value) {
-      return this.validators.every(
-        validator => validator.validator(value) === true
-      );
+      return this.validators.every(validator => !!validator.validator(value));
     }
   },
   computed: {
@@ -264,9 +262,15 @@ export default {
     inputErrors() {
       let errors = [];
 
-      for (let i = 0; i < this.validation.length; i++) {
-        if (!this.validation[i][1]) {
-          errors.push(this.validation[i][2]);
+      if (this.alt && this.newChip) {
+        errors = this.validators
+          .filter(validator => !validator.validator(this.newChip))
+          .map(validator => validator.message);
+      } else {
+        for (let i = 0; i < this.validation.length; i++) {
+          if (!this.validation[i][1]) {
+            errors.push(this.validation[i][2]);
+          }
         }
       }
 
