@@ -226,8 +226,7 @@ export default {
       }
 
       let data = [];
-      let validateValue =
-        this.alt && this.newChip ? this.newChip : this.valueWrapper;
+      let validateValue = this.newChip || this.valueWrapper;
 
       let requiredValidatorIndex = this.validators.findIndex(
         validator => validator.name === 'required'
@@ -243,15 +242,19 @@ export default {
 
       for (let i = 0; i < this.validators.length; i++) {
         let invalid = false;
+
         for (let j = 0; j < validateValue.length; j++) {
+          let value = Array.isArray(validateValue)
+            ? validateValue[j]
+            : validateValue;
           if (
             !invalid &&
-            !this.validators[i].validator(validateValue[j]) &&
+            !this.validators[i].validator(value) &&
             this.validators[i].name !== 'required'
           ) {
             data.push([
               this.validators[i].name,
-              this.validators[i].validator(validateValue[j]),
+              this.validators[i].validator(value),
               this.validators[i].message
             ]);
             invalid = true;
