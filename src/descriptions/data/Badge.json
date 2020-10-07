@@ -11,6 +11,11 @@
       "description": "Status of the Badge"
     },
     {
+      "name": "activeHover",
+      "type": "Boolean",
+      "description": "Status of hover the Badge"
+    },
+    {
       "name": "mark",
       "type": "Boolean",
       "description": "show mark or not"
