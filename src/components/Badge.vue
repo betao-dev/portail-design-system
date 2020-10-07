@@ -12,14 +12,24 @@
 
 <template>
   <div
-    class="ds-badge"
+    :class="[
+      'ds-badge',
+      { 'ds-badge-active': active, 'ds-badge-active-hover': activeHover }
+    ]"
     @click="$emit('click')"
     :style="{
       backgroundColor,
-      borderColor: active ? 'transparent' : '#E8ECEF'
+      borderColor: active || activeHover ? 'transparent' : '#E8ECEF'
     }"
   >
-    <div v-if="mark" class="mark" :style="{ backgroundColor: markColor }" />
+    <div
+      v-if="mark"
+      :class="[
+        'mark',
+        { 'ds-mark-active': active, 'ds-mark-active-hover': activeHover }
+      ]"
+      :style="{ backgroundColor: markColor }"
+    />
 
     <Icon
       v-else-if="icon"
@@ -51,6 +61,7 @@ export default {
     iconPadding: String,
     color: String,
     active: Boolean,
+    activeHover: Boolean,
     mark: Boolean
   },
   data: () => ({
@@ -61,7 +72,7 @@ export default {
       return this.COLORS[this.color] || this.color;
     },
     backgroundColor() {
-      return this.active ? this.markColor + '19' : 'white';
+      return this.active || this.activeHover ? this.markColor + '19' : 'white';
     }
   }
 };
@@ -91,6 +102,22 @@ export default {
     height: 10px;
     border-radius: 10px;
     margin-right: 11px;
+
+    &.ds-mark-active {
+      transition: none;
+    }
+
+    &.ds-mark-active-hover {
+      transition: background-color 0.3s;
+    }
+  }
+
+  &.ds-badge-active {
+    transition: none;
+  }
+
+  &.ds-badge-active-hover {
+    transition: background-color 0.3s;
   }
 }
 </style>
