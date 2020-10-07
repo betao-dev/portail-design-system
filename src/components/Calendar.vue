@@ -73,7 +73,8 @@
         :size="iconSize"
         :color="iconColor"
         :class="{
-          'active-icon': activeIcon
+          'active-icon': activeIcon,
+          'disable-icon': disabled
         }"
         :padding="iconPadding"
         :id="iconId"
@@ -440,7 +441,7 @@ export default {
       );
     },
     getInputIcon() {
-      return this.inputValueWrapper ? 'close' : 'calendar';
+      return this.inputValueWrapper && !this.disabled ? 'close' : 'calendar';
     },
     getMaxlength() {
       return this.rangeAvailable ? 23 : 10;
@@ -593,24 +594,26 @@ export default {
       this.inputFocus();
     },
     inputFocus() {
-      if (this.slideLabel) {
-        this.labelFocus = true;
-        this.slideActive = true;
-      }
-      if (!this.validationClose) {
-        this.touched = true;
-      }
-      this.calendarVisible = !this.calendarVisible;
+      if (!this.disabled) {
+        if (this.slideLabel) {
+          this.labelFocus = true;
+          this.slideActive = true;
+        }
+        if (!this.validationClose) {
+          this.touched = true;
+        }
+        this.calendarVisible = !this.calendarVisible;
 
-      if (this.getCalendarPosition === 'modal') {
-        this.$refs.input.blur();
-      }
+        if (this.getCalendarPosition === 'modal') {
+          this.$refs.input.blur();
+        }
 
-      if (this.validationClose && !this.calendarVisible) {
-        this.checkValidationClose();
-      }
+        if (this.validationClose && !this.calendarVisible) {
+          this.checkValidationClose();
+        }
 
-      this.$emit('inputFocus');
+        this.$emit('inputFocus');
+      }
     },
     inputBlur() {
       if (this.slideLabel) {
@@ -644,22 +647,24 @@ export default {
       document.body.style.overflowX = 'hidden';
     },
     onIconClick() {
-      if (this.inputEdit) {
-        this.onResetEditDate();
-      }
-
-      if (!this.inputValueWrapper) {
-        this.calendarVisible = !this.calendarVisible;
-
-        if (this.calendarVisible) {
-          this.$refs.input.focus();
-        } else {
-          this.$refs.input.blur();
+      if (!this.disabled) {
+        if (this.inputEdit) {
+          this.onResetEditDate();
         }
-      }
 
-      this.resetDates();
-      this.$emit('icon-click');
+        if (!this.inputValueWrapper) {
+          this.calendarVisible = !this.calendarVisible;
+
+          if (this.calendarVisible) {
+            this.$refs.input.focus();
+          } else {
+            this.$refs.input.blur();
+          }
+        }
+
+        this.resetDates();
+        this.$emit('icon-click');
+      }
     },
     onSave() {
       this.calendarVisible = false;
@@ -933,7 +938,10 @@ export default {
     }
 
     &:disabled {
-      border: 1px solid #f2f4f7;
+      border: 1px solid @color-gray-300;
+      background-color: @color-gray-100;
+      color: @color-gray-400;
+      cursor: default;
     }
 
     &:disabled,
@@ -969,6 +977,10 @@ export default {
 
   input + .active-icon {
     cursor: pointer;
+  }
+
+  input + .disable-icon {
+    cursor: default;
   }
 
   input {
