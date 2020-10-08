@@ -217,8 +217,6 @@ export default {
 .ds-select-option-checkbox {
   &::v-deep {
     .ds-option-content {
-      margin-top: 18px;
-
       &:first-child {
         margin-top: 0;
       }

@@ -578,21 +578,21 @@ export default {
     }
 
     .ds-options {
-      padding: 12px 18px;
+      padding: 12px 0;
 
       &.ds-options-custom {
         top: 58px !important;
-        padding: 12px 20px 15px;
+        padding: 12px 0 15px;
         border: none;
       }
 
       .ds-option-wrapper {
-        padding: 12px 0;
+        padding: 12px 18px;
         line-height: 22px;
 
         &.ds-option-wrapper-custom {
           letter-spacing: 0;
-          padding: 3px 0 3px;
+          padding: 3px 20px 3px;
 
           &:first-child {
             padding-top: 0;
@@ -603,9 +603,12 @@ export default {
           }
         }
 
-        &:hover,
         &.ds-option-wrapper-selected {
           color: @color-primary;
+        }
+
+        &:hover {
+          background-color: @color-gray-100;
         }
       }
 
@@ -613,8 +616,18 @@ export default {
         box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
         border-radius: 4px;
         margin-top: 6px;
-        padding: 24px 20px 18px;
+        padding: 11px 0;
         border: none;
+
+        .ds-option-content {
+          padding: 12.5px 20px 6.5px;
+          padding-left: 20px;
+          padding-right: 20px;
+
+          &:hover {
+            background-color: @color-gray-100;
+          }
+        }
       }
     }
 
@@ -803,9 +816,12 @@ export default {
       color: #1b1e24;
       font-family: Roboto, sans-serif;
 
-      &:hover,
       &.ds-option-wrapper-selected {
         color: @color-primary;
+      }
+
+      &:hover {
+        background-color: @color-gray-100;
       }
     }
   }
