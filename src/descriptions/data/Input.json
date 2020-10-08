@@ -183,6 +183,11 @@
       "name": "touchName",
       "type": "String",
       "description": "With this property, Input component will listen to event with prefix 'touch' + and this property capitalized"
+    },
+    {
+      "name": "normalize",
+      "type": "String",
+      "description": "Normalize value inside input with the next modes: default pattern - Allow latin Alphabet with é è ' - and space, number pattern  - Default pattern with numbers, email pattern  - Number pattern with @ . _ and without ' and space, city pattern  - Number pattern with ,"
     }
   ],
   "events": [

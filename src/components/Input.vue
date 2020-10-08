@@ -277,7 +277,8 @@ export default {
       type: Boolean,
       default: false
     },
-    touchName: String
+    touchName: String,
+    normalize: String
   },
   data: () => ({
     validateEventName: undefined,
@@ -528,6 +529,10 @@ export default {
         value = value.replace(pattern, '');
       }
 
+      if (this.normalize) {
+        value = this.normalizeCharacters(value);
+      }
+
       this.inputValue =
         typeof value === 'string' ? value.slice(0, this.maxlength) : value;
     },
@@ -539,10 +544,44 @@ export default {
     },
     setTouched(touched) {
       this.touched = touched;
+    },
+    normalizeCharacters(value) {
+      value = value.replace(/–/g, '-');
+      value = value.replace(/á|à|ä|â|ã|å/g, 'a');
+      value = value.replace(/ê|ë|ě/g, 'e');
+      value = value.replace(/ó|ò|ô|ö|õ|ð|ø/g, 'o');
+      value = value.replace(/ú|ù|û|ü/g, 'u');
+      value = value.replace(/ý|ỳ|ŷ|ÿ/g, 'y');
+      value = value.replace(/ì|í|î|ï/g, 'i');
+      value = value.replace(/ñ/g, 'n');
+      value = value.replace(/ç|ć|č/g, 'c');
+      value = value.replace(/œ/g, 'oe');
+      value = value.replace(/æ/g, 'ae');
+      value = value.replace(/š|ś/g, 's');
+      value = value.replace(/ž/g, 'z');
+
+      // default pattern - Allow latin Alphabet with é è ' - and space
+      // number pattern  - Default pattern with numbers
+      // email pattern  - Number pattern with @ . _ and without ' and space
+      // city pattern  - Number pattern with ,
+      const patterns = {
+        default: /[^a-zA-ZéèÉÈ\-' ]+/g,
+        number: /[^0-9a-zA-ZéèÉÈ\-' ]+/g,
+        email: /[^0-9a-zA-ZéèÉÈ\-@_.]+/g,
+        city: /[^0-9a-zA-ZéèÉÈ\-', ]+/g
+      };
+
+      value = value.replace(patterns[this.normalize], '');
+
+      return value;
     }
   },
   watch: {
     value(newValue) {
+      if (newValue && this.normalize) {
+        this.inputValue = this.normalizeCharacters(newValue);
+      }
+
       if (this.slideLabel && !this.labelFocus && !newValue) {
         this.slideActive = false;
       }
