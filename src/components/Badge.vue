@@ -14,7 +14,8 @@
   <div
     :class="[
       'ds-badge',
-      { 'ds-badge-active': active, 'ds-badge-active-hover': activeHover }
+      activeHover ? 'ds-badge-active-hover' : 'ds-badge-active-blur',
+      { 'ds-badge-active': active }
     ]"
     @click="$emit('click')"
     :style="{
@@ -26,7 +27,8 @@
       v-if="mark"
       :class="[
         'mark',
-        { 'ds-mark-active': active, 'ds-mark-active-hover': activeHover }
+        activeHover ? 'ds-mark-active-hover' : 'ds-mark-active-blur',
+        { 'ds-mark-active': active }
       ]"
       :style="{ backgroundColor: markColor }"
     />
@@ -110,6 +112,10 @@ export default {
     &.ds-mark-active-hover {
       transition: background-color 0.3s;
     }
+
+    &.ds-mark-active-blur {
+      transition: background-color 0.3s;
+    }
   }
 
   &.ds-badge-active {
@@ -117,6 +123,10 @@ export default {
   }
 
   &.ds-badge-active-hover {
+    transition: background-color 0.3s;
+  }
+
+  &.ds-badge-active-blur {
     transition: background-color 0.3s;
   }
 }
