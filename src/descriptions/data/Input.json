@@ -188,6 +188,11 @@
       "name": "normalize",
       "type": "String",
       "description": "Normalize value inside input with the next modes: default pattern - Allow latin Alphabet with é è ' - and space, number pattern  - Default pattern with numbers, email pattern  - Number pattern with @ . _ and without ' and space, city pattern  - Number pattern with ,"
+    },
+    {
+      "name": "autocomplete",
+      "type": "String",
+      "description": "Provide 'off' for turning of autocomplete"
     }
   ],
   "events": [
