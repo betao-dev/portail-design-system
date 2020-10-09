@@ -1,5 +1,10 @@
 <template>
-  <div :class="['ds-chips-wrapper', { 'ds-chips-wrapper-alt': alt }]">
+  <div
+    :class="[
+      'ds-chips-wrapper',
+      { 'ds-chips-wrapper-alt': alt, 'ds-chips-wrapper-disabled': disabled }
+    ]"
+  >
     <div
       :class="[
         'ds-chips-container',
@@ -522,6 +527,12 @@ export default {
       position: absolute;
       top: 5px;
       right: 0;
+    }
+  }
+
+  &.ds-chips-wrapper-disabled {
+    .ds-chips-container {
+      cursor: default;
     }
   }
 }
