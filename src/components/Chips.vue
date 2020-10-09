@@ -54,6 +54,7 @@
         v-bind="inputAttrs"
         type="text"
         ref="chip-input"
+        :disabled="disabled"
         v-model="newChip"
         @focus="onFocusInput"
         @blur="onBlurInput"
@@ -116,7 +117,9 @@ export default {
       type: Boolean,
       default: true
     },
-    name: String
+    name: String,
+    disabled: Boolean,
+    maxLength: Number
   },
   data: () => ({
     selectedChips: -1,
@@ -194,6 +197,7 @@ export default {
     addNewChip() {
       if (
         this.newChip &&
+        (!this.maxLength || this.valueWrapper.length < this.maxLength) &&
         (!this.alt || (this.alt && this.checkValueValidation(this.newChip)))
       ) {
         this.valueWrapper = this.valueWrapper.concat(this.newChip);
@@ -306,6 +310,10 @@ export default {
           this.valueWrapper = this.valueWrapper.concat(val);
         }
       });
+    }
+
+    if (this.maxLength) {
+      this.valueWrapper = this.valueWrapper.slice(0, this.maxLength);
     }
   },
   beforeDestroy() {

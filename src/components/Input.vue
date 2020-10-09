@@ -102,6 +102,7 @@
         :key="inputId"
         v-model="inputValue"
         :style="{ ...getStyle, ...getBorderRadius, ...inputStyle }"
+        :autocomplete="autocomplete"
         @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
         @blur="inputBlur"
@@ -129,6 +130,7 @@
         :key="inputId"
         v-model="inputValue"
         :style="{ ...getStyle, ...getBorderRadius, ...inputStyle }"
+        :autocomplete="autocomplete"
         v-mask="mask"
         @focus.prevent="inputFocus"
         @click.prevent="inputFocus"
@@ -278,7 +280,8 @@ export default {
       default: false
     },
     touchName: String,
-    normalize: String
+    normalize: String,
+    autocomplete: String
   },
   data: () => ({
     validateEventName: undefined,
