@@ -155,7 +155,7 @@ export default {
       width: 40px;
       height: 40px;
       border-radius: 4px;
-      background-color: @color-gray-200;
+      background-color: @color-gray-300;
       display: flex;
       justify-content: center;
       align-items: center;
