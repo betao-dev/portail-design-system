@@ -47,7 +47,16 @@
         :key="dataIndex"
         @click="onClick(row, dataIndex)"
       >
-        <div class="ds-data-wrapper">
+        <div
+          :class="[
+            'ds-data-wrapper',
+            dataIndex === hoverRowIndex
+              ? 'ds-data-wrapper-hover'
+              : 'ds-data-wrapper-blur'
+          ]"
+          @mouseover="onMouseover(dataIndex)"
+          @mouseleave="onMouseleave"
+        >
           <span
             v-for="(header, index) in headers"
             :style="getStyles(header)"
@@ -139,7 +148,8 @@ export default {
     sortType: null,
     sortKey: null,
     pageItems: [],
-    pageSizes: [5, 10, 15, 20, 25, 50]
+    pageSizes: [5, 10, 15, 20, 25, 50],
+    hoverRowIndex: undefined
   }),
   methods: {
     getSlotName(header) {
@@ -197,6 +207,12 @@ export default {
     updatePageSize(size) {
       this.$emit('update:size', size);
       this.$emit('update:page', 1);
+    },
+    onMouseover(index) {
+      this.hoverRowIndex = index;
+    },
+    onMouseleave() {
+      this.hoverRowIndex = undefined;
     }
   },
   mounted() {
@@ -326,23 +342,14 @@ export default {
           }
         }
 
-        &:hover {
-          border: 1px solid @color-gray-300;
-          box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.12);
-          padding: 9px 0;
+        &.ds-data-wrapper-hover {
+          box-shadow: 0 2px 16px 0 rgba(153, 155, 168, 0.16);
+          transition: box-shadow 0.3s;
           z-index: 99;
-          margin-right: -2px;
-          margin-left: -1px;
+        }
 
-          span {
-            &:first-child {
-              padding-left: 23px;
-            }
-
-            &:last-child {
-              padding-right: 23px;
-            }
-          }
+        &.ds-data-wrapper-blur {
+          transition: box-shadow 0.3s;
         }
       }
 
