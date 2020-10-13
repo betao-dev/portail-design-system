@@ -111,7 +111,6 @@ export default {
 
   .ds-notification-popup {
     display: flex;
-    align-items: center;
     padding: 21px 20px 21px 24px;
 
     .ds-notification-popup-icon {
@@ -120,7 +119,6 @@ export default {
 
     .ds-notification-popup-body {
       display: flex;
-      align-items: center;
       justify-content: space-between;
       width: 100%;
 
@@ -134,6 +132,7 @@ export default {
 
       .ds-notification-popup-icon-close {
         cursor: pointer;
+        margin-left: 14px;
       }
     }
   }
@@ -147,5 +146,11 @@ export default {
 .notification-popup-enter,
 .notification-popup-leave-to {
   opacity: 0;
+}
+
+@media only screen and (max-width: 588px) {
+  .ds-notification-popup-wrapper {
+    width: ~'calc(100% - 32px)' !important;
+  }
 }
 </style>
