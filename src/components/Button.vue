@@ -260,6 +260,7 @@ export default {
     text-align: center;
     background: @color-primary;
     text-transform: uppercase;
+    font-weight: 500;
 
     &.ds-button-big {
       .font-components-button-big();
@@ -366,6 +367,7 @@ export default {
     &:hover,
     &:focus,
     &:active {
+      color: @color-dark !important;
       background-color: rgba(0, 0, 0, 0);
     }
 
