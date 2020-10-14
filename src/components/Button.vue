@@ -272,7 +272,7 @@ export default {
     }
 
     &:active {
-      background: darken(@color-primary, 10%);
+      background: darken(@color-primary, 7%);
     }
 
     .ds-icon {
@@ -300,7 +300,7 @@ export default {
     }
 
     &:active {
-      background: darken(@color-red, 10%);
+      background: darken(@color-red, 7%);
     }
 
     .ds-icon {
@@ -352,7 +352,7 @@ export default {
     }
 
     &:active {
-      background: darken(@color-white, 10%);
+      background: darken(@color-white, 7%);
     }
   }
 
