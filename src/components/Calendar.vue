@@ -2,7 +2,14 @@
   <div
     :class="[
       'ds-calendar',
-      { 'ds-sm': sm, 'ds-md': md, 'ds-lg': lg, 'ds-alt-calendar': alt }
+      {
+        'ds-sm': sm,
+        'ds-md': md,
+        'ds-lg': lg,
+        'ds-alt-calendar': alt,
+        'ds-calendar-extra-padding':
+          extraErrorPadding && inputErrors.length && validateAvailable
+      }
     ]"
     :style="{ width }"
   >
@@ -251,7 +258,8 @@ export default {
     alt: {
       type: Boolean,
       default: false
-    }
+    },
+    extraErrorPadding: Boolean
   },
   data: () => ({
     validateEventName: undefined,
@@ -1044,6 +1052,10 @@ export default {
     input {
       .alternative-placeholder-wrapper();
     }
+  }
+
+  &.ds-calendar-extra-padding {
+    padding-bottom: 20px;
   }
 }
 </style>

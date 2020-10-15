@@ -9,7 +9,8 @@
         'ds-md': md,
         'ds-lg': lg,
         'ds-has-label': label,
-        'ds-input-error': showInvalidBlock
+        'ds-input-error': showInvalidBlock,
+        'ds-input-extra-padding': extraErrorPadding && showInvalidBlock
       }
     ]"
     :style="{ width }"
@@ -281,7 +282,8 @@ export default {
     },
     touchName: String,
     normalize: String,
-    autocomplete: String
+    autocomplete: String,
+    extraErrorPadding: Boolean
   },
   data: () => ({
     validateEventName: undefined,
@@ -950,6 +952,10 @@ export default {
         margin-bottom: 10px;
       }
     }
+  }
+
+  &.ds-input-extra-padding {
+    padding-bottom: 20px;
   }
 }
 </style>
