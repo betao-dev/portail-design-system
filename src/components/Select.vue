@@ -7,6 +7,7 @@
         'ds-md': md,
         'ds-sm': sm,
         'ds-select-error': checkError && extraErrorPadding,
+        'ds-select-error-full': checkError && extraErrorPaddingFull,
         'ds-select-disabled': disabled,
         'ds-select-alt': altSelect
       }
@@ -257,6 +258,7 @@ export default {
     },
     maxlength: Number,
     extraErrorPadding: Boolean,
+    extraErrorPaddingFull: Boolean,
     referenceModel: null,
     disabled: {
       type: Boolean,
@@ -772,6 +774,14 @@ export default {
     top: 50%;
     margin-top: -9px;
     right: 16px;
+  }
+
+  &.ds-select-error-full {
+    padding-bottom: 18px;
+
+    .ds-drop-icon-alt {
+      margin-top: -17px;
+    }
   }
 
   .ds-error-message-wrapper {
