@@ -773,6 +773,7 @@ export default {
         border: 1px solid #e8ecef;
         background-color: @color-gray-100;
         color: @color-gray-400;
+        -webkit-text-fill-color: @color-gray-400;
       }
     }
 
