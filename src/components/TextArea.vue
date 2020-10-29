@@ -296,6 +296,7 @@ export default {
 
     textarea {
       .font-desktop-small-regular-dark();
+      color: #1b1e24;
       padding: 18px 16px;
       box-sizing: border-box;
       border: 1px solid @color-gray-300;
