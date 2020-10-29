@@ -38,7 +38,9 @@
         }"
         @click.stop="backdropClick()"
         @keydown="e => escapePress(e)"
-      ></div>
+      >
+        <slot name="controls"></slot>
+      </div>
 
       <div
         class="ds-dialog-virtual-content-wrapper"
@@ -74,7 +76,7 @@
               { 'ds-full-width': contentFullWidth }
             ]"
           >
-            <slot></slot>
+            <slot name="default"></slot>
           </div>
           <Loader
             v-if="enableLoader"
