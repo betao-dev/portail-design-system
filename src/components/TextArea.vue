@@ -284,7 +284,7 @@ export default {
     display: block;
 
     .ds-label-text {
-      color: @color-dark;
+      color: #1b1e24;
       font-family: 'Roboto Light';
       font-size: 14px;
       line-height: 16px;
