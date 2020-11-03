@@ -83,11 +83,7 @@
                 'ds-item',
                 {
                   'ds-active':
-                    (item && item.children && activeChild
-                      ? item.children.find(
-                          child => child.viewName === activeChild
-                        )
-                      : activeKey(item, index) === active) ||
+                    isActive(item, index) ||
                     temporaryActiveItem === activeKey(item, index),
                   'ds-disabled': disabled || item.disabled,
                   'ds-item-opened':
@@ -138,7 +134,7 @@
                 class="ds-expand-icon"
                 v-if="item.children && item.children.length && !collapsed"
                 :source="
-                  (activeKey(item, index) === active && subSectionOpened) ||
+                  (isActive(item, index) && subSectionOpened) ||
                   (temporaryActiveItem === activeKey(item, index) &&
                     temporaryOpened)
                     ? 'expand_less'
@@ -151,7 +147,7 @@
                 'ds-children',
                 {
                   'ds-opened':
-                    (activeKey(item, index) === active && subSectionOpened) ||
+                    (isActive(item, index) && subSectionOpened) ||
                     (temporaryActiveItem === activeKey(item, index) &&
                       temporaryOpened)
                 }
@@ -289,6 +285,11 @@ export default {
         el = el.parentNode;
       }
       this.$emit('update:opened', false);
+    },
+    isActive(item, index) {
+      return item && item.children && this.activeChild
+        ? item.children.find(child => child.viewName === this.activeChild)
+        : this.activeKey(item, index) === this.active;
     }
   },
   computed: {
