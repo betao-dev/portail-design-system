@@ -83,7 +83,11 @@
                 'ds-item',
                 {
                   'ds-active':
-                    activeKey(item, index) === active ||
+                    (item && item.children && activeChild
+                      ? item.children.find(
+                          child => child.viewName === activeChild
+                        )
+                      : activeKey(item, index) === active) ||
                     temporaryActiveItem === activeKey(item, index),
                   'ds-disabled': disabled || item.disabled,
                   'ds-item-opened':
