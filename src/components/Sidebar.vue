@@ -240,7 +240,7 @@ export default {
       }
 
       if (this.isItemHaveChild(item)) {
-        if (this.activeKey(item, index) === this.active) {
+        if (this.isActive(item, index)) {
           this.temporaryReset();
           this.$emit('update:sub-section-opened', !this.subSectionOpened);
         }
