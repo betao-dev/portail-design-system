@@ -315,8 +315,8 @@ export default {
     },
     activeChild: {
       immediate: true,
-      handler() {
-        this.$emit('update:sub-section-opened', !!this.isActiveChild);
+      handler(value) {
+        this.$emit('update:sub-section-opened', !!value);
       }
     }
   }
