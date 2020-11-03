@@ -312,6 +312,12 @@ export default {
         this.$el.parentNode.classList.remove('ds-sidebar-collpased-padding');
         this.$el.parentNode.classList.add('ds-sidebar-padding');
       }
+    },
+    activeChild: {
+      immediate: true,
+      handler() {
+        this.$emit('update:sub-section-opened', !!this.isActiveChild);
+      }
     }
   }
 };
