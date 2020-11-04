@@ -253,7 +253,7 @@ export default {
           this.temporaryOpened = true;
         }
 
-        if (this.active !== this.activeKey(item, index) && !reset) {
+        if (!this.isActive(item, index) && !reset) {
           this.temporaryActiveItem = this.activeKey(item, index);
         }
 
