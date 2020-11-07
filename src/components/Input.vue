@@ -104,9 +104,10 @@
         v-model="inputValue"
         :style="{ ...getStyle, ...getBorderRadius, ...inputStyle }"
         :autocomplete="autocomplete"
-        @focus.prevent="inputFocus"
-        @click.prevent="inputFocus"
-        @blur="inputBlur"
+        :tabindex="tabindex"
+        @focus.prevent="inputFocus($event)"
+        @click.prevent="inputFocus($event)"
+        @blur="inputBlur($event)"
         @keypress="onKeyPress"
         @keydown="onKeyDown"
         @paste.prevent="onPaste($event)"
@@ -132,10 +133,11 @@
         v-model="inputValue"
         :style="{ ...getStyle, ...getBorderRadius, ...inputStyle }"
         :autocomplete="autocomplete"
+        :tabindex="tabindex"
         v-mask="mask"
-        @focus.prevent="inputFocus"
-        @click.prevent="inputFocus"
-        @blur="inputBlur"
+        @focus.prevent="inputFocus($event)"
+        @click.prevent="inputFocus($event)"
+        @blur="inputBlur($event)"
         @keypress="onKeyPress"
         @keydown="onKeyDown"
         @paste.prevent="onPaste($event)"
@@ -283,7 +285,8 @@ export default {
     touchName: String,
     normalize: String,
     autocomplete: String,
-    extraErrorPadding: Boolean
+    extraErrorPadding: Boolean,
+    tabindex: String
   },
   data: () => ({
     validateEventName: undefined,
@@ -449,15 +452,15 @@ export default {
     onInputClick(e) {
       this.$emit('click', e);
     },
-    inputFocus() {
+    inputFocus($event) {
       if (this.slideLabel) {
         this.labelFocus = true;
         this.slideActive = true;
       }
 
-      this.$emit('inputFocus');
+      this.$emit('inputFocus', $event);
     },
-    inputBlur() {
+    inputBlur($event) {
       if (this.slideLabel) {
         this.labelFocus = false;
 
@@ -467,7 +470,7 @@ export default {
       }
 
       this.touched = true;
-      this.$emit('inputBlur');
+      this.$emit('inputBlur', $event);
     },
     slideInit() {
       if (this.slideLabel && this.value) {
