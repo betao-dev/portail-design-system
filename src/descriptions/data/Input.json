@@ -193,6 +193,11 @@
       "name": "autocomplete",
       "type": "String",
       "description": "Provide 'off' for turning of autocomplete"
+    },
+    {
+      "name": "tabindex",
+      "type": "String",
+      "description": "Provide 'tabindex' attribute for input element"
     }
   ],
   "events": [
