@@ -67,6 +67,12 @@
       "name": "current",
       "type": "Number",
       "description": "Page Number of the current page"
+    },
+    {
+      "name": "paginationMinimal",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Provide only basic pagination component without additional setting, works only when pagination is tun on"
     }
   ],
   "events": [
