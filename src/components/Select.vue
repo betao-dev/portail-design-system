@@ -50,29 +50,31 @@
         <slot :name="value.id"></slot>
       </div>
     </template>
-    <Icon
-      v-if="altIcon"
-      :source="
-        openDropDownList && reversibleIcon
-          ? 'angle_up_solid'
-          : 'angle_down_solid'
-      "
-      color="gray-500"
-      size="18px"
-      class="ds-drop-icon-alt"
-      id="icon-alt"
-      @click="toggleDropList"
-    />
-    <Icon
-      v-else
-      :source="
-        openDropDownList && reversibleIcon ? 'expand_less' : 'expand_more'
-      "
-      color="gray-400"
-      class="ds-drop-icon"
-      id="icon"
-      @click="toggleDropList"
-    />
+    <template v-if="!hideIcon">
+      <Icon
+        v-if="altIcon"
+        :source="
+          openDropDownList && reversibleIcon
+            ? 'angle_up_solid'
+            : 'angle_down_solid'
+        "
+        color="gray-500"
+        size="18px"
+        class="ds-drop-icon-alt"
+        id="icon-alt"
+        @click="toggleDropList"
+      />
+      <Icon
+        v-else
+        :source="
+          openDropDownList && reversibleIcon ? 'expand_less' : 'expand_more'
+        "
+        color="gray-400"
+        class="ds-drop-icon"
+        id="icon"
+        @click="toggleDropList"
+      />
+    </template>
     <input
       :class="[
         'ds-select',
@@ -280,6 +282,10 @@ export default {
     tooltipMessage: String,
     tooltipWidth: String,
     optionContent: {
+      type: Boolean,
+      default: false
+    },
+    hideIcon: {
       type: Boolean,
       default: false
     }
