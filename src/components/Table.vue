@@ -79,15 +79,21 @@
     </div>
 
     <div class="ds-table-footer">
-      <div v-if="pagination" class="pagination-wrapper">
-        <div class="left">
+      <div
+        v-if="pagination"
+        :class="[
+          'pagination-wrapper',
+          { 'pagination-minimal-wrapper': paginationMinimal }
+        ]"
+      >
+        <div class="left" v-if="!paginationMinimal">
           <span>{{ 'Total :' | dsTranslate }}</span>
           <span> {{ total }} </span>
           <span> {{ unit }} </span>
         </div>
 
         <div class="right">
-          <div class="ds-size-select-wrapper">
+          <div class="ds-size-select-wrapper" v-if="!paginationMinimal">
             <span>{{ 'Show' | dsTranslate }}</span>
             <Select
               md
@@ -134,6 +140,10 @@ export default {
       default: () => []
     },
     pagination: Boolean,
+    paginationMinimal: {
+      type: Boolean,
+      default: false
+    },
     pageSize: {
       type: Number,
       default: 10
@@ -392,6 +402,10 @@ export default {
             margin-right: 8px;
           }
         }
+      }
+
+      &.pagination-minimal-wrapper {
+        justify-content: flex-end;
       }
     }
   }
