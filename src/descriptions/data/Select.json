@@ -175,6 +175,12 @@
       "type": "Boolean",
       "default": "false",
       "description": "When set as true select can render slots option1, option2 and etc instead of options props, but options still required"
+    },
+    {
+      "name": "hideIcon",
+      "type": "Boolean",
+      "default": "false",
+      "description": "When the option is turn on, icons won't be displaying"
     }
   ],
   "events": [
