@@ -129,17 +129,24 @@ export default {
     openUsage: true,
     clients: GeneralData.clients,
     headers: [
-      { key: 'name', title: 'Name', width: '30%' },
-      { key: 'type.name', title: 'Type', width: '20%' },
-      { key: 'earned', title: 'Earned', prefix: '€', sortable: true },
+      { key: 'name', title: 'Name', width: '30%', mobileWidth: '50%' },
+      { key: 'type.name', title: 'Type', width: '20%', mobileWidth: '50%' },
+      {
+        key: 'earned',
+        title: 'Earned',
+        prefix: '€',
+        sortable: true,
+        desktopOnly: true
+      },
       {
         key: 'invoice_date',
         title: 'Date',
         sortable: true,
-        filter: value => moment(value).format('DD-MM-YYYY')
+        filter: value => moment(value).format('DD-MM-YYYY'),
+        desktopOnly: true
       },
-      { key: 'status', title: 'Status', badge: true },
-      { key: 'actions', title: '', width: '100px' }
+      { key: 'status', title: 'Status', badge: true, desktopOnly: true },
+      { key: 'actions', title: '', width: '100px', desktopOnly: true }
     ],
     colors: COLORS_BY_STATUS,
     selectedPage: 1,
