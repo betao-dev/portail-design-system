@@ -19,3 +19,5 @@ export const COLORS = {
   'indigo': '#745BCC',
   'orange': '#FE7D51'
 };
+
+export const MOBILE_WIDTH = 768;

@@ -13,7 +13,9 @@
 
 <template>
   <div class="ds-table-wrapper">
-    <div class="ds-table-header">
+    <div
+      :class="['ds-table-header', { 'ds-table-header-mobile': mobileHeaders }]"
+    >
       <Card class="ds-header-wrapper">
         <div
           class="ds-header"
@@ -25,7 +27,7 @@
             class="ds-title-wrapper"
             :class="header.sortable && 'ds-sortable'"
             @click="sorting(header)"
-            v-if="header.title"
+            v-if="hasFilter(header)"
           >
             <span class="ds-header-title">{{ header.title }}</span>
             <Icon
@@ -129,6 +131,7 @@ import Icon from './Icon';
 import Pagination from './Pagination';
 import Select from './Select';
 import { get } from 'lodash';
+import { MOBILE_WIDTH } from '../styles/vars';
 
 export default {
   name: 'Table',
@@ -152,31 +155,56 @@ export default {
     current: Number,
     unit: String,
     identifierField: String,
-    orderingKey: String
+    orderingKey: String,
+    mobileHeaders: Boolean
   },
   data: () => ({
     sortType: null,
     sortKey: null,
     pageItems: [],
     pageSizes: [5, 10, 15, 20, 25, 50],
-    hoverRowIndex: undefined
+    hoverRowIndex: undefined,
+    windowWidth: window.innerWidth
   }),
   methods: {
     getSlotName(header) {
-      return `cell-${header.key}`;
+      return this.isMobile && header.desktopOnly
+        ? undefined
+        : `cell-${header.key}`;
     },
     getFilterSlotName(header) {
-      return `filter-${header.key}`;
+      return this.isMobile && header.desktopOnly
+        ? undefined
+        : `filter-${header.key}`;
+    },
+    hasFilter(header) {
+      return this.isMobile && header.desktopOnly ? false : header.title;
     },
     hasSlot(header) {
-      const slotName = `cell-${header.key}`;
-      return !!this.$scopedSlots[slotName];
+      if (this.isMobile && header.desktopOnly) {
+        return true;
+      } else {
+        const slotName = `cell-${header.key}`;
+        return !!this.$scopedSlots[slotName];
+      }
     },
     getStyles(header) {
       let styles = {};
-      header.width ? (styles.flexBasis = header.width) : (styles.flex = 1);
-      styles.minWidth = header.minWidth;
-      return styles;
+      if (this.isMobile && header.desktopOnly) {
+        return styles;
+      } else {
+        let width = this.isMobile
+          ? header.mobileWidth || header.width
+          : header.width;
+        let minWidth = this.isMobile
+          ? header.mobileMinWidth || header.minWidth
+          : header.minWidth;
+
+        width ? (styles.flexBasis = width) : (styles.flex = 1);
+        styles.minWidth = minWidth;
+
+        return styles;
+      }
     },
     onClick(data, dataIndex) {
       if (this.identifierField) {
@@ -223,6 +251,14 @@ export default {
     },
     onMouseleave() {
       this.hoverRowIndex = undefined;
+    },
+    onResize() {
+      this.windowWidth = window.innerWidth;
+    }
+  },
+  computed: {
+    isMobile() {
+      return this.windowWidth <= MOBILE_WIDTH;
     }
   },
   mounted() {
@@ -235,6 +271,11 @@ export default {
       }
       this.sortKey = this.orderingKey.replace('-', '');
     }
+
+    window.addEventListener('resize', this.onResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
   },
   watch: {
     value(val) {
@@ -251,8 +292,10 @@ export default {
   color: @color-gray-500;
 
   .ds-table-header {
-    @media screen and (max-width: 551px) {
-      display: none;
+    &:not(.ds-table-header-mobile) {
+      @media @screen-mobile {
+        display: none;
+      }
     }
 
     .ds-header-wrapper {
@@ -323,7 +366,7 @@ export default {
         border-color: white;
         box-sizing: border-box;
 
-        @media screen and (max-width: 551px) {
+        @media @screen-mobile {
           flex-wrap: wrap;
           justify-content: space-between;
           padding: 16px 16px 12px 16px;
@@ -339,7 +382,7 @@ export default {
             }
           }
 
-          @media screen and (max-width: 551px) {
+          @media @screen-mobile {
             font-size: 14px;
           }
 

@@ -73,6 +73,11 @@
       "type": "Boolean",
       "default": "false",
       "description": "Provide only basic pagination component without additional setting, works only when pagination is tun on"
+    },
+    {
+      "name": "mobileHeaders",
+      "type": "Boolean",
+      "description": "Turn on headers on mobile"
     }
   ],
   "events": [
