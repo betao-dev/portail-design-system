@@ -82,7 +82,7 @@
 
     <div class="ds-table-footer">
       <div
-        v-if="pagination"
+        v-if="pagination && (!isMobile || !mobileFooter)"
         :class="[
           'pagination-wrapper',
           { 'pagination-minimal-wrapper': paginationMinimal }
@@ -116,6 +116,15 @@
           />
         </div>
       </div>
+      <div
+        :class="[
+          'ds-mobile-loader-wrapper',
+          { 'ds-mobile-loader-apply': mobileLoader }
+        ]"
+        v-else-if="pagination && isMobile && mobileFooter"
+      >
+        <Loader v-model="mobileLoader" :opacity="0"></Loader>
+      </div>
     </div>
   </div>
 </template>
@@ -129,13 +138,14 @@ const SORT_TYPES = {
 import Card from './Card';
 import Icon from './Icon';
 import Pagination from './Pagination';
+import Loader from './Loader';
 import Select from './Select';
 import { get } from 'lodash';
 import { MOBILE_WIDTH } from '../styles/vars';
 
 export default {
   name: 'Table',
-  components: { Card, Icon, Pagination, Select },
+  components: { Card, Icon, Pagination, Select, Loader },
   props: {
     value: Array,
     headers: {
@@ -156,7 +166,9 @@ export default {
     unit: String,
     identifierField: String,
     orderingKey: String,
-    mobileHeaders: Boolean
+    mobileHeaders: Boolean,
+    mobileFooter: Boolean,
+    mobileLoader: Boolean
   },
   data: () => ({
     sortType: null,
@@ -449,6 +461,21 @@ export default {
 
       &.pagination-minimal-wrapper {
         justify-content: flex-end;
+      }
+    }
+
+    .ds-mobile-loader-wrapper {
+      position: relative;
+
+      &.ds-mobile-loader-apply {
+        height: 36px;
+
+        &::v-deep {
+          .ds-loader {
+            top: 20px;
+            left: 20px;
+          }
+        }
       }
     }
   }
