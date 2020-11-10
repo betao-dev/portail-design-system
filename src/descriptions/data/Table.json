@@ -85,7 +85,7 @@
       "description": "Responsible for displaying mobile footer with loader when 'mobileLoader' turn on"
     },
     {
-      "name": "mobileLoader",
+      "name": "loader",
       "type": "Boolean",
       "description": "Responsible for displaying loader"
     }
