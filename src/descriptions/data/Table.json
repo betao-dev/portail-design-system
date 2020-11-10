@@ -78,6 +78,16 @@
       "name": "mobileHeaders",
       "type": "Boolean",
       "description": "Turn on headers on mobile"
+    },
+    {
+      "name": "mobileFooter",
+      "type": "Boolean",
+      "description": "Responsible for displaying mobile footer with loader when 'mobileLoader' turn on"
+    },
+    {
+      "name": "mobileLoader",
+      "type": "Boolean",
+      "description": "Responsible for displaying loader"
     }
   ],
   "events": [
