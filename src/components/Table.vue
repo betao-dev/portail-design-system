@@ -119,11 +119,11 @@
       <div
         :class="[
           'ds-mobile-loader-wrapper',
-          { 'ds-mobile-loader-apply': mobileLoader }
+          { 'ds-mobile-loader-apply': loader }
         ]"
         v-else-if="pagination && isMobile && mobileFooter"
       >
-        <Loader v-model="mobileLoader" :opacity="0"></Loader>
+        <Loader v-model="loader" :opacity="0"></Loader>
       </div>
     </div>
   </div>
@@ -168,7 +168,7 @@ export default {
     orderingKey: String,
     mobileHeaders: Boolean,
     mobileFooter: Boolean,
-    mobileLoader: Boolean
+    loader: Boolean
   },
   data: () => ({
     sortType: null,
