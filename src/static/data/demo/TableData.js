@@ -3,10 +3,14 @@ let usage = `
   v-model="clients"
   :headers="headers"
   :pagination="true"
-  :pageSize="10"
-  :total="clients.length"
+  :pageSize="pageSize"
+  :total="25"
+  orderingKey="invoice_date"
   :current="selectedPage"
+  unit="invoices"
+  swipe-active
   @update:page="updatePage"
+  @update:size="updatePageSize"
 >
   <template slot="filter-name">
     <div class="filter-wrapper">
