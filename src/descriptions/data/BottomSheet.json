@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "opened",
+      "type": "Boolean",
+      "description": "Responsible for displaying of component"
+    },
+    {
+      "name": "height",
+      "type": "String",
+      "description": "Set height of component"
+    },
+    {
+      "name": "borderRadius",
+      "type": "String",
+      "description": "Set border radius of component"
+    }
+  ],
+  "events": []
+}
+
+
+

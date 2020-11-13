@@ -54,6 +54,7 @@ import CollapserMenu from './data/CollapserMenu';
 import LogoUpload from './data/LogoUpload';
 import Palette from './data/Palette';
 import RightSidebar from './data/RightSidebar';
+import BottomSheet from './data/BottomSheet';
 
 export default {
   AppHeader,
@@ -111,5 +112,6 @@ export default {
   CollapserMenu,
   LogoUpload,
   Palette,
-  RightSidebar
+  RightSidebar,
+  BottomSheet
 };
