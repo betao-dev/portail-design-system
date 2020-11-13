@@ -60,6 +60,7 @@ import CollapserMenuData from './data/demo/CollapserMenuData';
 import LogoUploadData from './data/demo/LogoUploadData';
 import PaletteData from './data/demo/PaletteData';
 import RightSidebarData from './data/demo/RightSidebarData';
+import BottomSheetData from './data/demo/BottomSheetData';
 
 export {
   CountriesArray,
@@ -122,5 +123,6 @@ export {
   CollapserMenuData,
   LogoUploadData,
   PaletteData,
-  RightSidebarData
+  RightSidebarData,
+  BottomSheetData
 };
