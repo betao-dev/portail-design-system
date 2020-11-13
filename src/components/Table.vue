@@ -62,7 +62,10 @@
         >
           <span
             v-for="(header, index) in headers"
-            class="ds-data-item"
+            :class="[
+              'ds-data-item',
+              { 'ds-data-desktop-item': isMobile && header.desktopOnly }
+            ]"
             :style="getStyles(header)"
             :key="index"
           >
@@ -424,6 +427,13 @@ export default {
 
         &.ds-data-wrapper-blur {
           transition: box-shadow 0.3s;
+        }
+
+        .ds-data-item {
+          &.ds-data-desktop-item {
+            display: none;
+            padding: 0;
+          }
         }
       }
 

@@ -18,6 +18,7 @@
       orderingKey="invoice_date"
       :current="selectedPage"
       unit="invoices"
+      mobile-footer
       swipe-active
       @update:page="updatePage"
       @update:size="updatePageSize"
@@ -246,6 +247,12 @@ export default {
                 border-radius: 4px;
                 background-color: @color-gray-300;
               }
+            }
+
+            @media @screen-mobile {
+              flex-wrap: unset;
+              justify-content: unset;
+              padding: 0 16px 0 16px;
             }
           }
 
