@@ -88,6 +88,11 @@
       "name": "loader",
       "type": "Boolean",
       "description": "Responsible for displaying loader"
+    },
+    {
+      "name": "swipeActive",
+      "type": "Boolean",
+      "description": "Activated left swipe on a single row for displaying the slot with 'swipe-container' name"
     }
   ],
   "events": [

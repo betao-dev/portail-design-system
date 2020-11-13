@@ -12,7 +12,7 @@
 -->
 
 <template>
-  <div class="ds-table-wrapper">
+  <div :class="['ds-table-wrapper', { 'ds-table-swipe-active': swipeActive }]">
     <div
       :class="['ds-table-header', { 'ds-table-header-mobile': mobileHeaders }]"
     >
@@ -48,6 +48,7 @@
         v-for="(row, dataIndex) in pageItems"
         :key="dataIndex"
         @click="onClick(row, dataIndex)"
+        v-swipe:ds-swipe-container.left.single
       >
         <div
           :class="[
@@ -61,6 +62,7 @@
         >
           <span
             v-for="(header, index) in headers"
+            class="ds-data-item"
             :style="getStyles(header)"
             :key="index"
           >
@@ -76,6 +78,7 @@
               {{ getCellValue(row, header) }}
             </template>
           </span>
+          <slot name="swipe-container" :row="row" :index="dataIndex"></slot>
         </div>
       </div>
     </div>
@@ -140,12 +143,16 @@ import Icon from './Icon';
 import Pagination from './Pagination';
 import Loader from './Loader';
 import Select from './Select';
+import Swipe from './../directives/swipe';
 import { get } from 'lodash';
 import { MOBILE_WIDTH } from '../styles/vars';
 
 export default {
   name: 'Table',
   components: { Card, Icon, Pagination, Select, Loader },
+  directives: {
+    swipe: Swipe
+  },
   props: {
     value: Array,
     headers: {
@@ -168,7 +175,8 @@ export default {
     orderingKey: String,
     mobileHeaders: Boolean,
     mobileFooter: Boolean,
-    loader: Boolean
+    loader: Boolean,
+    swipeActive: Boolean
   },
   data: () => ({
     sortType: null,
@@ -365,6 +373,7 @@ export default {
     font-size: 14px;
     line-height: 20px;
     cursor: pointer;
+    overflow: hidden;
 
     .ds-table-body {
       .ds-data-wrapper {

@@ -18,6 +18,7 @@
       orderingKey="invoice_date"
       :current="selectedPage"
       unit="invoices"
+      swipe-active
       @update:page="updatePage"
       @update:size="updatePageSize"
     >
@@ -77,6 +78,17 @@
           padding="8px"
           space-between="0"
         />
+      </template>
+
+      <template v-slot:swipe-container="{ row, index }">
+        <div class="ds-swipe-container">
+          <div class="ds-swipe-item" @click="onSendEmail(row, index)">
+            <Icon envelope size="22px" color="gray-500"></Icon>
+          </div>
+          <div class="ds-swipe-item" @click="onDownload(row, index)">
+            <Icon download-solid size="22px" color="gray-500"></Icon>
+          </div>
+        </div>
       </template>
     </Table>
   </div>
@@ -167,7 +179,9 @@ export default {
     },
     updatePageSize(size) {
       this.pageSize = size;
-    }
+    },
+    onSendEmail() {},
+    onDownload() {}
   }
 };
 </script>
@@ -192,6 +206,54 @@ export default {
     .number {
       font-size: 14px;
       color: @color-gray-500;
+    }
+  }
+}
+
+&::v-deep {
+  .ds-table-wrapper {
+    &.ds-table-swipe-active {
+      .ds-table-body-wrapper {
+        .ds-table-body {
+          margin-left: 0;
+          transition: all 0.3s;
+
+          .ds-data-wrapper {
+            padding: 0;
+
+            .ds-data-item {
+              margin: 10px 0;
+            }
+
+            .ds-swipe-container {
+              display: flex;
+              opacity: 0;
+              width: 0;
+              transition: all 0.3s;
+
+              &.ds-left-swipe {
+                opacity: 1;
+                width: 146px;
+              }
+
+              .ds-swipe-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 4px;
+                height: 60px;
+                width: 69px;
+                border-radius: 4px;
+                background-color: @color-gray-300;
+              }
+            }
+          }
+
+          &.ds-swipe {
+            margin-left: -146px;
+          }
+        }
+      }
     }
   }
 }
