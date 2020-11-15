@@ -95,6 +95,8 @@ export default {
       type: String,
       default: null
     },
+    circleSize: String,
+    circleBorderRadius: String,
     styles: {
       type: Object,
       default: () => {}
@@ -136,11 +138,11 @@ export default {
       };
 
       if (this.type === 'circle') {
-        styles.width = '40px';
-        styles.height = '40px';
-        styles.minWidth = '40px';
-        styles.minHeight = '40px';
-        styles.borderRadius = '20px';
+        styles.width = this.circleSize || '40px';
+        styles.height = this.circleSize || '40px';
+        styles.minWidth = this.circleSize || '40px';
+        styles.minHeight = this.circleSize || '40px';
+        styles.borderRadius = this.circleBorderRadius || '20px';
         styles.backgroundColor = this.backgroundColor;
       }
 

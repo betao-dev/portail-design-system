@@ -46,12 +46,21 @@
       "description": "Available only circle type that creates that figure around the icon"
     },
     {
+      "name": "circleSize",
+      "type": "String",
+      "description": "Set height and width of Icon with type circle"
+    },
+    {
+      "name": "circleBorderRadius",
+      "type": "String",
+      "description": "Set border radius of Icon with type circle"
+    },
+    {
       "name": "styles",
       "type": "Object",
       "default": "{}",
       "description": "Set someone of styles properties for the Icon wrapper, the object can reset some styles properties of this component"
     }
-  ]
-,
+  ],
   "events": []
 }
