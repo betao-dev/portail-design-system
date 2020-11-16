@@ -235,12 +235,12 @@ export default {
         line-height: 16px;
         margin-left: 10px;
 
-        .ds-radio-text-active {
-          color: @color-gray-500;
+        &.ds-radio-text-active {
+          color: @color-dark;
         }
 
-        .ds-radio-text-inactive {
-          color: @color-dark;
+        &.ds-radio-text-inactive {
+          color: @color-gray-500;
         }
 
         &.ds-radio-invalid {
