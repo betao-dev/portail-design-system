@@ -181,6 +181,16 @@
       "type": "Boolean",
       "default": "false",
       "description": "When the option is turn on, icons won't be displaying"
+    },
+    {
+      "name": "height",
+      "type": "String",
+      "description": "Set the height input of Select component"
+    },
+    {
+      "name": "color",
+      "type": "Boolean",
+      "description": "Provided additional styles for selection with that type"
     }
   ],
   "events": [
