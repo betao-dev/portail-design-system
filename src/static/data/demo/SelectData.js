@@ -90,6 +90,19 @@ let usage = `
         ...
     </template>
   </Select>
+
+  <Select
+    lg
+    height="47px"
+    v-model="selectValue6"
+    :options="options4"
+    width="100%"
+    color
+    id-mode
+    alt-icon
+    reversible-icon
+    extra-error-padding
+  />
 `.slice(1);
 
 export default {

@@ -9,7 +9,8 @@
         'ds-select-error': checkError && extraErrorPadding,
         'ds-select-error-full': checkError && extraErrorPaddingFull,
         'ds-select-disabled': disabled,
-        'ds-select-alt': altSelect
+        'ds-select-alt': altSelect,
+        'ds-select-color': color
       }
     ]"
     :style="{ width }"
@@ -75,6 +76,12 @@
         @click="toggleDropList"
       />
     </template>
+    <template v-if="value.color">
+      <span
+        class="ds-input-select-color"
+        :style="{ backgroundColor: COLORS[value.color] }"
+      ></span>
+    </template>
     <input
       :class="[
         'ds-select',
@@ -83,9 +90,11 @@
           'ds-error': isInvalidInput,
           'ds-valid': showValidCheck && validBacklight,
           'ds-input-custom': customContent,
-          'ds-input-alt': altSelect
+          'ds-input-alt': altSelect,
+          'ds-input-color': value.color
         }
       ]"
+      :style="{ height }"
       type="text"
       ref="dsSelect"
       v-model="inputSelectValue"
@@ -151,6 +160,11 @@
           :key="index"
           @click="selectValue(option)"
         >
+          <span
+            class="ds-select-color"
+            v-if="option.color"
+            :style="{ backgroundColor: COLORS[option.color] }"
+          ></span>
           {{ option.title }}
           <span v-if="!displayTitle">{{
             typeof option !== 'object' ? option : option.value
@@ -167,6 +181,7 @@
 <script>
 import _ from 'lodash';
 
+import { COLORS } from '../styles/vars';
 import { cloneDeep, isEqual } from 'lodash';
 import Dropdown from './Dropdown';
 import Icon from './Icon';
@@ -288,7 +303,9 @@ export default {
     hideIcon: {
       type: Boolean,
       default: false
-    }
+    },
+    height: String,
+    color: Boolean
   },
   data: () => ({
     openDropDownList: false,
@@ -297,7 +314,8 @@ export default {
     inputSelectValue: undefined,
     validBacklight: false,
     invalidBacklight: false,
-    avoidClose: ['icon-alt', 'icon']
+    avoidClose: ['icon-alt', 'icon'],
+    COLORS
   }),
   methods: {
     onDropdownOpened(status, hardUpdate) {
@@ -618,6 +636,14 @@ export default {
         &:hover {
           background-color: @color-gray-100;
         }
+
+        .ds-select-color {
+          display: inline-block;
+          height: 10px;
+          width: 10px;
+          border-radius: 50%;
+          margin-right: 8px;
+        }
       }
 
       &.ds-options-content {
@@ -757,6 +783,10 @@ export default {
 
       .placeholder-input(@color-gray-400, @robotoFont, 0, 21px);
     }
+
+    &.ds-input-color {
+      padding-left: 38.5px;
+    }
   }
 
   .ds-drop-content-wrapper {
@@ -780,6 +810,17 @@ export default {
     top: 50%;
     margin-top: -9px;
     right: 16px;
+  }
+
+  .ds-input-select-color {
+    position: absolute;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    left: 16.5px;
+    top: 50%;
+    margin-top: -5px;
   }
 
   &.ds-select-error-full {
@@ -897,6 +938,22 @@ export default {
       font-size: 14px;
       letter-spacing: 0;
       line-height: 16px;
+    }
+  }
+
+  &.ds-select-color {
+    &.ds-lg,
+    &.ds-md,
+    &.ds-sm {
+      .ds-options {
+        top: 53px !important;
+        max-height: unset;
+        padding: 9px 0;
+
+        .ds-option-wrapper {
+          padding: 12px 16px;
+        }
+      }
     }
   }
 }

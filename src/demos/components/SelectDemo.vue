@@ -116,6 +116,21 @@
           </template>
         </Select>
       </div>
+
+      <div class="ds-select-demo-wrapper">
+        <Select
+          lg
+          height="47px"
+          v-model="selectValue6"
+          :options="options4"
+          width="100%"
+          color
+          id-mode
+          alt-icon
+          reversible-icon
+          extra-error-padding
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -139,6 +154,7 @@ export default {
       selectValue3: { id: 1, data: undefined },
       selectValue4: { id: 1 },
       selectValue5: {},
+      selectValue6: {},
       options: [
         { id: 1, value: 'Espèces' },
         { id: 2, value: 'Chèque' },
@@ -150,6 +166,44 @@ export default {
         { id: 2, value: 'Montant', data: undefined }
       ],
       options3: [{ id: 1 }, { id: 2 }],
+      options4: [
+        {
+          id: 0,
+          value: 'Toutes',
+          data: undefined,
+          color: 'primary'
+        },
+        {
+          id: 1,
+          value: 'Payé',
+          data: 'paid,partial_refunded,paid_with_deposit',
+          color: 'dark'
+        },
+        {
+          id: 2,
+          value: 'Payé1',
+          data: 'paid,partial_refunded,paid_with_deposit',
+          color: 'dark'
+        },
+        {
+          id: 3,
+          value: 'Payé2',
+          data: 'paid,partial_refunded,paid_with_deposit',
+          color: 'yellow'
+        },
+        {
+          id: 4,
+          value: 'Payé3',
+          data: 'paid,partial_refunded,paid_with_deposit',
+          color: 'dark'
+        },
+        {
+          id: 5,
+          value: 'Payé4',
+          data: 'paid,partial_refunded,paid_with_deposit',
+          color: 'gray-400'
+        }
+      ],
       selectValidators: [
         {
           name: 'required',
