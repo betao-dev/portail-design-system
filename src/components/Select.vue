@@ -76,8 +76,9 @@
         @click="toggleDropList"
       />
     </template>
-    <template v-if="value.color">
+    <template>
       <span
+        v-if="value.color"
         class="ds-input-select-color"
         :style="{ backgroundColor: COLORS[value.color] }"
       ></span>
