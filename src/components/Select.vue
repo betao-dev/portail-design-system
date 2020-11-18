@@ -92,7 +92,7 @@
           'ds-valid': showValidCheck && validBacklight,
           'ds-input-custom': customContent,
           'ds-input-alt': altSelect,
-          'ds-input-color': value.color
+          'ds-input-color': value && value.color
         }
       ]"
       :style="{ height }"
