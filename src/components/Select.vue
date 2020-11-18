@@ -78,7 +78,7 @@
     </template>
     <template>
       <span
-        v-if="value.color"
+        v-if="value && value.color"
         class="ds-input-select-color"
         :style="{ backgroundColor: COLORS[value.color] }"
       ></span>
