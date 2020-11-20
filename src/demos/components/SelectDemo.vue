@@ -195,7 +195,7 @@ export default {
           id: 4,
           value: 'Payé3',
           data: 'paid,partial_refunded,paid_with_deposit',
-          color: 'dark'
+          color: '#745BCC'
         },
         {
           id: 5,
