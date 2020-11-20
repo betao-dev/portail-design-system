@@ -87,22 +87,22 @@ export default {
   }
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.5s;
+
+  .main-bottom-sheet {
+    margin-bottom: 0;
+    transition: 0.5s;
+  }
+}
+
 .fade-enter,
 .fade-leave-to {
   transition: 0.5s;
 
   .main-bottom-sheet {
     margin-bottom: -100%;
-    transition: 0.5s;
-  }
-}
-
-.fade-enter-to,
-.fade-leave {
-  transition: 0.5s;
-
-  .main-bottom-sheet {
-    margin-bottom: 0;
     transition: 0.5s;
   }
 }

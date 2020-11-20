@@ -231,6 +231,7 @@ export default {
               opacity: 0;
               width: 0;
               transition: all 0.3s;
+              background-color: @color-gray-100;
 
               &.ds-left-swipe {
                 opacity: 1;
