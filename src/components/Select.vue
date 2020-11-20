@@ -164,7 +164,7 @@
           <span
             class="ds-select-color"
             v-if="option.color"
-            :style="{ backgroundColor: COLORS[option.color] }"
+            :style="{ backgroundColor: COLORS[option.color] || option.color }"
           ></span>
           {{ option.title }}
           <span v-if="!displayTitle">{{
