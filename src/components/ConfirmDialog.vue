@@ -1,5 +1,6 @@
 <template>
   <Dialog
+    :class="[{ 'ds-dialog-confirm-wrapper-base': base }]"
     :opened="opened"
     :borderColor="borderColor"
     :clickOutsideToClose="clickOutsideToClose"
@@ -8,7 +9,10 @@
     :width="modalWidth"
     @update:opened="updateOpenStatus"
   >
-    <div class="ds-confirm-wrapper" :style="getStyle">
+    <div
+      :class="['ds-confirm-wrapper', { 'ds-confirm-wrapper-base': base }]"
+      :style="getStyle"
+    >
       <div class="ds-confirm-header">
         <span v-if="!titleSlot">
           {{ title }}
@@ -99,7 +103,8 @@ export default {
     buttonsWidth: String,
     overflowCheck: Boolean,
     modalHeight: String,
-    modalWidth: String
+    modalWidth: String,
+    base: Boolean
   },
   computed: {
     getStyle() {
@@ -138,9 +143,11 @@ export default {
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
 
-  @media @screen-small {
-    width: 100% !important;
-    max-width: 100%;
+  &:not(.ds-confirm-wrapper-base) {
+    @media @screen-small {
+      width: 100% !important;
+      max-width: 100%;
+    }
   }
 
   .ds-confirm-header {
@@ -170,6 +177,14 @@ export default {
     color: #3f4352;
     font-size: 16px;
     line-height: 24px;
+  }
+}
+
+.ds-dialog-confirm-wrapper-base {
+  &.ds-dialog {
+    .ds-dialog-content {
+      height: unset;
+    }
   }
 }
 </style>

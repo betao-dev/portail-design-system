@@ -59,6 +59,11 @@
       "name": "modalWidth",
       "type": "String",
       "description": "Width of modal that wrap the whole component"
+    },
+    {
+      "name": "base",
+      "type": "Boolean",
+      "description": "Turn off stretch of modal on mobile resolutions"
     }
   ],
   "events": [
