@@ -114,6 +114,7 @@ export default {
             this.inputValue = file.dataURL;
             this.$emit('update:isValid', true);
             this.$emit('input', this.inputValue);
+            this.$emit('file', file);
             this.$emit('validation', this.validation);
           }, 300);
         },
