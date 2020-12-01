@@ -21,7 +21,7 @@
 -->
 
 <template>
-  <div class="ds-signature-wrapper">
+  <div class="ds-signature-wrapper" :style="{ width: signaturePadWidth }">
     <div
       class="ds-signature-pad-wrapper"
       @mousedown="clearPlaceholder"
@@ -36,8 +36,16 @@
       />
     </div>
     <div class="ds-clear-signature-wrapper" v-if="!lockSignaturePad">
+      <Icon
+        trash
+        size="18px"
+        color="gray-500"
+        class="ds-signature-icon"
+        @click="clear"
+        >></Icon
+      >
       <span class="ds-clear-signature" @click="clear">
-        Clear Signature
+        {{ clearTitle }}
       </span>
     </div>
     <slot name="loader"></slot>
@@ -46,10 +54,11 @@
 
 <script>
 import VueSignaturePad from 'vue-signature-pad';
+import Icon from './Icon';
 
 export default {
   name: 'Signature',
-  components: { VueSignaturePad },
+  components: { VueSignaturePad, Icon },
   props: {
     value: {
       type: String
@@ -60,11 +69,19 @@ export default {
     },
     signaturePadHeight: {
       type: String,
-      default: '158px'
+      default: '160px'
     },
     lockSignaturePad: {
       type: Boolean,
       default: false
+    },
+    clearTitle: {
+      type: String,
+      default: 'EFFACER'
+    },
+    signaruteInitText: {
+      type: String,
+      default: ''
     }
   },
   data: () => ({
@@ -88,7 +105,7 @@ export default {
         ctx.fillStyle = '#babcc2';
         ctx.textAlign = 'center';
         ctx.fillText(
-          'START DRAWING WITH YOUR MOUSE',
+          this.signaruteInitText,
           canvas.width / 2,
           canvas.height / 2
         );
@@ -127,6 +144,10 @@ export default {
         this.$refs.signaturePad.lockSignaturePad();
         this.showPlaceholder = false;
       }
+    },
+    setSignature() {
+      const { data: signature } = this.$refs.signaturePad.saveSignature();
+      this.$emit('input', signature);
     }
   },
   watch: {
@@ -136,6 +157,10 @@ export default {
   },
   mounted() {
     this.$nextTick(() => this.initSignature());
+    document.addEventListener('signature', this.setSignature);
+  },
+  beforeDestroy() {
+    document.removeEventListener('signature', this.setSignature);
   }
 };
 </script>
@@ -149,24 +174,28 @@ export default {
 
   .ds-signature-pad-wrapper {
     .ds-signature-pad {
-      border: 1px solid #e1e2e6;
-      border-radius: 1px;
+      border: 1px solid @color-gray-300;
+      border-radius: 4px;
     }
   }
 
   .ds-clear-signature-wrapper {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    margin-top: 12px;
+
+    .ds-signature-icon {
+      margin-right: 8px;
+      cursor: pointer;
+    }
 
     .ds-clear-signature {
-      height: 16px;
-      width: 81px;
       color: @color-gray-500;
-      font-family: Lato;
+      font-family: Roboto Medium, sans-serif;
       font-size: 12px;
-      line-height: 16px;
-      margin-top: 8px;
-      margin-right: 9px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 14px;
       cursor: pointer;
       user-select: none;
     }

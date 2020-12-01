@@ -14,7 +14,7 @@
     {
       "name": "signaturePadHeight",
       "type": "String",
-      "default": "158px",
+      "default": "160px",
       "description": "Height signature pad"
     },
     {
@@ -22,6 +22,18 @@
       "type": "Boolean",
       "default": "false",
       "description": "Lock signature pad"
+    },
+    {
+      "name": "clearTitle",
+      "type": "String",
+      "default": "EFFACER",
+      "description": "Set clear title"
+    },
+    {
+      "name": "signaruteInitText",
+      "type": "String",
+      "default": "",
+      "description": "Set the text that will be displayed on signature pad init component if the signature value is undefined"
     }
   ],
   "events": [

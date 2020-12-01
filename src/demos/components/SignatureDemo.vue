@@ -9,24 +9,34 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Signature v-model="data"></Signature>
+    <Signature v-model="signature" signature-pad-width="100%"></Signature>
+    <div>
+      <Button @click="setSignature">Set Signature</Button>
+    </div>
   </div>
 </template>
 
 <script>
 import Signature from '../../components/Signature';
+import Button from '../../components/Button';
 import Collapser from '../../components/Collapser';
 import Description from '../../descriptions/Description';
 import { SignatureData } from '../../static/index';
 
 export default {
   name: 'SignatureDemo',
-  components: { Signature, Collapser, Description },
+  components: { Signature, Button, Collapser, Description },
   data: () => ({
     usage: SignatureData.usage,
     openUsage: true,
-    data: undefined
-  })
+    signature: undefined
+  }),
+  methods: {
+    setSignature() {
+      let event = new CustomEvent('signature', {});
+      document.dispatchEvent(event);
+    }
+  }
 };
 </script>
 
