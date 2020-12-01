@@ -45,8 +45,11 @@
 </template>
 
 <script>
+import VueSignaturePad from 'vue-signature-pad';
+
 export default {
   name: 'Signature',
+  components: { VueSignaturePad },
   props: {
     value: {
       type: String
