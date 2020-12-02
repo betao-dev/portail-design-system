@@ -18,7 +18,6 @@
               icon="cloud_upload"
               iconSize="32px"
               title="Add your logo"
-              :preview="true"
               :validators="validators"
               :multiple="true"
             />
@@ -34,10 +33,27 @@
               iconSize="32px"
               title="Add your logo"
               description="Click to upload a new picture"
-              :preview="true"
               :validators="validators"
               :multiple="false"
               imageType="circle"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <div>Documents Upload</div>
+            <FileUpload
+              v-model="file2"
+              icon="cloud-upload-alt-solid"
+              iconSize="30px"
+              iconColor="primary"
+              title="importer votre document"
+              sub-title="Cliquez pour importer ou glissez directement votre document"
+              :validators="validators"
+              :preview="false"
+              :uploadAreaStyles="uploadAreaStyles"
             />
           </div>
         </div>
@@ -67,7 +83,12 @@ export default {
         message: 'File is required',
         validator: value => (Array.isArray(value) ? value.length > 0 : value)
       }
-    ]
+    ],
+    file2: [],
+    uploadAreaStyles: {
+      border: '1px dashed #778CA2',
+      borderRadius: '4px'
+    }
   })
 };
 </script>
