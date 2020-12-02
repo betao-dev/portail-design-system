@@ -127,7 +127,10 @@
       </div>
     </vue-dropzone>
 
-    <div class="ds-errors" v-if="inputErrors.length && touched">
+    <div
+      :class="['ds-errors', { 'ds-errors-no-preview': !preview }]"
+      v-if="inputErrors.length && touched"
+    >
       {{ inputErrors[0] }}
     </div>
     <div v-if="!preview" class="ds-file-upload-list-wrapper">
@@ -137,9 +140,7 @@
           :key="index"
           class="ds-file-upload-item"
         >
-          <span class="ds-file-upload-item-name" @click="removeFile(file)">{{
-            file.name
-          }}</span>
+          <span class="ds-file-upload-item-name">{{ file.name }}</span>
           <Icon
             source="trash"
             color="#F03F3F"
@@ -150,11 +151,7 @@
       </div>
       <div v-else-if="currentFile && inputValue">
         <div class="ds-file-upload-item">
-          <span
-            class="ds-file-upload-item-name"
-            @click="removeFile(inputValue)"
-            >{{ currentFile.name }}</span
-          >
+          <span class="ds-file-upload-item-name">{{ currentFile.name }}</span>
           <Icon
             source="trash"
             color="#F03F3F"
@@ -496,6 +493,10 @@ export default {
     white-space: nowrap;
     display: block;
     max-width: 100%;
+
+    &.ds-errors-no-preview {
+      padding-left: 10px;
+    }
   }
 
   .ds-file-upload-list-wrapper {
@@ -514,6 +515,7 @@ export default {
       }
 
       .ds-file-upload-item-name {
+        cursor: default;
         color: #252631;
         font-family: Roboto Medium, sans-serif;
         font-size: 14px;
@@ -521,7 +523,7 @@ export default {
         letter-spacing: 0;
         line-height: 16px;
         padding: 5.5px 0 5.5px 10px;
-        width: ~'calc(100% - 32px)';
+        width: ~'calc(100% - 42px)';
       }
 
       &:hover {
