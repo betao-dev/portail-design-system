@@ -53,7 +53,6 @@
               sub-title="Cliquez pour importer ou glissez directement votre document"
               :validators="validators"
               :preview="false"
-              :uploadAreaStyles="uploadAreaStyles"
             />
           </div>
         </div>
@@ -84,11 +83,7 @@ export default {
         validator: value => (Array.isArray(value) ? value.length > 0 : value)
       }
     ],
-    file2: [],
-    uploadAreaStyles: {
-      border: '1px dashed #778CA2',
-      borderRadius: '4px'
-    }
+    file2: []
   })
 };
 </script>
