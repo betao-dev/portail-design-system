@@ -33,9 +33,19 @@
       "description": "Size of the Icon"
     },
     {
+      "name": "iconColor",
+      "type": "String",
+      "description": "Color of preview Icon"
+    },
+    {
       "name": "title",
       "type": "String",
       "description": "Show title on the drop panel"
+    },
+    {
+      "name": "subTitle",
+      "type": "String",
+      "description": "Show subTitle on the drop panel when preview turn off"
     },
     {
       "name": "preview",
@@ -51,6 +61,17 @@
       "name": "validators",
       "type": "Array",
       "description": "Included validation function, validation message"
+    },
+    {
+      "name": "preview",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Display the preview into the drop panel instead of the list below of drop panel"
+    },
+    {
+      "name": "uploadAreaStyles",
+      "type": "Object",
+      "description": "Mixed up passed styles for drop area"
     }
   ],
   "events": [

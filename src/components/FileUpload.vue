@@ -22,7 +22,22 @@
       :style="wrapperStyles"
       :useCustomSlot="true"
     >
-      <div v-if="inputValue.length === 0" class="ds-dropzone-custom-content">
+      <div v-if="!preview" class="ds-upload-preview">
+        <div>
+          <Icon
+            v-if="icon"
+            :source="icon"
+            :size="iconSize"
+            :color="iconColor"
+          ></Icon>
+        </div>
+        <div class="ds-upload-preview-title">{{ title }}</div>
+        <div class="ds-upload-preview-subtitle">{{ subTitle }}</div>
+      </div>
+      <div
+        v-else-if="inputValue.length === 0"
+        class="ds-dropzone-custom-content"
+      >
         <div class="ds-icon-wrapper">
           <Icon v-if="icon" :source="icon" :size="iconSize" />
         </div>
@@ -58,7 +73,19 @@
       :style="wrapperStyles"
       :useCustomSlot="true"
     >
-      <div class="ds-selected-files-wrapper">
+      <div v-if="!preview" class="ds-upload-preview">
+        <div>
+          <Icon
+            v-if="icon"
+            :source="icon"
+            :size="iconSize"
+            :color="iconColor"
+          ></Icon>
+        </div>
+        <div class="ds-upload-preview-title">{{ title }}</div>
+        <div class="ds-upload-preview-subtitle">{{ subTitle }}</div>
+      </div>
+      <div v-else class="ds-selected-files-wrapper">
         <div class="ds-file-wrapper">
           <template v-if="checkEmptyFile">
             <div class="ds-file-empty">
@@ -103,6 +130,40 @@
     <div class="ds-errors" v-if="inputErrors.length && touched">
       {{ inputErrors[0] }}
     </div>
+    <div v-if="!preview" class="ds-file-upload-list-wrapper">
+      <div v-if="multiple">
+        <div
+          v-for="(file, index) in inputValue"
+          :key="index"
+          class="ds-file-upload-item"
+        >
+          <span class="ds-file-upload-item-name" @click="removeFile(file)">{{
+            file.name
+          }}</span>
+          <Icon
+            source="trash"
+            color="#F03F3F"
+            size="20px"
+            @click.native="removeFile(file)"
+          />
+        </div>
+      </div>
+      <div v-else-if="currentFile && inputValue">
+        <div class="ds-file-upload-item">
+          <span
+            class="ds-file-upload-item-name"
+            @click="removeFile(inputValue)"
+            >{{ currentFile.name }}</span
+          >
+          <Icon
+            source="trash"
+            color="#F03F3F"
+            size="20px"
+            @click.native="removeFile(inputValue)"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -121,7 +182,9 @@ export default {
   props: {
     icon: String,
     iconSize: String,
+    iconColor: String,
     title: String,
+    subTitle: String,
     description: String,
     value: [Array, File, String],
     validators: Array,
@@ -137,7 +200,12 @@ export default {
       type: Boolean,
       default: false
     },
-    imageType: String
+    imageType: String,
+    preview: {
+      type: Boolean,
+      default: true
+    },
+    uploadAreaStyles: Object
   },
   data() {
     return {
@@ -171,6 +239,8 @@ export default {
             } else {
               this.inputValue.push(file);
             }
+            this.currentFile = file;
+            this.$emit('file', file);
             this.$emit('input', this.inputValue);
             this.$emit('validation', this.validation);
           }, 300);
@@ -181,7 +251,8 @@ export default {
       },
       touched: false,
       errors: [],
-      inputValue: []
+      inputValue: [],
+      currentFile: undefined
     };
   },
   methods: {
@@ -256,10 +327,13 @@ export default {
         };
       }
 
-      return {
+      let wrapperStyles = {
         backgroundColor: '#FFFFFF',
-        border: 'solid 1px #E8ECEF'
+        border: 'solid 1px #E8ECEF',
+        ...this.uploadAreaStyles
       };
+
+      return wrapperStyles;
     }
   },
   watch: {
@@ -285,7 +359,7 @@ export default {
     width: 100%;
     position: relative;
     min-height: @file-upload-panel-height;
-    padding: 26px;
+    padding: 8px 0;
     border-radius: 4px;
 
     .ds-dropzone-custom-content {
@@ -388,6 +462,31 @@ export default {
     }
   }
 
+  .ds-upload-preview {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .ds-upload-preview-title {
+      color: @color-gray-500;
+      font-family: Roboto Medium, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 14px;
+      text-transform: uppercase;
+    }
+
+    .ds-upload-preview-subtitle {
+      color: @color-gray-400;
+      font-family: Roboto, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0;
+      line-height: 21px;
+      text-align: center;
+    }
+  }
+
   .ds-errors {
     color: @color-red;
     font-family: @robotoFont;
@@ -396,6 +495,41 @@ export default {
     white-space: nowrap;
     display: block;
     max-width: 100%;
+  }
+
+  .ds-file-upload-list-wrapper {
+    margin-top: 16px;
+
+    .ds-file-upload-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      height: 27px;
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .ds-file-upload-item-name {
+        color: #252631;
+        font-family: Roboto Medium, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 16px;
+        padding: 5.5px 0 5.5px 10px;
+        width: ~'calc(100% - 32px)';
+      }
+
+      &:hover {
+        .ds-file-upload-item-name {
+          border-radius: 4px;
+          background-color: #e9f8f3;
+        }
+      }
+    }
   }
 }
 
