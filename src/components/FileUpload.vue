@@ -329,7 +329,8 @@ export default {
 
       let wrapperStyles = {
         backgroundColor: '#FFFFFF',
-        border: 'solid 1px #E8ECEF',
+        border: this.preview ? 'solid 1px #E8ECEF' : '1px dashed #778CA2',
+        borderRadius: '4px',
         ...this.uploadAreaStyles
       };
 
