@@ -506,7 +506,7 @@ export default {
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      height: 27px;
+      min-height: 27px;
       margin-bottom: 8px;
 
       &:last-child {
