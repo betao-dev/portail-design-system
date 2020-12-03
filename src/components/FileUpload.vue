@@ -493,6 +493,8 @@ export default {
     white-space: nowrap;
     display: block;
     max-width: 100%;
+    line-height: 14px;
+    margin-top: 6px;
 
     &.ds-errors-no-preview {
       padding-left: 10px;
