@@ -224,6 +224,7 @@ export default {
 
           if (
             this.multiple &&
+            this.inputValue &&
             this.inputValue.find(f => f.name === file.name)
           ) {
             let message = this.dsTranslate('File selected');
