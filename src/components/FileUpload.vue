@@ -246,7 +246,11 @@ export default {
             if (!this.multiple) {
               this.inputValue = file.dataURL;
             } else {
-              this.inputValue.push(file);
+              if (Array.isArray(this.inputValue)) {
+                this.inputValue.push(file);
+              } else {
+                this.inputValue = [file];
+              }
             }
             this.currentFile = file;
             this.$emit('file', file);
