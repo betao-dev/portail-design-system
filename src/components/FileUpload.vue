@@ -213,7 +213,7 @@ export default {
       default: true
     },
     uploadAreaStyles: Object,
-    remoteRemove: Boolean
+    remote: Boolean
   },
   data() {
     return {
@@ -243,15 +243,18 @@ export default {
           }
 
           setTimeout(() => {
-            if (!this.multiple) {
-              this.inputValue = file.dataURL;
-            } else {
-              if (Array.isArray(this.inputValue)) {
-                this.inputValue.push(file);
+            if (!this.remote) {
+              if (!this.multiple) {
+                this.inputValue = file.dataURL;
               } else {
-                this.inputValue = [file];
+                if (Array.isArray(this.inputValue)) {
+                  this.inputValue.push(file);
+                } else {
+                  this.inputValue = [file];
+                }
               }
             }
+
             this.currentFile = file;
             this.$emit('file', file);
             this.$emit('input', this.inputValue);
@@ -270,7 +273,7 @@ export default {
   },
   methods: {
     removeFile(file, index) {
-      if (this.remoteRemove) {
+      if (this.remote) {
         this.$emit('remove', { file, index });
       } else {
         if (!this.multiple) {

@@ -74,9 +74,9 @@
       "description": "Mixed up passed styles for drop area"
     },
     {
-      "name": "remoteRemove",
+      "name": "remote",
       "type": "Boolean",
-      "description": "When property true, component will emit 'remove' event for outside handling the removing of item"
+      "description": "When property true, component will emit 'remove' event for outside handling the removing of item and won't directly update the items that it's contained"
     }
   ],
   "events": [
