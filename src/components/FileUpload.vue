@@ -213,7 +213,11 @@ export default {
       default: true
     },
     uploadAreaStyles: Object,
-    remote: Boolean
+    remote: Boolean,
+    acceptedFiles: {
+      type: [String, Array],
+      default: () => ['jpg', 'png', 'pdf']
+    }
   },
   data() {
     return {
@@ -261,9 +265,9 @@ export default {
             this.$emit('validation', this.validation);
           }, 300);
         },
-        url: 'https://*',
+        url: () => '',
         addRemoveLinks: true,
-        acceptedFiles: 'image/*'
+        autoProcessQueue: false
       },
       touched: false,
       errors: [],
@@ -287,22 +291,26 @@ export default {
       this.$emit('validation', this.validation);
     },
     fileTypeCheck(file) {
-      if (file.type === this.mainOptions.acceptedFiles) {
-        return true;
-      }
-
-      if (this.mainOptions.acceptedFiles === '*') {
-        return true;
-      }
-
-      if (this.mainOptions.acceptedFiles.includes('/*')) {
-        const type = this.mainOptions.acceptedFiles.replace('/*', '');
-        if (file.type.includes(type)) {
+      if (typeof this.acceptedFiles === 'string') {
+        if (file.type === this.acceptedFiles) {
           return true;
         }
-      }
 
-      return false;
+        if (this.acceptedFiles === '*') {
+          return true;
+        }
+
+        if (this.acceptedFiles.includes('/*')) {
+          const type = this.acceptedFiles.replace('/*', '');
+          if (file.type.includes(type)) {
+            return true;
+          }
+        }
+
+        return false;
+      } else if (Array.isArray(this.acceptedFiles)) {
+        return !!this.acceptedFiles.find(type => file.type.includes(type));
+      }
     }
   },
   computed: {
