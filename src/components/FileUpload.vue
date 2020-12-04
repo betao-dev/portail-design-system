@@ -59,7 +59,7 @@
               source="close"
               color="#ddd"
               size="24px"
-              @click.native="removeFile(f)"
+              @click.native="removeFile(f, index)"
             />
           </div>
         </div>
@@ -134,7 +134,12 @@
       {{ inputErrors[0] }}
     </div>
     <div v-if="!preview" class="ds-file-upload-list-wrapper">
-      <div v-if="multiple">
+      <div
+        :class="{
+          'ds-file-upload-list-multiple': inputValue && inputValue.length
+        }"
+        v-if="multiple"
+      >
         <div
           v-for="(file, index) in inputValue"
           :key="index"
@@ -145,11 +150,16 @@
             source="trash"
             color="#F03F3F"
             size="20px"
-            @click.native="removeFile(file)"
+            @click.native="removeFile(file, index)"
           />
         </div>
       </div>
-      <div v-else-if="currentFile && inputValue">
+      <div
+        :class="{
+          'ds-file-upload-list-single': !Array.isArray(inputValue) && inputValue
+        }"
+        v-else-if="currentFile && inputValue"
+      >
         <div class="ds-file-upload-item">
           <span class="ds-file-upload-item-name">{{ currentFile.name }}</span>
           <Icon
@@ -202,7 +212,8 @@ export default {
       type: Boolean,
       default: true
     },
-    uploadAreaStyles: Object
+    uploadAreaStyles: Object,
+    remoteRemove: Boolean
   },
   data() {
     return {
@@ -254,12 +265,17 @@ export default {
   },
   methods: {
     removeFile(file) {
-      if (!this.multiple) {
-        this.inputValue = null;
+      if (this.remoteRemove) {
+        this.$emit('remove', file);
       } else {
-        this.inputValue = this.inputValue.filter(f => !isEqual(f, file));
+        if (!this.multiple) {
+          this.inputValue = null;
+        } else {
+          this.inputValue = this.inputValue.filter(f => !isEqual(f, file));
+        }
+        this.$emit('input', this.inputValue);
       }
-      this.$emit('input', this.inputValue);
+
       this.$emit('validation', this.validation);
     },
     fileTypeCheck(file) {
@@ -502,7 +518,10 @@ export default {
   }
 
   .ds-file-upload-list-wrapper {
-    margin-top: 16px;
+    .ds-file-upload-list-multiple,
+    .ds-file-upload-list-single {
+      margin-top: 16px;
+    }
 
     .ds-file-upload-item {
       display: flex;
