@@ -264,9 +264,9 @@ export default {
     };
   },
   methods: {
-    removeFile(file) {
+    removeFile(file, index) {
       if (this.remoteRemove) {
-        this.$emit('remove', file);
+        this.$emit('remove', { file, index });
       } else {
         if (!this.multiple) {
           this.inputValue = null;
