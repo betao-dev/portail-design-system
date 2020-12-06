@@ -123,6 +123,7 @@ export default {
     clear() {
       this.$refs.signaturePad.clearSignature();
       this.$emit('empty', this.$refs.signaturePad.saveSignature().isEmpty);
+      this.$emit('delete');
     },
     mouseup() {
       this.emitMouseEvent('mouseup');
