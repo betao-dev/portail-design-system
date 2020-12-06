@@ -182,7 +182,7 @@ export default {
   .ds-clear-signature-wrapper {
     display: flex;
     align-items: center;
-    margin-top: 12px;
+    padding-top: 12px;
 
     .ds-signature-icon {
       margin-right: 8px;
