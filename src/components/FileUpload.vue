@@ -171,11 +171,16 @@
         </div>
       </div>
     </div>
+    <Loader
+      class="ds-file-upload-loader"
+      v-model="loader"
+    ></Loader>
   </div>
 </template>
 
 <script>
 import Icon from './Icon.vue';
+import Loader from './Loader.vue';
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 import { isEqual, isEmpty } from 'lodash';
@@ -184,7 +189,8 @@ export default {
   name: 'FileUpload',
   components: {
     vueDropzone: vue2Dropzone,
-    Icon
+    Icon,
+    Loader
   },
   props: {
     icon: String,
@@ -217,7 +223,8 @@ export default {
     acceptedFiles: {
       type: [String, Array],
       default: () => ['jpg', 'png', 'pdf']
-    }
+    },
+    loader: Boolean
   },
   data() {
     return {
@@ -384,6 +391,7 @@ export default {
 .ds-upload-wrapper {
   width: 100%;
   font-family: @robotoFont;
+  position: relative;
 
   #ds-file-upload {
     width: 100%;
@@ -568,6 +576,15 @@ export default {
           border-radius: 4px;
           background-color: #e9f8f3;
         }
+      }
+    }
+  }
+
+  .ds-file-upload-loader {
+    &.ds-loader {
+      &::v-deep {
+        width: ~'calc(100% + 2px)';
+        height: ~'calc(100% + 2px)';
       }
     }
   }

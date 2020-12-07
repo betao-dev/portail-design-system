@@ -83,6 +83,11 @@
       "type": "String, Array",
       "default": "['jpg', 'png', 'pdf']",
       "description": "Set allowed type restriction like: Array types ['jpg', 'png', 'pdf'] or String like provided for default"
+    },
+    {
+      "name": "loader",
+      "type": "Boolean",
+      "description": "Responsible for displaying loader"
     }
   ],
   "events": [
