@@ -580,8 +580,8 @@ export default {
   .ds-file-upload-loader {
     &.ds-loader {
       &::v-deep {
-        width: ~'calc(100% + 2px)';
-        height: ~'calc(100% + 2px)';
+        width: ~'calc(100% + 2px)' !important;
+        height: ~'calc(100% + 2px)' !important;
       }
     }
   }
