@@ -316,8 +316,10 @@ export default {
 
     &:hover,
     &:focus {
-      color: @color-gray-500;
-      background-color: @color-gray-300;
+      &:not(:disabled) {
+        color: @color-gray-500;
+        background-color: @color-gray-300;
+      }
     }
   }
 

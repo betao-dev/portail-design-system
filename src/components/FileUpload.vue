@@ -171,10 +171,7 @@
         </div>
       </div>
     </div>
-    <Loader
-      class="ds-file-upload-loader"
-      v-model="loader"
-    ></Loader>
+    <Loader class="ds-file-upload-loader" v-model="loader"></Loader>
   </div>
 </template>
 
