@@ -29,13 +29,13 @@
       @mouseleave="mouseleave"
     >
       <VueSignaturePad
-        class="ds-signature-pad"
+        :class="['ds-signature-pad', { 'ds-signature-pad-error': isError }]"
         :width="signaturePadWidth"
         :height="signaturePadHeight"
         ref="signaturePad"
       />
     </div>
-    <div class="ds-signature-error-wrapper" v-if="showError">
+    <div class="ds-signature-error-wrapper" v-if="isError">
       {{ signatureErrors[0] }}
     </div>
     <div class="ds-clear-signature-wrapper" v-if="!lockSignaturePad">
@@ -119,6 +119,9 @@ export default {
         }
       }
       return errors;
+    },
+    isError() {
+      return this.signatureErrors[0] && this.showError;
     }
   },
   methods: {
@@ -228,22 +231,27 @@ export default {
     .ds-signature-pad {
       border: 1px solid @color-gray-300;
       border-radius: 4px;
+
+      &.ds-signature-pad-error {
+        border: 1px solid @color-red;
+      }
     }
   }
 
   .ds-signature-error-wrapper {
-    position: absolute;
     width: 100%;
-    font-size: 11px;
     color: @color-red;
     padding: 6px 0 0;
-    line-height: normal;
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 14px;
   }
 
   .ds-clear-signature-wrapper {
     display: flex;
     align-items: center;
-    padding-top: 18px;
+    padding-top: 12px;
 
     .ds-signature-icon {
       margin-right: 8px;
