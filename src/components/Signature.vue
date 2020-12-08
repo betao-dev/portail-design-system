@@ -35,6 +35,9 @@
         ref="signaturePad"
       />
     </div>
+    <div class="ds-signature-error-wrapper" v-if="showError">
+      {{ signatureErrors[0] }}
+    </div>
     <div class="ds-clear-signature-wrapper" v-if="!lockSignaturePad">
       <Icon
         trash
@@ -42,8 +45,7 @@
         color="gray-500"
         class="ds-signature-icon"
         @click="clear"
-        >></Icon
-      >
+      ></Icon>
       <span class="ds-clear-signature" @click="clear">
         {{ clearTitle }}
       </span>
@@ -82,12 +84,43 @@ export default {
     signaruteInitText: {
       type: String,
       default: ''
-    }
+    },
+    validators: Array,
+    name: String
   },
   data: () => ({
     showPlaceholder: true,
-    signatureData: undefined
+    signatureData: undefined,
+    validateEventName: undefined,
+    showError: false
   }),
+  computed: {
+    validation() {
+      let data = [];
+
+      if (!this.validators || !this.validators.length) {
+        return data;
+      }
+
+      for (let i = 0; i < this.validators.length; i++) {
+        data.push([
+          this.validators[i].name,
+          this.validators[i].validator(this.signatureData)
+        ]);
+      }
+
+      return data;
+    },
+    signatureErrors() {
+      let errors = [];
+      for (let i = 0; i < this.validation.length; i++) {
+        if (!this.validation[i][1]) {
+          errors.push(this.validators[i].message);
+        }
+      }
+      return errors;
+    }
+  },
   methods: {
     getSignaturePad() {
       let canvas = this.$refs.signaturePad.signaturePad.canvas;
@@ -121,6 +154,8 @@ export default {
       }
     },
     clear() {
+      this.showError = false;
+      this.signatureData = undefined;
       this.$refs.signaturePad.clearSignature();
       this.$emit('empty', this.$refs.signaturePad.saveSignature().isEmpty);
       this.$emit('delete');
@@ -149,6 +184,10 @@ export default {
     setSignature() {
       const { data: signature } = this.$refs.signaturePad.saveSignature();
       this.$emit('input', signature);
+    },
+    validate() {
+      this.showError = true;
+      this.$emit('validation', this.validation);
     }
   },
   watch: {
@@ -159,9 +198,21 @@ export default {
   mounted() {
     this.$nextTick(() => this.initSignature());
     document.addEventListener('signature', this.setSignature);
+    if (this.name) {
+      this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).toLowerCase()}`;
+      document.addEventListener(this.validateEventName, this.validate);
+    } else {
+      document.addEventListener('validate', this.validate);
+    }
   },
   beforeDestroy() {
     document.removeEventListener('signature', this.setSignature);
+    if (this.name) {
+      document.removeEventListener(this.validateEventName, this.validate);
+    } else {
+      document.removeEventListener('validate', this.validate);
+    }
   }
 };
 </script>
@@ -180,10 +231,19 @@ export default {
     }
   }
 
+  .ds-signature-error-wrapper {
+    position: absolute;
+    width: 100%;
+    font-size: 11px;
+    color: @color-red;
+    padding: 6px 0 0;
+    line-height: normal;
+  }
+
   .ds-clear-signature-wrapper {
     display: flex;
     align-items: center;
-    padding-top: 12px;
+    padding-top: 18px;
 
     .ds-signature-icon {
       margin-right: 8px;
