@@ -81,8 +81,8 @@
     {
       "name": "acceptedFiles",
       "type": "String, Array",
-      "default": "['jpg', 'png', 'pdf']",
-      "description": "Set allowed type restriction like: Array types ['jpg', 'png', 'pdf'] or String like provided for default"
+      "default": "['jpg', 'jpeg', 'png', 'pdf']",
+      "description": "Set allowed type restriction like: Array types ['jpg', 'jpeg', 'png', 'pdf'] or String like provided for default"
     },
     {
       "name": "loader",

@@ -219,7 +219,7 @@ export default {
     remote: Boolean,
     acceptedFiles: {
       type: [String, Array],
-      default: () => ['jpg', 'png', 'pdf']
+      default: () => ['jpg', 'jpeg', 'png', 'pdf']
     },
     loader: Boolean
   },
