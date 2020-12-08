@@ -34,6 +34,33 @@
       "type": "String",
       "default": "",
       "description": "Set the text that will be displayed on signature pad init component if the signature value is undefined"
+    },
+    {
+      "name": "validators",
+      "type": "Array<Object>",
+      "description": "Array of validator Objects. When multiple validators fail, only one error is displayed, determined by their order in the array. Each Object should have three fields:",
+      "subProperty": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": "Validator id"
+        },
+        {
+          "name": "message",
+          "type": "String",
+          "description": "Error message that shown when validation fails"
+        },
+        {
+          "name": "validator",
+          "type": "Function",
+          "description": "Function that takes input value as an argument and returns Boolean"
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "With this property signature will be listening to validation with current value for e.g. 'validateTest'"
     }
   ],
   "events": [

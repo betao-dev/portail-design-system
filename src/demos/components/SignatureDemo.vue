@@ -9,9 +9,17 @@
       <pre v-highlightjs="usage"><code class="html"></code></pre>
     </Collapser>
 
-    <Signature v-model="signature" signature-pad-width="100%"></Signature>
-    <div>
+    <Signature
+      v-model="signature"
+      signature-pad-width="100%"
+      :validators="validators"
+      name="step3"
+    ></Signature>
+    <div class="ds-demo-signature-button">
       <Button @click="setSignature">Set Signature</Button>
+    </div>
+    <div class="ds-demo-signature-button">
+      <Button @click="checkValidation">Validate</Button>
     </div>
   </div>
 </template>
@@ -29,15 +37,34 @@ export default {
   data: () => ({
     usage: SignatureData.usage,
     openUsage: true,
-    signature: undefined
+    signature: undefined,
+    validators: [
+      {
+        name: 'required',
+        message: 'The textarea is required',
+        validator: value => !!value
+      }
+    ]
   }),
   methods: {
     setSignature() {
       let event = new CustomEvent('signature', {});
+      document.dispatchEvent(event);
+    },
+    checkValidation() {
+      const event = new CustomEvent('validateStep3', {});
       document.dispatchEvent(event);
     }
   }
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.ds-demo-signature-button {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+</style>
