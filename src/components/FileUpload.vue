@@ -394,7 +394,7 @@ export default {
     width: 100%;
     position: relative;
     min-height: @file-upload-panel-height;
-    padding: 8px 0;
+    padding: 0;
     border-radius: 4px;
 
     .ds-dropzone-custom-content {
@@ -495,12 +495,18 @@ export default {
         }
       }
     }
+
+    &:hover {
+      border: 1px solid @color-primary !important;
+    }
   }
 
   .ds-upload-preview {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    height: 91px;
+    border-radius: 4px;
 
     .ds-upload-preview-title {
       color: @color-gray-500;
@@ -519,6 +525,10 @@ export default {
       letter-spacing: 0;
       line-height: 21px;
       text-align: center;
+    }
+
+    &:hover {
+      background-color: #f4fbf9;
     }
   }
 

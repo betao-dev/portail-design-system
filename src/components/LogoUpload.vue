@@ -278,6 +278,7 @@ export default {
           font-family: 'Roboto Medium';
           background-color: white;
           text-transform: uppercase;
+          border-radius: 4px;
 
           .icon-wrapper {
             cursor: pointer;
@@ -330,7 +331,7 @@ export default {
 
     &:not(.ds-file-upload-area-full) {
       &:hover {
-        border: dashed 1px @color-primary;
+        border: 1px solid @color-primary;
       }
     }
   }
