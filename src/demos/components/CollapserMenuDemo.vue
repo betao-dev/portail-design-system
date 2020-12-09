@@ -14,6 +14,7 @@
         :active.sync="active"
         :titles="titles"
         :status-data="statusData"
+        title-object
       >
         <template #1>
           <div class="ds-demo-collapser-menu-content">
@@ -86,14 +87,27 @@ export default {
   data: () => ({
     usage: CollapserMenuData.usage,
     openUsage: true,
-    titles: ['First', 'Second', 'Third'],
+    titles: [
+      {
+        name: 'test1',
+        title: 'First'
+      },
+      {
+        name: 'test2',
+        title: 'Second'
+      },
+      {
+        name: 'test3',
+        title: 'Third'
+      }
+    ],
     active: 1,
     secondActive: 1,
     headerSlotActive: true,
     statusData: [
-      { name: 1, status: true, active: true },
-      { name: 2, status: false, active: true },
-      { name: 3, status: true, active: true }
+      { name: 'test1', status: true, active: true },
+      { name: 'test2', status: false, active: true },
+      { name: 'test3', status: true, active: true }
     ]
   })
 };

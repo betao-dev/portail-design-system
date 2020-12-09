@@ -2,7 +2,8 @@ let usage = `
 <CollapserMenu
   :active.sync="active"
   :titles="titles"
-  :status-data="statusData">
+  :status-data="statusData"
+  title-object>
   <template #1>
     ...
     First Step
