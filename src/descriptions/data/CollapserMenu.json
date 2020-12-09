@@ -53,6 +53,11 @@
       "name": "alt",
       "type": "Boolean",
       "description": "Pass alt prop into Collapser component for applying alternative header styles"
+    },
+    {
+      "name": "titleObject",
+      "type": "Boolean",
+      "description": "Pass this prop in case if titles prop contain Array of Object where 'title' the title for displaying and 'name' relates to name of statusData prop"
     }
   ],
   "events": []

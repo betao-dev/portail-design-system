@@ -11,12 +11,12 @@
         :key="index"
       >
         <Collapser
-          :[checkLabel]="title"
+          :[checkLabel]="titleObject ? title.title : title"
           :[checkAlignment]="titleAlignment"
           :header-slot-name="getHeaderSlotName(index)"
           :body-slot-name="index + 1"
           :opened="activeItem === index + 1"
-          :statusData="getStatusData(index + 1)"
+          :statusData="getStatusData(titleObject ? title.name : index + 1)"
           :prevent-update-opened="preventUpdateActive"
           :grey="grey"
           :alt="alt"
@@ -68,7 +68,8 @@ export default {
       default: false
     },
     grey: Boolean,
-    alt: Boolean
+    alt: Boolean,
+    titleObject: Boolean
   },
   computed: {
     activeItem: {
