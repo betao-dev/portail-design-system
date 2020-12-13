@@ -1,6 +1,7 @@
 {
   "File selected": "This file is already selected",
   "File invalid": "Invalid file type",
+  "File max count": "File max count reached",
   "Can input less characters (1/2)": "You can input less than ",
   "Can input less characters (2/2)": " characters",
   "Total size less": "Total size should be under ",

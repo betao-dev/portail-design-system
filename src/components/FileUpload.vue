@@ -145,8 +145,11 @@
           :key="index"
           class="ds-file-upload-item"
         >
-          <span class="ds-file-upload-item-name">{{ file.name }}</span>
+          <div class="ds-file-upload-item-name-wrapper">
+            <div class="ds-file-upload-item-name">{{ file.name }}</div>
+          </div>
           <Icon
+            class="ds-file-upload-item-icon"
             source="trash"
             color="#F03F3F"
             size="20px"
@@ -161,8 +164,11 @@
         v-else-if="currentFile && inputValue"
       >
         <div class="ds-file-upload-item">
-          <span class="ds-file-upload-item-name">{{ currentFile.name }}</span>
+          <div class="ds-file-upload-item-name-wrapper">
+            <div class="ds-file-upload-item-name">{{ currentFile.name }}</div>
+          </div>
           <Icon
+            class="ds-file-upload-item-icon"
             source="trash"
             color="#F03F3F"
             size="20px"
@@ -221,7 +227,8 @@ export default {
       type: [String, Array],
       default: () => ['jpg', 'jpeg', 'png', 'pdf']
     },
-    loader: Boolean
+    loader: Boolean,
+    maxFileCount: Number
   },
   data() {
     return {
@@ -243,7 +250,19 @@ export default {
           }
 
           if (!this.fileTypeCheck(file)) {
-            let message = this.dsTranslate('File invalid');
+            let message = this.dsTranslate(' ');
+
+            this.$emit('invalidfile', message);
+            this.errors.push(message);
+            return;
+          }
+
+          if (
+            this.multiple &&
+            this.inputValue &&
+            this.inputValue.length + 1 > this.maxFileCount
+          ) {
+            let message = this.dsTranslate('File max count');
 
             this.$emit('invalidfile', message);
             this.errors.push(message);
@@ -566,7 +585,7 @@ export default {
         margin-bottom: 0;
       }
 
-      .ds-file-upload-item-name {
+      .ds-file-upload-item-name-wrapper {
         cursor: default;
         color: #252631;
         font-family: Roboto Medium, sans-serif;
@@ -576,10 +595,21 @@ export default {
         line-height: 16px;
         padding: 5.5px 0 5.5px 10px;
         width: ~'calc(100% - 42px)';
+
+        .ds-file-upload-item-name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 300px;
+        }
+      }
+
+      .ds-file-upload-item-icon {
+        margin-left: 12.5px;
       }
 
       &:hover {
-        .ds-file-upload-item-name {
+        .ds-file-upload-item-name-wrapper {
           border-radius: 4px;
           background-color: #e9f8f3;
         }

@@ -1,6 +1,7 @@
 {
   "File selected": "Ce fichier est déjà sélectionné",
   "File invalid": "Type de fichier invalide",
+  "File max count": "Nombre maximal de fichiers atteint",
   "Can input less characters (1/2)": "Vous pouvez entrer moins de ",
   "Can input less characters (2/2)": " caractères",
   "Total size less": "La taille totale doit être inférieure à ",
