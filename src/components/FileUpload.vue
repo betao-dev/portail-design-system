@@ -601,6 +601,10 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           width: 300px;
+
+          @media only screen and (max-width: 520px) {
+            width: 200px;
+          }
         }
       }
 
