@@ -88,6 +88,11 @@
       "name": "loader",
       "type": "Boolean",
       "description": "Responsible for displaying loader"
+    },
+    {
+      "name": "maxFileCount",
+      "type": "Number",
+      "description": "Set the limit and set the restriction of count files that could be upload"
     }
   ],
   "events": [
