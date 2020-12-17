@@ -32,11 +32,6 @@
         :class="['ds-signature-pad', { 'ds-signature-pad-error': isError }]"
         :width="signaturePadWidth"
         :height="signaturePadHeight"
-        :options="{
-          onBegin: () => {
-            $refs.signaturePad.resizeCanvas();
-          }
-        }"
         ref="signaturePad"
       />
     </div>
