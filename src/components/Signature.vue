@@ -163,9 +163,11 @@ export default {
       this.$emit('delete');
     },
     mouseup() {
+      this.setSignature();
       this.emitMouseEvent('mouseup');
     },
     mouseleave() {
+      this.setSignature();
       this.emitMouseEvent('mouseleave');
     },
     emitMouseEvent(eventType) {
