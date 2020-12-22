@@ -90,7 +90,6 @@ export default {
   },
   data: () => ({
     showPlaceholder: true,
-    signatureData: undefined,
     validateEventName: undefined,
     showError: false
   }),
@@ -105,7 +104,7 @@ export default {
       for (let i = 0; i < this.validators.length; i++) {
         data.push([
           this.validators[i].name,
-          this.validators[i].validator(this.signatureData)
+          this.validators[i].validator(this.value)
         ]);
       }
 
@@ -158,7 +157,7 @@ export default {
     },
     clear() {
       this.showError = false;
-      this.signatureData = undefined;
+      this.value = undefined;
       this.$refs.signaturePad.clearSignature();
       this.$emit('empty', this.$refs.signaturePad.saveSignature().isEmpty);
       this.$emit('delete');
@@ -173,8 +172,8 @@ export default {
       const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
 
       this.$emit('empty', isEmpty);
-      if (!isEmpty && this.signatureData !== data) {
-        this.signatureData = data;
+      if (!isEmpty && this.value !== data) {
+        this.$emit('input', data);
         this.$emit(eventType, data);
       }
     },
