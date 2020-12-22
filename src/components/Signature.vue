@@ -25,8 +25,10 @@
     <div
       class="ds-signature-pad-wrapper"
       @mousedown="clearPlaceholder"
-      @mouseup="mouseup"
-      @mouseleave="mouseleave"
+      @mouseup="emitMouseEvent('mouseup')"
+      @mouseleave="emitMouseEvent('mouseleave')"
+      @touchstart="clearPlaceholder"
+      @touchend="emitMouseEvent('touchend')"
     >
       <VueSignaturePad
         :class="['ds-signature-pad', { 'ds-signature-pad-error': isError }]"
@@ -162,15 +164,8 @@ export default {
       this.$emit('empty', this.$refs.signaturePad.saveSignature().isEmpty);
       this.$emit('delete');
     },
-    mouseup() {
-      this.setSignature();
-      this.emitMouseEvent('mouseup');
-    },
-    mouseleave() {
-      this.setSignature();
-      this.emitMouseEvent('mouseleave');
-    },
     emitMouseEvent(eventType) {
+      this.setSignature();
       const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
 
       this.$emit('empty', isEmpty);
