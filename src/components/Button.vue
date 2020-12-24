@@ -31,6 +31,7 @@
           'ds-button-primary': primary,
           'ds-button-red': red,
           'ds-button-gray': gray,
+          'ds-button-gray-active': grayActive,
           'ds-button-big': big,
           'ds-button-small': small,
           'ds-button-alt': alt,
@@ -77,6 +78,7 @@
           'ds-button-primary': primary,
           'ds-button-red': red,
           'ds-button-gray': gray,
+          'ds-button-gray-active': grayActive,
           'ds-button-big': big,
           'ds-button-small': small,
           'ds-button-alt': alt,
@@ -127,6 +129,7 @@ export default {
     small: Boolean,
     red: Boolean,
     gray: Boolean,
+    grayActive: Boolean,
     alt: Boolean,
     altTwo: Boolean,
     plain: Boolean,
@@ -319,6 +322,25 @@ export default {
       &:not(:disabled) {
         color: @color-gray-500;
         background-color: @color-gray-300;
+      }
+    }
+  }
+
+  &.ds-button-gray-active {
+    font-family: Roboto Medium, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    border-radius: 4px;
+    padding: 16px;
+    color: @color-gray-500;
+    background-color: @color-gray-300;
+
+    &:hover,
+    &:focus,
+    &:active {
+      &:not(:disabled) {
+        color: @color-primary;
+        background-color: #e8f7f2;
       }
     }
   }
