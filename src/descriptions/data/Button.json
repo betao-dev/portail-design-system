@@ -100,6 +100,11 @@
       "name": "download",
       "type": "Boolean",
       "description": "Set download button mode"
+    },
+    {
+      "name": "grayActive",
+      "type": "Boolean",
+      "description": "Set gray button mode with the active light green mode"
     }
   ],
   "events": [
