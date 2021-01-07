@@ -14,7 +14,9 @@
 -->
 
 <template>
-  <div class="ds-upload-wrapper">
+  <div
+    :class="['ds-upload-wrapper', { 'ds-upload-wrapper-disabled': disabled }]"
+  >
     <vue-dropzone
       v-if="multiple"
       :options="mainOptions"
@@ -627,6 +629,12 @@ export default {
         width: ~'calc(100% + 2px)' !important;
         height: ~'calc(100% + 2px)' !important;
       }
+    }
+  }
+
+  &.ds-upload-wrapper-disabled {
+    .ds-file-upload-list-wrapper {
+      pointer-events: none;
     }
   }
 }
