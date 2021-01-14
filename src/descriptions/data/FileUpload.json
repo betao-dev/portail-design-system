@@ -93,6 +93,16 @@
       "name": "maxFileCount",
       "type": "Number",
       "description": "Set the limit and set the restriction of count files that could be upload"
+    },
+    {
+      "name": "minFileSizeKB",
+      "type": "Number",
+      "description": "Set min file size in KB where the base equals to 1000 instead of 1024"
+    },
+    {
+      "name": "maxFileSizeKB",
+      "type": "Number",
+      "description": "Set max file size in KB where the base equals to 1000 instead of 1024"
     }
   ],
   "events": [
