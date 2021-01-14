@@ -230,7 +230,9 @@ export default {
       default: () => ['jpg', 'jpeg', 'png', 'pdf']
     },
     loader: Boolean,
-    maxFileCount: Number
+    maxFileCount: Number,
+    minFileSizeKB: Number,
+    maxFileSizeKB: Number
   },
   data() {
     return {
@@ -244,18 +246,12 @@ export default {
             this.inputValue &&
             this.inputValue.find(f => f.name === file.name)
           ) {
-            let message = this.dsTranslate('File selected');
-
-            this.$emit('invalidfile', message);
-            this.errors.push(message);
+            this.setError(this.dsTranslate('File selected'));
             return;
           }
 
           if (!this.fileTypeCheck(file)) {
-            let message = this.dsTranslate(' ');
-
-            this.$emit('invalidfile', message);
-            this.errors.push(message);
+            this.setError(this.dsTranslate(' '));
             return;
           }
 
@@ -264,10 +260,23 @@ export default {
             this.inputValue &&
             this.inputValue.length + 1 > this.maxFileCount
           ) {
-            let message = this.dsTranslate('File max count');
+            this.setError(this.dsTranslate('File max count'));
+            return;
+          }
 
-            this.$emit('invalidfile', message);
-            this.errors.push(message);
+          if (this.minFileSizeKB && file.size / 1000 < this.minFileSizeKB) {
+            let message = `La taille de fichier minimale est de ${this.sizeConversion(
+              this.minFileSizeKB
+            )}`;
+            this.setError(message);
+            return;
+          }
+
+          if (this.maxFileSizeKB && file.size / 1000 > this.maxFileSizeKB) {
+            let message = `La taille de fichier maximale est de ${this.sizeConversion(
+              this.maxFileSizeKB
+            )}`;
+            this.setError(message);
             return;
           }
 
@@ -301,6 +310,17 @@ export default {
     };
   },
   methods: {
+    setError(message) {
+      this.$emit('invalidfile', message);
+      this.errors.push(message);
+    },
+    sizeConversion(size) {
+      if (size >= 1000) {
+        return `${size / 1000}MB`;
+      } else {
+        return `${size}KB`;
+      }
+    },
     removeFile(file, index) {
       if (this.remote) {
         this.$emit('remove', { file, index });
