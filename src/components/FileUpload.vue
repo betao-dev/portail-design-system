@@ -227,7 +227,7 @@ export default {
     remote: Boolean,
     acceptedFiles: {
       type: [String, Array],
-      default: () => ['jpg', 'jpeg', 'png', 'pdf']
+      default: () => ['pdf', 'jpg', 'jpeg', 'png']
     },
     loader: Boolean,
     maxFileCount: Number,
@@ -251,7 +251,11 @@ export default {
           }
 
           if (!this.fileTypeCheck(file)) {
-            this.setError(this.dsTranslate(' '));
+            this.setError(
+              `Mauvais type de fichier. Formats autorisés: ${this.acceptedFiles.join(
+                ', '
+              )}.`
+            );
             return;
           }
 
