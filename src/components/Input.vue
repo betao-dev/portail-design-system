@@ -94,7 +94,9 @@
           'ds-has-icon': icon,
           'ds-input-error': showInvalidBlock,
           'ds-error': isInvalidInput,
+          'ds-allow-invalid': allowInvalidBackLight,
           'ds-valid': showValidCheck && validBacklight,
+          'ds-allow-valid': allowValidBackLight,
           'ds-slide-input': slideLabel,
           'ds-has-left-icon': iconLeft,
           'ds-text-right': textAlign === 'right',
@@ -123,7 +125,9 @@
           'ds-has-icon': icon,
           'ds-input-error': showInvalidBlock,
           'ds-error': isInvalidInput,
+          'ds-allow-invalid': allowInvalidBackLight,
           'ds-valid': showValidCheck && validBacklight,
+          'ds-allow-valid': allowValidBackLight,
           'ds-slide-input': slideLabel,
           'ds-has-left-icon': iconLeft,
           'ds-text-right': textAlign === 'right',
@@ -286,7 +290,15 @@ export default {
     normalize: String,
     autocomplete: String,
     extraErrorPadding: Boolean,
-    tabindex: String
+    tabindex: String,
+    allowValidBackLight: {
+      type: Boolean,
+      default: true
+    },
+    allowInvalidBackLight: {
+      type: Boolean,
+      default: true
+    }
   },
   data: () => ({
     validateEventName: undefined,
@@ -753,12 +765,17 @@ export default {
       }
 
       &.ds-error {
-        .input-invalid-fade-animation();
+        &.ds-allow-invalid {
+          .input-invalid-fade-animation();
+        }
       }
 
       &.ds-valid {
         border-color: @color-primary;
-        .input-valid-fade-animation();
+
+        &.ds-allow-valid {
+          .input-valid-fade-animation();
+        }
       }
 
       .placeholder-input(14px, @robotoFont, @color-gray-400, 16px);

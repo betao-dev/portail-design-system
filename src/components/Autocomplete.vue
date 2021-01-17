@@ -17,6 +17,8 @@
       :showIcon="showIcon"
       :type="getInputType"
       :inputStyle="inputStyle"
+      :allow-valid-back-light="allowValidBackLight"
+      :allow-invalid-back-light="allowInvalidBackLight"
       v-model="inputValue"
       ref="autocomplete"
       @validation="onValidate"
@@ -86,6 +88,14 @@ export default {
         return ['alphabet', 'digital'].indexOf(value) !== -1;
       },
       default: 'digital'
+    },
+    allowValidBackLight: {
+      type: Boolean,
+      default: true
+    },
+    allowInvalidBackLight: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
