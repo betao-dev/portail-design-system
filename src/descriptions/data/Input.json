@@ -198,6 +198,18 @@
       "name": "tabindex",
       "type": "String",
       "description": "Provide 'tabindex' attribute for input element"
+    },
+    {
+      "name": "allowValidBackLight",
+      "type": "Boolean",
+      "default": "true",
+      "description": "The light green backlight will be shown when Input has valid state"
+    },
+    {
+      "name": "allowInvalidBackLight",
+      "type": "Boolean",
+      "default": "true",
+      "description": "The light red backlight will be shown when Input has invalid state"
     }
   ],
   "events": [

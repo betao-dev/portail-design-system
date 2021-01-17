@@ -80,6 +80,18 @@
       "type": "String",
       "default": "digital",
       "description": "Set the keyboard type which will be open on mobile devices could be set the next keyboards like: digital and alphabet"
+    },
+    {
+      "name": "allowValidBackLight",
+      "type": "Boolean",
+      "default": "true",
+      "description": "The light green backlight will be shown when Autocomplete has valid state"
+    },
+    {
+      "name": "allowInvalidBackLight",
+      "type": "Boolean",
+      "default": "true",
+      "description": "The light red backlight will be shown when Autocomplete has invalid state"
     }
   ],
   "events": [
