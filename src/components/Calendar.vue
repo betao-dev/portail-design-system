@@ -219,6 +219,18 @@ export default {
       type: Boolean,
       default: false
     },
+    iconDefault: {
+      type: String,
+      default: 'calendar'
+    },
+    iconClearActive: {
+      type: Boolean,
+      default: true
+    },
+    iconDefaultActive: {
+      type: Boolean,
+      default: false
+    },
     borderColorDesktop: String,
     backgroundColor: String,
     backdropOpacity: String,
@@ -449,7 +461,11 @@ export default {
       );
     },
     getInputIcon() {
-      return this.inputValueWrapper && !this.disabled ? 'close' : 'calendar';
+      if (this.iconClearActive && this.inputValueWrapper && !this.disabled) {
+        return 'close';
+      } else {
+        return this.iconDefault;
+      }
     },
     getMaxlength() {
       return this.rangeAvailable ? 23 : 10;
@@ -656,11 +672,11 @@ export default {
     },
     onIconClick() {
       if (!this.disabled) {
-        if (this.inputEdit) {
+        if (this.inputEdit && this.iconClearActive) {
           this.onResetEditDate();
         }
 
-        if (!this.inputValueWrapper) {
+        if (!this.inputValueWrapper || this.iconDefaultActive) {
           this.calendarVisible = !this.calendarVisible;
 
           if (this.calendarVisible) {
@@ -670,7 +686,10 @@ export default {
           }
         }
 
-        this.resetDates();
+        if (this.iconClearActive) {
+          this.resetDates();
+        }
+
         this.$emit('icon-click');
       }
     },

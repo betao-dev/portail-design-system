@@ -250,6 +250,24 @@
       "type": "Boolean",
       "default": "false",
       "description": "Set alternative styles for calendar"
+    },
+    {
+      "name": "iconDefault",
+      "type": "String",
+      "default": "calendar",
+      "description": "Set default icon inside input"
+    },
+    {
+      "name": "iconClearActive",
+      "type": "Boolean",
+      "default": "true",
+      "description": "Responsible for displaying close icon and functionality that's related to it"
+    },
+    {
+      "name": "iconDefaultActive",
+      "type": "Boolean",
+      "default": "false",
+      "description": "Responsible for switch open calendar state by click on icon, this prop is required for proper work activeIcon prop set as true"
     }
   ],
   "events": [
