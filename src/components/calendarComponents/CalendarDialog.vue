@@ -320,7 +320,7 @@ export default {
     background-color: white;
     border-radius: 4px;
     height: auto;
-    max-height: calc(100% - 128px);
+    max-height: ~'calc(100% - 128px)';
     overflow-x: hidden;
     max-width: 1280px;
 
