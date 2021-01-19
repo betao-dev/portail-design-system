@@ -39,7 +39,8 @@
         :class="[
           'ds-calendar-icon-left',
           {
-            'active-icon': activeIcon
+            'active-icon': activeIcon,
+            'ds-icon-default-active': iconDefaultActive
           }
         ]"
         :padding="iconPadding"
@@ -81,7 +82,8 @@
         :color="iconColor"
         :class="{
           'active-icon': activeIcon,
-          'disable-icon': disabled
+          'disable-icon': disabled,
+          'ds-icon-default-active': iconDefaultActive
         }"
         :padding="iconPadding"
         :id="iconId"
@@ -1008,6 +1010,10 @@ export default {
 
   input + .disable-icon {
     cursor: default;
+  }
+
+  .ds-icon-default-active {
+    pointer-events: none;
   }
 
   input {
