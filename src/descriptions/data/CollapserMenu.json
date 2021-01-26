@@ -58,6 +58,11 @@
       "name": "titleObject",
       "type": "Boolean",
       "description": "Pass this prop in case if titles prop contain Array of Object where 'title' the title for displaying and 'name' relates to name of statusData prop"
+    },
+    {
+      "name": "slotName",
+      "type": "Boolean",
+      "description": "When this property is turn on, CollapserMenu slots must have named the same like names property inside objects of 'titles' array in this case slots will be displaying depend on existing the object with property 'name' in 'titles' array props"
     }
   ],
   "events": []
