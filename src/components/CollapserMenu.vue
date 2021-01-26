@@ -14,7 +14,7 @@
           :[checkLabel]="titleObject ? title.title : title"
           :[checkAlignment]="titleAlignment"
           :header-slot-name="getHeaderSlotName(index)"
-          :body-slot-name="index + 1"
+          :body-slot-name="getBodySlotName(title, index)"
           :opened="activeItem === index + 1"
           :statusData="getStatusData(titleObject ? title.name : index + 1)"
           :prevent-update-opened="preventUpdateActive"
@@ -26,8 +26,8 @@
           <template v-slot:[getHeaderSlotName(index)]>
             <slot :name="getHeaderSlotName(index)"></slot>
           </template>
-          <template v-slot:[index+1]>
-            <slot :name="index + 1"></slot>
+          <template v-slot:[getBodySlotName(title,index)]>
+            <slot :name="getBodySlotName(title, index)"></slot>
           </template>
         </Collapser>
       </div>
@@ -69,7 +69,8 @@ export default {
     },
     grey: Boolean,
     alt: Boolean,
-    titleObject: Boolean
+    titleObject: Boolean,
+    slotName: Boolean
   },
   computed: {
     activeItem: {
@@ -101,6 +102,17 @@ export default {
     getHeaderSlotName(index) {
       if (this.headerSlotActive) {
         return `header${index + 1}`;
+      }
+    },
+    getBodySlotName(currentTitle, index) {
+      if (this.titles && this.slotName) {
+        let title = this.titles.find(title => title.name === currentTitle.name);
+
+        if (title) {
+          return title.name;
+        }
+      } else {
+        return index + 1;
       }
     },
     getStatusData(number) {
