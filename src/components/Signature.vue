@@ -23,7 +23,10 @@
 <template>
   <div class="ds-signature-wrapper" :style="{ width: signaturePadWidth }">
     <div
-      class="ds-signature-pad-wrapper"
+      :class="[
+        'ds-signature-pad-wrapper',
+        { 'ds-signature-pad-wrapper-lock': lockSignatureArea }
+      ]"
       @mousedown="clearPlaceholder"
       @mouseup="emitMouseEvent('mouseup')"
       @mouseleave="emitMouseEvent('mouseleave')"
@@ -88,7 +91,8 @@ export default {
       default: ''
     },
     validators: Array,
-    name: String
+    name: String,
+    lockSignatureArea: Boolean
   },
   data: () => ({
     showPlaceholder: true,
@@ -159,6 +163,7 @@ export default {
     },
     clear() {
       this.showError = false;
+      this.lockSignatureArea = false;
       this.$emit('input', undefined);
       this.$refs.signaturePad.clearSignature();
       this.$emit('empty', this.$refs.signaturePad.saveSignature().isEmpty);
@@ -231,6 +236,11 @@ export default {
       &.ds-signature-pad-error {
         border: 1px solid @color-red;
       }
+    }
+
+    &.ds-signature-pad-wrapper-lock {
+      opacity: 0.6;
+      pointer-events: none;
     }
   }
 

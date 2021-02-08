@@ -61,6 +61,11 @@
       "name": "name",
       "type": "String",
       "description": "With this property signature will be listening to validation with current value for e.g. 'validateTest'"
+    },
+    {
+      "name": "lockSignatureArea",
+      "type": "Boolean",
+      "description": "With this property set to true signature area will be lock for editing"
     }
   ],
   "events": [
