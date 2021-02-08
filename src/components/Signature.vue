@@ -92,12 +92,19 @@ export default {
     },
     validators: Array,
     name: String,
-    lockSignatureArea: Boolean
+    lockSignatureArea: Boolean,
+    signaturePadPoints: {
+      type: Array,
+      default: () => []
+    },
+    signaturePadAreaWidth: String
   },
   data: () => ({
     showPlaceholder: true,
     validateEventName: undefined,
-    showError: false
+    showError: false,
+    HUNDRED_PERCENT_WIDTH: undefined,
+    ONE_PERCENT_WIDTH: undefined
   }),
   computed: {
     validation() {
@@ -163,7 +170,11 @@ export default {
     },
     clear() {
       this.showError = false;
-      this.lockSignatureArea = false;
+      this.HUNDRED_PERCENT_WIDTH = undefined;
+      this.ONE_PERCENT_WIDTH = undefined;
+      this.$emit('update:signaturePadPoints', []);
+      this.$emit('update:signaturePadAreaWidth', undefined);
+      this.$emit('update:lockSignatureArea', false);
       this.$emit('input', undefined);
       this.$refs.signaturePad.clearSignature();
       this.$emit('empty', this.$refs.signaturePad.saveSignature().isEmpty);
@@ -192,6 +203,52 @@ export default {
     validate() {
       this.showError = true;
       this.$emit('validation', this.validation);
+    },
+    onResize() {
+      let data;
+      let signaturePad = this.$refs.signaturePad;
+      let width = signaturePad.$el.clientWidth;
+
+      let currentSignaturePadData = signaturePad.toData();
+      let storedSignaturePadPoints = this.signaturePadPoints;
+
+      if (currentSignaturePadData.length) {
+        data = currentSignaturePadData;
+      } else if (storedSignaturePadPoints.length) {
+        data = storedSignaturePadPoints;
+      }
+
+      if (data) {
+        this.$emit('update:lockSignatureArea', true);
+
+        if (this.HUNDRED_PERCENT_WIDTH && width < this.HUNDRED_PERCENT_WIDTH) {
+          this.ONE_PERCENT_WIDTH = this.HUNDRED_PERCENT_WIDTH / 100;
+
+          const CURRENT_HUNDRED_PERCENT_WIDTH = width;
+          const CURRENT_ONE_PERCENT_WIDTH = CURRENT_HUNDRED_PERCENT_WIDTH / 100;
+
+          let diffWidth = this.HUNDRED_PERCENT_WIDTH - width;
+          let diffWidthPercent = Math.ceil(diffWidth / this.ONE_PERCENT_WIDTH);
+          let scaleXDecrease = (100 - diffWidthPercent) / 100;
+
+          let scaleXIncrease =
+            (100 + Math.ceil(diffWidth / CURRENT_ONE_PERCENT_WIDTH)) / 100;
+
+          signaturePad.clearSignature();
+          signaturePad.$el.children[0]
+            .getContext('2d')
+            .scale(scaleXDecrease, 1);
+
+          signaturePad.fromData(data);
+          signaturePad.$el.children[0]
+            .getContext('2d')
+            .scale(scaleXIncrease, 1);
+        } else if (!this.HUNDRED_PERCENT_WIDTH) {
+          signaturePad.clearSignature();
+          signaturePad.fromData(data);
+          this.HUNDRED_PERCENT_WIDTH = width;
+        }
+      }
     }
   },
   watch: {
@@ -200,7 +257,20 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => this.initSignature());
+    window.addEventListener('resize', this.onResize);
+
+    this.$nextTick(() => {
+      this.initSignature();
+
+      if (this.signaturePadPoints.length) {
+        let signaturePad = this.$refs.signaturePad;
+        signaturePad.fromData(this.signaturePadPoints);
+        this.HUNDRED_PERCENT_WIDTH = this.signaturePadAreaWidth;
+        this.onResize();
+        this.$emit('update:lockSignatureArea', true);
+      }
+    });
+
     document.addEventListener('signature', this.setSignature);
     if (this.name) {
       this.validateEventName = `validate${this.name.charAt(0).toUpperCase() +
@@ -211,6 +281,7 @@ export default {
     }
   },
   beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
     document.removeEventListener('signature', this.setSignature);
     if (this.name) {
       document.removeEventListener(this.validateEventName, this.validate);
