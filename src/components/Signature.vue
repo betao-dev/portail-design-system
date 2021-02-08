@@ -97,7 +97,7 @@ export default {
       type: Array,
       default: () => []
     },
-    signaturePadAreaWidth: String
+    signaturePadAreaWidth: Number
   },
   data: () => ({
     showPlaceholder: true,

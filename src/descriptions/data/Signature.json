@@ -75,7 +75,7 @@
     },
     {
       "name": "signaturePadAreaWidth",
-      "type": "String",
+      "type": "Number",
       "description": "Set signature pad area width with which signature was stored"
     }
   ],
