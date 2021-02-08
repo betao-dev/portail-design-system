@@ -66,6 +66,17 @@
       "name": "lockSignatureArea",
       "type": "Boolean",
       "description": "With this property set to true signature area will be lock for editing"
+    },
+    {
+      "name": "signaturePadPoints",
+      "type": "Array",
+      "default": "[]",
+      "description": "Set signature points that were stored"
+    },
+    {
+      "name": "signaturePadAreaWidth",
+      "type": "String",
+      "description": "Set signature pad area width with which signature was stored"
     }
   ],
   "events": [
