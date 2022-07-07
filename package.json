@@ -84,7 +84,7 @@
     "custom-event": "^1.0.1",
     "libphonenumber-js": "^1.7.15",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "v-mask": "^2.0.2",
     "v-owl-carousel": "^1.0.8",
     "vue-popperjs": "^2.0.4",
